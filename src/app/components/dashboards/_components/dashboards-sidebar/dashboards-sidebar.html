@@ -1,0 +1,29 @@
+@if(internalItems&&externalLinks&&customizeItem&&feedbackItem){
+    <nav class="sidebar-container">
+        <!-- <div class="sidebar-container"> -->
+            <div class="contents">
+                <div class="ctr1">
+                    <div class="ctr2">
+                        <div class="list">
+                            @for(item of internalItems;track $index){
+                            <sidebar-item [sideBarItemConfig]="item"></sidebar-item>
+                            }
+                        </div>
+                        <div class="sidebar-space"></div>
+                        <div class="list">
+                            @for(item of externalLinks;track $index){
+                            <sidebar-item [sideBarItemConfig]="item"></sidebar-item>
+                            }
+                        </div>
+                        <div class="sidebar-space"></div>
+                        <sidebar-item [sideBarItemConfig]="customizeItem"
+                            (click)="openModal(myCustomizeModalConfig)"></sidebar-item>
+                    </div>
+                </div>
+            </div>
+            <div class="feedback-container">
+                <sidebar-item [sideBarItemConfig]="feedbackItem" (click)="openModal(feedbackModalConfig)"></sidebar-item>
+            </div>
+        <!-- </div> -->
+    </nav>
+}

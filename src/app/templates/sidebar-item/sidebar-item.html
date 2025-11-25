@@ -1,0 +1,174 @@
+@if(sideBarItemConfig.visible){
+    @switch (sideBarItemConfig.type) {
+        @case ('link') {
+            <div class="sidebar-item-container">
+                <a  class="sidebar-item-link">
+                    @if(!sideBarItemConfig.disableHoverAnimation){
+                        <div class="horizontal-highlighter"></div>
+                        <div class="horizontal-highlighter2"></div>
+                        <div class="vertical-highlighter"></div>
+                        <div class="vertical-highlighter2"></div>
+                    }
+                    <div class="text-container">
+                        <div></div>
+                        <div class="texts">
+                            <span>{{sideBarItemConfig.title}}</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="sidebar-item-icon-container">
+                    <span class="sidebar-item-icon-box">
+                        <img [src]="'assets/icons/'+sideBarItemConfig.icon+'.svg'" alt="icon">
+                    </span>
+                </div>
+                @if(sideBarItemConfig.defaultTools || sideBarItemConfig.hoverTools){
+                    <div class="sidebar-item-icon2-container">
+                        @for(tool of sideBarItemConfig.defaultTools;track $index){
+                            <div class="sidebar-item-icon2-box">
+                                <span class="sidebar-item-icon2-box">
+                                    <img [src]="'assets/icons/'+tool.icon+'.svg'" [alt]="tool.alt">
+                                </span>
+                            </div>
+                        }
+                    </div>
+                }
+                @if(sideBarItemConfig.hoverTools){
+                    <div class="sidebar-item-btn-icon2-container">
+                        @for(tool of sideBarItemConfig.hoverTools;track $index){
+                            <div class="sidebar-item-icon2-box">
+                                <span class="sidebar-item-icon2-box2">
+                                    <img [src]="'assets/icons/'+tool.icon+'.svg'" [alt]="tool.alt">
+                                </span>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        }
+        @case ('modal') {
+            <div class="sidebar-item-container">
+                <a  class="sidebar-item-link">
+                    @if(!sideBarItemConfig.disableHoverAnimation){
+                        <div class="horizontal-highlighter"></div>
+                        <div class="horizontal-highlighter2"></div>
+                        <div class="vertical-highlighter"></div>
+                        <div class="vertical-highlighter2"></div>
+                    }
+                    <div class="text-container">
+                        <div></div>
+                        <div class="texts">
+                            <span>{{sideBarItemConfig.title}}</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="sidebar-item-icon-container">
+                    <span class="sidebar-item-icon-box">
+                        <img [src]="'assets/icons/'+sideBarItemConfig.icon+'.svg'" alt="icon">
+                    </span>
+                </div>
+                @if(sideBarItemConfig.hoverTools){
+                    <div class="sidebar-item-btn-icon2-container">
+                        @for(tool of sideBarItemConfig.hoverTools;track $index){
+                            <div class="sidebar-item-icon2-box">
+                                <span class="sidebar-item-icon2-box2">
+                                    <img [src]="'assets/icons/'+tool.icon+'.svg'" [alt]="tool.alt">
+                                </span>
+                            </div>
+                        }
+                    </div>
+                }
+                @if(sideBarItemConfig.defaultTools){
+                    <div class="sidebar-item-icon2-container">
+                        @for(tool of sideBarItemConfig.defaultTools;track $index){
+                            <div class="sidebar-item-icon2-box">
+                                <span class="sidebar-item-icon2-box2">
+                                    <img [src]="'assets/icons/'+tool.icon+'.svg'" [alt]="tool.alt">
+                                </span>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+            @if(sideBarItemConfig.modalTemplateRef){
+                <div [appFloatingContainer]="sideBarItemConfig.modalTemplateRef"></div>
+            }
+        }
+        @case ('group') {
+            <div>
+                <div class="sidebar-item-group">
+                    <div class="sidebar-item-container">
+                        <button  class="sidebar-item-btn" (click)="opened=!opened">
+                            @if(!sideBarItemConfig.disableHoverAnimation){
+                                <div class="horizontal-highlighter"></div>
+                                <div class="horizontal-highlighter2"></div>
+                                <div class="vertical-highlighter"></div>
+                                <div class="vertical-highlighter2"></div>
+                            }
+                            <div class="text-container">
+                                <div></div>
+                                <div class="texts">
+                                    <span>{{sideBarItemConfig.title}}</span>
+                                </div>
+                            </div>
+                        </button>
+                        <div class="sidebar-item-icon-container" (click)="opened=!opened">
+                            <span class="sidebar-item-icon-box" [ngClass]="[opened?'opened':'']">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#292a2e">
+                                    <path d="M400-280v-400l200 200-200 200Z"/>
+                                </svg>
+                            </span>
+                            <span class="sidebar-item-icon-box">
+                                <img [src]="'assets/icons/'+sideBarItemConfig.icon+'.svg'" alt="icon">
+                            </span>
+                        </div>
+                        <div class="sidebar-item-btn-icon2-container">
+                            @if(sideBarItemConfig.hasExtraIcon){
+                                <div class="extra-icon">
+                                    <button class="list-item-icon-btn-box">
+                                        <span class="list-item-icon-box">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#292a2e">
+                                                <path d="M450-140v-310H140v-60h310v-310h60v310h310v60H510v310h-60Z"/>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
+                            }
+                            @for(tool of sideBarItemConfig.hoverTools;track $index){
+                                <button class="sidebar-item-icon-btn-box">
+                                    <span class="sidebar-item-icon-box">
+                                        <img [src]="'assets/icons/'+tool.icon+'.svg'" [alt]="tool.alt">
+                                    </span>
+                                </button>
+                            }
+                        </div>
+                    </div>
+                </div>
+                @if(sideBarItemConfig?.list?.length && opened){
+                    <div class="sub-sidebar">
+                        @for(item of sideBarItemConfig.list;track $index){
+                            <sidebar-item [sideBarItemConfig]="item"></sidebar-item>
+                        }
+                    </div>
+                }
+                @else if(sideBarItemConfig?.multipleLists?.length && opened){
+                    <div class="sub-sidebar">
+                        @for(list of sideBarItemConfig.multipleLists;track $index){
+                            <div class="">
+                                <div class="">
+                                    @if(list.heading){
+                                        <p class="sidebar-heading">{{list.heading}}</p>
+                                    }
+                                    <div class="sidebar">
+                                        @for(item of list.list;track $index){
+                                            <sidebar-item [sideBarItemConfig]="item"></sidebar-item>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    }
+}

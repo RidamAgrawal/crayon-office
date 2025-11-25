@@ -1,0 +1,61 @@
+<div class="page-layout">
+    <div class="page-notification">
+        <div class="notification-holder">
+            <a routerLink="/">
+                <span><svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px"><path d="M280-40q-33 0-56.5-23.5T200-120v-720q0-33 23.5-56.5T280-920h400q33 0 56.5 23.5T760-840v124q18 7 29 22t11 34v80q0 19-11 34t-29 22v404q0 33-23.5 56.5T680-40H280Zm0-80h400v-720H280v720Zm0 0v-720 720Zm200-600q17 0 28.5-11.5T520-760q0-17-11.5-28.5T480-800q-17 0-28.5 11.5T440-760q0 17 11.5 28.5T480-720Z"/></svg></span>
+                <span>try mobile app</span>
+            </a>
+        </div>
+    </div>
+    <app-dashboards-header></app-dashboards-header>
+    <!-- @if(internalItems&&externalLinks&&customizeItem&&feedbackItem){
+        <nav class="sidebar">
+            <div class="sidebar-container">
+                <div class="contents">
+                    <div class="ctr1">
+                        <div class="ctr2">
+                            <div class="list">
+                                @for(item of internalItems;track $index){
+                                    <sidebar-item [sideBarItemConfig]="item"></sidebar-item>
+                                }
+                            </div>
+                            <div class="sidebar-space"></div>
+                            <div class="list">
+                                @for(item of externalLinks;track $index){
+                                    <sidebar-item [sideBarItemConfig]="item"></sidebar-item>
+                                }
+                            </div>
+                            <div class="sidebar-space"></div>
+                            <sidebar-item [sideBarItemConfig]="customizeItem" (click)="openModal(myCustomizeModalConfig)"></sidebar-item>
+                        </div>
+                    </div>
+                </div>
+                <div class="feedback-container">
+                    <sidebar-item [sideBarItemConfig]="feedbackItem"></sidebar-item>
+                </div>
+            </div>
+        </nav>
+    } -->
+    <app-dashboards-sidebar></app-dashboards-sidebar>
+    <main>
+        body
+        <router-outlet></router-outlet>
+    </main>
+</div>
+
+<ng-template #modal let-isTemplate="isTemplate" let-isComponent="isComponent" let-contentTemplate="templateRef" let-contentComponent="componentRef" let-componentInputs="inputs">
+    <div class="modal-container">
+        <div class="modal-sub-container">
+            <div class="modal-sub-sub-container">
+                <div></div>
+                <div class="modal-background">
+                    <div class="modal-body">
+                        @if(isTemplate){<ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>}
+                        @if(isComponent){<ng-container [ngComponentOutlet]="contentComponent" [ngComponentOutletInputs]="componentInputs"></ng-container>}
+                    </div>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</ng-template>

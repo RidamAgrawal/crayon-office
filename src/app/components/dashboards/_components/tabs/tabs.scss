@@ -1,0 +1,140 @@
+// :host {
+//     display: flex;
+//     flex-direction: column;
+//     padding: 3px;
+// }
+
+// .tab-list {
+//     display: flex;
+//     font-weight: 500;
+//     position: relative;
+// }
+
+// .tab-list::before {
+//     content: "";
+//     position: absolute;
+//     background-color: #ebecf0;
+//     right: 0;
+//     left: 0;
+//     bottom: 0;
+//     height: 2px;
+// }
+
+// .tab-list .tab {
+//     padding: 0px 4px;
+//     position: relative;
+// }
+
+// .tab-content {
+//     white-space: no-wrap;
+//     cursor: pointer;
+//     padding-inline-end: 8px;
+//     padding-inline-start: 8px;
+//     padding-block-end: 8px;
+//     padding-block-start: 8px;
+//     position: relative;
+// }
+
+// .tab.selected {
+//     color: #0052cc;
+// }
+
+// .tab-title {
+//     position: relative;
+//     display: inline-block;
+//     padding-bottom: 4px;
+// }
+
+// .tab.selected .tab-content::after,
+// .tab-content:hover::after {
+//     content: "";
+//     position: absolute;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     height: 4px;
+//     background-color: #1558bc;
+//     border-top-left-radius: 2px;
+//     border-top-right-radius: 2px;
+// }
+
+// .tab-content:hover::after {
+//     background-color: #ebecf0;
+// }
+
+// .tab-panel {}
+
+// .tab-panel-body {
+//     position: relative;
+//     display: flex;
+//     flex-direction: column;
+//     -webkit-box-pack: justify;
+//     justify-content: space-between;
+//     min-height: auto;
+// }
+
+
+
+
+.tab-heading {
+    padding: 3px 8px;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-inline-start: 8px;
+    padding-inline-end: 8px;
+    padding-block-start: 8px;
+    padding-block-end: 8px;
+    cursor: pointer;
+    color: #42526e;
+    margin: 0;
+}
+
+.tab-heading:hover ::after {
+    content: '';
+    position: absolute;
+    inset-inline-end: 0;
+    inset-block-end: 0;
+    background-color: aqua;
+    height: 2px;
+    width: 100%;
+    border-radius: 1px;
+}
+
+.tab-header {
+    display: flex;
+    position: relative;
+    padding-inline: 8px;
+}
+
+.tab-header::before {
+    content: '';
+    position: absolute;
+    inset-inline-end: 0;
+    inset-inline-start: 8px;
+    inset-block-end: 0;
+    background-color: #ebecf0;
+    height: 1px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.tab-header-text {
+    font: normal 400 0.875rem/1.25rem;
+    white-space: nowrap;
+    margin: 0;
+    overflow: hidden;
+}
+
+.tab-heading.active {
+    color: aqua;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-body {
+    padding-inline: 8px;
+}

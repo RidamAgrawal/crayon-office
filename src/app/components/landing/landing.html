@@ -1,0 +1,33 @@
+<app-header></app-header>
+<h2 class="carousel-header">
+    Made for complex projects or everyday tasks
+</h2>
+<div class="carouselContainer">
+    <div class="half-texts">
+        @for(carouselSlide of Carousel;track $index){
+            <div class="option-container" (click)="refresh($index)">
+                <button>
+                    <div class="progress">
+                        <div [ngClass]="{'progress-grow':showSlide() == $index}"></div>
+                    </div>
+                    <h3 class="content-header" [ngClass]="{'header-highlight':showSlide() == $index}">{{carouselSlide.headerTitle}}</h3>
+                    <div [ngClass]="['content-description-container',showSlide() == $index ? 'show' : '']">
+                        <div>
+                            <p>{{carouselSlide.headerDescription}}</p>
+                        </div>
+                    </div>
+                </button>
+                <div class="content-images" [ngClass]="{'show':showSlide() == $index}">
+                    <img [src]="[carouselSlide.imgUrl]" alt="img">
+                </div>
+            </div>
+        }
+    </div>
+    <div class="half-images">
+        @for(carouselSlide of Carousel;track $index){
+            <div [ngClass]="{'show':showSlide()==$index}">
+                <img [src]="carouselSlide.imgUrl" alt="img">
+            </div>
+        }
+    </div>
+</div>

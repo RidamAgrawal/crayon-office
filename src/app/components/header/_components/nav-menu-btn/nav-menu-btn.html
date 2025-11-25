@@ -1,0 +1,27 @@
+<button (click)="showToggle()" #btn>
+    @if(config.label){
+        {{config.label}}
+    }
+    @if(config.placeLabelContent){
+        <ng-content select=".label-content"></ng-content>
+    }
+</button>
+@if(showPlaceholder() && config.placeholdersItem?.length != 0){
+    <div class="columnContainer" [tabIndex]="-1" (focusout)="focusOut($event)" #colContainer>
+        @if(config.placeholdersContent){
+            <ng-content select=".placeholdersContent"></ng-content>
+        }
+        @else {
+            @for(column of config.placeholdersItem;track $index){
+                <div class="column">
+                    @if(config.headers){
+                        <span class="columnHeader">{{config.headers[$index]}}</span>
+                    }
+                    @for(item of column;track $index){
+                        <a href="#">{{item}}</a>
+                    }   
+                </div>
+            }
+        }
+    </div>
+}

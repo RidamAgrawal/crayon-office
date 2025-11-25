@@ -1,0 +1,57 @@
+svg {
+    transition: 0.3s;
+    margin-inline-start: 8px;
+    // margin-top: 4px;
+}
+
+svg.rotate {
+    rotate: 180deg;
+
+    path {
+        stroke: #1558bc !important;
+    }
+}
+
+:host {
+    position: relative;
+}
+
+.dropdown {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.columnContainer {
+    position: absolute;
+    background-color: white;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 0 1px 0 #cecece, 0 5px 20px -5px #0000001a;
+    padding: 10px;
+    display: flex;
+    gap: 20px;
+    z-index: 1;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+span.columnHeader {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75em;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+a:hover {
+    color: #1558bc;
+}

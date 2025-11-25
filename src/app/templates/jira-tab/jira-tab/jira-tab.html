@@ -1,0 +1,129 @@
+<div class="jira-tab-main">
+    <div class="first-half">
+        <app-listing></app-listing>
+    </div>
+    <div class="divider"></div>
+    <div class="filter" [formGroup]="filterFormGroup">
+        <div class="filter-body">
+            <div class="filter-section">
+                <h3 class="filter-title">
+                    <span>last updated</span>
+                </h3>
+                <div class="label-group">
+                    @for(option of lastUpdatedOptions;track $index){
+                        <label class="label-group-button" [ngClass]="{'selected': filterFormGroup.get('lastUpdated')?.value == option[0]}">
+                            <input type="radio" formControlName="lastUpdated" [value]="option[0]">
+                            {{option[1]}}
+                        </label>
+                    }
+                </div>
+                {{filterFormGroup.value|json}}
+            </div>
+            <div class="filter-section">
+                <h3 class="filter-title">
+                    <span>filter by project</span>
+                </h3>
+                <div class="label-group">
+                    <div class="checkbox-row">
+                        <label>
+                            <input type="checkbox" tabindex="-1">
+                            <span class="checkbox-label">
+                                <span>JSW - TMP - SampleJiraProjectName</span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="more-rows">
+                        <button>Show more</button>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-section">
+                <h3 class="filter-title">
+                    <span>filter by assignee</span>
+                </h3>
+                <div class="label-group">
+                    <div class="checkbox-row">
+                        <label>
+                            <input type="checkbox" tabindex="-1">
+                            <span class="checkbox-label">
+                                <span>Ridam</span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="more-rows">
+                        <button>Show more</button>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-section">
+                <h3 class="filter-title">
+                    <span>filter by reporter</span>
+                </h3>
+                <div class="label-group">
+                    <div class="checkbox-row">
+                        <label>
+                            <input type="checkbox" tabindex="-1">
+                            <span class="checkbox-label">
+                                <span>Reported by me</span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="more-rows">
+                        <button>Show more</button>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-section">
+                <h3 class="filter-title">
+                    <span>filter by status</span>
+                </h3>
+                <div class="">
+                    <div class="filterby-status-checkbox-row">
+                        @for(label of status;track $index){
+                            <label>
+                                <input type="checkbox" tabindex="-1" [value]="label" (change)="onStatusSelect($event)">
+                                <span class="checkbox-label">
+                                    <span>{{label}}</span>
+                                </span>
+                            </label>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="filter-section">
+                <h3 class="filter-title">
+                    <span>filter by label</span>
+                </h3>
+                <div class="multi-select-container">
+                    <app-multi-select [config]="{placeholder:'Choose one',optionsHeading:'All labels',options:['label one','label two']}"></app-multi-select>
+                </div>
+            </div>
+        </div>
+        <div class="feedback">
+            <div class="feedback-btn-container">
+                <button class="feedback-button">Give Feedback</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jira-tab-footer">
+    <span class="footer-search">
+        <a class="footer-search-content">
+            <div class="footer-search-text-content">
+                <div class="footer-search-texts">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#292a2e">
+                            <path d="M384.03-336Q284-336 214-406t-70-170q0-100 70-170t170-70q100 0 170 70t70 170.03q0 40.39-12.5 76.18Q599-464 577-434l214 214q11 11 11 25t-11 25q-11 11-25.5 11T740-170L526-383q-30 22-65.79 34.5-35.79 12.5-76.18 12.5Zm-.03-72q70 0 119-49t49-119q0-70-49-119t-119-49q-70 0-119 49t-49 119q0 70 49 119t119 49Z"/>
+                        </svg>
+                    </span>
+                    <span>View All work items</span>
+                </div>
+            </div>
+            <span class="icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#97A0AF">
+                    <path d="m282-444 98 98q11 11 11 25.5T380-295q-11 11-25.5 11T329-295L169.21-454.79Q164-460 161.5-466.3t-2.5-13.5q0-7.2 2.5-13.5T169-505l160-160q11-11 25.5-11t25.5 11q11 11 11 25.5T380-614l-98 98h462v-72q0-15.3 10.29-25.65Q764.58-624 779.79-624t25.71 10.35Q816-603.3 816-588v72q0 29.7-21.15 50.85Q773.7-444 744-444H282Z"/>
+                </svg>
+            </span>
+        </a>
+    </span>
+</div>

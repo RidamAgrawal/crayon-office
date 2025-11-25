@@ -1,0 +1,98 @@
+<!-- <section class="customize-modal-section modal-section"> -->
+    <div class="content-header">
+        <h1 class="header-title">
+            <span>Customize your sidebar</span>
+        </h1>
+        <button class="close-btn-container">
+            <span class="close-btn-span">
+                <img [src]="'assets/icons/close.svg'" alt="close" (click)="dismissModal()">
+            </span>
+        </button>
+    </div>
+    <div class="content-body">
+        <div class="content-container-1">
+            <div class="content-container-2">
+                <div class="text-1">
+                    <div>
+                        Selected items will always be visible in the sidebar. You can still access unselected items from
+                        the <strong>More</strong> menu in the sidebar
+                    </div>
+                    <span>The changes you make here only affect you nd not anyone else on your site.</span>
+                </div>
+                <div class="sidebar-options">
+                    <div class="sidebar-options-container">
+                        <div class="sidebar-options-header">
+                            <h2> Sidebar Navigation</h2>
+                            <span>following sidebar items are available in your space.</span>
+                        </div>
+                        <div class="sidebar-options-menu">
+                            <div class="list" cdkDropList (cdkDropListDropped)="drop2($event)">
+                                @for(item of internalItems;track $index;let isFirst=$first){
+                                <div class="list-item" cdkDrag>
+                                    <div class="list-item-container">
+                                        <div class="drag-logo-container">
+                                            <span>
+                                                <img [src]="'assets/icons/drag.svg'" alt="drag">
+                                            </span>
+                                        </div>
+                                        <div class="list-item-row-container">
+                                            <div class="list-item-row">
+                                                <app-checkbox [checkboxConfig]="item"></app-checkbox>
+                                            </div>
+                                            <span></span>
+                                            <button class="item-options">
+                                                <span>
+                                                    <img [src]="'assets/icons/more.svg'" alt="more">
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <!-- <div class="drop-indicator"></div> -->
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="external-links-container">
+                    <div class="sidebar-options-container">
+                        <div class="sidebar-options-header">
+                            <h2> Sidebar Navigation</h2>
+                            <span>following sidebar items are available in your space.</span>
+                        </div>
+                        <div class="sidebar-options-menu">
+                            <div class="list" cdkDropList (cdkDropListDropped)="drop($event)">
+                                @for(item of externalLinks;track $index){
+                                <div class="list-item" cdkDrag>
+                                    <div class="list-item-container">
+                                        <div class="drag-logo-container">
+                                            <span>
+                                                <img [src]="'assets/icons/drag.svg'" alt="drag">
+                                            </span>
+                                        </div>
+                                        <div class="list-item-row-container">
+                                            <div class="list-item-row">
+                                                <app-checkbox [checkboxConfig]="item"></app-checkbox>
+                                            </div>
+                                            <span></span>
+                                            <button class="item-options">
+                                                <span>
+                                                    <img [src]="'assets/icons/more.svg'" alt="more">
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-footer">
+        <button class="cancel-btn" (click)="dismissModal()"><span>Cancel</span></button>
+        <button class="save-btn" (click)="save()"><span>Save changes</span></button>
+    </div>
+<!-- </section> -->

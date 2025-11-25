@@ -1,0 +1,62 @@
+<div class="content-header">
+    <h1 class="header-title">
+        <span>Help us improve the new navigation</span>
+    </h1>
+    <button class="close-btn-container">
+        <span class="close-btn-span">
+            <img [src]="'assets/icons/close.svg'" alt="close" (click)="dismissModal()">
+        </span>
+    </button>
+</div>
+<div class="content-body">
+    <p class="info-indicator">
+        Required fields are marked with asterisk <span class="red-asterisk">*</span>
+    </p>
+    <p class="feedback-line">
+        We’d love to hear about your experience with the new navigation.
+    </p>
+    <a href="#" class="navigation-info-link">
+        Learn more about the navigation
+        <span>
+            <img [src]="'assets/icons/newTab.svg'" alt="open">
+        </span>
+    </a>
+    <div class="content-container-1">
+        <label for="" class="multiple-select-label">
+            Select feedback
+            <span class="red-asterisk">*</span>
+        </label>
+        <div class="multi-select-container">
+            <app-multi-select [config]="multiSelectConfig" (selected)="onSelect($event)"></app-multi-select>
+        </div>
+        @if(feedbackTypeControl?.value){
+            <div class="feedback-text-container">
+                <label for="feedback-text" class="feedback-text-label">
+                    {{textAreaLabel}} <span class="red-asterisk">*</span>
+                </label>
+                <textarea class="feedback-text-area" name="feedback-text" id="feedback-text"></textarea>
+            </div>
+            <fieldset class="checkbox-group">
+                <legend hidden>opt-in options</legend>
+                <div class="checkbox-container checkbox-container-1">
+                    <app-checkbox [checkboxConfig]="{title:'Yes, teams can contact me to learn about my experiences to improve Atlassian apps and services. I acknowledge the Atlassian Privacy Policy.'}"></app-checkbox>
+                    <span class="policy-link-span">
+                        <a href="#" class="navigation-info-link">
+                            privacy policy
+                            <span>
+                                <img [src]="'assets/icons/newTab.svg'" alt="open">
+                            </span>
+                        </a>
+                    </span>
+                </div>
+                <div class="checkbox-container checkbox-container-2">
+                    <app-checkbox [checkboxConfig]="{title:'I’d like to participate in product research'}"></app-checkbox>
+                </div>
+            </fieldset>
+        }
+    </div>
+</div>
+<div class="content-footer">
+    <button class="cancel-btn" (click)="dismissModal()"><span>Cancel</span></button>
+    <button class="save-btn"><span>Send feedback</span></button>
+</div>

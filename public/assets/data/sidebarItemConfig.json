@@ -1,0 +1,421 @@
+{
+    "internalItems": [
+        {
+            "type": "link",
+            "title": "For you",
+            "hasTools": null,
+            "icon": "foryou",
+            "visible": true
+        },
+        {
+            "type": "modal",
+            "title": "Recent",
+            "defaultTools": [
+                {
+                    "icon": "arrowRightSmall",
+                    "alt": "open"
+                }
+            ],
+            "icon": "recent",
+            "visible": true
+        },
+        {
+            "type": "modal",
+            "title": "Starred",
+            "defaultTools": [
+                {
+                    "icon": "arrowRightSmall",
+                    "alt": "open"
+                }
+            ],
+            "icon": "starred",
+            "visible": true
+        },
+        {
+            "type": "group",
+            "title": "Apps",
+            "hoverTools": [
+                {
+                    "icon": "more",
+                    "alt": "more"
+                }
+            ],
+            "icon": "apps",
+            "list": [
+                {
+                    "type": "link",
+                    "title": "Explore more apps",
+                    "icon": "moreApps",
+                    "visible": true
+                }
+            ],
+            "visible": true
+        },
+        {
+            "type": "link",
+            "title": "Plans",
+            "hasTools": true,
+            "icon": "plans",
+            "visible": true
+        },
+        {
+            "type": "group",
+            "title": "Spaces",
+            "hoverTools": [
+                {
+                    "icon": "add1",
+                    "alt": "add"
+                },
+                {
+                    "icon": "more",
+                    "alt": "more"
+                }
+            ],
+            "icon": "spaces",
+            "visible": true,
+            "multipleLists": [
+                {
+                    "heading": "Recent",
+                    "list": [
+                        {
+                            "type": "link",
+                            "title": "JSW - TMP - SampleJiraProject",
+                            "hoverTools": [
+                                {
+                                    "icon": "more",
+                                    "alt": "more"
+                                }
+                            ],
+                            "icon": "projects",
+                            "visible": true
+                        },
+                        {
+                            "type": "modal",
+                            "title": "More spaces",
+                            "defaultTools": [
+                                {
+                                    "icon": "arrowRightSmall",
+                                    "alt": "open"
+                                }
+                            ],
+                            "icon": "more2",
+                            "visible": true
+                        }
+                    ]
+                },
+                {
+                    "heading": "Recommended",
+                    "list": [
+                        {
+                            "type": "link",
+                            "title": "Create a roadmap",
+                            "hoverTools": [
+                                {
+                                    "icon": "more",
+                                    "alt": "more"
+                                }
+                            ],
+                            "icon": "roadmap",
+                            "visible": true
+                        },
+                        {
+                            "type": "modal",
+                            "title": "Browse templates",
+                            "defaultTools": [
+                                {
+                                    "icon": "arrowRightSmall",
+                                    "alt": "open"
+                                }
+                            ],
+                            "icon": "more2",
+                            "visible": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "group",
+            "title": "Filters",
+            "hoverTools": [
+                {
+                    "icon": "more",
+                    "alt": "more"
+                }
+            ],
+            "icon": "filterList",
+            "visible": true,
+            "list": [
+                {
+                    "type": "link",
+                    "title": "Search work items",
+                    "hasTools": false,
+                    "icon": "search",
+                    "visible": true
+                },
+                {
+                    "type": "group",
+                    "title": "Default Filters",
+                    "hasTools": false,
+                    "icon": "arrowRightBig",
+                    "list": [
+                        {
+                            "type": "link",
+                            "title": "My open work items",
+                            "hasTools": true,
+                            "icon": "filter",
+                            "hoverTools": [
+                                {
+                                    "icon": "more",
+                                    "alt": "more"
+                                }
+                            ],
+                            "visible": true
+                        },
+                        {
+                            "type": "link",
+                            "title": "Reported by me",
+                            "hasTools": true,
+                            "icon": "filter",
+                            "hoverTools": [
+                                {
+                                    "icon": "more",
+                                    "alt": "more"
+                                }
+                            ],
+                            "visible": true
+                        },
+                        {
+                            "type": "link",
+                            "title": "All work items",
+                            "hasTools": true,
+                            "icon": "filter",
+                            "hoverTools": [
+                                {
+                                    "icon": "more",
+                                    "alt": "more"
+                                }
+                            ],
+                            "visible": true
+                        },
+                        {
+                            "type": "link",
+                            "title": "Open work items",
+                            "hasTools": true,
+                            "icon": "filter",
+                            "hoverTools": [
+                                {
+                                    "icon": "more",
+                                    "alt": "more"
+                                }
+                            ],
+                            "visible": true
+                        },
+                        {
+                            "type": "link",
+                            "title": "Done work items",
+                            "hasTools": true,
+                            "icon": "filter",
+                            "hoverTools": [
+                                {
+                                    "icon": "more",
+                                    "alt": "more"
+                                }
+                            ],
+                            "visible": true
+                        },
+                        {
+                            "type": "link",
+                            "title": "Viewed recently",
+                            "hasTools": true,
+                            "icon": "filter",
+                            "hoverTools": [
+                                {
+                                    "icon": "more",
+                                    "alt": "more"
+                                }
+                            ],
+                            "visible": true
+                        },
+                        {
+                            "type": "link",
+                            "title": "Created recently",
+                            "hasTools": true,
+                            "icon": "filter",
+                            "hoverTools": [
+                                {
+                                    "icon": "more",
+                                    "alt": "more"
+                                }
+                            ],
+                            "visible": true
+                        },
+                        {
+                            "type": "link",
+                            "title": "Resolved recently",
+                            "hasTools": true,
+                            "icon": "filter",
+                            "hoverTools": [
+                                {
+                                    "icon": "more",
+                                    "alt": "more"
+                                }
+                            ],
+                            "visible": true
+                        },
+                        {
+                            "type": "link",
+                            "title": "Updated recently",
+                            "hasTools": true,
+                            "icon": "filter",
+                            "hoverTools": [
+                                {
+                                    "icon": "more",
+                                    "alt": "more"
+                                }
+                            ],
+                            "visible": true
+                        }
+                    ],
+                    "visible": true
+                },
+                {
+                    "type": "link",
+                    "title": "View all filters",
+                    "hasTools": false,
+                    "icon": "more2",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "type": "group",
+            "title": "Dashboards",
+            "hoverTools": [
+                {
+                    "icon": "add1",
+                    "alt": "add"
+                },
+                {
+                    "icon": "more",
+                    "alt": "more"
+                }
+            ],
+            "icon": "dashboards",
+            "visible": true,
+            "multipleLists": [
+                {
+                    "heading": null,
+                    "headerInfo": "Once you visit or create dashboards, they'll show up here.",
+                    "list": [
+                        {
+                            "type": "link",
+                            "title": "View all dashboards",
+                            "icon": "more2",
+                            "visible": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "group",
+            "title": "Operations",
+            "icon": "action",
+            "visible": true,
+            "list": [
+                {
+                    "type": "link",
+                    "title": "Overview",
+                    "icon": "more2",
+                    "visible": true
+                },
+                {
+                    "type": "link",
+                    "title": "Alerts",
+                    "icon": "alerts",
+                    "visible": true
+                },
+                {
+                    "type": "link",
+                    "title": "On-call schedules",
+                    "icon": "call",
+                    "visible": true
+                },
+                {
+                    "type": "link",
+                    "title": "Reports",
+                    "icon": "charts",
+                    "visible": true
+                }
+            ],
+            "hoverTools": [
+                {
+                    "icon": "more",
+                    "alt": "more"
+                }
+            ]
+        }
+    ],
+    "externalLinks": [
+        {
+            "type": "link",
+            "title": "Confluence",
+            "icon": "confluence",
+            "defaultTools": [
+                {
+                    "icon": "newTab",
+                    "alt": "visit"
+                }
+            ],
+            "disableHoverAnimation": true,
+            "visible": true
+        },
+        {
+            "type": "link",
+            "title": "Assets",
+            "icon": "assets",
+            "defaultTools": [
+                {
+                    "icon": "newTab",
+                    "alt": "visit"
+                }
+            ],
+            "disableHoverAnimation": true,
+            "visible": true
+        },
+        {
+            "type": "link",
+            "title": "Teams",
+            "icon": "teams",
+            "defaultTools": [
+                {
+                    "icon": "newTab",
+                    "alt": "visit"
+                }
+            ],
+            "hoverTools": [
+                {
+                    "icon": "add1",
+                    "alt": "add"
+                }
+            ],
+            "disableHoverAnimation": true,
+            "visible": true
+        }
+    ],
+    "customizeSidebar": {
+        "type": "modal",
+        "title": "Customize sidebar",
+        "icon": "customize",
+        "disableHoverAnimation": true,
+        "visible": true
+    },
+    "feedback": {
+    "type": "modal",
+    "title": "Give feedback on the new navigation",
+    "icon": "feedback",
+    "disableHoverAnimation": true,
+    "visible": true
+    }
+}

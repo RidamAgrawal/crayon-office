@@ -1,0 +1,83 @@
+<div class="header-nav desktop-nav">
+    <div class="logo">
+        <a routerLink="/">
+            <svg fill="none" height="32" viewBox="0 0 32 32" focusable="false" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill="#FFFFFF"
+                    d="M27.545 24.378 16.96 3.208c-.208-.458-.417-.541-.667-.541-.208 0-.458.083-.708.5-1.5 2.375-2.167 5.125-2.167 8 0 4.001 2.042 7.752 5.042 13.795.334.666.584.791 1.167.791h7.335c.541 0 .833-.208.833-.625 0-.208-.042-.333-.25-.75M12.168 14.377c-.834-1.25-1.084-1.334-1.292-1.334s-.333.083-.708.834L4.875 24.46c-.167.334-.208.459-.208.625 0 .334.291.667.916.667h7.46c.5 0 .875-.416 1.083-1.208.25-1 .334-1.876.334-2.917 0-2.917-1.292-5.751-2.292-7.251">
+                </path>
+            </svg>
+        </a>
+    </div>
+    <nav>
+        <div class="logo-links-dropdowns">
+            <div class="logo2">
+                <svg height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 58" fill="none">
+                    <path
+                        d="M0 12C0 5.37258 5.37258 0 12 0H36C42.6274 0 48 5.37258 48 12V36C48 42.6274 42.6274 48 36 48H12C5.37258 48 0 42.6274 0 36V12Z"
+                        fill="#1868DB"></path>
+                    <path
+                        d="M17.9475 31.0469H15.2429C11.1638 31.0469 8.23755 28.5484 8.23755 24.8899H22.7804C23.5341 24.8899 24.0218 25.4252 24.0218 26.1837V40.8178C20.3861 40.8178 17.9475 37.8731 17.9475 33.7684V31.0469ZM25.1303 23.7745H22.4257C18.3466 23.7745 15.4203 21.3206 15.4203 17.6621H29.9631C30.7168 17.6621 31.2489 18.1528 31.2489 18.9113V33.5454C27.6132 33.5454 25.1303 30.6007 25.1303 26.496V23.7745ZM32.3573 16.5467H29.6527C25.5736 16.5467 22.6473 14.0482 22.6473 10.3896H37.1902C37.9439 10.3896 38.4316 10.925 38.4316 11.6389V26.273C34.7959 26.273 32.3573 23.3283 32.3573 19.2236V16.5467Z"
+                        fill="white"></path>
+                </svg>
+                <span>Jira</span>
+            </div>
+            @for(dropdownConfig of dropdownConfigs;track $index){
+            <app-nav-dropdown [config]="dropdownConfig"></app-nav-dropdown>
+            }
+        </div>
+        <div class="action">
+            <button class="header-btn">
+                Get Free
+            </button>
+            <div class="header-divider"></div>
+            <button class="header-btn">
+                Sign in
+            </button>
+        </div>
+    </nav>
+</div>
+<div class="header-nav mobile-nav">
+    <div class="mobile-nav-logos">
+        <div class="logo">
+            <a routerLink="/">
+                <svg fill="none" height="32" viewBox="0 0 32 32" focusable="false" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#FFFFFF"
+                        d="M27.545 24.378 16.96 3.208c-.208-.458-.417-.541-.667-.541-.208 0-.458.083-.708.5-1.5 2.375-2.167 5.125-2.167 8 0 4.001 2.042 7.752 5.042 13.795.334.666.584.791 1.167.791h7.335c.541 0 .833-.208.833-.625 0-.208-.042-.333-.25-.75M12.168 14.377c-.834-1.25-1.084-1.334-1.292-1.334s-.333.083-.708.834L4.875 24.46c-.167.334-.208.459-.208.625 0 .334.291.667.916.667h7.46c.5 0 .875-.416 1.083-1.208.25-1 .334-1.876.334-2.917 0-2.917-1.292-5.751-2.292-7.251">
+                    </path>
+                </svg>
+            </a>
+        </div>
+        <div class="logo2">
+            <svg height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 -5 50 58" fill="none">
+                <path
+                    d="M0 12C0 5.37258 5.37258 0 12 0H36C42.6274 0 48 5.37258 48 12V36C48 42.6274 42.6274 48 36 48H12C5.37258 48 0 42.6274 0 36V12Z"
+                    fill="#1868DB"></path>
+                <path
+                    d="M17.9475 31.0469H15.2429C11.1638 31.0469 8.23755 28.5484 8.23755 24.8899H22.7804C23.5341 24.8899 24.0218 25.4252 24.0218 26.1837V40.8178C20.3861 40.8178 17.9475 37.8731 17.9475 33.7684V31.0469ZM25.1303 23.7745H22.4257C18.3466 23.7745 15.4203 21.3206 15.4203 17.6621H29.9631C30.7168 17.6621 31.2489 18.1528 31.2489 18.9113V33.5454C27.6132 33.5454 25.1303 30.6007 25.1303 26.496V23.7745ZM32.3573 16.5467H29.6527C25.5736 16.5467 22.6473 14.0482 22.6473 10.3896H37.1902C37.9439 10.3896 38.4316 10.925 38.4316 11.6389V26.273C34.7959 26.273 32.3573 23.3283 32.3573 19.2236V16.5467Z"
+                    fill="white"></path>
+            </svg>
+            <span>Jira</span>
+        </div>
+    </div>
+    <div class="action">
+        <button class="header-btn">
+            Get Free
+        </button>
+        <button class="header-btn">Sign in</button>
+        <div class="header-divider"></div>
+        <app-nav-menu-btn [config]="buttonConfig">
+            <svg class="label-content" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                <path
+                    d="M160-240q-17 0-28.5-11.5T120-280q0-17 11.5-28.5T160-320h640q17 0 28.5 11.5T840-280q0 17-11.5 28.5T800-240H160Zm0-200q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520h640q17 0 28.5 11.5T840-480q0 17-11.5 28.5T800-440H160Zm0-200q-17 0-28.5-11.5T120-680q0-17 11.5-28.5T160-720h640q17 0 28.5 11.5T840-680q0 17-11.5 28.5T800-640H160Z" />
+            </svg>
+            <div class="placeholdersContent">
+                @for(config of dropdownConfigs;track $index){
+                    <app-nav-dropdown [config]="config"></app-nav-dropdown>
+                }
+            </div>
+        </app-nav-menu-btn>
+        <div class="mobile-nav-dropdown-menu"></div>
+    </div>
+</div>

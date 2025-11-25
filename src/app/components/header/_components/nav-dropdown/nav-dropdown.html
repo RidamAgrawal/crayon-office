@@ -1,0 +1,24 @@
+<a href="#" class="dropdown">
+    <div>{{config.label}}</div>
+    @if(config.placeholdersItem?.length != 0){
+    <svg [ngClass]="{rotate : showPlaceholder()}" xmlns="http://www.w3.org/2000/svg" height="6" width="11"
+        viewBox="0 0 11 6" fill="none">
+        <path d="M9.19922 1.18176L5.19922 4.81813L1.19922 1.18176" stroke="#101214" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    }
+</a>
+@if(showPlaceholder() && config.placeholdersItem?.length != 0){
+<div class="columnContainer">
+    @for(column of config.placeholdersItem;track $index){
+    <div class="column">
+        @if(config.headers){
+        <span class="columnHeader">{{config.headers[$index]}}</span>
+        }
+        @for(item of column;track $index){
+        <a href="#">{{item}}</a>
+        }
+    </div>
+    }
+</div>
+}

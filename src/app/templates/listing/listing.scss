@@ -1,0 +1,117 @@
+.item-list {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.list-header {}
+
+.list-header h3 {}
+
+.list-header h3 span {
+    color: #626f86;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.list-body {}
+
+.list-item {
+    list-style-type: none;
+}
+
+.list-item-link {
+    padding: 8px;
+    margin-top: 0px;
+    margin-left: -8px;
+    margin-right: -8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    flex: 1 1 0;
+    text-decoration: none;
+    color: #626f86;
+}
+
+.list-item-link:hover {
+    background-color: #091E420F;
+}
+
+.list-item-title {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 6;
+    flex-shrink: 2;
+    margin: 0px 8px;
+    justify-content: flex-start;
+}
+
+.list-item-details {
+    font-size: 10px;
+}
+
+.list-item-details>span:not(:first-child):not(:last-child) {
+    margin: 0 8px;
+}
+
+.list-item-link .list-item-text1 {
+    font-weight: 450;
+    color: #292a2a;
+}
+
+.list-item-status {
+    flex-grow: 1;
+    flex-shrink: 1;
+    font-size: 12px;
+    font-weight: 350;
+}
+
+.avatar-groups {
+    display: flex;
+    list-style-type: none;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+.avatar-groups .avatar {
+    margin-inline-end: -6px;
+    margin-inline-start: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    list-style-type: none;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px #fff;
+    width: 32px;
+    height: 32px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-groups .avatar.avatar-1 {
+    z-index: 1;
+    background-color: purple;
+}
+
+.avatar-groups .avatar.avatar-2 {
+    z-index: 2;
+    background-color: orangered;
+}
+
+.avatar-groups .avatar.avatar-3 {
+    z-index: 3;
+    background-color: greenyellow;
+}
+
+.avatar-groups .avatar.avatar-4 {
+    z-index: 4;
+    background-color: blue;
+}
+
+.main-wrapper {
+    margin: 4px 6px;
+}

@@ -1,0 +1,74 @@
+
+header {
+    display: grid;
+    grid-template-columns: 300px auto 300px;
+    height: 47px; //need big icons to be looked
+}
+
+.search-bar{
+    display: flex;
+    gap: 10px;
+}
+
+.menu-icons-and-logo {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+svg.icon-content {
+    fill: #44546f;
+}
+app-dashboard-search-bar{
+    align-self: center;
+}
+.create-task-btn {
+    background-color: #1868DB;
+    border: none;
+    outline: none;
+    padding: 4px;
+    border-radius: 3px;
+    color: white;
+    display: flex;
+    align-items: center;
+    height: 24px;
+    align-self: center;
+    border: 1px solid #1868DB;
+}
+.create-task-btn:hover{
+    background-color: white;
+    svg{
+        fill: #1868DB;
+    }
+}
+
+@media (min-width: 48rem) {
+    header {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+    }
+
+    .search-bar {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 1fr auto;
+        width: 100%;
+    }
+
+    .menu-icons-and-logo,
+    .notifications-user {
+        min-width: fit-content;
+    }
+}
+
+@media (min-width: 64rem) {
+    .menu-icons-and-logo,.notifications-user{
+        min-width: 300px;
+    }
+}
+
+@media not all and (width >=64rem) {
+    .menu-icons {
+        display: none;
+    }
+}

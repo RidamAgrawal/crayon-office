@@ -1,0 +1,399 @@
+:host {
+    display: flex;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    min-height: auto;
+}
+
+.jira-tab-main {
+    display: flex;
+    max-height: calc(-176px + 100vh);
+    box-sizing: border-box;
+    flex: 1 1 0%;
+    min-height: auto;
+}
+
+.jira-tab-footer {
+    width: 100%;
+    height: 48px;
+    border-top: 1px solid #0B120E24;
+}
+
+.footer-search {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.footer-search-content:hover {
+    background-color: #0515240F;
+    text-decoration: none;
+}
+
+.footer-search-content {
+    -webkit-box-align: center;
+    align-items: center;
+    color: #091E42;
+    cursor: pointer;
+    display: flex;
+    width: 100%;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 6px 14px;
+    border: 2px solid transparent;
+    background-color: #FFFFFF;
+}
+
+.footer-search-text-content {
+    display: flex;
+    height: 100%;
+}
+
+.footer-search-texts {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.footer-search-texts span:nth-child(1) {
+    line-height: 1;
+    padding-inline: 0px;
+    color: #292a2e;
+    display: inline-block;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.footer-search-texts span:nth-child(2) {
+    -webkit-box-align: center;
+    align-items: center;
+    color: #091E42;
+    cursor: pointer;
+    display: flex;
+    width: 100%;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 6px 14px;
+    border: 2px solid transparent;
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ebecf0;
+    border-radius: 3px;
+    padding: 0px 3px;
+}
+.icon-container svg{
+    fill: #292a2e;
+}
+.first-half {
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.divider {
+    margin: 16px 0px;
+    border-left: 1px solid #0b120e24;
+}
+.divider :hover{
+    border: 4px solid #0052CC;
+}
+.filter {
+    flex: 0 1 auto;
+    width: 272px;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    padding-bottom: var(--ds-space-200, 16px);
+}
+
+.filter-body {
+    flex: 1 1 auto;
+    overflow-x: hidden;
+    padding: 16px 16px 0 16px;
+}
+
+.filter-section {
+    padding-top: 28px;
+}
+
+.filter-title {
+    line-height: 16px;
+    padding-bottom: 4px;
+    color: #626f86;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.label-group {
+    margin-top: var(--ds-space-100, 8px);
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--ds-space-100, 8px);
+}
+
+.label-group-button {
+    height: 26px;
+    color: #42526E;
+    outline: none;
+    box-sizing: border-box;
+    padding: 4px 8px;
+    background-color: #F4F5F7;
+    border: none;
+    border-radius: 9999px;
+    line-height: 18px;
+    cursor: pointer;
+    display: inline-flex;
+}
+
+.label-group-button.selected {
+    color: #0052CC;
+    background-color: #DEEBFF;
+}
+
+.label-group-button input{
+    display: none;
+}
+
+.label-group .checkbox-row {
+    padding: 6px 0px;
+    display: flex;
+    -webkit-box-flex: 1;
+    color: #292a2e;
+    background-color: #ffff;
+}
+
+.checkbox-row label {
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-auto-rows: min-content;
+    grid-auto-columns: 1fr;
+    gap: 0px 4px;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    cursor: default;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.checkbox-label {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 176px;
+    color: #091E42;
+}
+
+.filterby-status-checkbox-row .checkbox-label {
+    width: 100%;
+}
+
+.more-rows {
+    margin: 4 0 0 -8;
+    padding: 4px 0px;
+}
+
+.more-rows button {
+    -webkit-box-align: baseline;
+    align-items: baseline;
+    border-width: 0px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: inline-flex;
+    font-size: inherit;
+    font-style: normal;
+    font-family: inherit;
+    font-weight: 500;
+    max-width: 100%;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 0px 10px;
+    vertical-align: middle;
+    width: auto;
+    -webkit-box-pack: center;
+    justify-content: center;
+    background: transparent;
+    color: #0C66E4;
+}
+
+.more-rows button:hover {
+    text-decoration: underline;
+    color: #1868db;
+}
+
+.filterby-status-checkbox-row {
+    display: flex;
+    justify-content: left;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.filterby-status-checkbox-row label {
+    padding: 6px 0px;
+    display: flex;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+}
+
+.multiple-selections {
+    box-sizing: border-box;
+    padding: 0;
+    position: relative;
+    min-height: 40px;
+    cursor: default;
+    flex-wrap: wrap;
+    outline-width: 0;
+    outline-style: none;
+    outline-color: rgb(41, 42, 46);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #8c8f97;
+    border-radius: 3px;
+}
+
+.multiple-selection-area {
+    box-sizing: border-box;
+    padding: 2px 6px;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+    display: grid;
+    overflow: hidden;
+    cursor: default;
+    pointer-events: all;
+    flex-grow: 1;
+    flex-basis: 0%;
+    flex-wrap: wrap;
+    flex-shrink: 1;
+}
+
+.multiple-select-label {
+    box-sizing: border-box;
+    color: #6b6e76;
+    margin: 0 2px;
+    grid-area: 1 / 1 / 2 / 3;
+}
+
+.multiple-select-option-popup {
+    z-index: 2;
+}
+
+.multiple-select-option-container {
+    box-sizing: border-box;
+    inset-block-start: 100%;
+    box-shadow: 0px 8px 12px #1E1F2126, 0px 0px 1px #1E1F214F;
+    background-color: #fff;
+    position: absolute;
+    margin-block-start: 8px;
+    margin-block-end: 8px;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.dropdown-icon-container {
+    align-self: stretch;
+    padding-inline-end: 4px;
+    flex-shrink: 0;
+    align-items: center;
+    display: flex;
+}
+
+.multiple-select-option-container2 {
+    box-sizing: border-box;
+    max-height: 300px;
+    overflow-y: auto;
+    position: relative;
+    padding-block-start: 8px;
+    padding-block-end: 8px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.multiple-select-option-heading {
+    text-transform: none;
+    box-sizing: border-box;
+    padding-inline-start: 12px;
+    margin-block-end: 4px;
+    cursor: default;
+    padding-inline-end: 12px;
+    color: #505258;
+    font-weight: 700;
+    display: block;
+}
+
+.multiple-select-option {
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    color: #292a2e;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: inherit;
+    cursor: default;
+    -webkit-tap-highlight-color: #fff;
+    width: 100%;
+    display: block;
+    padding-inline: 12px;
+    padding-block: 6px;
+}
+
+.multiple-select-option.hovered {
+    box-shadow: inset 2px 0 0 #1868db;
+    background-color: #0515240F;
+}
+
+.feedback {
+    flex: 0 0 auto;
+    padding: 16px 16px 0 16px;
+}
+
+.feedback-btn-container {
+    margin: 0px auto;
+    width: fit-content;
+}
+
+.feedback .feedback-button {
+    color: #505258;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -webkit-text-decoration-style: solid;
+    text-decoration-style: solid;
+    -webkit-text-decoration-line: none;
+    text-decoration-line: none;
+    -webkit-text-decoration-color: initial;
+    text-decoration-color: initial;
+    position: relative;
+    box-sizing: border-box;
+    vertical-align: middle;
+    display: inline-flex;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: #0000;
+    border-width: 0;
+    border: none;
+    padding-inline: 12px;
+    padding-block: 6px;
+    border-radius: 3px;
+}
+.feedback .feedback-button:hover {
+    background-color: #0515240F;
+    -webkit-text-decoration-style: solid;
+    text-decoration-style: solid;
+}

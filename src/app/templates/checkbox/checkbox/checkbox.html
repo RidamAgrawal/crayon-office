@@ -1,0 +1,21 @@
+<label class="checkbox-container">
+    <input type="checkbox" [(ngModel)]="checkboxConfig.visible">
+    <svg viewBox="0 0 24 24" [ngClass]=" checkboxConfig.visible ? 'checked' : ''">
+        <g fill-rule="evenodd">
+            <rect x="5.5" y="5.5" width="13" height="13" rx="1.5"></rect>
+            <!-- @if(checked){ -->
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3262 9.48011L15.1738 8.51984L10.75 13.8284L8.82616 11.5198L7.67383 12.4801L10.1738 15.4801C10.3163 15.6511 10.5274 15.75 10.75 15.75C10.9726 15.75 11.1837 15.6511 11.3262 15.4801L16.3262 9.48011Z"></path>
+            <!-- } -->
+        </g>
+    </svg>
+</label>
+<div class="checkbox-label-container">
+    @if(checkboxConfig.icon){
+        <span class="checkbox-label-icon">
+            <img [src]="'assets/icons/'+checkboxConfig.icon+'.svg'" alt="icon">
+        </span>
+    }
+    @if(checkboxConfig.title){
+        <span>{{checkboxConfig.title}}</span>
+    }
+</div>
