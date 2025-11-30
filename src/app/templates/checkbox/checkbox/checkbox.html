@@ -1,6 +1,6 @@
 <label class="checkbox-container">
-    <input type="checkbox" [(ngModel)]="checkboxConfig.visible">
-    <svg viewBox="0 0 24 24" [ngClass]=" checkboxConfig.visible ? 'checked' : ''">
+    <input type="checkbox" [checked]="value" (change)="onChangeEvent($event)" />
+    <svg viewBox="0 0 24 24" [ngClass]=" value ? 'checked' : ''">
         <g fill-rule="evenodd">
             <rect x="5.5" y="5.5" width="13" height="13" rx="1.5"></rect>
             <!-- @if(checked){ -->

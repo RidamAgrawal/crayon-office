@@ -16,6 +16,7 @@ import { DashboardsSidebar } from './_components/dashboards-sidebar/dashboards-s
 import { CustomizeSidebar } from './_components/dashboards-sidebar/_components/customize-sidebar/customize-sidebar';
 import { FeedbackSidebar } from './_components/dashboards-sidebar/_components/feedback-sidebar/feedback-sidebar';
 import { MultiSelect } from '../../templates/multi-select/multi-select';
+import { ResizableDirective } from "../../directives/resizable-directive/resizable-directive";
 
 const dashboardRoutes: Routes =[
   {
@@ -56,7 +57,8 @@ const dashboardRoutes: Routes =[
     FloatingContainerDirective,
     SidebarItem,
     Checkbox,
-    MultiSelect
+    MultiSelect,
+    ResizableDirective
 ],
   providers:[
     provideRouter(dashboardRoutes)

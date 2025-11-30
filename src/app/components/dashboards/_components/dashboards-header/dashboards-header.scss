@@ -1,8 +1,18 @@
 
-header {
+header, :host {
     display: grid;
     grid-template-columns: 300px auto 300px;
-    height: 47px; //need big icons to be looked
+    height: 48px; //need big icons to be looked
+    position: sticky;
+    position: -webkit-sticky;
+    box-sizing: border-box;
+    inset-block-start: 0;
+    z-index: 4;
+    background-color: #fff;
+    align-items: center;
+    border-block-end: 1px solid #0B120E24;
+    padding-inline: 0.75rem;
+    gap: 0.5rem;
 }
 
 .search-bar{
@@ -43,9 +53,9 @@ app-dashboard-search-bar{
 }
 
 @media (min-width: 48rem) {
-    header {
+    header, :host {
         display: grid;
-        grid-template-columns: auto 1fr auto;
+        grid-template-columns: 1fr minmax(min-content, max-content) 1fr;
     }
 
     .search-bar {

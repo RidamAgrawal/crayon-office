@@ -1,0 +1,48 @@
+:host{
+    height: inherit;
+    font-weight: 400;
+    font-size: .875rem;
+    line-height: 1.25rem;
+}
+.home-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+.home-padded-wrapper {
+    min-width: 40pc;
+    height: 100%;
+    width: calc(100% - 392px);
+    flex-grow: 1;
+    padding: 0 2.5rem;
+    overflow-y: scroll;
+    box-sizing: border-box;
+}
+.home-contents-padder {
+    min-width: 329px;
+    margin-bottom: 2rem;
+    margin-right: .5rem;
+    margin-top: .375rem;
+    margin-left: .5rem;
+}
+.home-contents-2 {
+    min-height: 100%;
+    width: 100%;
+    flex-direction: column;
+    display: flex;
+}
+.home-contents-3 {
+    flex-grow: 1;
+    flex-basis: auto;
+    flex-shrink: 1;
+    display: flex;
+}
+.home-contents-4 {
+    flex-grow: 1;
+    position: relative;
+    z-index: 1;
+    flex-basis: auto;
+    flex-shrink: 1;
+    min-width: 0;
+
+}

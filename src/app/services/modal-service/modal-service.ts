@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +7,12 @@ import { Subject } from 'rxjs';
 export class ModalService {
   public dashboardModal: Subject<any> = new Subject<any>();
   public dashboardCompRef: any;
-  public openDashboardModal(modalConfig: any): void {
+  
+  public openDashboardModal(modalConfig: any): Observable<any> {
     // this.dashboardModal.next(modalConfig);
-    this.dashboardCompRef?.openModal(modalConfig);
+    return this.dashboardCompRef?.openModal(modalConfig);
   }
+  
   public closeDashboardModal(): void {
     this.dashboardCompRef?.dismissModal();
   }

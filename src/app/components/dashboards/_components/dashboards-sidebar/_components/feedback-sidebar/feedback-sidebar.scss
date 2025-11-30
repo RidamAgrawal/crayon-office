@@ -68,7 +68,25 @@
     background-color: #0515240F;
 }
 .close-btn-span {
-    
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 0;
+    line-height: 0;
+    flex-shrink: 0;
+    flex-grow: 0;
+    align-items: center;
+    align-self: center;
+    display: flex;
+    transition: opacity .3s;
+    cursor: pointer;
+}
+.close-btn-span-2 {
+    box-sizing: border-box;
+    padding-inline: 0;
+    line-height: 1;
+    display: inline-block;
+    flex-shrink: 0;
 }
 .content-body {
     overflow-y: auto;
@@ -240,7 +258,7 @@ border-radius: 3px;
     max-width: 100%;
     text-align: center;
     justify-content: center;
-    padding-block: 6px;
+    padding-block: .5rem;
     border: none;
     transition: background .1s ease-out;
     border-radius: 3px;
@@ -254,4 +272,11 @@ border-radius: 3px;
 }
 .content-footer .save-btn:hover {
     background-color: #1558BC;
+}
+.content-footer .save-btn[disabled],.content-footer .cancel-btn[disabled] {
+    color: #080F214A;
+    background-color: #17171708 ;
+    cursor: not-allowed;
+    text-decoration: none;
+    pointer-events: none;
 }

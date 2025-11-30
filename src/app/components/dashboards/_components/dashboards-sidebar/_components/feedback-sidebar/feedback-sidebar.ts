@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ModalService } from '../../../../../../services/modal-service/modal-service';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-feedback-sidebar',
@@ -19,11 +19,15 @@ export class FeedbackSidebar {
     return this.feedbackFormGroup.get('feedbackType');
   }
   public textAreaLabel: string | null = null;
-  ngOnInit() {
+  @Output() sendFeedback: EventEmitter<any> = new EventEmitter<any>();
+  public ngOnInit() {
     this.feedbackFormGroup = this.formBuilder.group({
-      'feedbackType': this.formBuilder.control<'question' | 'comment' | 'bug' | 'improvement' | null>(null),
-      'feedbackText': this.formBuilder.control<string | null>(null),
-      'checkboxGroup': this.formBuilder.array([])
+      'feedbackType': this.formBuilder.control<'question' | 'comment' | 'bug' | 'improvement' | null>(null,[Validators.required]),
+      'feedbackText': this.formBuilder.control<string | null>(null,[Validators.required,Validators.minLength(4)]),
+      'checkboxGroup': this.formBuilder.group({
+        'checkbox1': this.formBuilder.control<boolean>(false),
+        'checkbox2': this.formBuilder.control<boolean>(false)
+      })
     });
   }
   public dismissModal() {
@@ -59,5 +63,10 @@ export class FeedbackSidebar {
         this.textAreaLabel = "Let us know what you'd like to improve"
         break;
     }
+  }
+  public prepareFeedback(){
+    this.sendFeedback.emit(
+      this.feedbackFormGroup.value
+    );
   }
 }

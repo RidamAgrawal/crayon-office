@@ -3,6 +3,8 @@ import { ChangeDetectorRef, Component, TemplateRef, ViewChild } from '@angular/c
 import { ModalService } from '../../../../services/modal-service/modal-service';
 import { HttpService } from '../../../../services/http-service/http-service';
 import { TemplateService } from '../../../../services/template-service/template-service';
+import { Observable } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 export interface CustomizeModalConfig {
   isTemplate?: boolean | null;
@@ -24,19 +26,20 @@ export class DashboardsSidebar {
   public externalLinks: any = [];
   public customizeItem: any = { visible: true, disableHoverAnimation: true };
   public feedbackItem: any = { visible: true, disableHoverAnimation: true };
-  public myCustomizeModalConfig: CustomizeModalConfig = {
+  public customizeModalConfig: CustomizeModalConfig = {
     isComponent: true
   };
   public feedbackModalConfig: CustomizeModalConfig = {
     isComponent: true
   }
+  public subscriptions!: Observable<any>[];
   constructor(
     private httpService: HttpService,
     private modalService: ModalService,
     private templateService: TemplateService,
     private cdr: ChangeDetectorRef
   ) {
-    this.myCustomizeModalConfig.componentRef = this.templateService.templates['customize-sidebar'];
+    this.customizeModalConfig.componentRef = this.templateService.templates['customize-sidebar'];
     this.feedbackModalConfig.componentRef = this.templateService.templates['feedback-sidebar'];
   }
   ngOnInit() {
@@ -47,13 +50,31 @@ export class DashboardsSidebar {
         this.customizeItem = res.customizeSidebar;
         this.feedbackItem = res.feedback;
         this.cdr.detectChanges();
-        this.myCustomizeModalConfig.inputs = {
+        this.customizeModalConfig.inputs = {
           'internalItems': structuredClone(this.internalItems),
           'externalLinks': structuredClone(this.externalLinks)
         }
       })
   }
   public openModal(modalConfig: any) {
-    this.modalService.openDashboardModal(modalConfig);
+    this.modalService.openDashboardModal(modalConfig)
+      .subscribe((output) => {
+        if (output.eventName === 'saveChanges') {
+          this.onCustomizedChanges(output.data);
+        }
+        if (output.eventName === 'sendFeedback') {
+          this.onSendFeedback(output.data);
+        }
+      });
+  }
+  public onCustomizedChanges(data: any) {
+    this.externalLinks = structuredClone(data.externalLinks);
+    this.internalItems = structuredClone(data.internalItems);
+  }
+  public onSendFeedback(data: any){
+    console.log('will call api here and payload data: ',data);
+  }
+  public ngOnDestroy() {
+
   }
 }

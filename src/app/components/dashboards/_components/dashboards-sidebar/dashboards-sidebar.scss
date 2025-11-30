@@ -1,5 +1,4 @@
-.sidebar{
-    // background-color: chartreuse;
+:host {
     grid-area: sidebar;
     border-inline-end: 1px solid #0B120E24;
     box-shadow: none;
@@ -12,6 +11,9 @@
     z-index: 2;
     border-inline-start: none;
     display: block;
+    background-color: #fff;
+    box-sizing: border-box;
+    inset-block-start: 0px;
 }
 .sidebar-container {
     display: flex;
@@ -55,3 +57,44 @@
 }
 
 
+@media (min-width: 48rem) {
+    .slider-container {
+
+    }
+}
+.slider-container {
+    inset-block-start: 0;
+    inset-block-end: 0;
+    z-index: 1;
+    position: absolute;
+    outline-width: medium;
+    outline-style: none;
+}
+.slider {
+    transition-delay: 0ms;
+    transition-duration: .1s;
+    transition-property: color;
+    width: 1rem;
+    color: #0000;
+    position: absolute;
+    background-color: initial;
+    padding-inline: 0px;
+    padding-block: 0px;
+    height: 100%;
+}
+.slider:hover {
+    color: #1868db;
+    transition-delay: .2s;
+    cursor: ew-resize;
+    transition-property: color;
+}
+// .slider:hover > span {
+//     inset-inline-start: .5rem;
+//     width: 3px;
+//     position: absolute;
+//     display: block;
+//     height: 100%;
+// }
+// .slider:hover > span:first-child {
+//     background-color: currentColor;
+// }

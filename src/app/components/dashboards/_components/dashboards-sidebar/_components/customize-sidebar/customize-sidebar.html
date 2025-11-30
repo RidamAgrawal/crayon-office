@@ -5,7 +5,9 @@
         </h1>
         <button class="close-btn-container">
             <span class="close-btn-span">
-                <img [src]="'assets/icons/close.svg'" alt="close" (click)="dismissModal()">
+                <span class="close-btn-span-2">
+                    <img [src]="'assets/icons/close.svg'" alt="close" (click)="dismissModal()">
+                </span>
             </span>
         </button>
     </div>
@@ -37,7 +39,7 @@
                                         </div>
                                         <div class="list-item-row-container">
                                             <div class="list-item-row">
-                                                <app-checkbox [checkboxConfig]="item"></app-checkbox>
+                                                <app-checkbox [checkboxConfig]="item" [val]="item.visible"></app-checkbox>
                                             </div>
                                             <span></span>
                                             <button class="item-options">
@@ -72,7 +74,7 @@
                                         </div>
                                         <div class="list-item-row-container">
                                             <div class="list-item-row">
-                                                <app-checkbox [checkboxConfig]="item"></app-checkbox>
+                                                <app-checkbox [checkboxConfig]="item" [(val)]="item.visible"></app-checkbox>
                                             </div>
                                             <span></span>
                                             <button class="item-options">
@@ -90,6 +92,7 @@
                 </div>
             </div>
         </div>
+        {{internalItems|json}}
     </div>
     <div class="content-footer">
         <button class="cancel-btn" (click)="dismissModal()"><span>Cancel</span></button>

@@ -4,11 +4,13 @@
     </h1>
     <button class="close-btn-container">
         <span class="close-btn-span">
-            <img [src]="'assets/icons/close.svg'" alt="close" (click)="dismissModal()">
+            <span class="close-btn-span-2">
+                <img [src]="'assets/icons/close.svg'" alt="close" (click)="dismissModal()">
+            </span>
         </span>
     </button>
 </div>
-<div class="content-body">
+<div class="content-body" [formGroup]="feedbackFormGroup">
     <p class="info-indicator">
         Required fields are marked with asterisk <span class="red-asterisk">*</span>
     </p>
@@ -34,12 +36,12 @@
                 <label for="feedback-text" class="feedback-text-label">
                     {{textAreaLabel}} <span class="red-asterisk">*</span>
                 </label>
-                <textarea class="feedback-text-area" name="feedback-text" id="feedback-text"></textarea>
+                <textarea class="feedback-text-area" name="feedback-text" id="feedback-text" formControlName="feedbackText"></textarea>
             </div>
-            <fieldset class="checkbox-group">
+            <fieldset class="checkbox-group" formGroupName="checkboxGroup">
                 <legend hidden>opt-in options</legend>
                 <div class="checkbox-container checkbox-container-1">
-                    <app-checkbox [checkboxConfig]="{title:'Yes, teams can contact me to learn about my experiences to improve Atlassian apps and services. I acknowledge the Atlassian Privacy Policy.'}"></app-checkbox>
+                    <app-checkbox formControlName="checkbox1" [checkboxConfig]="{title:'Yes, teams can contact me to learn about my experiences to improve Atlassian apps and services. I acknowledge the Atlassian Privacy Policy.'}"></app-checkbox>
                     <span class="policy-link-span">
                         <a href="#" class="navigation-info-link">
                             privacy policy
@@ -50,7 +52,7 @@
                     </span>
                 </div>
                 <div class="checkbox-container checkbox-container-2">
-                    <app-checkbox [checkboxConfig]="{title:'I’d like to participate in product research'}"></app-checkbox>
+                    <app-checkbox formControlName="checkbox2" [checkboxConfig]="{title:'I’d like to participate in product research'}"></app-checkbox>
                 </div>
             </fieldset>
         }
@@ -58,5 +60,5 @@
 </div>
 <div class="content-footer">
     <button class="cancel-btn" (click)="dismissModal()"><span>Cancel</span></button>
-    <button class="save-btn"><span>Send feedback</span></button>
+    <button class="save-btn" (click)="prepareFeedback()" [disabled]="!feedbackFormGroup.valid"><span>Send feedback</span></button>
 </div>
