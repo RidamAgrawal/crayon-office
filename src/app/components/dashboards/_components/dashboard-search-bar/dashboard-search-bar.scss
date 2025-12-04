@@ -41,11 +41,11 @@ input {
 }
 
 .search-dialog-wrapper {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%,0);
-    display: none;
+    // position: absolute;
+    // top: 100%;
+    // left: 50%;
+    // transform: translate(-50%,0);
+    // display: none;
     border-radius: 3px;
     box-shadow: 0 0 1px 0 #cecece, 0 5px 20px -5px #0000001a;
     width: 100%;
@@ -53,6 +53,7 @@ input {
     background-color: white;
     z-index: 2;
     margin-top: 7px;
+    max-width: 780px;
 }
 
 .search-dialog-wrapper.show{

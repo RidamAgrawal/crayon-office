@@ -82,3 +82,9 @@ app-dashboard-search-bar{
         display: none;
     }
 }
+
+@media (min-width: 90rem) {
+    :host {
+        grid-template-columns: 300px auto 300px;
+    }
+}

@@ -17,6 +17,7 @@ import { CustomizeSidebar } from './_components/dashboards-sidebar/_components/c
 import { FeedbackSidebar } from './_components/dashboards-sidebar/_components/feedback-sidebar/feedback-sidebar';
 import { MultiSelect } from '../../templates/multi-select/multi-select';
 import { ResizableDirective } from "../../directives/resizable-directive/resizable-directive";
+import { OverlayModule } from '@angular/cdk/overlay';
 
 const dashboardRoutes: Routes =[
   {
@@ -58,7 +59,8 @@ const dashboardRoutes: Routes =[
     SidebarItem,
     Checkbox,
     MultiSelect,
-    ResizableDirective
+    ResizableDirective,
+    OverlayModule
 ],
   providers:[
     provideRouter(dashboardRoutes)

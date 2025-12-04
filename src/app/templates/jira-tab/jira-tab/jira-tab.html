@@ -19,68 +19,71 @@
                 </div>
                 {{filterFormGroup.value|json}}
             </div>
-            <div class="filter-section">
+            <div class="filter-section" formArrayName="project">
                 <h3 class="filter-title">
                     <span>filter by project</span>
                 </h3>
                 <div class="label-group">
                     <div class="checkbox-row">
-                        <app-checkbox formControl></app-checkbox>
+                        <app-checkbox formControlName="0" [checkboxConfig]="{title: 'JSW - TMP - SampleJiraProject'}"></app-checkbox>
                     </div>
                     <div class="more-rows">
                         <button>Show more</button>
                     </div>
                 </div>
             </div>
-            <div class="filter-section">
+            <div class="filter-section" formArrayName="assignee">
                 <h3 class="filter-title">
                     <span>filter by assignee</span>
                 </h3>
                 <div class="label-group">
                     <div class="checkbox-row">
-                        <label>
+                        <app-checkbox formControlName="0" [checkboxConfig]="{title: 'User'}"></app-checkbox>
+                        <!-- <label>
                             <input type="checkbox" tabindex="-1">
                             <span class="checkbox-label">
                                 <span>Ridam</span>
                             </span>
-                        </label>
+                        </label> -->
                     </div>
                     <div class="more-rows">
                         <button>Show more</button>
                     </div>
                 </div>
             </div>
-            <div class="filter-section">
+            <div class="filter-section" formArrayName="reporter">
                 <h3 class="filter-title">
                     <span>filter by reporter</span>
                 </h3>
                 <div class="label-group">
                     <div class="checkbox-row">
-                        <label>
+                        <app-checkbox formControlName="0" [checkboxConfig]="{title:'Reported by me'}"></app-checkbox>
+                        <!-- <label>
                             <input type="checkbox" tabindex="-1">
                             <span class="checkbox-label">
                                 <span>Reported by me</span>
                             </span>
-                        </label>
+                        </label> -->
                     </div>
                     <div class="more-rows">
                         <button>Show more</button>
                     </div>
                 </div>
             </div>
-            <div class="filter-section">
+            <div class="filter-section" formArrayName="status">
                 <h3 class="filter-title">
                     <span>filter by status</span>
                 </h3>
                 <div class="">
                     <div class="filterby-status-checkbox-row">
                         @for(label of status;track $index){
-                            <label>
+                            <!-- <label>
                                 <input type="checkbox" tabindex="-1" [value]="label" (change)="onStatusSelect($event)">
                                 <span class="checkbox-label">
                                     <span>{{label}}</span>
                                 </span>
-                            </label>
+                            </label> -->
+                            <app-checkbox [formControlName]="$index" [checkboxConfig]="{title: label}"></app-checkbox>
                         }
                     </div>
                 </div>

@@ -3,6 +3,7 @@ import { Listing } from '../../listing/listing';
 import { MultiSelect } from '../../multi-select/multi-select';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ɵInternalFormsSharedModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Checkbox } from '../../checkbox/checkbox/checkbox';
 
 export enum LAST_UPDATED {
   'anyTime' = 'Any Time',
@@ -15,7 +16,7 @@ export enum LAST_UPDATED {
 
 @Component({
   selector: 'app-jira-tab',
-  imports: [Listing, MultiSelect, ɵInternalFormsSharedModule, ReactiveFormsModule, CommonModule],
+  imports: [Listing, MultiSelect, ɵInternalFormsSharedModule, ReactiveFormsModule, CommonModule, Checkbox],
   templateUrl: './jira-tab.html',
   styleUrl: './jira-tab.scss'
 })
@@ -27,10 +28,19 @@ export class JiraTab {
   ngOnInit(){
     this.filterFormGroup = this.formBuilder.group({
       'lastUpdated': this.formBuilder.control<keyof typeof LAST_UPDATED>('anyTime'),
-      'project': this.formBuilder.array([]),
-      'assignee': this.formBuilder.array([]),
-      'reporter': this.formBuilder.array([]),
-      'status': this.formBuilder.array([]),
+      'project': this.formBuilder.array([
+        this.formBuilder.control<boolean>(false),
+      ]),
+      'assignee': this.formBuilder.array([
+        this.formBuilder.control<boolean>(false),
+      ]),
+      'reporter': this.formBuilder.array([
+        this.formBuilder.control<boolean>(false),
+      ]),
+      'status': this.formBuilder.array([
+        this.formBuilder.control<boolean>(false),
+        this.formBuilder.control<boolean>(false),
+      ]),
     })
   }
   public onStatusSelect(event: Event){
