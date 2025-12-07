@@ -1,0 +1,223 @@
+
+.section-links {
+    list-style-type: none;
+}
+
+:host {
+    // opacity: 0;
+    animation-timing-function: ease;
+    animation-duration: 0.3s;
+    animation-name: start;
+}
+
+.link-wrapper-1 {
+    position: relative;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    border-radius: .25rem;
+}
+
+.link-wrapper-2 {
+    height: 3rem;
+    overflow-y: hidden;
+    width: 100%;
+    border-radius: .25rem;
+}
+
+.link-wrapper-3 {
+    // opacity: 0;
+    animation-timing-function: ease;
+    animation-duration: 0.1s;
+    animation-name: start;
+}
+
+.link-container {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    box-sizing: border-box;
+    padding: .5rem;
+    position: relative;
+    text-decoration: none;
+    color: #292A2E;
+    cursor: pointer;
+    min-height: 40px;
+    outline-style: none;
+    display: flex;
+    align-items: center;
+    padding-block: .5rem;
+    padding-inline: 1rem;
+    border: none;
+    border-radius: .25rem;
+    transition: background .2s ease-in;
+}
+
+.link-container:hover {
+    background-color: #0515240F;
+}
+
+.link-item {
+    padding-bottom: 0;
+    row-gap: 0.75rem;
+    column-gap: 0.75rem;
+    box-sizing: border-box;
+    justify-content: space-between;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.link-icon-container {
+    min-width: 24px;
+    min-height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.link-icon-container-2 {
+    margin-right: -.25rem;
+}
+
+.link-icon-container-3 {
+    height: 2rem;
+    width: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .5rem;
+}
+.link-icon {
+    height: 2pc;
+}
+.link-icon > svg {
+    height: 100%;
+}
+
+.link-text-container {
+    flex-grow: 1;
+    outline: none;
+    text-align: left;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.link-text {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-y: hidden;
+    display: block;
+}
+.link-text-2 {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+}
+
+.link-text-2-small {
+    margin: -0.125rem 0;
+}
+.link-text-small {
+    color: #6B6E76;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+.link-text-small-2 {
+    margin-right: 2pc;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.drop-icon-container {
+    right: 8px;
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+}
+.drop-icon-btn {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    position: relative;
+    vertical-align: middle;
+    display: inline-flex;
+    width: 2rem;
+    column-gap: .25rem;
+    align-items: baseline;
+    font-weight: 500;
+    cursor: pointer;
+    color: #505258;
+    background-color: #0000;
+    max-width: 100%;
+    text-align: center;
+    padding-block: .375rem;
+    justify-content: center;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    transition: background .2s ease-in;
+}
+.drop-icon-btn:hover {
+    background-color: #0515240F;
+    transition: background .2s ease-in;
+}
+.drop-icon {
+    align-items: center;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: opacity 0.3s;
+    transition: 0.3s;
+}
+.drop-icon.rotate {
+    rotate: 180deg;
+    transition: .3s;
+}
+.drop-icon > svg {
+    stroke: #101214;
+}
+.drop-icon.rotate > svg {
+    stroke: #188B8C;
+}
+.sublink-dropdown-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: 0.3s;
+    margin: 0.125rem 0;
+}
+.sublink-dropdown-wrapper.show {
+    grid-template-rows: 1fr;
+    transition: .3s;
+}
+.section-link-dropdown {
+    margin: 0 .125rem;
+    border-radius: 3px;
+    background-color: #0515240F;
+    list-style-type: none;
+    overflow: hidden;
+}
+.section-sublink {
+    // opacity: 0;
+    animation-timing-function: ease;
+    animation-duration: 0.1s;
+    animation-name: start;
+}
+.sublink-container {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.sublink-container:hover {
+    background-color: #0515240F;
+}

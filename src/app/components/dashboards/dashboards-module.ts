@@ -18,6 +18,7 @@ import { FeedbackSidebar } from './_components/dashboards-sidebar/_components/fe
 import { MultiSelect } from '../../templates/multi-select/multi-select';
 import { ResizableDirective } from "../../directives/resizable-directive/resizable-directive";
 import { OverlayModule } from '@angular/cdk/overlay';
+import { MenuLinkItem } from '../../templates/menu-link-item/menu-link-item';
 
 const dashboardRoutes: Routes =[
   {
@@ -57,6 +58,7 @@ const dashboardRoutes: Routes =[
     TabComponent,
     FloatingContainerDirective,
     SidebarItem,
+    MenuLinkItem,
     Checkbox,
     MultiSelect,
     ResizableDirective,

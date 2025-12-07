@@ -1,0 +1,53 @@
+<div class="link-wrapper-1">
+    <div class="link-wrapper-2">
+        <div class="link-wrapper-3">
+            <a href="" class="link-container">
+                <span class="link-item">
+                    <span class="link-icon-container">
+                        <span class="link-icon-container-2">
+                            <div class="link-icon-container-3">
+                                <span class="link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                        <path
+                                            d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </span>
+                    </span>
+                    <div class="link-text-container">
+                        <span class="link-text">
+                            <span class="link-text-2"
+                                [ngClass]="[menuItemConfig.text2? 'link-text-2-small':'link-text-2']">{{menuItemConfig.text1}}</span>
+                        </span>
+                        @if(menuItemConfig.text2){
+                            <span class="link-text-small">
+                                <span class="link-text-small-2">{{menuItemConfig.text2}}</span>
+                            </span>
+                        }
+                    </div>
+                </span>
+                @if(menuItemConfig.list){
+                <div class="drop-icon-container">
+                    <button class="drop-icon-btn" (click)="toggleSublinks($event)">
+                        <span class="drop-icon" [ngClass]="{rotate : showSublinks()}">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="6" width="11"
+                                viewBox="0 0 11 6" fill="none">
+                                <path d="M9.19922 1.18176L5.19922 4.81813L1.19922 1.18176" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+                }
+            </a>
+        </div>
+    </div>
+</div>
+<div class="sublink-dropdown-wrapper" [ngClass]="{'show':showSublinks()}">
+    <ul class="section-link-dropdown">
+        @for(link of menuItemConfig.list;track $index){
+        <app-menu-link-item [menuItemConfig]="link"></app-menu-link-item>
+        }
+    </ul>
+</div>

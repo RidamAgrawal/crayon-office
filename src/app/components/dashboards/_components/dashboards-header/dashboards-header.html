@@ -15,7 +15,7 @@
                 }
             </svg>
         </app-icon-container>
-        <app-icon-container>
+        <app-icon-container #menuIcon="elementRef" (click)="show(menuIcon,menuTemplate, menuPosition)">
             <svg class="icon-content" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960"
                 width="20px">
                 <path
@@ -42,5 +42,161 @@
         </svg>
     </button>
 </div>
-<div class="notifications-user"></div>
+<div class="notifications-user">
+    <div class="list-icons">
+        <app-icon-container #notifications="elementRef" (click)="show(notifications, notificationTemplate, notificationPosition)">
+            <img height="20px" width="20px" class="icon-content" src="assets/icons/bellicon.svg" alt="notifications" />
+        </app-icon-container>
+        <app-icon-container>
+            <img height="20px" width="20px" class="icon-content" src="assets/icons/how.svg" alt="FAQs"/>
+        </app-icon-container>
+        <app-icon-container #settings="elementRef" (click)="show(settings, notificationTemplate, notificationPosition)">
+            <img height="20px" width="20px" class="icon-content" src="assets/icons/settings.svg" alt="settings">
+        </app-icon-container>
+        <div class="list-icon">
+            <button class="avatar">
+                <span class="avatar-text">
+                    <span class="avatar-icon">
+                        A
+                    </span>
+                </span>
+            </button>
+        </div>
+    </div>
+</div>
 <!-- </header> -->
+ <ng-template #menuTemplate>
+    <div class="menu-wrapper">
+        <div class="menu-wrapper-2">
+            <div class="menu-wrapper-3">
+                <section class="menu-section">
+                    <div class="section-container">
+                    @if(menuItems['section-1']){
+                        <ul class="section-links">
+                            @for(item of menuItems['section-1'];track $index){
+                                <app-menu-link-item [menuItemConfig]="item"></app-menu-link-item>
+                            }
+                        </ul>
+                    } @else {
+                        <div class="header-placeholder">
+                            <div class="section-header-shimmer"></div>
+                        </div>
+                        <div class="placeholder">
+                            <div class="icon-placeholder"></div>
+                            <div class="row-shimmer"></div>
+                        </div>
+                        <div class="placeholder">
+                            <div class="icon-placeholder"></div>
+                            <div class="row-shimmer"></div>
+                        </div>
+                        <div class="placeholder">
+                            <div class="icon-placeholder"></div>
+                            <div class="row-shimmer"></div>
+                        </div>
+                    }
+                    </div>
+                </section>
+                <section class="menu-section">
+                    <div class="section-container">
+                        @let menuSection2 = menuItems['section-2'];
+
+                        @if(menuSection2){
+                            <div class="section-header">
+                                <h2 class="section-header-title">
+                                    <div class="title-text">
+                                        Recommended Apps for you
+                                    </div>
+                                </h2>
+                            </div>
+                            <ul class="section-links">
+                                @for(item of menuItems['section-1'];track $index){
+                                    <app-menu-link-item [menuItemConfig]="item"></app-menu-link-item>
+                                }
+                            </ul>
+                        } @else {
+                            <div class="header-placeholder">
+                                <div class="section-header-shimmer"></div>
+                            </div>
+                            <div class="placeholder">
+                                <div class="icon-placeholder"></div>
+                                <div class="row-shimmer"></div>
+                            </div>
+                            <div class="placeholder">
+                                <div class="icon-placeholder"></div>
+                                <div class="row-shimmer"></div>
+                            </div>
+                            <div class="placeholder">
+                                <div class="icon-placeholder"></div>
+                                <div class="row-shimmer"></div>
+                            </div>
+                        }
+                    </div>
+                </section>
+                <section class="menu-section">
+                    <div class="section-container">
+                        @if(menuItems['section-3']){
+                            <ul class="section-links">
+                                @for(item of menuItems['section-3'];track $index){
+                                    <app-menu-link-item [menuItemConfig]="item"></app-menu-link-item>
+                                }
+                            </ul>
+                        } @else{
+                            <div class="header-placeholder">
+                                <div class="section-header-shimmer"></div>
+                            </div>
+                            <div class="placeholder">
+                                <div class="icon-placeholder"></div>
+                                <div class="row-shimmer"></div>
+                            </div>
+                            <div class="placeholder">
+                                <div class="icon-placeholder"></div>
+                                <div class="row-shimmer"></div>
+                            </div>
+                            <div class="placeholder">
+                                <div class="icon-placeholder"></div>
+                                <div class="row-shimmer"></div>
+                            </div>
+                        }
+                    </div>
+                </section>
+                <div class="more">
+                    <a class="more-btn">
+                        <span class="more-btn-text">
+                            Manage list
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+ </ng-template>
+
+ <ng-template #notificationTemplate>
+    <div class="notification-wrapper">
+        <div class="notification-wrapper-2">
+            <div class="notification-header">
+
+            </div>
+            <span class="info-highlight"></span>
+            <div class="notification-placeholder">
+                <div class="tab-panel-shimmer"></div>
+                <div class="tab-row-placeholder">
+                    <div class="tab-row-icon-shimmer"></div>
+                    <div class="tab-row-details">
+                        <div class="tab-row-detail-shimmer tab-row-detail-shimmer-1"></div>
+                        <div class="tab-row-detail-shimmer tab-row-detail-shimmer-2"></div>
+                        <div class="tab-row-detail-shimmer tab-row-detail-shimmer-3"></div>
+                    </div>
+                </div>
+                <div class="tab-row-placeholder">
+                    <div class="tab-row-icon-shimmer"></div>
+                    <div class="tab-row-details">
+                        <div class="tab-row-detail-shimmer tab-row-detail-shimmer-1"></div>
+                        <div class="tab-row-detail-shimmer tab-row-detail-shimmer-2"></div>
+                        <div class="tab-row-detail-shimmer tab-row-detail-shimmer-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </ng-template>

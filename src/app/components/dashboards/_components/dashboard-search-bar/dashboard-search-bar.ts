@@ -9,7 +9,7 @@ import { AppOverlayConfig, OverlayService } from '../../../../services/overlay-s
 })
 export class DashboardSearchBar {
   @ViewChild('searchBar', { static: true }) private searchBar!: ElementRef;
-  @ViewChild('searchArea', { static: true }) private searchArea!: ElementRef;
+  @ViewChild('searchArea', { static: true }) private searchArea!: ElementRef<HTMLElement>;
   @ViewChild('overlayTemplate', { read:TemplateRef, static: true }) public searchDialogWrapper!: TemplateRef<any>;
 
   isFocused: WritableSignal<boolean> = signal(false);
@@ -25,7 +25,7 @@ export class DashboardSearchBar {
     const overlayOptions: AppOverlayConfig = {
       viewContainerRef: this.viewContainerRef,
       template: this.searchDialogWrapper,
-      connectedTo: this.searchArea.nativeElement,
+      connectedTo: this.searchArea,
       positions: [
         { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top', offsetX: 0, offsetY: 0 }
       ]
