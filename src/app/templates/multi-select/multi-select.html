@@ -1,7 +1,7 @@
-<div (click)="focusIn()" appClickOutside (clickOutside)="focusOut()">
-    <div class="multiple-selections" [ngClass]="{ 'focused': focused() }" [appFloatingContainer]="optionContainer">
+
+    <div class="multiple-selections" (click)="focusIn()">
         <div class="multiple-selection-area"
-            [ngClass]="{ 'show-options': isDisplayOptions(), 'selected-options': selectedOptionsIndex.length }">
+            [ngClass]="{ 'selected-options': selectedOptionsIndex.length }">
             <div class="multiple-select-placeholder"
                 [ngClass]="{ 'empty': !inputControl.value && !selectedOptionsIndex.length }">
                 {{ config.placeholder }}
@@ -23,10 +23,10 @@
             <div class="multiple-select-input-container">
                 <input type="text" class="multiple-select-input"
                     [ngClass]="{'select': inputControl.value && !selectedOptionsIndex.length }"
-                    [formControl]="inputControl" (keydown)="inputSpace($event)" #input>
+                    [formControl]="inputControl" #input>
             </div>
         </div>
-        <div class="dropdown-icon-container" [ngClass]="{ 'show-options': isDisplayOptions() }">
+        <div class="dropdown-icon-container">
             <div class="loading-indicator">
                 <span class="loader">
                     <svg height="16" width="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" role="none"
@@ -41,17 +41,17 @@
                         d="m324.15-301.08-23.07-23.07L455.92-480 301.08-634.85l23.07-23.07L480-503.08l154.85-154.84 23.07 23.07L503.08-480l154.84 155.85-23.07 23.07L480-455.92 324.15-301.08Z" />
                 </svg>
             </div>
-            <div class="indicator-container" (click)="toggleOptions()">
+            <div class="indicator-container">
                 <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000">
                     <path d="M480-371.69 267.69-584 296-612.31l184 184 184-184L692.31-584 480-371.69Z" />
                 </svg>
             </div>
         </div>
     </div>
-    <ng-template #optionContainer>
-        <div class="multiple-select-option-popup" [ngClass]="{ 'focused': isDisplayOptions() }">
-            <div class="multiple-select-option-container">
-                <div class="multiple-select-option-container2">
+<!-- <ng-template #optionContainer>
+        <div class="multiple-select-option-container">
+            <div class="multiple-select-option-groups">
+                <div class="multiple-select-option-group">
                     @if(unselectedOptionsIndex.length){
                         @if(config.optionsHeading){
                             <div class="multiple-select-option-heading">
@@ -60,20 +60,70 @@
                         }
                         <div>
                             @for(option of config.options;track $index){
-                            @if(unselectedOptionsIndex.includes($index)){
-                            <div class="multiple-select-option" [ngClass]="{ 'hovered': hoveredOption() == $index }"
-                                (mouseenter)="hoveredOption.set($index)" (click)="selectOption($index)">{{ option }}</div>
-                            }
-                            }
+                                @if(unselectedOptionsIndex.includes($index)){
+                                    <div class="multiple-select-option" [ngClass]="{ 'hovered': hoveredOption() == $index }"
+                                        (mouseenter)="hoveredOption.set($index)" (click)="selectOption($index)">{{ option }}</div>
+                                    }
+                                }
                         </div>
                     }
                     @else{
                         <div class="multiple-select-option-heading">
                             No Options
                         </div>
-                    }
+                    }                    
                 </div>
             </div>
         </div>
-    </ng-template>
-</div>
+</ng-template> -->
+
+<ng-template #optionContainer let-optionLists="optionLists">
+    <div class="option-container-wrapper">
+        <div class="option-container-wrapper-2">
+            <div class="option-container-content">
+                @for(list of optionLists;track $index; let listIndex = $index) {
+                    <div class="options-list" [ngClass]="[list.disabled ? 'disabled':'']">
+                        @if(list.heading){
+                            <div class="multiple-select-option-heading">
+                                {{list.heading}}
+                            </div>
+                        }
+                        @for(option of list.options;track $index; let optionIndex = $index){
+                            @if(option.type=='link'){
+                                <a href="" class="option-item" [ngClass]="[option.disabled?'disabled':'']" [ariaDisabled]="option.disabled"  (click)="selectOption(listIndex, optionIndex)">
+                                    <span class="option-item-content">
+                                        @if(option.icon){
+                                            <span class="option-item-icon-container">
+                                                <span class="option-item-icon">
+                                                    <img [src]="'assets/icons/'+option.icon+'.svg'" alt="icon">
+                                                </span>
+                                            </span>
+                                        }
+                                        <div class="option-item-details-container">
+                                            <span class="option-item-details">{{option.label}}</span>
+                                        </div>
+                                    </span>
+                                </a>
+                            } @else {
+                               <button class="option-item" [disabled]="option.disabled"  (click)="selectOption(listIndex, optionIndex)">
+                                    <span class="option-item-content">
+                                        @if(option.icon){
+                                            <span class="option-item-icon-container">
+                                                <span class="option-item-icon">
+                                                    <img [src]="'assets/icons/'+option.icon+'.svg'" alt="icon">
+                                                </span>
+                                            </span>
+                                        }
+                                        <div class="option-item-details-container">
+                                            <span class="option-item-details">{{option.label}}</span>
+                                        </div>
+                                    </span>
+                                </button>
+                            }
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</ng-template>

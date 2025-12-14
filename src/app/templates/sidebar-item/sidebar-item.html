@@ -35,7 +35,7 @@
                 @if(sideBarItemConfig.hoverTools){
                     <div class="sidebar-item-btn-icon2-container">
                         @for(tool of sideBarItemConfig.hoverTools;track $index){
-                            <div class="sidebar-item-icon2-box">
+                            <div class="sidebar-item-icon-btn-box" (click)="handleToolEvent(tool, $event)">
                                 <span class="sidebar-item-icon2-box2">
                                     <img [src]="'assets/icons/'+tool.icon+'.svg'" [alt]="tool.alt">
                                 </span>
@@ -47,7 +47,7 @@
         }
         @case ('modal') {
             <div class="sidebar-item-container">
-                <a  class="sidebar-item-link">
+                <a  class="sidebar-item-link" (click)="openOverlay('openModal')">
                     @if(!sideBarItemConfig.disableHoverAnimation){
                         <div class="horizontal-highlighter"></div>
                         <div class="horizontal-highlighter2"></div>
@@ -69,7 +69,7 @@
                 @if(sideBarItemConfig.hoverTools){
                     <div class="sidebar-item-btn-icon2-container">
                         @for(tool of sideBarItemConfig.hoverTools;track $index){
-                            <div class="sidebar-item-icon2-box">
+                            <div class="sidebar-item-icon2-box" (click)="handleToolEvent(tool, $event)">
                                 <span class="sidebar-item-icon2-box2">
                                     <img [src]="'assets/icons/'+tool.icon+'.svg'" [alt]="tool.alt">
                                 </span>
@@ -89,9 +89,6 @@
                     </div>
                 }
             </div>
-            @if(sideBarItemConfig.modalTemplateRef){
-                <div [appFloatingContainer]="sideBarItemConfig.modalTemplateRef"></div>
-            }
         }
         @case ('group') {
             <div>
@@ -113,9 +110,10 @@
                         </button>
                         <div class="sidebar-item-icon-container" (click)="opened=!opened">
                             <span class="sidebar-item-icon-box" [ngClass]="[opened?'opened':'']">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#292a2e">
+                                <!-- <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#292a2e">
                                     <path d="M400-280v-400l200 200-200 200Z"/>
-                                </svg>
+                                </svg> -->
+                                <img [src]="'assets/icons/arrowRightSmall.svg'" alt="icon">
                             </span>
                             <span class="sidebar-item-icon-box">
                                 <img [src]="'assets/icons/'+sideBarItemConfig.icon+'.svg'" alt="icon">
@@ -134,7 +132,7 @@
                                 </div>
                             }
                             @for(tool of sideBarItemConfig.hoverTools;track $index){
-                                <button class="sidebar-item-icon-btn-box">
+                                <button class="sidebar-item-icon-btn-box" (click)="handleToolEvent(tool, $event)">
                                     <span class="sidebar-item-icon-box">
                                         <img [src]="'assets/icons/'+tool.icon+'.svg'" [alt]="tool.alt">
                                     </span>
@@ -172,3 +170,50 @@
         }
     }
 }
+
+
+<ng-template #moreBtn let-optionLists="optionLists">
+    <div class="more-btn-wrapper">
+        <div class="more-btn-wrapper-2">
+            <div class="more-btn-content">
+                @for(list of optionLists;track $index){
+                    <div class="options-list" [ngClass]="[list.disabled ? 'disabled':'']">
+                        @for(option of list.options;track $index){
+                            @if(option.type=='link'){
+                                <a href="" class="option-item" [ngClass]="[option.disabled?'disabled':'']" [ariaDisabled]="option.disabled">
+                                    <span class="option-item-content">
+                                        @if(option.icon){
+                                            <span class="option-item-icon-container">
+                                                <span class="option-item-icon">
+                                                    <img [src]="'assets/icons/'+option.icon+'.svg'" alt="icon">
+                                                </span>
+                                            </span>
+                                        }
+                                        <div class="option-item-details-container">
+                                            <span class="option-item-details">{{option.label}}</span>
+                                        </div>
+                                    </span>
+                                </a>
+                            } @else {
+                               <button class="option-item" [disabled]="option.disabled">
+                                    <span class="option-item-content">
+                                        @if(option.icon){
+                                            <span class="option-item-icon-container">
+                                                <span class="option-item-icon">
+                                                    <img [src]="'assets/icons/'+option.icon+'.svg'" alt="icon">
+                                                </span>
+                                            </span>
+                                        }
+                                        <div class="option-item-details-container">
+                                            <span class="option-item-details">{{option.label}}</span>
+                                        </div>
+                                    </span>
+                                </button>
+                            }
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</ng-template>

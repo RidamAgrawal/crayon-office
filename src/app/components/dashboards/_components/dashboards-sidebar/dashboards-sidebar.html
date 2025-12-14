@@ -1,19 +1,55 @@
-@if(internalItems&&externalLinks&&customizeItem&&feedbackItem){
+<!-- @if(internalItems&&externalLinks&&customizeItem&&feedbackItem){ -->
     <nav class="sidebar-container">
         <!-- <div class="sidebar-container"> -->
             <div class="contents">
                 <div class="ctr1">
                     <div class="ctr2">
                         <div class="list">
-                            @for(item of internalItems;track $index){
-                            <sidebar-item [sideBarItemConfig]="item"></sidebar-item>
+                            @if(internalItems){
+                                @for(item of internalItems;track $index){
+                                <sidebar-item [sideBarItemConfig]="item"></sidebar-item>
+                                }
+                            } @else {
+                                <div class="list-placeholder-header"></div>
+                                <div class="list-item-placeholder">
+                                    <div class="list-item-placeholder-container">
+                                        <div class="list-item-icon-placeholder"></div>
+                                        <div class="list-item-details-placeholder"></div>
+                                    </div>
+                                    <div class="list-item-placeholder-container">
+                                        <div class="list-item-icon-placeholder"></div>
+                                        <div class="list-item-details-placeholder"></div>
+                                    </div>
+                                    <div class="list-item-placeholder-container">
+                                        <div class="list-item-icon-placeholder"></div>
+                                        <div class="list-item-details-placeholder"></div>
+                                    </div>
+                                </div>
                             }
                         </div>
                         <div class="sidebar-space"></div>
                         <div class="list">
+                        @if(externalLinks){
                             @for(item of externalLinks;track $index){
-                            <sidebar-item [sideBarItemConfig]="item"></sidebar-item>
+                                <sidebar-item [sideBarItemConfig]="item"></sidebar-item>
                             }
+                        } @else {
+                            <div class="list-placeholder-header"></div>
+                            <div class="list-item-placeholder">
+                                <div class="list-item-placeholder-container">
+                                    <div class="list-item-icon-placeholder"></div>
+                                    <div class="list-item-details-placeholder"></div>
+                                </div>
+                                <div class="list-item-placeholder-container">
+                                    <div class="list-item-icon-placeholder"></div>
+                                    <div class="list-item-details-placeholder"></div>
+                                </div>
+                                <div class="list-item-placeholder-container">
+                                    <div class="list-item-icon-placeholder"></div>
+                                    <div class="list-item-details-placeholder"></div>
+                                </div>
+                            </div>
+                        }
                         </div>
                         <div class="sidebar-space"></div>
                         <sidebar-item [sideBarItemConfig]="customizeItem"
@@ -26,11 +62,139 @@
             </div>
         <!-- </div> -->
     </nav>
-    <!-- <div>
-        <div class="slider-container">
-            <div class="slider">
-                <span></span>
+<!-- } -->
+
+<ng-template #recentTemplate>
+    <div class="recent-wrapper-1">
+        <div>
+            <!-- <div class="recent-placeholder-wrapper">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div class="sub-placeholders">
+                    <div class="sub-placeholder">
+                        <div class="sub-icon-placeholder"></div>
+                        <div class="sub-detail-placeholder"></div>
+                    </div>
+                    <div class="sub-placeholder">
+                        <div class="sub-icon-placeholder"></div>
+                        <div class="sub-detail-placeholder"></div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="recent-wrapper-2">
+                <div class="header-container">
+                    <h2 class="header-content">Recent</h2>
+                </div>
+                <div class="serach-control-container">
+                    <div class="search-control-wrapper">
+                        <div class="search-control">
+                            <div class="search-icon-container">
+                                <span class="search-icon">
+                                    <img src="assets/icons/search.svg" alt="search">
+                                </span>
+                            </div>
+                            <input type="text" class="control">
+                            <button class="clear-btn">
+                                <span class="clear-btn-container">
+                                    <span class="clear-btn-span">
+                                        <img src="assets/icons/close.svg" alt="close">
+                                    </span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="recent-lists">
+                    <p class="list-heading">More than a month</p>
+                    <div class="list-body">
+                        <div class="list-item">
+                            <div class="list-item-wrapper">
+                                <a href="#" class="list-item-details">
+                                    <div class="highlighter"></div>
+                                    <div class="text-content">
+                                        <div class="empty"></div>
+                                        <div class="text-rows">
+                                            <span class="text-row-1">SAMPLEPROJ BOARD</span>
+                                            <span class="text-row-2">24 days ago</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="list-item-icon">
+                                    <span class="list-item-icon-container">
+                                        <img src="assets/icons/close.svg" alt="dashboard">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="recents-divider">
+                <div class="list-body">
+                    <div class="list-item">
+                            <div class="list-item-wrapper">
+                                <a href="#" class="list-item-details">
+                                    <div class="highlighter"></div>
+                                    <div class="text-content">
+                                        <div class="empty"></div>
+                                        <div class="text-rows">
+                                            <span class="text-row-1">View all recent items</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="list-item-icon">
+                                    <span class="list-item-icon-container">
+                                        <img src="assets/icons/more2.svg" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                </div>
             </div>
         </div>
-    </div> -->
-}
+    </div>
+</ng-template>
+
+<!-- <ng-template #starredTemplate>
+    <div class="starred-wrapper-1">
+        <div>
+            <div class="starred-placeholder-wrapper">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div class="sub-placeholders">
+                    <div class="sub-placeholder">
+                        <div class="sub-icon-placeholder"></div>
+                        <div class="sub-detail-placeholder"></div>
+                    </div>
+                    <div class="sub-placeholder">
+                        <div class="sub-icon-placeholder"></div>
+                        <div class="sub-detail-placeholder"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #moreSpaceTemplate>
+    <div class="moreSpaces-wrapper-1">
+        <div>
+            <div class="moreSpaces-placeholder-wrapper">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div class="sub-placeholders">
+                    <div class="sub-placeholder">
+                        <div class="sub-icon-placeholder"></div>
+                        <div class="sub-detail-placeholder"></div>
+                    </div>
+                    <div class="sub-placeholder">
+                        <div class="sub-icon-placeholder"></div>
+                        <div class="sub-detail-placeholder"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template> -->

@@ -12,7 +12,7 @@
             "title": "Recent",
             "defaultTools": [
                 {
-                    "icon": "arrowRightSmall",
+                    "icon": "arrow-right",
                     "alt": "open"
                 }
             ],
@@ -24,7 +24,7 @@
             "title": "Starred",
             "defaultTools": [
                 {
-                    "icon": "arrowRightSmall",
+                    "icon": "arrow-right",
                     "alt": "open"
                 }
             ],
@@ -37,7 +37,38 @@
             "hoverTools": [
                 {
                     "icon": "more",
-                    "alt": "more"
+                    "alt": "more",
+                    "type": "options",
+                    "optionLists": [
+                        {
+                            "options": [
+                                {
+                                    "type": "link",
+                                    "icon": "settings",
+                                    "label": "Manage apps"
+                                },
+                                {
+                                    "type": "link",
+                                    "icon": "settings",
+                                    "label": "App audit logs"
+                                },
+                                {
+                                    "type": "link",
+                                    "icon": "settings",
+                                    "label": "View app requests"
+                                }
+                            ]
+                        },
+                        {
+                            "options": [
+                                {
+                                    "type": "button",
+                                    "icon": "bellicon",
+                                    "label": "Hide from sidebar"
+                                }
+                            ]
+                        }
+                    ]
                 }
             ],
             "icon": "apps",
@@ -55,6 +86,12 @@
             "type": "link",
             "title": "Plans",
             "hasTools": true,
+            "defaultTools": [
+                {
+                    "icon": "arrow-right",
+                    "alt": "open"
+                }
+            ],
             "icon": "plans",
             "visible": true
         },
@@ -68,7 +105,33 @@
                 },
                 {
                     "icon": "more",
-                    "alt": "more"
+                    "alt": "more",
+                    "type": "options",
+                    "optionLists": [
+                        {
+                            "options": [
+                                {
+                                    "type": "link",
+                                    "icon": "settings",
+                                    "label": "Manage spaces"
+                                }
+                            ]
+                        },
+                        {
+                            "options": [
+                                {
+                                    "type": "button",
+                                    "icon": "bellicon",
+                                    "label": "Change View"
+                                },
+                                {
+                                    "type": "button",
+                                    "icon": "bellicon",
+                                    "label": "Hide from sidebar"
+                                }
+                            ]
+                        }
+                    ]
                 }
             ],
             "icon": "spaces",
@@ -83,7 +146,53 @@
                             "hoverTools": [
                                 {
                                     "icon": "more",
-                                    "alt": "more"
+                                    "alt": "more",
+                                    "type": "options",
+                                    "optionLists": [
+                                        {
+                                            "options": [
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Add to starred"
+                                                },
+                                                {
+                                                    "type": "link",
+                                                    "icon": "foryou",
+                                                    "label": "Add people"
+                                                },
+                                                {
+                                                    "type": "link",
+                                                    "icon": "dashboards2",
+                                                    "label": "Save as template"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "options": [
+                                                {
+                                                    "type": "button",
+                                                    "icon": "bellicon",
+                                                    "label": "Archive space"
+                                                },
+                                                {
+                                                    "type": "button",
+                                                    "icon": "bellicon",
+                                                    "label": "Delete space"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "options": [
+                                                {
+                                                    "type": "button",
+                                                    "icon": "bellicon",
+                                                    "label": "Archive space"
+                                                }
+                                            ],
+                                            "disabled": true
+                                        }
+                                    ]
                                 }
                             ],
                             "icon": "projects",
@@ -94,7 +203,7 @@
                             "title": "More spaces",
                             "defaultTools": [
                                 {
-                                    "icon": "arrowRightSmall",
+                                    "icon": "arrow-right",
                                     "alt": "open"
                                 }
                             ],
@@ -112,18 +221,33 @@
                             "hoverTools": [
                                 {
                                     "icon": "more",
-                                    "alt": "more"
+                                    "alt": "more",
+                                    "type": "options",
+                                    "optionLists": [
+                                        {
+                                            "options": [
+                                                {
+                                                    "type": "link",
+                                                    "label": "Not intersted"
+                                                },
+                                                {
+                                                    "type": "link",
+                                                    "label": "Why i am seeing this?"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 }
                             ],
                             "icon": "roadmap",
                             "visible": true
                         },
                         {
-                            "type": "modal",
+                            "type": "link",
                             "title": "Browse templates",
                             "defaultTools": [
                                 {
-                                    "icon": "arrowRightSmall",
+                                    "icon": "arrow-right",
                                     "alt": "open"
                                 }
                             ],
@@ -140,7 +264,19 @@
             "hoverTools": [
                 {
                     "icon": "more",
-                    "alt": "more"
+                    "alt": "more",
+                    "type": "options",
+                    "optionLists": [
+                        {
+                            "options": [
+                                {
+                                    "type": "button",
+                                    "icon": "bellicon",
+                                    "label": "Hide from sidebar"
+                                }
+                            ]
+                        }
+                    ]
                 }
             ],
             "icon": "filterList",
@@ -157,7 +293,7 @@
                     "type": "group",
                     "title": "Default Filters",
                     "hasTools": false,
-                    "icon": "arrowRightBig",
+                    "icon": "arrow-right",
                     "list": [
                         {
                             "type": "link",
@@ -167,7 +303,24 @@
                             "hoverTools": [
                                 {
                                     "icon": "more",
-                                    "alt": "more"
+                                    "alt": "more",
+                                    "type": "options",
+                                    "optionLists": [
+                                        {
+                                            "options": [
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Add to starred"
+                                                },
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Copy filter"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 }
                             ],
                             "visible": true
@@ -180,7 +333,24 @@
                             "hoverTools": [
                                 {
                                     "icon": "more",
-                                    "alt": "more"
+                                    "alt": "more",
+                                    "type": "options",
+                                    "optionLists": [
+                                        {
+                                            "options": [
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Add to starred"
+                                                },
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Copy filter"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 }
                             ],
                             "visible": true
@@ -193,7 +363,24 @@
                             "hoverTools": [
                                 {
                                     "icon": "more",
-                                    "alt": "more"
+                                    "alt": "more",
+                                    "type": "options",
+                                    "optionLists": [
+                                        {
+                                            "options": [
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Add to starred"
+                                                },
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Copy filter"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 }
                             ],
                             "visible": true
@@ -206,7 +393,24 @@
                             "hoverTools": [
                                 {
                                     "icon": "more",
-                                    "alt": "more"
+                                    "alt": "more",
+                                    "type": "options",
+                                    "optionLists": [
+                                        {
+                                            "options": [
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Add to starred"
+                                                },
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Copy filter"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 }
                             ],
                             "visible": true
@@ -219,7 +423,24 @@
                             "hoverTools": [
                                 {
                                     "icon": "more",
-                                    "alt": "more"
+                                    "alt": "more",
+                                    "type": "options",
+                                    "optionLists": [
+                                        {
+                                            "options": [
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Add to starred"
+                                                },
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Copy filter"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 }
                             ],
                             "visible": true
@@ -232,7 +453,24 @@
                             "hoverTools": [
                                 {
                                     "icon": "more",
-                                    "alt": "more"
+                                    "alt": "more",
+                                    "type": "options",
+                                    "optionLists": [
+                                        {
+                                            "options": [
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Add to starred"
+                                                },
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Copy filter"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 }
                             ],
                             "visible": true
@@ -245,7 +483,24 @@
                             "hoverTools": [
                                 {
                                     "icon": "more",
-                                    "alt": "more"
+                                    "alt": "more",
+                                    "type": "options",
+                                    "optionLists": [
+                                        {
+                                            "options": [
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Add to starred"
+                                                },
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Copy filter"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 }
                             ],
                             "visible": true
@@ -258,7 +513,24 @@
                             "hoverTools": [
                                 {
                                     "icon": "more",
-                                    "alt": "more"
+                                    "alt": "more",
+                                    "type": "options",
+                                    "optionLists": [
+                                        {
+                                            "options": [
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Add to starred"
+                                                },
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Copy filter"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 }
                             ],
                             "visible": true
@@ -271,7 +543,24 @@
                             "hoverTools": [
                                 {
                                     "icon": "more",
-                                    "alt": "more"
+                                    "alt": "more",
+                                    "type": "options",
+                                    "optionLists": [
+                                        {
+                                            "options": [
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Add to starred"
+                                                },
+                                                {
+                                                    "type": "link",
+                                                    "icon": "bellicon",
+                                                    "label": "Copy filter"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 }
                             ],
                             "visible": true
@@ -298,7 +587,19 @@
                 },
                 {
                     "icon": "more",
-                    "alt": "more"
+                    "alt": "more",
+                    "type": "options",
+                    "optionLists": [
+                        {
+                            "options": [
+                                {
+                                    "type": "button",
+                                    "icon": "bellicon",
+                                    "label": "Hide from sidebar"
+                                }
+                            ]
+                        }
+                    ]
                 }
             ],
             "icon": "dashboards",
@@ -331,10 +632,68 @@
                     "visible": true
                 },
                 {
-                    "type": "link",
+                    "type": "group",
                     "title": "Alerts",
                     "icon": "alerts",
-                    "visible": true
+                    "visible": true,
+                    "list": [
+                        {
+                            "type": "group",
+                            "title": "Default Filters",
+                            "icon": "arrow-right",
+                            "visible": true,
+                            "list": [
+                                {
+                                    "type": "link",
+                                    "title": "All",
+                                    "icon": "docs",
+                                    "visible": true
+                                },
+                                {
+                                    "type": "link",
+                                    "title": "Open",
+                                    "icon": "docs",
+                                    "visible": true
+                                },
+                                {
+                                    "type": "link",
+                                    "title": "Closed",
+                                    "icon": "docs",
+                                    "visible": true
+                                },
+                                {
+                                    "type": "link",
+                                    "title": "Unacknowledged",
+                                    "icon": "docs",
+                                    "visible": true
+                                },
+                                {
+                                    "type": "link",
+                                    "title": "Not seen",
+                                    "icon": "docs",
+                                    "visible": true
+                                },
+                                {
+                                    "type": "link",
+                                    "title": "Assigned to me",
+                                    "icon": "docs",
+                                    "visible": true
+                                }
+                            ]
+                        },
+                        {
+                            "type": "modal",
+                            "title": "View all",
+                            "icon": "more2",
+                            "visible": true,
+                            "defaultTools": [
+                                {
+                                    "icon": "arrow-right",
+                                    "alt": "open"
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     "type": "link",
@@ -352,7 +711,28 @@
             "hoverTools": [
                 {
                     "icon": "more",
-                    "alt": "more"
+                    "alt": "more",
+                    "type": "options",
+                    "optionLists": [
+                        {
+                            "options": [
+                                {
+                                    "type": "link",
+                                    "icon": "bellicon",
+                                    "label": "General configuration"
+                                }
+                            ]
+                        },
+                        {
+                            "options": [
+                                {
+                                    "type": "button",
+                                    "icon": "bellicon",
+                                    "label": "Hide from sidebar"
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         }
@@ -397,7 +777,22 @@
             "hoverTools": [
                 {
                     "icon": "add1",
-                    "alt": "add"
+                    "alt": "add",
+                    "type": "options",
+                    "optionLists": [
+                        {
+                            "options": [
+                                {
+                                    "type": "button",
+                                    "label": "Invite people"
+                                },
+                                {
+                                    "type": "button",
+                                    "label": "Create a team"
+                                }
+                            ]
+                        }
+                    ]                    
                 }
             ],
             "disableHoverAnimation": true,
@@ -412,10 +807,10 @@
         "visible": true
     },
     "feedback": {
-    "type": "modal",
-    "title": "Give feedback on the new navigation",
-    "icon": "feedback",
-    "disableHoverAnimation": true,
-    "visible": true
+        "type": "modal",
+        "title": "Give feedback on the new navigation",
+        "icon": "feedback",
+        "disableHoverAnimation": true,
+        "visible": true
     }
 }

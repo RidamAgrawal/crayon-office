@@ -35,11 +35,21 @@ export class FeedbackSidebar {
   }
   public multiSelectConfig = {
     placeholder: 'Choose one',
-    options: ['Ask a question', 'Leave a comment', 'Report a bug', 'Suggest an improvement'],
+    optionLists: [
+      {
+        options: [
+          {label:'Ask a question'},
+          {label:'Leave a comment'},
+          {label:'Report a bug'},
+          {label:'Suggest an improvement'},
+        ],
+        heading: null
+      }
+    ],
     isMultiSelect: false
   }
   public onSelect(selected: any) {
-    let feedbackOptionIndex = this.multiSelectConfig.options.indexOf(selected);
+    let feedbackOptionIndex = this.multiSelectConfig.optionLists[0].options.findIndex((option: any)=>option.label===selected);
     if (!selected || feedbackOptionIndex == -1) {
       this.feedbackTypeControl?.setValue(null);
       this.feedbackFormGroup.get('feedbackText')?.setValue(null);

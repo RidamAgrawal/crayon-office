@@ -1,0 +1,98 @@
+
+.toggle-switch,
+:host {
+    box-sizing: initial;
+    position: relative;
+    background-color: var(--toggle-background);
+    background-clip: content-box;
+    width: 2rem;
+    color: #fff;
+    padding: .125rem;
+    height: 1rem;
+    margin-inline: .125rem;
+    margin-block: .125rem;
+    display: inline-block;
+    border: .125rem solid #0000;
+    border-radius: 1rem;
+    transition: transform .2s ease;
+    cursor: default;
+}
+.toggle-switch:hover,
+:host:hover {
+    background-color: var(--toggle-background-hover);
+}
+.toggle-switch::before,
+:host::before {
+    position: absolute;
+    width: .75rem;
+    height: .75rem;
+    transform: none;
+    inset-inline-start: .25rem;
+    inset-block-end: .25rem;
+    content:'';
+    background-color: #fff;
+    transition: transform .2s ease;
+    border-radius: 50%;
+
+}
+.toggle-switch.checked,
+:host {
+    background-color: var(--toggle-background);
+}
+.toggle-switch.checked:hover,
+:host:hover {
+    background-color: var(--toggle-background-hover);
+}
+.toggle-switch.checked::before,
+:host::before {
+    transform: var(--toggle-translate);
+}
+.toggle-input {
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+}
+.toggle-on {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    inset-inline-start: 3px;
+    inset-block-start: 2px;
+    width: 1rem;
+    height: 1rem;
+    display: inline-flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    transition: opacity .2s ease;
+}
+.toggle-off {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    inset-inline-end: 3px;
+    inset-block-start: 2px;
+    width: 1rem;
+    height: 1rem;
+    display: inline-flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    transition: opacity .2s ease;
+}
+.toggle-on .icon-container ,
+.toggle-off .icon-container {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: currentColor;
+    box-sizing: border-box;
+    line-height: .75rem;
+    display: inline-block;
+    flex-shrink: 0;
+}
+.toggle-on .icon-container {
+
+}

@@ -21,9 +21,21 @@ export enum LAST_UPDATED {
   styleUrl: './jira-tab.scss'
 })
 export class JiraTab {
-  lastUpdatedOptions = Object.entries(LAST_UPDATED);
-  status = ['done','open'];
-  filterFormGroup!: FormGroup;
+  public lastUpdatedOptions = Object.entries(LAST_UPDATED);
+  public status = ['done','open'];
+  public filterFormGroup!: FormGroup;
+  public labelFilterConfig = {
+    placeholder:'Choose one',
+    optionLists: [
+      {
+        options: [
+          {label: 'label 1'},
+          {label: 'label 2'}
+        ],
+        heading: 'All labels'
+      }
+    ]
+  }
   constructor(private formBuilder: FormBuilder){}
   ngOnInit(){
     this.filterFormGroup = this.formBuilder.group({

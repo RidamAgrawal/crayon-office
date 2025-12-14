@@ -19,6 +19,7 @@ import { MultiSelect } from '../../templates/multi-select/multi-select';
 import { ResizableDirective } from "../../directives/resizable-directive/resizable-directive";
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MenuLinkItem } from '../../templates/menu-link-item/menu-link-item';
+import { ToggleBtn } from '../../templates/toggle-btn/toggle-btn';
 
 const dashboardRoutes: Routes =[
   {
@@ -61,6 +62,7 @@ const dashboardRoutes: Routes =[
     MenuLinkItem,
     Checkbox,
     MultiSelect,
+    ToggleBtn,
     ResizableDirective,
     OverlayModule
 ],

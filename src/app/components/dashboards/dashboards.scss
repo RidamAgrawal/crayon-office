@@ -54,7 +54,7 @@ app-dashboards-header {
 app-dashboards-sidebar {
     grid-area: var(--sidebar-grid-area, sidebar);
     border-inline-end: 1px solid #0B120E24;
-    box-shadow: var(--sidebar-box-shadow, none);
+    box-shadow: 0px 8px 12px #1E1F2126, 0px 0px 1px #1E1F214F;
     width: clamp(240px, 240px, 50vw);
     position: -webkit-sticky;
     position: sticky;

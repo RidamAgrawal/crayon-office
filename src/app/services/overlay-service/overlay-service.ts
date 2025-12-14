@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 export interface AppOverlayConfig {
   component?: Type<any>;
   template?: TemplateRef<any>;
+  context?: any;
   viewContainerRef?: ViewContainerRef;
   data?: any;
   config?: OverlayConfig;
@@ -13,6 +14,10 @@ export interface AppOverlayConfig {
   positions?: ConnectedPosition[];
   componentInputs?: any;
   componentOutputs?: any;
+  closeOnBackdropClick?: boolean;
+  backdropClass?: string | string[];
+  hasBackdrop?: boolean;
+  matchWidth?: boolean;
 }
 
 
@@ -32,6 +37,7 @@ export class OverlayService {
   public open(options: AppOverlayConfig): OverlayRef {
 
     let positionStrategy: PositionStrategy;
+    let width: number | undefined;
 
     if (options.connectedTo) {
       positionStrategy = this.overlay.position()
@@ -45,21 +51,30 @@ export class OverlayService {
         .centerVertically()
     }
 
+    if(options.matchWidth && options.connectedTo){
+      width = (options.connectedTo.nativeElement as HTMLElement)?.getBoundingClientRect()?.width;
+    }
+
     const defaultConfig: OverlayConfig = new OverlayConfig({
       positionStrategy,
+      width,
+      hasBackdrop: options.hasBackdrop?? false,
+      backdropClass: options.backdropClass,
       ...options.config
     });
 
     const overlayConfig = { ...defaultConfig, ...(options.config || {}) };
     this.overlayRef = this.overlay.create(overlayConfig);
 
-    // this.overlayRef.backdropClick().subscribe(() => this.close());
+    if(options.closeOnBackdropClick){
+      this.overlayRef.backdropClick().subscribe(() => this.close());
+    }
 
     if (options.template) {
       if (!options.viewContainerRef) {
         throw new Error('viewContainerRef is required when using Template');
       }
-      const templatePortal = new TemplatePortal(options.template, options.viewContainerRef);
+      const templatePortal = new TemplatePortal(options.template, options.viewContainerRef, options.context);
       this.overlayRef.attach(templatePortal);
       this.outsideClickSubscription = this.overlayRef.
         _outsidePointerEvents

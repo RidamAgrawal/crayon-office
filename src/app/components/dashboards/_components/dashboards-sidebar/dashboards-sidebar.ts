@@ -1,6 +1,5 @@
 
 import { ChangeDetectorRef, Component, TemplateRef, ViewChild } from '@angular/core';
-import { ModalService } from '../../../../services/modal-service/modal-service';
 import { HttpService } from '../../../../services/http-service/http-service';
 import { TemplateService } from '../../../../services/template-service/template-service';
 import { Observable } from 'rxjs';
@@ -12,6 +11,7 @@ export interface CustomizeModalConfig {
   templateRef?: TemplateRef<any> | null;
   componentRef?: any;
   inputs?: Record<string, any> | null;
+  componentOutputs?: Record<string, (data: any) => void>;
 }
 
 @Component({
@@ -21,27 +21,30 @@ export interface CustomizeModalConfig {
   styleUrl: './dashboards-sidebar.scss'
 })
 export class DashboardsSidebar {
-  @ViewChild('customizeModal', { read: TemplateRef, static: true }) customizeModalTemplate!: TemplateRef<any>;
-  public internalItems: any = [];
-  public externalLinks: any = [];
-  public customizeItem: any = { visible: true, disableHoverAnimation: true };
-  public feedbackItem: any = { visible: true, disableHoverAnimation: true };
-  public customizeModalConfig: CustomizeModalConfig = {
-    isComponent: true
+  @ViewChild('recentTemplate', { read: TemplateRef, static: true }) recentTemplate!: TemplateRef<any>;
+
+  public internalItems!: any[];
+  public externalLinks!: any[];
+  public customizeItem: any = { visible: true, disableHoverAnimation: true};
+  public feedbackItem: any = { visible: true, disableHoverAnimation: true};
+  public customizeModalConfig: AppOverlayConfig = {
+    componentOutputs: { saveChanges: (data: any) => this.onCustomizedChanges(data) },
+    hasBackdrop: true,
+    closeOnBackdropClick: true 
   };
-  public feedbackModalConfig: CustomizeModalConfig = {
-    isComponent: true
-  }
+  public feedbackModalConfig: AppOverlayConfig = {
+   componentOutputs: { sendFeedback: (data: any) => this.onSendFeedback(data) },
+   hasBackdrop: true, 
+  };
   public subscriptions!: Observable<any>[];
   constructor(
     private httpService: HttpService,
-    private modalService: ModalService,
     private templateService: TemplateService,
     private cdr: ChangeDetectorRef,
     private overlayService: OverlayService
   ) {
-    this.customizeModalConfig.componentRef = this.templateService.templates['customize-sidebar'];
-    this.feedbackModalConfig.componentRef = this.templateService.templates['feedback-sidebar'];
+    this.customizeModalConfig.component = this.templateService.templates['customize-sidebar'];
+    this.feedbackModalConfig.component = this.templateService.templates['feedback-sidebar'];
   }
   ngOnInit() {
     this.httpService.getSidebarItemConfig()
@@ -50,41 +53,52 @@ export class DashboardsSidebar {
         this.externalLinks = res.externalLinks;
         this.customizeItem = res.customizeSidebar;
         this.feedbackItem = res.feedback;
+        this.assignTemplateRefs();
         this.cdr.detectChanges();
-        this.customizeModalConfig.inputs = {
-          'internalItems': structuredClone(this.internalItems),
-          'externalLinks': structuredClone(this.externalLinks)
-        }
+        // this.customizeModalConfig.inputs = {
+        //   'internalItems': structuredClone(this.internalItems),
+        //   'externalLinks': structuredClone(this.externalLinks)
+        // }
       })
   }
-  public openModal(modalConfig: any) {
-    // this.modalService.openDashboardModal(modalConfig)
-    //   .subscribe((output) => {
-    //     if (output.eventName === 'saveChanges') {
-    //       this.onCustomizedChanges(output.data);
-    //     }
-    //     if (output.eventName === 'sendFeedback') {
-    //       this.onSendFeedback(output.data);
-    //     }
-    //   });
-    const overlayConfig: AppOverlayConfig = {
-      component: modalConfig.componentRef,
-      componentInputs: modalConfig.inputs,
-      componentOutputs: {
-        saveChanges: (data: any) => this.onCustomizedChanges(data),
-        sendFeedback: (data: any) => this.onSendFeedback(data),
-      }
-    }
-    this.overlayService.open(overlayConfig); //overlayService is undefined
+  public openModal(modalConfig: AppOverlayConfig) {
+    this.overlayService.open(modalConfig);
   }
   public onCustomizedChanges(data: any) {
-    this.externalLinks = structuredClone(data.externalLinks);
-    this.internalItems = structuredClone(data.internalItems);
+    // this.externalLinks = structuredClone(data.externalLinks);
+    // this.internalItems = structuredClone(data.internalItems);
     this.overlayService.close(); //overlayService is not defined
   }
-  public onSendFeedback(data: any){
-    console.log('will call api here and payload data: ',data);
+  public onSendFeedback(data: any) {
+    console.log('will call api here and payload data: ', data);
     this.overlayService.close();
+  }
+  public assignTemplateRefs() {
+    const recursivelyIterateItems = (items: any[]) => {
+      items.forEach((item: any) => {
+        item.actionEventHandler = (action: any) => this.handleActionEvent(action);
+        if (item.list) {
+          recursivelyIterateItems(item.list);
+        }
+        else if (item?.multipleLists?.length) {
+          item.multipleLists.forEach((list: any) => {
+            recursivelyIterateItems(list.list);
+          })
+        }
+      })
+    }
+    recursivelyIterateItems(this.internalItems);
+  }
+  public handleActionEvent(action: any) {
+    const overlayConfig: AppOverlayConfig = {
+      template: this.recentTemplate,
+      connectedTo: action.connectedTo,
+      viewContainerRef: action.viewContainerRef,
+      positions: [
+        { originX: 'end', originY: 'top', overlayX: 'start', overlayY: 'top' }
+      ]
+    }
+    this.overlayService.open(overlayConfig);
   }
   public ngOnDestroy() {
 

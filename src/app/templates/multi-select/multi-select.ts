@@ -1,23 +1,50 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, ElementRef, EventEmitter, Input, Output, signal, ViewChild, WritableSignal } from '@angular/core';
-import { ClickOutside } from "../../directives/click-outside";
+import { Component, ElementRef, EventEmitter, Input, Output, signal, TemplateRef, ViewChild, ViewContainerRef, WritableSignal } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FloatingContainerDirective } from "../../directives/floating-container/floating-container";
+import { OverlayService } from '../../services/overlay-service/overlay-service';
+import { OverlayRef } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-multi-select',
-  imports: [CommonModule, ReactiveFormsModule, ClickOutside, FloatingContainerDirective],
+  imports: [CommonModule, ReactiveFormsModule],
+  providers: [OverlayService],
   templateUrl: './multi-select.html',
   styleUrl: './multi-select.scss'
 })
 export class MultiSelect {
-  public focused: WritableSignal<boolean> = signal(false);
-  public showOptions: WritableSignal<boolean> = signal(false);
   public hoveredOption: WritableSignal<number> = signal(0);
   @ViewChild('input', { static: true }) public inputElRef!: ElementRef<HTMLInputElement>;
+  @ViewChild('optionContainer', { static: true }) public optionTemplateRef!: TemplateRef<any>;
   @Input() config: any = {
     placeholder: 'Select label',
-    options: ['lab 1', 'lab 2', 'lab 3', 'lab 4', 'lab 1', 'lab 2', 'lab 3', 'lab 4', 'lab 1', 'lab 2', 'lab 3', 'lab 4', 'lab 1', 'lab 2', 'lab 3', 'lab 4', 'lab 1', 'lab 2', 'lab 3', 'lab 4'],
+    optionLists: [
+      {
+        heading: "All labels",
+        options: [
+          {
+            label: "label 1",
+            type: 'button'
+          },
+          {
+            label: "label 2",
+            type: 'button'
+          }
+        ]
+      },
+      {
+        heading: "More labels",
+        options: [
+          {
+            label: "label 3",
+            type: 'button'
+          },
+          {
+            label: "label 4",
+            type: 'button'
+          }
+        ]
+      }
+    ],
     isMultiSelect: true
   }
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();
@@ -25,69 +52,51 @@ export class MultiSelect {
 
   public unselectedOptionsIndex: number[] = [];
   public selectedOptionsIndex: number[] = [];
-  constructor(private fb: FormBuilder) {
+
+  public optionsOverlayRef: OverlayRef | null = null;
+  constructor(
+    private fb: FormBuilder,
+    private viewContainerRef: ViewContainerRef,
+    private elementRef: ElementRef,
+    private overlayService: OverlayService
+  ) {
     this.inputControl = this.fb.control('');
-    this.unselectedOptionsIndex = (this.config.options as string[]).map((value: string, index: number) => index);
   }
 
   public focusIn() {
-    if (!this.focused()) {
-      this.focused.set(true);
-      this.showOptions.set(true);
-      this.inputElRef.nativeElement.focus();
-    }
+    this.inputElRef.nativeElement.focus();
+    this.optionsOverlayRef = this.overlayService.open({
+      template: this.optionTemplateRef,
+      connectedTo: this.elementRef,
+      context: { optionLists: this.config.optionLists },
+      positions: [
+        {
+          originX: 'start', overlayX: 'start', originY: 'bottom', overlayY: 'top', offsetY: 8
+        },
+        {
+          originX: 'start', overlayX: 'start', originY: 'top', overlayY: 'bottom', offsetY: -8
+        }
+      ],
+      viewContainerRef: this.viewContainerRef,
+      matchWidth: true
+    });
   }
   public focusOut() {
-    this.focused.set(false);
-    this.showOptions.set(false);
+    this.overlayService.close();
   }
-  public inputSpace(event: KeyboardEvent) {
-    const value = (event.target as HTMLInputElement).value;
-    console.log(event.key);
-    switch (event.key) {
-      case ' ':
-        if (value == ' ') {
-          if (!this.showOptions()) {
-            this.showOptions.set(true);
-          }
-          else {
-            this.selectOption(this.hoveredOption());
-          }
-          event.preventDefault();
-        }
-        break;
-      case 'Enter':
-        if (this.showOptions()) {
-          this.selectOption(this.hoveredOption());
-        }
-        event.preventDefault();
-        break;
-      case 'ArrowUp':
-        this.hoveredOption.update(val => val + 1);
-        break;
-      case 'ArrowDown':
-        this.hoveredOption.update(val => val - 1);
-        break;
-    }
-  }
+
   public toggleOptions() {
-    this.showOptions.set(!this.showOptions());
-    if (this.showOptions()) {
-      this.inputElRef.nativeElement.focus();
-    }
+    this.optionsOverlayRef?.detach();
   }
-  public selectOption(index: number) {
+  public selectOption(listIndex: number, optionIndex: number) {
     if (!this.config.isMultiSelect) {
       if (this.selectedOptionsIndex.length) {
         this.unselectedOptionsIndex.push(this.selectedOptionsIndex[0]);
         this.selectedOptionsIndex.pop();
       }
-      this.selectedOptionsIndex.push(index);
       this.focusOut();
     }
     else {
-      this.selectedOptionsIndex.push(index);
-      this.unselectedOptionsIndex = this.unselectedOptionsIndex.filter(ind => ind !== index);
     }
     this.emitChange();
   }
@@ -103,16 +112,13 @@ export class MultiSelect {
     this.selectedOptionsIndex = [];
     this.emitChange();
   }
-  public isDisplayOptions(): boolean {
-    return this.showOptions() && this.unselectedOptionsIndex.length > 0;
-  }
-  public emitChange(){
+  public emitChange() {
     this.selected.emit(
       this.selectedOptionsIndex.length
-      ? !this.config.isMultiSelect
-      ? this.selectedOptionsIndex.map((index: number) => this.config.options[index])[0]
-      : this.selectedOptionsIndex.map((index: number) => this.config.options[index])
-      : null
+        ? !this.config.isMultiSelect
+          ? this.selectedOptionsIndex.map((index: number) => this.config.options[index])[0]
+          : this.selectedOptionsIndex.map((index: number) => this.config.options[index])
+        : null
     );
   }
 }
