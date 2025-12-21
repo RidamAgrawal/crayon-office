@@ -53,30 +53,42 @@ export class DashboardsSidebar {
         this.externalLinks = res.externalLinks;
         this.customizeItem = res.customizeSidebar;
         this.feedbackItem = res.feedback;
-        this.assignTemplateRefs();
+        this.subscribeToolsActions();
         this.cdr.detectChanges();
-        // this.customizeModalConfig.inputs = {
-        //   'internalItems': structuredClone(this.internalItems),
-        //   'externalLinks': structuredClone(this.externalLinks)
-        // }
       })
   }
   public openModal(modalConfig: AppOverlayConfig) {
+    if (modalConfig.closeOnBackdropClick) {
+      this.prepareCustomizeModalInputs();
+    }
     this.overlayService.open(modalConfig);
   }
   public onCustomizedChanges(data: any) {
-    // this.externalLinks = structuredClone(data.externalLinks);
-    // this.internalItems = structuredClone(data.internalItems);
+    if(data) {
+      const oldIternalItems = this.internalItems;
+      this.internalItems = data.internalItems.map((item: any)=>{
+        const targetItem = oldIternalItems.find(oldItem=>oldItem.title==item.title);
+        targetItem.visible = item.visible;
+        return targetItem;
+      });
+      const oldExternalLinks = this.externalLinks;
+      this.externalLinks = data.externalLinks.map((item: any)=>{
+        const targetItem = oldExternalLinks.find(oldItem=>oldItem.title==item.title);
+        targetItem.visible = item.visible;
+        return targetItem;
+      });
+      this.cdr.detectChanges();
+    }
     this.overlayService.close(); //overlayService is not defined
   }
   public onSendFeedback(data: any) {
     console.log('will call api here and payload data: ', data);
     this.overlayService.close();
   }
-  public assignTemplateRefs() {
+  public subscribeToolsActions() {
     const recursivelyIterateItems = (items: any[]) => {
       items.forEach((item: any) => {
-        item.actionEventHandler = (action: any) => this.handleActionEvent(action);
+        item.actionEventHandler = (item: any,action: any) => this.handleActionEvent(item, action);
         if (item.list) {
           recursivelyIterateItems(item.list);
         }
@@ -89,16 +101,40 @@ export class DashboardsSidebar {
     }
     recursivelyIterateItems(this.internalItems);
   }
-  public handleActionEvent(action: any) {
-    const overlayConfig: AppOverlayConfig = {
-      template: this.recentTemplate,
-      connectedTo: action.connectedTo,
-      viewContainerRef: action.viewContainerRef,
-      positions: [
-        { originX: 'end', originY: 'top', overlayX: 'start', overlayY: 'top' }
-      ]
+  public handleActionEvent(item: any,action: any) {
+    switch (action.id) {
+      case 'modal':
+        if (action.viewContainerRef) {
+          this.overlayService.open({
+            template: this.recentTemplate,
+            connectedTo: action.connectedTo,
+            viewContainerRef: action.viewContainerRef,
+            positions: [
+              {
+                originX: 'end',originY: 'top',overlayX: 'start',overlayY: 'top',
+              },
+            ],
+          });
+        }
+        break;
+      case 'hide':
+        item.visible = false;
+        action.label = 'Show item in sidebar';
+        action.icon = action.id = 'show';
+        break;
+      case 'show':
+        item.visible = true;
+        action.label = 'Hide item from sidebar';
+        action.icon = action.id = 'hide';
+        break;
     }
-    this.overlayService.open(overlayConfig);
+    this.cdr.detectChanges();
+  }
+  public prepareCustomizeModalInputs() {
+    this.customizeModalConfig.componentInputs = {
+      internalItems: this.internalItems.map( (item: any) => { return {visible: item.visible, title: item.title, icon: item.icon, contentOutside: true} }),
+      externalLinks: this.externalLinks.map( (item: any) => { return {visible: item.visible, title: item.title, icon: item.icon, contentOutside: true} })
+    };
   }
   public ngOnDestroy() {
 

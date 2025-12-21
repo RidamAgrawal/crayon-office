@@ -11,7 +11,7 @@ import { TabComponent } from './_components/tabs/tabs';
 import { FloatingContainerDirective } from "../../directives/floating-container/floating-container";
 import { SidebarItem } from '../../templates/sidebar-item/sidebar-item';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Checkbox } from '../../templates/checkbox/checkbox/checkbox';
+import { Checkbox } from '../../templates/checkbox/checkbox';
 import { DashboardsSidebar } from './_components/dashboards-sidebar/dashboards-sidebar';
 import { CustomizeSidebar } from './_components/dashboards-sidebar/_components/customize-sidebar/customize-sidebar';
 import { FeedbackSidebar } from './_components/dashboards-sidebar/_components/feedback-sidebar/feedback-sidebar';
@@ -20,6 +20,7 @@ import { ResizableDirective } from "../../directives/resizable-directive/resizab
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MenuLinkItem } from '../../templates/menu-link-item/menu-link-item';
 import { ToggleBtn } from '../../templates/toggle-btn/toggle-btn';
+import { TooltipDirective } from "../../directives/tooltip-directive/tooltip-directive";
 
 const dashboardRoutes: Routes =[
   {
@@ -64,7 +65,8 @@ const dashboardRoutes: Routes =[
     MultiSelect,
     ToggleBtn,
     ResizableDirective,
-    OverlayModule
+    OverlayModule,
+    TooltipDirective
 ],
   providers:[
     provideRouter(dashboardRoutes)

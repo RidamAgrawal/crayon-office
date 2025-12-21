@@ -5,7 +5,10 @@ import { Component, ElementRef } from '@angular/core';
   standalone: false,
   templateUrl: './icon-container.html',
   styleUrl: './icon-container.scss',
-  exportAs: 'elementRef'
+  exportAs: 'elementRef',
+  host: {
+    '[attr.tabindex]': '0'
+  }
 })
 export class IconContainer {
 

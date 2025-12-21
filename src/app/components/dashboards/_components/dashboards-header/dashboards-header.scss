@@ -351,6 +351,8 @@ app-dashboard-search-bar {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    align-items: center;
+    justify-content: center;
 }
 .avatar-icon {
     height: 20px;
@@ -692,4 +694,508 @@ app-dashboard-search-bar {
     border-radius: var(--ds-radius-small, 3px);
     background-color: var(--ds-background-neutral, #F4F5F7);
     margin-bottom: 4px;
+}
+
+.settings-wrapper {
+    box-sizing: border-box;
+    z-index: 400;
+    box-shadow:  0px 8px 12px #1E1F2126, 0px 0px 1px #1E1F214F;
+    background-color: var(--ds-surface-overlay, #fff);
+    color: var(--ds-text, #292a2e);
+    box-sizing: border-box;
+    display: block;
+    border-radius: 4px;
+}
+
+.settings-wrapper-2 {
+    min-width: 320px;
+    max-width: 50pc;
+}
+
+.settings-wrapper-3 {
+    max-height: calc(-200px + 100vh);
+    position: static;
+    overflow-y: auto;
+    overflow-x: auto;
+    flex-direction: column;
+    display: flex;
+}
+
+.settings-wrapper-4 {
+    flex-shrink: 0;
+}
+.settings-wrapper-4::after,
+.settings-wrapper-4::before,
+.settings-section::after,
+.settings-section::before {
+    content: "";
+    display: block;
+    height: 6px;
+}
+.settings-section-heading {
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 1rem;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.settings-section-heading-text-container {
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 1pc;
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+}
+
+.settings-section-heading-text {
+    color: var(--ds-text, #292a2e);
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--ds-text, #292a2e);
+    margin-block: 0;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 653;
+}
+
+.settings-section-heading-extras {
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+}
+button.settings-keyboard-shortcut:hover {
+    background-color: #0515240F;
+}
+button.settings-keyboard-shortcut {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    box-sizing: border-box;
+    position: relative;
+    vertical-align: middle;
+    column-gap: var(--ds-space-050, 4px);
+    align-items: baseline;
+    width: auto;
+    height: 2rem;
+    font-weight: var(--ds-font-weight-medium, 500);
+    cursor: pointer;
+    padding-inline-start: var(--ds-space-150, 9pt);
+    padding-inline-end: var(--ds-space-150, 9pt);
+    color: var(--ds-text-subtle, #505258);
+    flex-shrink: 0;
+    display: inline-flex;
+    background-color: var(--ds-background-neutral-subtle, #0000);
+    max-width: 100%;
+    text-align: center;
+    position: relative;
+    box-sizing: border-box;
+    justify-content: center;
+    border-width: 0;
+    padding-block: var(--ds-space-075, 6px);
+    font-size: 0.875rem;
+    line-height: 1rem;
+    font-weight: 500;
+    transition: background .1s ease-out;
+    border: 1px solid #0B120E24;
+    border-radius: 3px;
+}
+button.settings-keyboard-shortcut::after {
+    content: "";
+    position: absolute;
+    border: 1px solid #0B120E24;
+    border-radius: 3px;
+}
+button.settings-keyboard-shortcut > span {
+    flex-grow: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
+    overflow: hidden;
+    transition: opacity 0.3s;
+    cursor: pointer;
+    text-align: center;
+}
+
+button.settings-keyboard-shortcut > span > span.code-container {
+    // box-sizing: border-box;
+    // column-gap: var(--ds-space-100, 8px);
+    // display: inline-flex;
+    // row-gap: var(--ds-space-100, 8px);
+    // display: inline-flex;
+    // flex-direction: row;
+    // align-items: center;
+
+    padding: .125rem;
+    background-color: #E9F2FE;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    height: 14px;
+    font-size: .75rem;
+    line-height: 1rem;
+}
+button.settings-keyboard-shortcut > span > span.code-container > .code {
+    min-width: 14px;
+    padding-bottom: var(--ds-space-025, 2px);
+    padding-top: var(--ds-space-025, 2px);
+    box-sizing: border-box;
+    background-color: var(#E9F2FE, #e9f2fe);
+    height: 14px;
+    padding-left: var(--ds-space-025, 2px);
+    padding-right: var(--ds-space-025, 2px);
+    color: var(--ds-text-subtle, #505258);
+    padding-bottom: var(--ds-space-025, 2px);
+    padding-top: var(--ds-space-025, 2px);
+    align-items: center;
+    box-sizing: border-box;
+    justify-content: center;
+    display: flex;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    border-radius: var(--ds-radius-small, 4px);
+}
+
+.settings-section-item-list {
+    box-sizing: border-box;
+    appearance: none;
+    border: none;
+    padding: var(--ds-space-0, 0px);
+    margin: var(--ds-space-0, 0px);
+}
+.settings-section-item:hover {
+    background-color: #0515240F;
+}
+.settings-section-item {
+    box-sizing: border-box;
+    appearance: none;
+    border: none;
+    padding: var(--ds-space-0, 0px);
+    margin: var(--ds-space-0, 0px);
+    list-style-type: none;
+}
+
+.settings-section-item-container {
+    text-decoration: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    box-sizing: border-box;
+    position: relative;
+    color: currentColor;
+    cursor: pointer;
+    min-height: 40px;
+    outline-width: 0;
+    outline-style: none;
+    background-color: var(--ds-background-neutral-subtle, #0000);
+    margin-inline-start: var(--ds-space-0, 0);
+    margin-inline-end: var(--ds-space-0, 0);
+    margin-block-start: var(--ds-space-0, 0);
+    margin-block-end: var(--ds-space-0, 0);
+    align-items: center;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    padding-block: var(--ds-space-100, 8px);
+    padding-inline: var(--ds-space-200, 1pc);
+}
+
+.settings-section-item-container-contents {
+    padding-bottom: 0;
+    box-sizing: border-box;
+    row-gap: var(--ds-space-150, 9pt);
+    column-gap: var(--ds-space-150, 9pt);
+    justify-content: space-between;
+    flex-grow: 1;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.settings-section-item-icon-container {
+    min-width: 24px;
+    min-height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.settings-section-item-details-container {
+    outline-color: currentColor;
+    flex-grow: 1;
+    outline-width: medium;
+    outline-style: none;
+    text-align: left;
+    flex-direction: column;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    justify-content: center;
+    display: flex;
+}
+.settings-section-item-detail-1 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-align: left;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: currentColor;
+    cursor: pointer;
+}
+.settings-section-item-detail-1 {
+    -webkit-line-clamp: 1;
+    color: #6B6E76;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.accounts-wrapper {
+    box-shadow: 0px 8px 12px #1E1F2126, 0px 0px 1px #1E1F214F;
+    border-radius: 4px;
+    overflow: auto;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+.accounts-wrapper-2 {
+    min-width: 19pc;
+    box-sizing: border-box;
+}
+
+.accounts-content {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.accounts-section {
+    flex-shrink: 0;
+}
+.accounts-section::after, 
+.accounts-section::before {
+    height: 6px;
+    content: "";
+    display: block;
+}
+
+.accounts-section-2 {
+    margin-block-start: -6px;
+}
+
+.accounts-section-3 {
+    border-block-start: 1px solid #0B120E24;
+}
+.accounts-section.accounts-section-1 .accounts-details {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 8px;
+}
+
+.accounts-section.accounts-section-1 > .accounts-details > .accounts-details-container:hover {
+    background-color: #F8F8F8;
+}
+.accounts-section.accounts-section-1 > .accounts-details > .accounts-details-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 3px;
+}
+
+.accounts-section.accounts-section-1 > .accounts-details > .accounts-details-container > .accounts-details-content {
+    display: flex;
+    margin: 1rem;
+}
+
+.accounts-section.accounts-section-1 > .accounts-details > .accounts-details-container > .accounts-details-content > .avatar-container {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    height: 4pc;
+    width: 4pc;
+    box-sizing: border-box;
+    border: none;
+}
+
+.accounts-section.accounts-section-1 > .accounts-details > .accounts-details-container > .accounts-details-content > .details-container {
+    margin-left: var(--ds-space-200, 1pc);
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-right: 0;
+    flex-direction: column;
+    display: flex;
+}
+
+.accounts-section.accounts-section-1 > .accounts-details > .accounts-details-container > .accounts-details-content > .details-container > .details-user-name {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    font-weight: 653;
+}
+.accounts-section.accounts-section-1 > .accounts-details > .accounts-details-container > .accounts-details-content > .details-container > .details-user-email {
+    margin-top: 2px;
+    color: #6B6E76;
+    font-weight: 400;
+}
+
+.accounts-section.accounts-section-2 .accounts-section-2-row ,
+.accounts-section.accounts-section-3 .accounts-section-3-row {
+    outline-color: currentColor;
+    text-decoration-style: solid;
+    text-decoration-line: none;
+    text-decoration-color: initial;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-text-decoration-line: none;
+    text-decoration-line: none;
+    -webkit-text-decoration-color: initial;
+    text-decoration-color: initial;
+    box-sizing: border-box;
+    position: relative;
+    color: currentColor;
+    min-height: 40px;
+    outline-width: 0;
+    cursor: pointer;
+    outline-style: none;
+    background-color: #0000;
+    margin-inline-start: var(--ds-space-0, 0);
+    margin-inline-end: var(--ds-space-0, 0);
+    margin-block-start: var(--ds-space-0, 0);
+    margin-block-end: var(--ds-space-0, 0);
+    align-items: center;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    padding-block: 8px;
+    padding-inline: 1pc;
+    border: 0;
+    text-decoration: none;
+}
+
+.accounts-section.accounts-section-2 .accounts-section-2-row:hover ,
+.accounts-section.accounts-section-3 .accounts-section-3-row:hover {
+    background-color: #0515240F;
+}
+
+.accounts-section.accounts-section-2 .accounts-section-2-row .accounts-section-2-row-content ,
+.accounts-section.accounts-section-3 .accounts-section-3-row .accounts-section-3-row-content {
+    padding-bottom: 0;
+    box-sizing: border-box;
+    row-gap: 9pt;
+    column-gap: 9pt;
+    justify-content: space-between;
+    flex-grow: 1;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}  
+.accounts-section.accounts-section-2 button.accounts-section-2-row ,
+.accounts-section.accounts-section-3 button.accounts-section-3-row {
+    outline-color: currentColor;
+    text-decoration-style: solid;
+    text-decoration-line: none;
+    text-decoration-color: initial;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-text-decoration-style: solid;
+    text-decoration-style: solid;
+    -webkit-text-decoration-line: none;
+    text-decoration-line: none;
+    -webkit-text-decoration-color: initial;
+    text-decoration-color: initial;
+    text-decoration-style: solid;
+    text-decoration-line: none;
+    text-decoration-color: initial;
+    box-sizing: border-box;
+    position: relative;
+    color: currentColor;
+    min-height: 40px;
+    outline-width: 0;
+    cursor: pointer;
+    outline-style: none;
+    background-color: var(--ds-background-neutral-subtle, #0000);
+    margin-inline-start: var(--ds-space-0, 0);
+    margin-inline-end: var(--ds-space-0, 0);
+    margin-block-start: var(--ds-space-0, 0);
+    margin-block-end: var(--ds-space-0, 0);
+    align-items: center;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    padding-block: var(--ds-space-100, 8px);
+    padding-inline: var(--ds-space-200, 1pc);
+    border: 0;
+}
+
+.accounts-section.accounts-section-2 .accounts-section-2-row .accounts-section-2-row-content > .accounts-section-2-row-icon-container ,
+.accounts-section.accounts-section-3 .accounts-section-3-row .accounts-section-3-row-content > .accounts-section-3-row-icon-container {
+    min-width: 24px;
+    min-height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.accounts-section.accounts-section-2 .accounts-section-2-row .accounts-section-2-row-content > .accounts-section-2-row-icon ,
+.accounts-section.accounts-section-3 .accounts-section-3-row .accounts-section-3-row-content > .accounts-section-3-row-icon {
+    height:24px;
+    width: 24px;
+    display: inline-flex;
+    box-sizing: border-box;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.accounts-section.accounts-section-2 .accounts-section-2-row .accounts-section-2-row-content > .accounts-section-2-row-details-container ,
+.accounts-section.accounts-section-3 .accounts-section-3-row .accounts-section-3-row-content > .accounts-section-3-row-details-container {
+    outline-color: currentColor;
+    flex-grow: 1;
+    outline-width: medium;
+    outline-style: none;
+    text-align: left;
+    flex-direction: column;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    justify-content: center;
+    display: flex;
+    white-space: nowrap;
+}
+
+.accounts-section.accounts-section-2 .accounts-section-2-row .accounts-section-2-row-content > .accounts-section-2-row-details-container ,
+.accounts-section.accounts-section-3 .accounts-section-3-row .accounts-section-3-row-content > .accounts-section-3-row-details-container {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
 }

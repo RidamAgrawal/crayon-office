@@ -3,10 +3,10 @@
         <h1 class="header-title">
             <span>Customize your sidebar</span>
         </h1>
-        <button class="close-btn-container">
+        <button class="close-btn-container" (click)="dismissModal()">
             <span class="close-btn-span">
                 <span class="close-btn-span-2">
-                    <img [src]="'assets/icons/close.svg'" alt="close" (click)="dismissModal()">
+                    <img [src]="'assets/icons/close.svg'" alt="close">
                 </span>
             </span>
         </button>
@@ -28,7 +28,7 @@
                             <span>following sidebar items are available in your space.</span>
                         </div>
                         <div class="sidebar-options-menu">
-                            <div class="list" cdkDropList (cdkDropListDropped)="drop2($event)">
+                            <div class="list" cdkDropList (cdkDropListDropped)="drop(internalItems, $event)">
                                 @for(item of internalItems;track $index;let isFirst=$first){
                                 <div class="list-item" cdkDrag>
                                     <div class="list-item-container">
@@ -39,14 +39,12 @@
                                         </div>
                                         <div class="list-item-row-container">
                                             <div class="list-item-row">
-                                                <app-checkbox [checkboxConfig]="item" [val]="item.visible"></app-checkbox>
+                                                <app-checkbox [checkboxConfig]="item" [(ngModel)]="item.visible"></app-checkbox>
                                             </div>
                                             <span></span>
-                                            <button class="item-options">
-                                                <span>
-                                                    <img [src]="'assets/icons/more.svg'" alt="more">
-                                                </span>
-                                            </button>
+                                            <app-icon-container #iconElRef="elementRef" (click)="handleMore(item, iconElRef.elementRef)">
+                                                <img class="icon-content" [src]="'assets/icons/more.svg'" alt="more">
+                                            </app-icon-container>
                                         </div>
                                         <!-- <div class="drop-indicator"></div> -->
                                     </div>
@@ -63,7 +61,7 @@
                             <span>following sidebar items are available in your space.</span>
                         </div>
                         <div class="sidebar-options-menu">
-                            <div class="list" cdkDropList (cdkDropListDropped)="drop($event)">
+                            <div class="list" cdkDropList (cdkDropListDropped)="drop(externalLinks, $event)">
                                 @for(item of externalLinks;track $index){
                                 <div class="list-item" cdkDrag>
                                     <div class="list-item-container">
@@ -74,14 +72,16 @@
                                         </div>
                                         <div class="list-item-row-container">
                                             <div class="list-item-row">
-                                                <app-checkbox [checkboxConfig]="item" [(val)]="item.visible"></app-checkbox>
+                                                <app-checkbox [checkboxConfig]="item" [(ngModel)]="item.visible"></app-checkbox>
                                             </div>
                                             <span></span>
                                             <button class="item-options">
                                                 <span>
-                                                    <img [src]="'assets/icons/more.svg'" alt="more">
                                                 </span>
                                             </button>
+                                            <app-icon-container #iconElRef="elementRef" (click)="handleMore(item, iconElRef.elementRef)">
+                                                <img class="icon-content" [src]="'assets/icons/more.svg'" alt="more">
+                                            </app-icon-container>
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +92,6 @@
                 </div>
             </div>
         </div>
-        {{internalItems|json}}
     </div>
     <div class="content-footer">
         <button class="cancel-btn" (click)="dismissModal()"><span>Cancel</span></button>

@@ -21,9 +21,6 @@ import { CommonModule } from "@angular/common";
 export class Checkbox implements ControlValueAccessor {
   public value: boolean = false;
   public isDisabled: boolean = false;
-  @Input() set val(v: boolean) {
-    this.value = v;
-  }
   @Output() valChange = new EventEmitter<boolean>();
 
   private onChange = (val: boolean) => { };
@@ -40,16 +37,11 @@ export class Checkbox implements ControlValueAccessor {
   setDisabledState?(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
   }
-  onChangeEvent(event: any) {
-    const newValue = event?.target?.checked;
+  onChangeEvent(event: Event) {
+    const newValue = (event?.target as HTMLInputElement).checked;
     this.value = newValue;
     this.onChange(newValue);
     this.valChange.emit(newValue);
   }
   @Input() public checkboxConfig: any;
-  ngOnInit() {
-    // if(!this.checkboxConfig||!this.checkboxConfig.hasOwnProperty('checked')){
-    //   this.checkboxConfig = {checked: false};
-    // }
-  }
 }

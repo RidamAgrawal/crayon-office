@@ -39,23 +39,30 @@
                     "icon": "more",
                     "alt": "more",
                     "type": "options",
+                    "title": "More actions",
                     "optionLists": [
                         {
                             "options": [
                                 {
                                     "type": "link",
                                     "icon": "settings",
-                                    "label": "Manage apps"
+                                    "label": "Manage apps",
+                                    "id": "manageApps",
+                                    "visible": true
                                 },
                                 {
                                     "type": "link",
                                     "icon": "settings",
-                                    "label": "App audit logs"
+                                    "label": "App audit logs",
+                                    "id": "appAuditLogs",
+                                    "visible": true
                                 },
                                 {
                                     "type": "link",
                                     "icon": "settings",
-                                    "label": "View app requests"
+                                    "label": "View app requests",
+                                    "id": "appRequests",
+                                    "visible": true
                                 }
                             ]
                         },
@@ -63,8 +70,10 @@
                             "options": [
                                 {
                                     "type": "button",
-                                    "icon": "bellicon",
-                                    "label": "Hide from sidebar"
+                                    "icon": "hide",
+                                    "label": "Hide from sidebar",
+                                    "id": "hide",
+                                    "visible": true
                                 }
                             ]
                         }
@@ -101,19 +110,23 @@
             "hoverTools": [
                 {
                     "icon": "add1",
-                    "alt": "add"
+                    "alt": "add",
+                    "title": "Add spaces"
                 },
                 {
                     "icon": "more",
                     "alt": "more",
                     "type": "options",
+                    "title":"More actions",
                     "optionLists": [
                         {
                             "options": [
                                 {
                                     "type": "link",
                                     "icon": "settings",
-                                    "label": "Manage spaces"
+                                    "label": "Manage spaces",
+                                    "id": "manageSpaces",
+                                    "visible": true
                                 }
                             ]
                         },
@@ -121,13 +134,17 @@
                             "options": [
                                 {
                                     "type": "button",
-                                    "icon": "bellicon",
-                                    "label": "Change View"
+                                    "icon": "apps",
+                                    "label": "Change View",
+                                    "id": "changeView",
+                                    "visible": true
                                 },
                                 {
                                     "type": "button",
-                                    "icon": "bellicon",
-                                    "label": "Hide from sidebar"
+                                    "icon": "hide",
+                                    "label": "Hide from sidebar",
+                                    "id": "hide",
+                                    "visible": true
                                 }
                             ]
                         }
@@ -148,23 +165,30 @@
                                     "icon": "more",
                                     "alt": "more",
                                     "type": "options",
+                                    "title": "More actions",
                                     "optionLists": [
                                         {
                                             "options": [
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Add to starred"
+                                                    "icon": "starred",
+                                                    "label": "Add to starred",
+                                                    "id": "addStar",
+                                                    "visible": true
                                                 },
                                                 {
                                                     "type": "link",
                                                     "icon": "foryou",
-                                                    "label": "Add people"
+                                                    "label": "Add people",
+                                                    "id": "addPeople",
+                                                    "visible": true
                                                 },
                                                 {
                                                     "type": "link",
                                                     "icon": "dashboards2",
-                                                    "label": "Save as template"
+                                                    "label": "Save as template",
+                                                    "id": "saveTemplate",
+                                                    "visible": true
                                                 }
                                             ]
                                         },
@@ -172,13 +196,17 @@
                                             "options": [
                                                 {
                                                     "type": "button",
-                                                    "icon": "bellicon",
-                                                    "label": "Archive space"
+                                                    "icon": "archive",
+                                                    "label": "Archive space",
+                                                    "id": "archiveSpace",
+                                                    "visible": true
                                                 },
                                                 {
                                                     "type": "button",
-                                                    "icon": "bellicon",
-                                                    "label": "Delete space"
+                                                    "icon": "delete",
+                                                    "label": "Delete space",
+                                                    "id": "deleteSpace",
+                                                    "visible": true
                                                 }
                                             ]
                                         },
@@ -186,8 +214,10 @@
                                             "options": [
                                                 {
                                                     "type": "button",
-                                                    "icon": "bellicon",
-                                                    "label": "Archive space"
+                                                    "icon": "archive",
+                                                    "label": "Archive space",
+                                                    "id": "archiveSpace",
+                                                    "visible": true
                                                 }
                                             ],
                                             "disabled": true
@@ -223,16 +253,21 @@
                                     "icon": "more",
                                     "alt": "more",
                                     "type": "options",
+                                    "title": "More actions",
                                     "optionLists": [
                                         {
                                             "options": [
                                                 {
                                                     "type": "link",
-                                                    "label": "Not intersted"
+                                                    "label": "Not intersted",
+                                                    "id": "notInterested",
+                                                    "visible": true
                                                 },
                                                 {
                                                     "type": "link",
-                                                    "label": "Why i am seeing this?"
+                                                    "label": "Why i am seeing this?",
+                                                    "id": "whySeeing",
+                                                    "visible": true
                                                 }
                                             ]
                                         }
@@ -266,13 +301,16 @@
                     "icon": "more",
                     "alt": "more",
                     "type": "options",
+                    "title": "More actions",
                     "optionLists": [
                         {
                             "options": [
                                 {
                                     "type": "button",
-                                    "icon": "bellicon",
-                                    "label": "Hide from sidebar"
+                                    "icon": "hide",
+                                    "label": "Hide from sidebar",
+                                    "id": "hide",
+                                    "visible": true
                                 }
                             ]
                         }
@@ -305,18 +343,23 @@
                                     "icon": "more",
                                     "alt": "more",
                                     "type": "options",
+                                    "title": "More actions",
                                     "optionLists": [
                                         {
                                             "options": [
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Add to starred"
+                                                    "icon": "starred",
+                                                    "label": "Add to starred",
+                                                    "id": "addStar",
+                                                    "visible": true
                                                 },
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Copy filter"
+                                                    "icon": "copy",
+                                                    "label": "Copy filter",
+                                                    "id": "copyFilter",
+                                                    "visible": true
                                                 }
                                             ]
                                         }
@@ -335,18 +378,23 @@
                                     "icon": "more",
                                     "alt": "more",
                                     "type": "options",
+                                    "title": "More actions",
                                     "optionLists": [
                                         {
                                             "options": [
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Add to starred"
+                                                    "icon": "starred",
+                                                    "label": "Add to starred",
+                                                    "id": "addStar",
+                                                    "visible": true
                                                 },
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Copy filter"
+                                                    "icon": "copy",
+                                                    "label": "Copy filter",
+                                                    "id": "copyFilter",
+                                                    "visible": true
                                                 }
                                             ]
                                         }
@@ -365,18 +413,23 @@
                                     "icon": "more",
                                     "alt": "more",
                                     "type": "options",
+                                    "title": "More actions",
                                     "optionLists": [
                                         {
                                             "options": [
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Add to starred"
+                                                    "icon": "starred",
+                                                    "label": "Add to starred",
+                                                    "id": "addStar",
+                                                    "visible": true
                                                 },
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Copy filter"
+                                                    "icon": "copy",
+                                                    "label": "Copy filter",
+                                                    "id": "copyFilter",
+                                                    "visible": true
                                                 }
                                             ]
                                         }
@@ -395,18 +448,23 @@
                                     "icon": "more",
                                     "alt": "more",
                                     "type": "options",
+                                    "title": "More actions",
                                     "optionLists": [
                                         {
                                             "options": [
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Add to starred"
+                                                    "icon": "starred",
+                                                    "label": "Add to starred",
+                                                    "id": "addStar",
+                                                    "visible": true
                                                 },
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Copy filter"
+                                                    "icon": "copy",
+                                                    "label": "Copy filter",
+                                                    "id": "copyFilter",
+                                                    "visible": true
                                                 }
                                             ]
                                         }
@@ -425,18 +483,23 @@
                                     "icon": "more",
                                     "alt": "more",
                                     "type": "options",
+                                    "title": "More actions",
                                     "optionLists": [
                                         {
                                             "options": [
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Add to starred"
+                                                    "icon": "starred",
+                                                    "label": "Add to starred",
+                                                    "id": "addStar",
+                                                    "visible": true
                                                 },
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Copy filter"
+                                                    "icon": "copy",
+                                                    "label": "Copy filter",
+                                                    "id": "copyFilter",
+                                                    "visible": true
                                                 }
                                             ]
                                         }
@@ -455,18 +518,23 @@
                                     "icon": "more",
                                     "alt": "more",
                                     "type": "options",
+                                    "title": "More actions",
                                     "optionLists": [
                                         {
                                             "options": [
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Add to starred"
+                                                    "icon": "starred",
+                                                    "label": "Add to starred",
+                                                    "id": "addStar",
+                                                    "visible": true
                                                 },
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Copy filter"
+                                                    "icon": "copy",
+                                                    "label": "Copy filter",
+                                                    "id": "copyFilter",
+                                                    "visible": true
                                                 }
                                             ]
                                         }
@@ -485,18 +553,23 @@
                                     "icon": "more",
                                     "alt": "more",
                                     "type": "options",
+                                    "title": "More actions",
                                     "optionLists": [
                                         {
                                             "options": [
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Add to starred"
+                                                    "icon": "starred",
+                                                    "label": "Add to starred",
+                                                    "id": "addStar",
+                                                    "visible": true
                                                 },
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Copy filter"
+                                                    "icon": "copy",
+                                                    "label": "Copy filter",
+                                                    "id": "copyFilter",
+                                                    "visible": true
                                                 }
                                             ]
                                         }
@@ -515,18 +588,23 @@
                                     "icon": "more",
                                     "alt": "more",
                                     "type": "options",
+                                    "title": "More actions",
                                     "optionLists": [
                                         {
                                             "options": [
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Add to starred"
+                                                    "icon": "starred",
+                                                    "label": "Add to starred",
+                                                    "id": "addStar",
+                                                    "visible": true
                                                 },
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Copy filter"
+                                                    "icon": "copy",
+                                                    "label": "Copy filter",
+                                                    "id": "copyFilter",
+                                                    "visible": true
                                                 }
                                             ]
                                         }
@@ -545,18 +623,23 @@
                                     "icon": "more",
                                     "alt": "more",
                                     "type": "options",
+                                    "title": "More actions",
                                     "optionLists": [
                                         {
                                             "options": [
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Add to starred"
+                                                    "icon": "starred",
+                                                    "label": "Add to starred",
+                                                    "id": "addStar",
+                                                    "visible": true
                                                 },
                                                 {
                                                     "type": "link",
-                                                    "icon": "bellicon",
-                                                    "label": "Copy filter"
+                                                    "icon": "copy",
+                                                    "label": "Copy filter",
+                                                    "id": "copyFilter",
+                                                    "visible": true
                                                 }
                                             ]
                                         }
@@ -583,19 +666,23 @@
             "hoverTools": [
                 {
                     "icon": "add1",
-                    "alt": "add"
+                    "alt": "add",
+                    "title": "Add dashboards"
                 },
                 {
                     "icon": "more",
                     "alt": "more",
                     "type": "options",
+                    "title": "More actions",
                     "optionLists": [
                         {
                             "options": [
                                 {
                                     "type": "button",
-                                    "icon": "bellicon",
-                                    "label": "Hide from sidebar"
+                                    "icon": "hide",
+                                    "label": "Hide from sidebar",
+                                    "id": "hide",
+                                    "visible": true
                                 }
                             ]
                         }
@@ -713,13 +800,16 @@
                     "icon": "more",
                     "alt": "more",
                     "type": "options",
+                    "title": "More actions",
                     "optionLists": [
                         {
                             "options": [
                                 {
                                     "type": "link",
-                                    "icon": "bellicon",
-                                    "label": "General configuration"
+                                    "icon": "settings",
+                                    "label": "General configuration",
+                                    "id": "generalConfiguration",
+                                    "visible": true
                                 }
                             ]
                         },
@@ -727,8 +817,10 @@
                             "options": [
                                 {
                                     "type": "button",
-                                    "icon": "bellicon",
-                                    "label": "Hide from sidebar"
+                                    "icon": "hide",
+                                    "label": "Hide from sidebar",
+                                    "id": "hide",
+                                    "visible": true
                                 }
                             ]
                         }
@@ -779,16 +871,21 @@
                     "icon": "add1",
                     "alt": "add",
                     "type": "options",
+                    "title": "Create Team",
                     "optionLists": [
                         {
                             "options": [
                                 {
                                     "type": "button",
-                                    "label": "Invite people"
+                                    "label": "Invite people",
+                                    "id": "addPeople",
+                                    "visible": true
                                 },
                                 {
                                     "type": "button",
-                                    "label": "Create a team"
+                                    "label": "Create a team",
+                                    "id": "createTeam",
+                                    "visible": true
                                 }
                             ]
                         }

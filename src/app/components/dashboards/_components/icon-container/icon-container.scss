@@ -1,7 +1,63 @@
-span{
-    padding: 4px;
-    border-radius: 4px;
+:host > span.icon-wrapper {
+    display: flex;
+        -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 0;
+    line-height: 0;
+    flex-shrink: 0;
+    flex-grow: 0;
+    align-items: center;
+    transition: opacity 0.3s;
+    // padding: 4px;
+    // border-radius: 4px;
+}
+span.icon-wrapper > span {
+    box-sizing: border-box;
+    padding: 0;
+    line-height: 1;
+    display: inline-block;
+    flex-shrink: 0;
+}
+:host {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    position: relative;
+    vertical-align: middle;
+    display: inline-flex;
+    width: 2rem;
+    column-gap: 4px;
+    // align-items: baseline;
+    height: 2rem;
+    font-weight: 500;
+    cursor: pointer;
+    max-width: 100%;
+    text-align: center;
+    justify-content: center;
+    border-width: 0;
+    padding-block: 6px;
+    transition: background .1s ease-out;
+    border-radius: 3px;
+    border: none;
 }
 :host:hover {
-    background-color: #ffffffaa !important;
+    background-color: #0515240F;
+    transition: background .1s ease-out;
+}
+:host:active {
+    background-color: #E9F2FE;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 1px solid #1868DB;
+}
+:host:focus {
+    outline: none;
+}
+:host:focus-visible {
+    outline: 2px solid #4688EC;
+    outline-offset: 2px;
 }

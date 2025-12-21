@@ -3,6 +3,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, signal, TemplateRef
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { OverlayService } from '../../services/overlay-service/overlay-service';
 import { OverlayRef } from '@angular/cdk/overlay';
+import { OptionWrapper } from '../option-wrapper/option-wrapper';
 
 @Component({
   selector: 'app-multi-select',
@@ -23,11 +24,13 @@ export class MultiSelect {
         options: [
           {
             label: "label 1",
-            type: 'button'
+            type: 'button',
+            visible: true
           },
           {
             label: "label 2",
-            type: 'button'
+            type: 'button',
+            visible: true
           }
         ]
       },
@@ -36,16 +39,19 @@ export class MultiSelect {
         options: [
           {
             label: "label 3",
-            type: 'button'
+            type: 'button',
+            visible: true
           },
           {
             label: "label 4",
-            type: 'button'
+            type: 'button',
+            visible: true
           }
         ]
       }
     ],
-    isMultiSelect: true
+    isMultiSelect: true,
+    optionHoverIndication: true
   }
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();
   public inputControl!: FormControl<string | null>;
@@ -66,9 +72,11 @@ export class MultiSelect {
   public focusIn() {
     this.inputElRef.nativeElement.focus();
     this.optionsOverlayRef = this.overlayService.open({
-      template: this.optionTemplateRef,
+      component: OptionWrapper,
       connectedTo: this.elementRef,
-      context: { optionLists: this.config.optionLists },
+      componentInputs: {
+        optionListsConfig: this.config
+      },
       positions: [
         {
           originX: 'start', overlayX: 'start', originY: 'bottom', overlayY: 'top', offsetY: 8

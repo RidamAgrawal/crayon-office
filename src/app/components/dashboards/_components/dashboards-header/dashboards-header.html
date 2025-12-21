@@ -1,28 +1,26 @@
 <!-- <header> -->
 <div class="menu-icons-and-logo">
-    <div class="menu-icons">
-        <app-icon-container (mouseenter)="hoverSidebar(true)" (mouseleave)="hoverSidebar(false)"
-            (click)="showSidebar()">
-            <svg class="icon-content" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960"
-                width="20px">
-                @if(isSidebar){
-                <path
-                    d="M500-640v320l160-160-160-160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm120-80v-560H200v560h120Zm80 0h360v-560H400v560Zm-80 0H200h120Z" />
-                }
-                @else{
-                <path
-                    d="M460-320v-320L300-480l160 160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm440-80h120v-560H640v560Zm-80 0v-560H200v560h360Zm80 0h120-120Z" />
-                }
-            </svg>
-        </app-icon-container>
-        <app-icon-container #menuIcon="elementRef" (click)="show(menuIcon,menuTemplate, menuPosition)">
-            <svg class="icon-content" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960"
-                width="20px">
-                <path
-                    d="M240-160q-33 0-56.5-23.5T160-240q0-33 23.5-56.5T240-320q33 0 56.5 23.5T320-240q0 33-23.5 56.5T240-160Zm240 0q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm240 0q-33 0-56.5-23.5T640-240q0-33 23.5-56.5T720-320q33 0 56.5 23.5T800-240q0 33-23.5 56.5T720-160ZM240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400ZM240-640q-33 0-56.5-23.5T160-720q0-33 23.5-56.5T240-800q33 0 56.5 23.5T320-720q0 33-23.5 56.5T240-640Zm240 0q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Zm240 0q-33 0-56.5-23.5T640-720q0-33 23.5-56.5T720-800q33 0 56.5 23.5T800-720q0 33-23.5 56.5T720-640Z" />
-            </svg>
-        </app-icon-container>
-    </div>
+    <app-icon-container (mouseenter)="hoverSidebar(true)" (mouseleave)="hoverSidebar(false)"
+        (click)="showSidebar()" [appTooltipDirective]="{text: `${isSidebar ? 'Collapse':'Expand'} sidebar`,position: 'below'}">
+        <svg class="icon-content" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960"
+            width="20px">
+            @if(isSidebar){
+            <path
+                d="M500-640v320l160-160-160-160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm120-80v-560H200v560h120Zm80 0h360v-560H400v560Zm-80 0H200h120Z" />
+            }
+            @else{
+            <path
+                d="M460-320v-320L300-480l160 160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm440-80h120v-560H640v560Zm-80 0v-560H200v560h360Zm80 0h120-120Z" />
+            }
+        </svg>
+    </app-icon-container>
+    <app-icon-container #menuIcon="elementRef" (click)="show(menuIcon.elementRef ,menuTemplate ,menuPosition)" [appTooltipDirective]="{text: 'Switch sites or apps', position: 'below'}">
+        <svg class="icon-content" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960"
+            width="20px">
+            <path
+                d="M240-160q-33 0-56.5-23.5T160-240q0-33 23.5-56.5T240-320q33 0 56.5 23.5T320-240q0 33-23.5 56.5T240-160Zm240 0q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm240 0q-33 0-56.5-23.5T640-240q0-33 23.5-56.5T720-320q33 0 56.5 23.5T800-240q0 33-23.5 56.5T720-160ZM240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400ZM240-640q-33 0-56.5-23.5T160-720q0-33 23.5-56.5T240-800q33 0 56.5 23.5T320-720q0 33-23.5 56.5T240-640Zm240 0q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Zm240 0q-33 0-56.5-23.5T640-720q0-33 23.5-56.5T720-800q33 0 56.5 23.5T800-720q0 33-23.5 56.5T720-640Z" />
+        </svg>
+    </app-icon-container>
     <app-icon-container>
         <svg class="icon-content" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 -5 50 58">
             <path
@@ -44,16 +42,16 @@
 </div>
 <div class="notifications-user">
     <div class="list-icons">
-        <app-icon-container #notifications="elementRef" (click)="show(notifications, notificationTemplate, notificationPosition)">
+        <app-icon-container #notifications="elementRef" (click)="show(notifications.elementRef, notificationTemplate, notificationPosition)" [appTooltipDirective]="{text: 'Notifications', position: 'below'}">
             <img height="20px" width="20px" class="icon-content" src="assets/icons/bellicon.svg" alt="notifications" />
         </app-icon-container>
-        <app-icon-container>
+        <app-icon-container  [appTooltipDirective]="{text: 'Help', position: 'below'}">
             <img height="20px" width="20px" class="icon-content" src="assets/icons/how.svg" alt="FAQs"/>
         </app-icon-container>
-        <app-icon-container #settings="elementRef" (click)="show(settings, notificationTemplate, notificationPosition)">
+        <app-icon-container #settings="elementRef" (click)="show(settings.elementRef, settingsTemplate, notificationPosition)"  [appTooltipDirective]="{text: 'Settings', position: 'below'}">
             <img height="20px" width="20px" class="icon-content" src="assets/icons/settings.svg" alt="settings">
         </app-icon-container>
-        <div class="list-icon">
+        <div class="list-icon" #accountsIcon (click)="show(accountsIcon, accountTemplate, notificationPosition)"  [appTooltipDirective]="{text: 'anonymous@person.com', position: 'below'}">
             <button class="avatar">
                 <span class="avatar-text">
                     <span class="avatar-icon">
@@ -219,7 +217,7 @@
                 </div>
             </div>
             <span class="info-highlight"></span>
-            <app-tab [config]="{headings:['Recent','Viewed'],bodyPlaceholders:['list','list']}"></app-tab>
+            <app-tab [config]="{headings:['Recent','Viewed'],bodyPlaceholders:[]}"></app-tab>
             <div class="notification-placeholder">
                 <div class="tab-panel-shimmer"></div>
                 <div class="tab-row-placeholder">
@@ -237,6 +235,188 @@
                         <div class="tab-row-detail-shimmer tab-row-detail-shimmer-2"></div>
                         <div class="tab-row-detail-shimmer tab-row-detail-shimmer-3"></div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </ng-template>
+
+ <ng-template #settingsTemplate>
+    <div class="settings-wrapper">
+        <div class="settings-wrapper-2">
+            <div class="settings-wrapper-3">
+                <div class="settings-wrapper-4">
+                    <div class="settings-section">
+                        <div class="settings-section-heading">
+                            <div class="settings-section-heading-text-container">
+                                <h2 class="settings-section-heading-text">Personal Settings</h2>
+                                <div class="settings-section-heading-extras">
+                                    <button class="settings-keyboard-shortcut">
+                                        <span>
+                                            search (
+                                            <span class="code-container">Ctrl</span>
+                                            +
+                                            <span class="code-container">K</span>
+                                            )
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="settings-section-item-list">
+                            <li class="settings-section-item">
+                                <span class="settings-section-item-container">
+                                    <a href="#"></a>
+                                    <span class="settings-section-item-container-contents">
+                                        <span class="settings-section-item-icon-container">
+                                            <span class="settings-section-item-icon">
+                                                <img src="assets/icons/foryou.svg" alt="icon">
+                                            </span>
+                                        </span>
+                                        <div class="settings-section-item-details-container">
+                                            <span class="settings-section-item-detail-1">General Settings</span>
+                                            <span class="settings-section-item-detail-2">manage time location</span>
+                                        </div>
+                                    </span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="settings-section">
+                        <div class="settings-section-heading">
+                            <div class="settings-section-heading-text-container">
+                                <h2 class="settings-section-heading-text">Jira Admin Settings</h2>
+                            </div>
+                            
+                        </div>
+                        <ul class="settings-section-items">
+                            <li class="settings-section-item">
+                                <span class="settings-section-item-container">
+                                    <a href="#"></a>
+                                    <span class="settings-section-item-container-contents">
+                                        <span class="settings-section-item-icon-container">
+                                            <span class="settings-section-item-icon">
+                                                <img src="assets/icons/foryou.svg" alt="icon">
+                                            </span>
+                                        </span>
+                                        <div class="settings-section-item-details-container">
+                                            <span class="settings-section-item-detail-1">General Settings</span>
+                                            <span class="settings-section-item-detail-2">manage time location</span>
+                                        </div>
+                                    </span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="settings-section">
+                        <div class="settings-section-heading">
+                            <div class="settings-section-heading-text-container">
+                                <h2 class="settings-section-heading-text">Atlassian admin settings</h2>
+                            </div>
+                        </div>
+                        <ul class="settings-section-items">
+                            <li class="settings-section-item">
+                                <span class="settings-section-item-container">
+                                    <a href="#"></a>
+                                    <span class="settings-section-item-container-contents">
+                                        <span class="settings-section-item-icon-container">
+                                            <span class="settings-section-item-icon">
+                                                <img src="assets/icons/foryou.svg" alt="icon">
+                                            </span>
+                                        </span>
+                                        <div class="settings-section-item-details-container">
+                                            <span class="settings-section-item-detail-1">General Settings</span>
+                                            <span class="settings-section-item-detail-2">manage time location</span>
+                                        </div>
+                                    </span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </ng-template>
+
+ <ng-template #accountTemplate>
+    <div class="accounts-wrapper">
+        <div class="accounts-wrapper-2">
+            <div class="accounts-content">
+                <div class="accounts-section accounts-section-1">
+                    <section class="accounts-details">
+                        <div class="accounts-details-container">
+                            <div class="accounts-details-content">
+                                <div class="avatar-container">
+                                    <img src="assets/icons/foryou.svg" alt="icons">
+                                </div>
+                                <div class="details-container">
+                                    <h3 class="details-user-name">Unknown</h3>
+                                    <p class="details-user-email">Anonymous@person.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="accounts-section accounts-section-2">
+                    <a href="#" class="accounts-section-2-row">
+                        <span class="accounts-section-2-row-content">
+                            <span class="accounts-section-2-row-icon-container">
+                                <span class="accounts-section-2-row-icon">
+                                    <img src="assets/icons/foryou.svg" alt="icon">
+                                </span>
+                            </span>
+                            <span class="accounts-section-2-row-details-container">
+                                <span>
+                                    Profile
+                                </span>
+                            </span>
+                        </span>
+                    </a>
+                    <a href="#" class="accounts-section-2-row">
+                        <span class="accounts-section-2-row-content">
+                            <span class="accounts-section-2-row-icon-container">
+                                <span class="accounts-section-2-row-icon">
+                                    <img src="assets/icons/foryou.svg" alt="icon">
+                                </span>
+                            </span>
+                            <span class="accounts-section-2-row-details-container">
+                                <span>
+                                    Accounts Settings
+                                </span>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+                <div class="accounts-section accounts-section-3">
+                    <a href="#" class="accounts-section-3-row">
+                        <span class="accounts-section-3-row-content">
+                            <span class="accounts-section-3-row-icon-container">
+                                <span class="accounts-section-3-row-icon">
+                                    <img src="assets/icons/foryou.svg" alt="icon">
+                                </span>
+                            </span>
+                            <span class="accounts-section-3-row-details-container">
+                                <span>
+                                    Switch Account
+                                </span>
+                            </span>
+                        </span>
+                    </a>
+                    <a href="#" class="accounts-section-3-row">
+                        <span class="accounts-section-3-row-content">
+                            <span class="accounts-section-3-row-icon-container">
+                                <span class="accounts-section-3-row-icon">
+                                    <img src="assets/icons/foryou.svg" alt="icon">
+                                </span>
+                            </span>
+                            <span class="accounts-section-3-row-details-container">
+                                <span>
+                                    Switch Account
+                                </span>
+                            </span>
+                        </span>
+                    </a>
                 </div>
             </div>
         </div>

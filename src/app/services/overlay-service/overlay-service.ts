@@ -66,8 +66,12 @@ export class OverlayService {
     const overlayConfig = { ...defaultConfig, ...(options.config || {}) };
     this.overlayRef = this.overlay.create(overlayConfig);
 
-    if(options.closeOnBackdropClick){
-      this.overlayRef.backdropClick().subscribe(() => this.close());
+    if(options.hasBackdrop) {
+      if (options.closeOnBackdropClick) this.overlayRef.backdropClick().subscribe(() => this.close());
+    } else {
+      this.outsideClickSubscription = this.overlayRef.
+      _outsidePointerEvents
+      .subscribe(() => { this.close(); });
     }
 
     if (options.template) {
@@ -76,9 +80,6 @@ export class OverlayService {
       }
       const templatePortal = new TemplatePortal(options.template, options.viewContainerRef, options.context);
       this.overlayRef.attach(templatePortal);
-      this.outsideClickSubscription = this.overlayRef.
-        _outsidePointerEvents
-        .subscribe(() => { this.close(); });
     }
 
     if (options.component) {

@@ -1,7 +1,6 @@
 
 import { Component, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ModalService } from '../../services/modal-service/modal-service';
 import { DashboardsModal } from './_components/dashboards-modal/dashboards-modal';
 
 @Component({
@@ -14,7 +13,7 @@ import { DashboardsModal } from './_components/dashboards-modal/dashboards-modal
     '[style.--sidebar-display]': 'isSidebar || sidebarHovered ? "block" : "none"',
     '[style.--sidebar-translateX]': 'isSidebar || sidebarHovered? "0px" : "-100%"',
     '[style.--sidebar-grid-area]': 'isSidebar? "sidebar" : "main"',
-    '[style.--sidebar-box-shdow]': 'isSidebar? "0px 8px 12px #1E1F2126, 0px 0px 1px #1E1F214F" : "none"',
+    '[style.--sidebar-box-shdow]': 'isSidebar? "none" : "0px 8px 12px #1E1F2126, 0px 0px 1px #1E1F214F"',
   }
 })
 export class Dashboards {
@@ -28,10 +27,10 @@ export class Dashboards {
   public sidebarHovered: boolean = false;
   public isNotificationBar: boolean = true;
   public isSidebar: boolean = false;
-  constructor(private vcr: ViewContainerRef, private modalService: ModalService) { }
-  ngOnInit() {
-    this.modalService.dashboardCompRef = this;
-  }
+  constructor(
+    private vcr: ViewContainerRef
+  ) { }
+  
   public openModal(modalConfig: any): Observable<any> {
     this.vcr.clear();
     const dashboardsModalCompRef = this.vcr.createComponent(DashboardsModal);

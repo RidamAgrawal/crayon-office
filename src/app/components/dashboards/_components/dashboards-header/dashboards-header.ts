@@ -94,8 +94,8 @@ export class DashboardsHeader {
     'section-2': [],
     'section-3': []
   }
-  public menuPosition = { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetX: 0, offsetY: 0 };
-  public notificationPosition = { originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top', offsetX: 0, offsetY: 0 };
+  public menuPosition = { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetX: 0, offsetY: 8 };
+  public notificationPosition = { originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top', offsetX: 0, offsetY: 8 };
   constructor(
     private viewContainerRef: ViewContainerRef,
     private overlayService: OverlayService
@@ -116,12 +116,14 @@ export class DashboardsHeader {
     }
   }
 
-  public show(componentRef: any,templateRef: TemplateRef<any>, position: any) {
-    console.log('clicked');
+  public show(elementRef: ElementRef | HTMLElement,templateRef: TemplateRef<any>, position: any) {
+    if(elementRef instanceof HTMLElement) {
+      elementRef = new ElementRef(elementRef);
+    }
     const menuOverlayConfig: AppOverlayConfig = {
       template: templateRef,
       viewContainerRef: this.viewContainerRef,
-      connectedTo: componentRef.elementRef,
+      connectedTo: elementRef,
       positions: [
         position ? position : this.notificationPosition
       ]
