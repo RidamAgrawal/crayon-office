@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { OptionConfigurations } from '../../../../../../templates/option-wrapper/option-wrapper.model';
 
 @Component({
   selector: 'app-feedback-sidebar',
@@ -43,40 +44,37 @@ export class FeedbackSidebar {
     optionLists: [
       {
         options: [
-          { label: 'Ask a question', visible: true },
-          { label: 'Leave a comment', visible: true },
-          { label: 'Report a bug', visible: true },
-          { label: 'Suggest an improvement', visible: true },
+          { id: 'question', label: 'Ask a question', visible: true },
+          { id: 'comment', label: 'Leave a comment', visible: true },
+          { id: 'bug', label: 'Report a bug', visible: true },
+          { id: 'improvement', label: 'Suggest an improvement', visible: true },
         ],
         heading: null,
       },
     ],
     isMultiSelect: false,
   };
-  public onSelect(selected: any) {
-    let feedbackOptionIndex =
-      this.multiSelectConfig.optionLists[0].options.findIndex(
-        (option: any) => option.label === selected
-      );
-    if (!selected || feedbackOptionIndex == -1) {
+  public onSelect(selectedOptions: OptionConfigurations[]) {
+    let selected = selectedOptions[0];
+    if (!selected) {
       this.feedbackTypeControl?.setValue(null);
       this.feedbackFormGroup.get('feedbackText')?.setValue(null);
       return;
     }
-    switch (feedbackOptionIndex) {
-      case 0:
+    switch (selected.id) {
+      case 'question':
         this.feedbackTypeControl?.setValue('question');
         this.textAreaLabel = 'What would you like to know?';
         break;
-      case 1:
+      case 'comment':
         this.feedbackTypeControl?.setValue('comment');
         this.textAreaLabel = "Let us know what's on your mind";
         break;
-      case 2:
+      case 'bug':
         this.feedbackTypeControl?.setValue('bug');
         this.textAreaLabel = 'Describe the bug or issue';
         break;
-      case 3:
+      case 'improvement':
         this.feedbackTypeControl?.setValue('improvement');
         this.textAreaLabel = "Let us know what you'd like to improve";
         break;

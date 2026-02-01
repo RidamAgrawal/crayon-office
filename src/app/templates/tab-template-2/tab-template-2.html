@@ -1,0 +1,21 @@
+<!-- <div class="explore-container-content"> -->
+    <div class="explore-container-title">
+        <h3>{{config.sectionHeadings[currentTemplate()]}}</h3>
+        <div class="explore-container-nav">
+            <div class="radiogroup">
+                @for(tabHeader of config.headings;track $index){
+                    <button class="radiogroup-btn" [ngClass]="{selected: $index == currentTemplate()}" (click)="currentTemplate.set($index)">
+                        @if(typeof tabHeader == 'string'){
+                            {{tabHeader}}
+                        }
+                        @else if(isTemplateRef(tabHeader)){
+                            <ng-container [ngTemplateOutlet]="tabHeader"></ng-container>
+                        }
+                    </button>
+                }
+            </div>
+            <a href="">View All Spaces</a>
+        </div>
+    </div>
+    <ng-container appTemplateDirective></ng-container>
+<!-- </div> -->

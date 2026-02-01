@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Input, Output, signal, TemplateRef, ViewChild, ViewContainerRef, WritableSignal } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, effect, ElementRef, EventEmitter, Input, Output, Signal, signal, TemplateRef, ViewChild, ViewContainerRef, WritableSignal } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { OverlayService } from '../../services/overlay-service/overlay-service';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { OptionWrapper } from '../option-wrapper/option-wrapper';
+import { OptionConfigurations, OptionListsConfig, OptionsList } from '../option-wrapper/option-wrapper.model';
 
 @Component({
   selector: 'app-multi-select',
@@ -13,7 +14,6 @@ import { OptionWrapper } from '../option-wrapper/option-wrapper';
   styleUrl: './multi-select.scss'
 })
 export class MultiSelect {
-  public hoveredOption: WritableSignal<number> = signal(0);
   @ViewChild('input', { static: true }) public inputElRef!: ElementRef<HTMLInputElement>;
   @ViewChild('optionContainer', { static: true }) public optionTemplateRef!: TemplateRef<any>;
   @Input() config: any = {
@@ -56,17 +56,32 @@ export class MultiSelect {
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();
   public inputControl!: FormControl<string | null>;
 
-  public unselectedOptionsIndex: number[] = [];
-  public selectedOptionsIndex: number[] = [];
+  public selectedOptions: WritableSignal<Set<OptionConfigurations>> = signal(new Set<OptionConfigurations>());
+
+  public availOptions: WritableSignal<OptionsList[]|null> = signal(null);
+  
+  // Reactive signal for selected options array
+  public selectedOptionsArray: Signal<OptionConfigurations[]> = computed(() => 
+    Array.from(this.selectedOptions())
+  );
 
   public optionsOverlayRef: OverlayRef | null = null;
   constructor(
     private fb: FormBuilder,
+    private changeRef: ChangeDetectorRef,
     private viewContainerRef: ViewContainerRef,
     private elementRef: ElementRef,
     private overlayService: OverlayService
   ) {
     this.inputControl = this.fb.control('');
+    effect(() =>{
+      this.availOptions();
+    })
+  }
+
+  ngOnInit() {
+    this.availOptions.set(this.config.optionLists);
+    this.config.handleOptionEvent = (option: OptionConfigurations) => this.selectOption(option);
   }
 
   public focusIn() {
@@ -96,37 +111,52 @@ export class MultiSelect {
   public toggleOptions() {
     this.optionsOverlayRef?.detach();
   }
-  public selectOption(listIndex: number, optionIndex: number) {
-    if (!this.config.isMultiSelect) {
-      if (this.selectedOptionsIndex.length) {
-        this.unselectedOptionsIndex.push(this.selectedOptionsIndex[0]);
-        this.selectedOptionsIndex.pop();
-      }
-      this.focusOut();
+  public selectOption(option: OptionConfigurations) {
+    if(!this.config.isMultiSelect) {
+      this.selectOneOption(option);
+      return;
+    }
+    const currentSelected = this.selectedOptions();
+    
+    if(currentSelected.has(option)) {
+      currentSelected.delete(option);
+      option.visible = true;
     }
     else {
+      currentSelected.add(option);
+      option.visible = false;
     }
+    
+    // Trigger signal update
+    this.selectedOptions.set(new Set(currentSelected));
+  }
+  public selectOneOption(option: OptionConfigurations) {
+    if(this.selectedOptions().size) {
+      this.selectedOptions().forEach(option => option.visible = true)
+    }
+    this.selectedOptions.set(new Set([option]));
     this.emitChange();
   }
-  public clearOption(index: number) {
-    this.unselectedOptionsIndex.push(index);
-    this.selectedOptionsIndex = this.selectedOptionsIndex.filter(ind => ind !== index);
+  public clearOption(option: OptionConfigurations) {
+    const currentSelected = this.selectedOptions();
+    if(currentSelected.has(option)) {
+      currentSelected.delete(option);
+      option.visible = true;
+      this.selectedOptions.set(new Set(currentSelected));
+    }
     this.emitChange();
   }
   public clearAll() {
-    this.selectedOptionsIndex.forEach((val) => {
-      this.unselectedOptionsIndex.push(val);
-    })
-    this.selectedOptionsIndex = [];
+    this.selectedOptions().forEach(option => option.visible = true);
+    this.selectedOptions.set(new Set());
     this.emitChange();
   }
+  
+  public getSelectedOptions() {
+    return this.selectedOptionsArray();
+  }
+
   public emitChange() {
-    this.selected.emit(
-      this.selectedOptionsIndex.length
-        ? !this.config.isMultiSelect
-          ? this.selectedOptionsIndex.map((index: number) => this.config.options[index])[0]
-          : this.selectedOptionsIndex.map((index: number) => this.config.options[index])
-        : null
-    );
+    this.selected.emit(this.selectedOptionsArray());
   }
 }

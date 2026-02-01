@@ -27,6 +27,7 @@ export class Dashboards {
   public sidebarHovered: boolean = false;
   public isNotificationBar: boolean = true;
   public isSidebar: boolean = false;
+  public isAside: boolean = false;
   constructor(
     private vcr: ViewContainerRef
   ) { }
@@ -46,5 +47,8 @@ export class Dashboards {
   public sidebarIconClicked(clicked: boolean): void {
     this.isSidebar = clicked;
     this.sidebarHovered = false;
+  }
+  public toggleAside(): void {
+    this.isAside = !this.isAside;
   }
 }

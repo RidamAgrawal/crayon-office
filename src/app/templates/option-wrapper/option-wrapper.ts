@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, Input } from '@angular/core';
+import { OptionConfigurations, OptionListsConfig } from './option-wrapper.model';
 
 @Component({
   selector: 'app-option-wrapper',
@@ -11,9 +12,9 @@ import { Component, ElementRef, Input } from '@angular/core';
   }
 })
 export class OptionWrapper {
- @Input() optionListsConfig: any;
- public handleOptionEvent(action: any, optionElRef: HTMLElement) {
+ @Input() optionListsConfig!: OptionListsConfig;
+ public handleOptionEvent(action: OptionConfigurations, optionElRef: HTMLElement) {
   action.elementRef = new ElementRef(optionElRef);
-  this.optionListsConfig.handleOptionEvent(action);
+  this.optionListsConfig.handleOptionEvent?.(action);
  }
 }

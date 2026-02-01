@@ -1,0 +1,7 @@
+@for (option of options(); track $index) {
+    <label class="label-group-button" [ngClass]="{'selected': selectedOption() == option.value}"
+    (click)="onChange(option.value)">
+        <input type="radio" formControlName="lastUpdated" [value]="option.value" />
+        {{option.label}}
+    </label>
+}

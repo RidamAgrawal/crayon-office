@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Checkbox } from '../../checkbox/checkbox';
-
+import { RadioGroup } from '../../radio-group/radio-group';
 export enum LAST_UPDATED {
   'anyTime' = 'Any Time',
   'today' = 'Today',
@@ -21,7 +21,6 @@ export enum LAST_UPDATED {
   'past30days' = 'Past 30 Days',
   'pastYear' = 'Past Year',
 }
-
 @Component({
   selector: 'app-jira-tab',
   imports: [
@@ -31,12 +30,15 @@ export enum LAST_UPDATED {
     ReactiveFormsModule,
     CommonModule,
     Checkbox,
+    RadioGroup,
   ],
   templateUrl: './jira-tab.html',
   styleUrl: './jira-tab.scss',
 })
 export class JiraTab {
-  public lastUpdatedOptions = Object.entries(LAST_UPDATED);
+  public lastUpdatedOptions = Object.entries(LAST_UPDATED).map(
+    ([key, value]) => ({ label: value, value: key }),
+  );
   public projects = ['TMP-JSW-JiraSampleProject'];
   public assignee = ['User'];
   public reporter = ['Reported by Me'];
@@ -46,7 +48,10 @@ export class JiraTab {
     placeholder: 'Choose one',
     optionLists: [
       {
-        options: [{ label: 'label 1', visible: true }, { label: 'label 2', visible: true }],
+        options: [
+          { label: 'label 1', visible: true },
+          { label: 'label 2', visible: true },
+        ],
         heading: 'All labels',
       },
     ],
@@ -60,29 +65,29 @@ export class JiraTab {
         this.projects.map((option: string) =>
           this.formBuilder.group({
             [option]: this.formBuilder.control<boolean>(false),
-          })
-        )
+          }),
+        ),
       ),
       assignee: this.formBuilder.array(
         this.assignee.map((option: string) =>
           this.formBuilder.group({
             [option]: this.formBuilder.control<boolean>(false),
-          })
-        )
+          }),
+        ),
       ),
       reporter: this.formBuilder.array(
         this.reporter.map((option: string) =>
           this.formBuilder.group({
             [option]: this.formBuilder.control<boolean>(false),
-          })
-        )
+          }),
+        ),
       ),
       status: this.formBuilder.array(
         this.status.map((option: string) =>
           this.formBuilder.group({
             [option]: this.formBuilder.control<boolean>(false),
-          })
-        )
+          }),
+        ),
       ),
     });
   }
@@ -93,7 +98,7 @@ export class JiraTab {
       statusFormArray.push(this.formBuilder.control(checkbox.value));
     } else {
       const index = statusFormArray.controls.findIndex(
-        (control: AbstractControl) => control.value == checkbox.value
+        (control: AbstractControl) => control.value == checkbox.value,
       );
       if (index != -1) statusFormArray.removeAt(index);
     }

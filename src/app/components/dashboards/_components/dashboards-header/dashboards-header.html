@@ -1,189 +1,249 @@
 <!-- <header> -->
 <div class="menu-icons-and-logo">
-    <app-icon-container (mouseenter)="hoverSidebar(true)" (mouseleave)="hoverSidebar(false)"
-        (click)="showSidebar()" [appTooltipDirective]="{text: `${isSidebar ? 'Collapse':'Expand'} sidebar`,position: 'below'}">
-        <svg class="icon-content" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960"
-            width="20px">
-            @if(isSidebar){
-            <path
-                d="M500-640v320l160-160-160-160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm120-80v-560H200v560h120Zm80 0h360v-560H400v560Zm-80 0H200h120Z" />
-            }
-            @else{
-            <path
-                d="M460-320v-320L300-480l160 160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm440-80h120v-560H640v560Zm-80 0v-560H200v560h360Zm80 0h120-120Z" />
-            }
-        </svg>
-    </app-icon-container>
-    <app-icon-container #menuIcon="elementRef" (click)="show(menuIcon.elementRef ,menuTemplate ,menuPosition)" [appTooltipDirective]="{text: 'Switch sites or apps', position: 'below'}">
-        <svg class="icon-content" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960"
-            width="20px">
-            <path
-                d="M240-160q-33 0-56.5-23.5T160-240q0-33 23.5-56.5T240-320q33 0 56.5 23.5T320-240q0 33-23.5 56.5T240-160Zm240 0q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm240 0q-33 0-56.5-23.5T640-240q0-33 23.5-56.5T720-320q33 0 56.5 23.5T800-240q0 33-23.5 56.5T720-160ZM240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400ZM240-640q-33 0-56.5-23.5T160-720q0-33 23.5-56.5T240-800q33 0 56.5 23.5T320-720q0 33-23.5 56.5T240-640Zm240 0q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Zm240 0q-33 0-56.5-23.5T640-720q0-33 23.5-56.5T720-800q33 0 56.5 23.5T800-720q0 33-23.5 56.5T720-640Z" />
-        </svg>
-    </app-icon-container>
-    <app-icon-container>
-        <svg class="icon-content" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 -5 50 58">
-            <path
-                d="M0 12C0 5.37258 5.37258 0 12 0H36C42.6274 0 48 5.37258 48 12V36C48 42.6274 42.6274 48 36 48H12C5.37258 48 0 42.6274 0 36V12Z"
-                fill="#1868DB"></path>
-            <path
-                d="M17.9475 31.0469H15.2429C11.1638 31.0469 8.23755 28.5484 8.23755 24.8899H22.7804C23.5341 24.8899 24.0218 25.4252 24.0218 26.1837V40.8178C20.3861 40.8178 17.9475 37.8731 17.9475 33.7684V31.0469ZM25.1303 23.7745H22.4257C18.3466 23.7745 15.4203 21.3206 15.4203 17.6621H29.9631C30.7168 17.6621 31.2489 18.1528 31.2489 18.9113V33.5454C27.6132 33.5454 25.1303 30.6007 25.1303 26.496V23.7745ZM32.3573 16.5467H29.6527C25.5736 16.5467 22.6473 14.0482 22.6473 10.3896H37.1902C37.9439 10.3896 38.4316 10.925 38.4316 11.6389V26.273C34.7959 26.273 32.3573 23.3283 32.3573 19.2236V16.5467Z"
-                fill="white"></path>
-        </svg>
-    </app-icon-container>
+  <app-icon-container
+    (mouseenter)="hoverSidebar(true)"
+    (mouseleave)="hoverSidebar(false)"
+    (click)="showSidebar()"
+    [appTooltipDirective]="{text: isSidebar ? 'Collapse':'Expand' + ' sidebar',position: 'below'}"
+  >
+    <svg
+      class="icon-content"
+      xmlns="http://www.w3.org/2000/svg"
+      height="20px"
+      viewBox="0 -960 960 960"
+      width="20px"
+    >
+      @if(isSidebar){
+      <path
+        d="M500-640v320l160-160-160-160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm120-80v-560H200v560h120Zm80 0h360v-560H400v560Zm-80 0H200h120Z"
+      />
+      } @else{
+      <path
+        d="M460-320v-320L300-480l160 160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm440-80h120v-560H640v560Zm-80 0v-560H200v560h360Zm80 0h120-120Z"
+      />
+      }
+    </svg>
+  </app-icon-container>
+  <app-icon-container
+    #menuIcon="elementRef"
+    (click)="show(menuIcon.elementRef ,menuTemplate ,menuPosition)"
+    [appTooltipDirective]="{text: 'Switch sites or apps', position: 'below'}"
+  >
+    <svg
+      class="icon-content"
+      xmlns="http://www.w3.org/2000/svg"
+      height="20px"
+      viewBox="0 -960 960 960"
+      width="20px"
+    >
+      <path
+        d="M240-160q-33 0-56.5-23.5T160-240q0-33 23.5-56.5T240-320q33 0 56.5 23.5T320-240q0 33-23.5 56.5T240-160Zm240 0q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm240 0q-33 0-56.5-23.5T640-240q0-33 23.5-56.5T720-320q33 0 56.5 23.5T800-240q0 33-23.5 56.5T720-160ZM240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400ZM240-640q-33 0-56.5-23.5T160-720q0-33 23.5-56.5T240-800q33 0 56.5 23.5T320-720q0 33-23.5 56.5T240-640Zm240 0q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Zm240 0q-33 0-56.5-23.5T640-720q0-33 23.5-56.5T720-800q33 0 56.5 23.5T800-720q0 33-23.5 56.5T720-640Z"
+      />
+    </svg>
+  </app-icon-container>
+  <app-icon-container>
+    <svg
+      class="icon-content"
+      height="20px"
+      width="20px"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 -5 50 58"
+    >
+      <path
+        d="M0 12C0 5.37258 5.37258 0 12 0H36C42.6274 0 48 5.37258 48 12V36C48 42.6274 42.6274 48 36 48H12C5.37258 48 0 42.6274 0 36V12Z"
+        fill="#1868DB"
+      ></path>
+      <path
+        d="M17.9475 31.0469H15.2429C11.1638 31.0469 8.23755 28.5484 8.23755 24.8899H22.7804C23.5341 24.8899 24.0218 25.4252 24.0218 26.1837V40.8178C20.3861 40.8178 17.9475 37.8731 17.9475 33.7684V31.0469ZM25.1303 23.7745H22.4257C18.3466 23.7745 15.4203 21.3206 15.4203 17.6621H29.9631C30.7168 17.6621 31.2489 18.1528 31.2489 18.9113V33.5454C27.6132 33.5454 25.1303 30.6007 25.1303 26.496V23.7745ZM32.3573 16.5467H29.6527C25.5736 16.5467 22.6473 14.0482 22.6473 10.3896H37.1902C37.9439 10.3896 38.4316 10.925 38.4316 11.6389V26.273C34.7959 26.273 32.3573 23.3283 32.3573 19.2236V16.5467Z"
+        fill="white"
+      ></path>
+    </svg>
+  </app-icon-container>
 </div>
 <div class="search-bar">
-    <app-dashboard-search-bar></app-dashboard-search-bar>
-    <button class="create-task-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#fff">
-            <path d="M427-427H180.78v-106H427v-246.22h106V-533h246.22v106H533v246.22H427V-427Z" />
-        </svg>
-    </button>
+  <app-dashboard-search-bar></app-dashboard-search-bar>
+  <button class="create-task-btn">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="16px"
+      viewBox="0 -960 960 960"
+      width="16px"
+      fill="#fff"
+    >
+      <path
+        d="M427-427H180.78v-106H427v-246.22h106V-533h246.22v106H533v246.22H427V-427Z"
+      />
+    </svg>
+  </button>
 </div>
 <div class="notifications-user">
-    <div class="list-icons">
-        <app-icon-container #notifications="elementRef" (click)="show(notifications.elementRef, notificationTemplate, notificationPosition)" [appTooltipDirective]="{text: 'Notifications', position: 'below'}">
-            <img height="20px" width="20px" class="icon-content" src="assets/icons/bellicon.svg" alt="notifications" />
-        </app-icon-container>
-        <app-icon-container  [appTooltipDirective]="{text: 'Help', position: 'below'}">
-            <img height="20px" width="20px" class="icon-content" src="assets/icons/how.svg" alt="FAQs"/>
-        </app-icon-container>
-        <app-icon-container #settings="elementRef" (click)="show(settings.elementRef, settingsTemplate, notificationPosition)"  [appTooltipDirective]="{text: 'Settings', position: 'below'}">
-            <img height="20px" width="20px" class="icon-content" src="assets/icons/settings.svg" alt="settings">
-        </app-icon-container>
-        <div class="list-icon" #accountsIcon (click)="show(accountsIcon, accountTemplate, notificationPosition)"  [appTooltipDirective]="{text: 'anonymous@person.com', position: 'below'}">
-            <button class="avatar">
-                <span class="avatar-text">
-                    <span class="avatar-icon">
-                        A
-                    </span>
-                </span>
-            </button>
-        </div>
+  <div class="list-icons">
+    <app-icon-container
+      #notifications="elementRef"
+      (click)="show(notifications.elementRef, notificationTemplate, notificationPosition)"
+      [appTooltipDirective]="{text: 'Notifications', position: 'below'}"
+    >
+      <img
+        height="20px"
+        width="20px"
+        class="icon-content"
+        src="assets/icons/bellicon.svg"
+        alt="notifications"
+      />
+    </app-icon-container>
+    <app-icon-container
+      [appTooltipDirective]="{text: 'Help', position: 'below'}"
+      (click)="toggleAside()"
+    >
+      <img
+        height="20px"
+        width="20px"
+        class="icon-content"
+        src="assets/icons/how.svg"
+        alt="FAQs"
+      />
+    </app-icon-container>
+    <app-icon-container
+      #settings="elementRef"
+      (click)="show(settings.elementRef, settingsTemplate, notificationPosition)"
+      [appTooltipDirective]="{text: 'Settings', position: 'below'}"
+    >
+      <img
+        height="20px"
+        width="20px"
+        class="icon-content"
+        src="assets/icons/settings.svg"
+        alt="settings"
+      />
+    </app-icon-container>
+    <div
+      class="list-icon"
+      #accountsIcon
+      (click)="show(accountsIcon, accountTemplate, notificationPosition)"
+      [appTooltipDirective]="{text: 'anonymous@person.com', position: 'below'}"
+    >
+      <button class="avatar">
+        <span class="avatar-text"> <span class="avatar-icon"> A </span> </span>
+      </button>
     </div>
+  </div>
 </div>
 <!-- </header> -->
- <ng-template #menuTemplate>
-    <div class="menu-wrapper">
-        <div class="menu-wrapper-2">
-            <div class="menu-wrapper-3">
-                <section class="menu-section">
-                    <div class="section-container">
-                    @if(menuItems['section-1']){
-                        <ul class="section-links">
-                            @for(item of menuItems['section-1'];track $index){
-                                <app-menu-link-item [menuItemConfig]="item"></app-menu-link-item>
-                            }
-                        </ul>
-                    } @else {
-                        <div class="header-placeholder">
-                            <div class="section-header-shimmer"></div>
-                        </div>
-                        <div class="placeholder">
-                            <div class="icon-placeholder"></div>
-                            <div class="row-shimmer"></div>
-                        </div>
-                        <div class="placeholder">
-                            <div class="icon-placeholder"></div>
-                            <div class="row-shimmer"></div>
-                        </div>
-                        <div class="placeholder">
-                            <div class="icon-placeholder"></div>
-                            <div class="row-shimmer"></div>
-                        </div>
-                    }
-                    </div>
-                </section>
-                <section class="menu-section">
-                    <div class="section-container">
-                        @let menuSection2 = menuItems['section-2'];
-
-                        @if(menuSection2){
-                            <div class="section-header">
-                                <h2 class="section-header-title">
-                                    <div class="title-text">
-                                        Recommended Apps for you
-                                    </div>
-                                </h2>
-                            </div>
-                            <ul class="section-links">
-                                @for(item of menuItems['section-1'];track $index){
-                                    <app-menu-link-item [menuItemConfig]="item"></app-menu-link-item>
-                                }
-                            </ul>
-                        } @else {
-                            <div class="header-placeholder">
-                                <div class="section-header-shimmer"></div>
-                            </div>
-                            <div class="placeholder">
-                                <div class="icon-placeholder"></div>
-                                <div class="row-shimmer"></div>
-                            </div>
-                            <div class="placeholder">
-                                <div class="icon-placeholder"></div>
-                                <div class="row-shimmer"></div>
-                            </div>
-                            <div class="placeholder">
-                                <div class="icon-placeholder"></div>
-                                <div class="row-shimmer"></div>
-                            </div>
-                        }
-                    </div>
-                </section>
-                <section class="menu-section">
-                    <div class="section-container">
-                        @if(menuItems['section-3']){
-                            <ul class="section-links">
-                                @for(item of menuItems['section-3'];track $index){
-                                    <app-menu-link-item [menuItemConfig]="item"></app-menu-link-item>
-                                }
-                            </ul>
-                        } @else{
-                            <div class="header-placeholder">
-                                <div class="section-header-shimmer"></div>
-                            </div>
-                            <div class="placeholder">
-                                <div class="icon-placeholder"></div>
-                                <div class="row-shimmer"></div>
-                            </div>
-                            <div class="placeholder">
-                                <div class="icon-placeholder"></div>
-                                <div class="row-shimmer"></div>
-                            </div>
-                            <div class="placeholder">
-                                <div class="icon-placeholder"></div>
-                                <div class="row-shimmer"></div>
-                            </div>
-                        }
-                    </div>
-                </section>
-                <section class="menu-section">
-                    <div class="more">
-                        <ul class="more-list">
-                            <li class="more-list-item">
-                                <a class="more-btn">
-                                    <span class="more-btn-text">
-                                        Manage list
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </section>
+<ng-template #menuTemplate>
+  <div class="menu-wrapper">
+    <div class="menu-wrapper-2">
+      <div class="menu-wrapper-3">
+        <section class="menu-section">
+          <div class="section-container">
+            @if(menuItems['section-1']){
+            <ul class="section-links">
+              @for(item of menuItems['section-1'];track $index){
+              <app-menu-link-item [menuItemConfig]="item"></app-menu-link-item>
+              }
+            </ul>
+            } @else {
+            <div class="header-placeholder">
+              <div class="section-header-shimmer"></div>
             </div>
-        </div>
+            <div class="placeholder">
+              <div class="icon-placeholder"></div>
+              <div class="row-shimmer"></div>
+            </div>
+            <div class="placeholder">
+              <div class="icon-placeholder"></div>
+              <div class="row-shimmer"></div>
+            </div>
+            <div class="placeholder">
+              <div class="icon-placeholder"></div>
+              <div class="row-shimmer"></div>
+            </div>
+            }
+          </div>
+        </section>
+        <section class="menu-section">
+          <div class="section-container">
+            @let menuSection2 = menuItems['section-2']; @if(menuSection2){
+            <div class="section-header">
+              <h2 class="section-header-title">
+                <div class="title-text">Recommended Apps for you</div>
+              </h2>
+            </div>
+            <ul class="section-links">
+              @for(item of menuItems['section-1'];track $index){
+              <app-menu-link-item [menuItemConfig]="item"></app-menu-link-item>
+              }
+            </ul>
+            } @else {
+            <div class="header-placeholder">
+              <div class="section-header-shimmer"></div>
+            </div>
+            <div class="placeholder">
+              <div class="icon-placeholder"></div>
+              <div class="row-shimmer"></div>
+            </div>
+            <div class="placeholder">
+              <div class="icon-placeholder"></div>
+              <div class="row-shimmer"></div>
+            </div>
+            <div class="placeholder">
+              <div class="icon-placeholder"></div>
+              <div class="row-shimmer"></div>
+            </div>
+            }
+          </div>
+        </section>
+        <section class="menu-section">
+          <div class="section-container">
+            @if(menuItems['section-3']){
+            <ul class="section-links">
+              @for(item of menuItems['section-3'];track $index){
+              <app-menu-link-item [menuItemConfig]="item"></app-menu-link-item>
+              }
+            </ul>
+            } @else{
+            <div class="header-placeholder">
+              <div class="section-header-shimmer"></div>
+            </div>
+            <div class="placeholder">
+              <div class="icon-placeholder"></div>
+              <div class="row-shimmer"></div>
+            </div>
+            <div class="placeholder">
+              <div class="icon-placeholder"></div>
+              <div class="row-shimmer"></div>
+            </div>
+            <div class="placeholder">
+              <div class="icon-placeholder"></div>
+              <div class="row-shimmer"></div>
+            </div>
+            }
+          </div>
+        </section>
+        <section class="menu-section">
+          <div class="more">
+            <ul class="more-list">
+              <li class="more-list-item">
+                <a class="more-btn">
+                  <span class="more-btn-text"> Manage list </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </div>
     </div>
- </ng-template>
+  </div>
+</ng-template>
 
- <ng-template #notificationTemplate>
-    <div class="notification-wrapper">
-        <div class="notification-wrapper-2">
-            <div class="notification-header">
-                <h2 class="notifications-header-title">Notifications</h2>
-                <div class="notificationsIcons">
-                    <div class="icon-1">
-                            <label class="toggle-switch-label">Only show unread</label>
-                            <!-- <label class="toggle-switch">
+<ng-template #notificationTemplate>
+  <div class="notification-wrapper">
+    <div class="notification-wrapper-2">
+      <div class="notification-header">
+        <h2 class="notifications-header-title">Notifications</h2>
+        <div class="notificationsIcons">
+          <div class="icon-1">
+            <label class="toggle-switch-label">Only show unread</label>
+            <!-- <label class="toggle-switch">
                                 <input type="checkbox" class="toggle-input">
                                 <span class="toggle-on">
                                     <span class="icon-container">
@@ -200,225 +260,319 @@
                                     </span>
                                 </span>
                             </label> -->
-                            <app-toggle-btn></app-toggle-btn>
-                    </div>
-                    <div class="icon-2">
-                        <a href="#" class="new-tab-link">
-                            <span class="link-icon">
-                                <img src="assets/icons/newTab.svg" alt="open" />
-                            </span>
-                        </a>
-                    </div>
-                    <button class="more-btn">
-                        <span class="more-icon">
-                            <img src="assets/icons/more.svg" alt="more">
-                        </span>
-                    </button>
-                </div>
-            </div>
-            <span class="info-highlight"></span>
-            <app-tab [config]="{headings:['Recent','Viewed'],bodyPlaceholders:[]}"></app-tab>
-            <div class="notification-placeholder">
-                <div class="tab-panel-shimmer"></div>
-                <div class="tab-row-placeholder">
-                    <div class="tab-row-icon-shimmer"></div>
-                    <div class="tab-row-details">
-                        <div class="tab-row-detail-shimmer tab-row-detail-shimmer-1"></div>
-                        <div class="tab-row-detail-shimmer tab-row-detail-shimmer-2"></div>
-                        <div class="tab-row-detail-shimmer tab-row-detail-shimmer-3"></div>
-                    </div>
-                </div>
-                <div class="tab-row-placeholder">
-                    <div class="tab-row-icon-shimmer"></div>
-                    <div class="tab-row-details">
-                        <div class="tab-row-detail-shimmer tab-row-detail-shimmer-1"></div>
-                        <div class="tab-row-detail-shimmer tab-row-detail-shimmer-2"></div>
-                        <div class="tab-row-detail-shimmer tab-row-detail-shimmer-3"></div>
-                    </div>
-                </div>
-            </div>
+            <app-toggle-btn></app-toggle-btn>
+          </div>
+          <div class="icon-2">
+            <a href="#" class="new-tab-link">
+              <span class="link-icon">
+                <img src="assets/icons/newTab.svg" alt="open" />
+              </span>
+            </a>
+          </div>
+          <button class="more-btn">
+            <span class="more-icon">
+              <img src="assets/icons/more.svg" alt="more" />
+            </span>
+          </button>
         </div>
+      </div>
+      <span class="info-highlight"></span>
+      <app-tab
+        [config]="{headings:['Recent','Viewed'],bodyPlaceholders:[]}"
+      ></app-tab>
+      <div class="notification-placeholder">
+        <div class="tab-panel-shimmer"></div>
+        <div class="tab-row-placeholder">
+          <div class="tab-row-icon-shimmer"></div>
+          <div class="tab-row-details">
+            <div class="tab-row-detail-shimmer tab-row-detail-shimmer-1"></div>
+            <div class="tab-row-detail-shimmer tab-row-detail-shimmer-2"></div>
+            <div class="tab-row-detail-shimmer tab-row-detail-shimmer-3"></div>
+          </div>
+        </div>
+        <div class="tab-row-placeholder">
+          <div class="tab-row-icon-shimmer"></div>
+          <div class="tab-row-details">
+            <div class="tab-row-detail-shimmer tab-row-detail-shimmer-1"></div>
+            <div class="tab-row-detail-shimmer tab-row-detail-shimmer-2"></div>
+            <div class="tab-row-detail-shimmer tab-row-detail-shimmer-3"></div>
+          </div>
+        </div>
+      </div>
     </div>
- </ng-template>
+  </div>
+</ng-template>
 
- <ng-template #settingsTemplate>
-    <div class="settings-wrapper">
-        <div class="settings-wrapper-2">
-            <div class="settings-wrapper-3">
-                <div class="settings-wrapper-4">
-                    <div class="settings-section">
-                        <div class="settings-section-heading">
-                            <div class="settings-section-heading-text-container">
-                                <h2 class="settings-section-heading-text">Personal Settings</h2>
-                                <div class="settings-section-heading-extras">
-                                    <button class="settings-keyboard-shortcut">
-                                        <span>
-                                            search (
-                                            <span class="code-container">Ctrl</span>
-                                            +
-                                            <span class="code-container">K</span>
-                                            )
-                                        </span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <ul class="settings-section-item-list">
-                            <li class="settings-section-item">
-                                <span class="settings-section-item-container">
-                                    <a href="#"></a>
-                                    <span class="settings-section-item-container-contents">
-                                        <span class="settings-section-item-icon-container">
-                                            <span class="settings-section-item-icon">
-                                                <img src="assets/icons/foryou.svg" alt="icon">
-                                            </span>
-                                        </span>
-                                        <div class="settings-section-item-details-container">
-                                            <span class="settings-section-item-detail-1">General Settings</span>
-                                            <span class="settings-section-item-detail-2">manage time location</span>
-                                        </div>
-                                    </span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="settings-section">
-                        <div class="settings-section-heading">
-                            <div class="settings-section-heading-text-container">
-                                <h2 class="settings-section-heading-text">Jira Admin Settings</h2>
-                            </div>
-                            
-                        </div>
-                        <ul class="settings-section-items">
-                            <li class="settings-section-item">
-                                <span class="settings-section-item-container">
-                                    <a href="#"></a>
-                                    <span class="settings-section-item-container-contents">
-                                        <span class="settings-section-item-icon-container">
-                                            <span class="settings-section-item-icon">
-                                                <img src="assets/icons/foryou.svg" alt="icon">
-                                            </span>
-                                        </span>
-                                        <div class="settings-section-item-details-container">
-                                            <span class="settings-section-item-detail-1">General Settings</span>
-                                            <span class="settings-section-item-detail-2">manage time location</span>
-                                        </div>
-                                    </span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="settings-section">
-                        <div class="settings-section-heading">
-                            <div class="settings-section-heading-text-container">
-                                <h2 class="settings-section-heading-text">Atlassian admin settings</h2>
-                            </div>
-                        </div>
-                        <ul class="settings-section-items">
-                            <li class="settings-section-item">
-                                <span class="settings-section-item-container">
-                                    <a href="#"></a>
-                                    <span class="settings-section-item-container-contents">
-                                        <span class="settings-section-item-icon-container">
-                                            <span class="settings-section-item-icon">
-                                                <img src="assets/icons/foryou.svg" alt="icon">
-                                            </span>
-                                        </span>
-                                        <div class="settings-section-item-details-container">
-                                            <span class="settings-section-item-detail-1">General Settings</span>
-                                            <span class="settings-section-item-detail-2">manage time location</span>
-                                        </div>
-                                    </span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
+<ng-template #settingsTemplate>
+  <div class="settings-wrapper">
+    <div class="settings-wrapper-2">
+      <div class="settings-wrapper-3">
+        <div class="settings-wrapper-4">
+          <div class="settings-section">
+            <div class="settings-section-heading">
+              <div class="settings-section-heading-text-container">
+                <h2 class="settings-section-heading-text">Personal Settings</h2>
+                <div class="settings-section-heading-extras">
+                  <button class="settings-keyboard-shortcut">
+                    <span>
+                      search (
+                      <span class="code-container">Ctrl</span>
+                      +
+                      <span class="code-container">K</span>
+                      )
+                    </span>
+                  </button>
                 </div>
+              </div>
             </div>
+            <ul class="settings-section-item-list">
+              <li class="settings-section-item">
+                <span class="settings-section-item-container">
+                  <a href="#"></a>
+                  <span class="settings-section-item-container-contents">
+                    <span class="settings-section-item-icon-container">
+                      <span class="settings-section-item-icon">
+                        <img src="assets/icons/foryou.svg" alt="icon" />
+                      </span>
+                    </span>
+                    <div class="settings-section-item-details-container">
+                      <span class="settings-section-item-detail-1"
+                        >General Settings</span
+                      >
+                      <span class="settings-section-item-detail-2"
+                        >manage time location</span
+                      >
+                    </div>
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="settings-section">
+            <div class="settings-section-heading">
+              <div class="settings-section-heading-text-container">
+                <h2 class="settings-section-heading-text">
+                  Jira Admin Settings
+                </h2>
+              </div>
+            </div>
+            <ul class="settings-section-items">
+              <li class="settings-section-item">
+                <span class="settings-section-item-container">
+                  <a href="#"></a>
+                  <span class="settings-section-item-container-contents">
+                    <span class="settings-section-item-icon-container">
+                      <span class="settings-section-item-icon">
+                        <img src="assets/icons/foryou.svg" alt="icon" />
+                      </span>
+                    </span>
+                    <div class="settings-section-item-details-container">
+                      <span class="settings-section-item-detail-1"
+                        >General Settings</span
+                      >
+                      <span class="settings-section-item-detail-2"
+                        >manage time location</span
+                      >
+                    </div>
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="settings-section">
+            <div class="settings-section-heading">
+              <div class="settings-section-heading-text-container">
+                <h2 class="settings-section-heading-text">
+                  Atlassian admin settings
+                </h2>
+              </div>
+            </div>
+            <ul class="settings-section-items">
+              <li class="settings-section-item">
+                <span class="settings-section-item-container">
+                  <a href="#"></a>
+                  <span class="settings-section-item-container-contents">
+                    <span class="settings-section-item-icon-container">
+                      <span class="settings-section-item-icon">
+                        <img src="assets/icons/foryou.svg" alt="icon" />
+                      </span>
+                    </span>
+                    <div class="settings-section-item-details-container">
+                      <span class="settings-section-item-detail-1"
+                        >General Settings</span
+                      >
+                      <span class="settings-section-item-detail-2"
+                        >manage time location</span
+                      >
+                    </div>
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
     </div>
- </ng-template>
+  </div>
+</ng-template>
 
- <ng-template #accountTemplate>
-    <div class="accounts-wrapper">
-        <div class="accounts-wrapper-2">
-            <div class="accounts-content">
-                <div class="accounts-section accounts-section-1">
-                    <section class="accounts-details">
-                        <div class="accounts-details-container">
-                            <div class="accounts-details-content">
-                                <div class="avatar-container">
-                                    <img src="assets/icons/foryou.svg" alt="icons">
-                                </div>
-                                <div class="details-container">
-                                    <h3 class="details-user-name">Unknown</h3>
-                                    <p class="details-user-email">Anonymous@person.com</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+<ng-template #accountTemplate>
+  <div class="accounts-wrapper">
+    <div class="accounts-wrapper-2">
+      <div class="accounts-content">
+        <div class="accounts-section accounts-section-1">
+          <section class="accounts-details">
+            <div class="accounts-details-container">
+              <div class="accounts-details-content">
+                <div class="avatar-container">
+                  <img src="assets/icons/foryou.svg" alt="icons" />
                 </div>
-                <div class="accounts-section accounts-section-2">
-                    <a href="#" class="accounts-section-2-row">
-                        <span class="accounts-section-2-row-content">
-                            <span class="accounts-section-2-row-icon-container">
-                                <span class="accounts-section-2-row-icon">
-                                    <img src="assets/icons/foryou.svg" alt="icon">
-                                </span>
-                            </span>
-                            <span class="accounts-section-2-row-details-container">
-                                <span>
-                                    Profile
-                                </span>
-                            </span>
-                        </span>
-                    </a>
-                    <a href="#" class="accounts-section-2-row">
-                        <span class="accounts-section-2-row-content">
-                            <span class="accounts-section-2-row-icon-container">
-                                <span class="accounts-section-2-row-icon">
-                                    <img src="assets/icons/foryou.svg" alt="icon">
-                                </span>
-                            </span>
-                            <span class="accounts-section-2-row-details-container">
-                                <span>
-                                    Accounts Settings
-                                </span>
-                            </span>
-                        </span>
-                    </a>
+                <div class="details-container">
+                  <h3 class="details-user-name">Unknown</h3>
+                  <p class="details-user-email">Anonymous@person.com</p>
                 </div>
-                <div class="accounts-section accounts-section-3">
-                    <a href="#" class="accounts-section-3-row">
-                        <span class="accounts-section-3-row-content">
-                            <span class="accounts-section-3-row-icon-container">
-                                <span class="accounts-section-3-row-icon">
-                                    <img src="assets/icons/foryou.svg" alt="icon">
-                                </span>
-                            </span>
-                            <span class="accounts-section-3-row-details-container">
-                                <span>
-                                    Switch Account
-                                </span>
-                            </span>
-                        </span>
-                    </a>
-                    <a href="#" class="accounts-section-3-row">
-                        <span class="accounts-section-3-row-content">
-                            <span class="accounts-section-3-row-icon-container">
-                                <span class="accounts-section-3-row-icon">
-                                    <img src="assets/icons/foryou.svg" alt="icon">
-                                </span>
-                            </span>
-                            <span class="accounts-section-3-row-details-container">
-                                <span>
-                                    Switch Account
-                                </span>
-                            </span>
-                        </span>
-                    </a>
-                </div>
+              </div>
             </div>
+          </section>
         </div>
+        <div class="accounts-section accounts-section-2">
+          <a href="#" class="accounts-section-2-row">
+            <span class="accounts-section-2-row-content">
+              <span class="accounts-section-2-row-icon-container">
+                <span class="accounts-section-2-row-icon">
+                  <img src="assets/icons/foryou.svg" alt="icon" />
+                </span>
+              </span>
+              <span class="accounts-section-2-row-details-container">
+                <span> Profile </span>
+              </span>
+            </span>
+          </a>
+          <a href="#" class="accounts-section-2-row">
+            <span class="accounts-section-2-row-content">
+              <span class="accounts-section-2-row-icon-container">
+                <span class="accounts-section-2-row-icon">
+                  <img src="assets/icons/foryou.svg" alt="icon" />
+                </span>
+              </span>
+              <span class="accounts-section-2-row-details-container">
+                <span> Accounts Settings </span>
+              </span>
+            </span>
+          </a>
+        </div>
+        <div class="accounts-section accounts-section-3">
+          <a href="#" class="accounts-section-3-row">
+            <span class="accounts-section-3-row-content">
+              <span class="accounts-section-3-row-icon-container">
+                <span class="accounts-section-3-row-icon">
+                  <img src="assets/icons/foryou.svg" alt="icon" />
+                </span>
+              </span>
+              <span class="accounts-section-3-row-details-container">
+                <span> Switch Account </span>
+              </span>
+            </span>
+          </a>
+          <a href="#" class="accounts-section-3-row">
+            <span class="accounts-section-3-row-content">
+              <span class="accounts-section-3-row-icon-container">
+                <span class="accounts-section-3-row-icon">
+                  <img src="assets/icons/foryou.svg" alt="icon" />
+                </span>
+              </span>
+              <span class="accounts-section-3-row-details-container">
+                <span> Switch Account </span>
+              </span>
+            </span>
+          </a>
+        </div>
+      </div>
     </div>
- </ng-template>
+  </div>
+</ng-template>
+
+<ng-template #createTemplate>
+  <section class="create-task-wrapper">
+    <div class="content-header">
+      <h1 class="header-title">
+        <span>Create</span>
+      </h1>
+      <div class="header-options">
+        <ul class="header-options-list">
+          <li class="header-option-item">
+            <app-icon-container>
+              <img
+                class="icon-content"
+                [src]="'assets/icons/add1.svg'"
+                alt="add"
+              />
+            </app-icon-container>
+          </li>
+          <li class="header-option-item">
+            <app-icon-container>
+              <img
+                class="icon-content"
+                [src]="'assets/icons/newTab.svg'"
+                alt="new"
+              />
+            </app-icon-container>
+          </li>
+          <li class="header-option-item">
+            <app-icon-container>
+              <img
+                class="icon-content"
+                [src]="'assets/icons/more.svg'"
+                alt="more"
+              />
+            </app-icon-container>
+          </li>
+          <li class="header-option-item">
+            <app-icon-container>
+              <img
+                class="icon-content"
+                [src]="'assets/icons/close.svg'"
+                alt="close"
+              />
+            </app-icon-container>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="content-body">
+      <div class="content-container-1">
+        <div class="content-cotainer-2">
+          <p class="info-indicator">
+            Required fields are marked with asterisk
+            <span class="red-asterisk">*</span>
+          </p>
+          <div class="field-wrapper">
+            <label for="" class="field-label">
+              Space <span class="red-asterisk">*</span>
+            </label>
+            <app-multi-select></app-multi-select>
+          </div>
+          <div class="field-wrapper">
+            <label for="" class="field-label">
+              Work type <span class="red-asterisk">*</span>
+            </label>
+            <app-multi-select></app-multi-select>
+          </div>
+          <div class="item-placeholder-wrapper">
+            <div class="item-placeholder-label"></div>
+            <div class="item-placeholder-row-1"></div>
+            <div class="item-placeholder-row-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-footer">
+      <app-checkbox
+        class="create-another-checkbox"
+        [checkboxConfig]="{title: 'create another'}"
+      ></app-checkbox>
+      <button class="cancel-btn"><span>Cancel</span></button>
+      <button class="save-btn"><span>Create</span></button>
+    </div>
+  </section>
+</ng-template>

@@ -1,16 +1,15 @@
 
     <div class="multiple-selections" (click)="focusIn()">
         <div class="multiple-selection-area"
-            [ngClass]="{ 'selected-options': selectedOptionsIndex.length }">
+            [ngClass]="{ 'selected-options': selectedOptions().size }">
             <div class="multiple-select-placeholder"
-                [ngClass]="{ 'empty': !inputControl.value && !selectedOptionsIndex.length }">
+                [ngClass]="{ 'empty': !inputControl.value && !selectedOptions().size }">
                 {{ config.placeholder }}
             </div>
-            @for(option of config.options;track $index){
-            @if(selectedOptionsIndex.includes($index)){
+            @for(option of selectedOptionsArray();track $index){
             <div class="selected-option">
-                <div class="selected-option-text">{{option}}</div>
-                <div class="clear-icon-container" (click)="clearOption($index)">
+                <div class="selected-option-text">{{option.label}}</div>
+                <div class="clear-icon-container" (click)="clearOption(option)">
                     <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px"
                         fill="#000">
                         <path
@@ -19,23 +18,22 @@
                 </div>
             </div>
             }
-            }
             <div class="multiple-select-input-container">
                 <input type="text" class="multiple-select-input"
-                    [ngClass]="{'select': inputControl.value && !selectedOptionsIndex.length }"
+                    [ngClass]="{'select': inputControl.value && !selectedOptions().size }"
                     [formControl]="inputControl" #input>
             </div>
         </div>
         <div class="dropdown-icon-container">
             <div class="loading-indicator">
                 <span class="loader">
-                    <svg height="16" width="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" role="none"
+                    <svg height="16" width="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
                         class="svg">
                         <circle cx="8" cy="8" r="7" class="loader-circle"></circle>
                     </svg>
                 </span>
             </div>
-            <div class="clear-container" [ngClass]="{'show': selectedOptionsIndex.length}" (click)="clearAll()">
+            <div class="clear-container" [ngClass]="{'show': selectedOptions().size}" (click)="clearAll()">
                 <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#fff">
                     <path
                         d="m324.15-301.08-23.07-23.07L455.92-480 301.08-634.85l23.07-23.07L480-503.08l154.85-154.84 23.07 23.07L503.08-480l154.84 155.85-23.07 23.07L480-455.92 324.15-301.08Z" />
@@ -48,36 +46,7 @@
             </div>
         </div>
     </div>
-<!-- <ng-template #optionContainer>
-        <div class="multiple-select-option-container">
-            <div class="multiple-select-option-groups">
-                <div class="multiple-select-option-group">
-                    @if(unselectedOptionsIndex.length){
-                        @if(config.optionsHeading){
-                            <div class="multiple-select-option-heading">
-                                {{config.optionsHeading}}
-                            </div>
-                        }
-                        <div>
-                            @for(option of config.options;track $index){
-                                @if(unselectedOptionsIndex.includes($index)){
-                                    <div class="multiple-select-option" [ngClass]="{ 'hovered': hoveredOption() == $index }"
-                                        (mouseenter)="hoveredOption.set($index)" (click)="selectOption($index)">{{ option }}</div>
-                                    }
-                                }
-                        </div>
-                    }
-                    @else{
-                        <div class="multiple-select-option-heading">
-                            No Options
-                        </div>
-                    }                    
-                </div>
-            </div>
-        </div>
-</ng-template> -->
-
-<ng-template #optionContainer let-optionLists="optionLists">
+<!-- <ng-template #optionContainer let-optionLists="optionLists">
     <div class="option-container-wrapper">
         <div class="option-container-wrapper-2">
             <div class="option-container-content">
@@ -126,4 +95,4 @@
             </div>
         </div>
     </div>
-</ng-template>
+</ng-template> -->
