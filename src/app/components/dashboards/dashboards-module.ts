@@ -21,6 +21,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { MenuLinkItem } from '../../templates/menu-link-item/menu-link-item';
 import { ToggleBtn } from '../../templates/toggle-btn/toggle-btn';
 import { TooltipDirective } from "../../directives/tooltip-directive/tooltip-directive";
+import { WysiwygEditorComponent } from '../../templates/wysiwyg/wysiwyg.component';
 
 const dashboardRoutes: Routes =[
   {
@@ -66,7 +67,8 @@ const dashboardRoutes: Routes =[
     ToggleBtn,
     ResizableDirective,
     OverlayModule,
-    TooltipDirective
+    TooltipDirective,
+    WysiwygEditorComponent
 ],
   providers:[
     provideRouter(dashboardRoutes)

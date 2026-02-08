@@ -120,4 +120,11 @@ export class DashboardsHeader {
   public toggleAside() {
     this.helpIconClick.emit(true);
   }
+  public showCreate(templateRef: TemplateRef<any>) {
+    this.overlayService.open({
+      template: templateRef,
+      viewContainerRef: this.viewContainerRef,
+      hasBackdrop: true
+    });
+  }
 }

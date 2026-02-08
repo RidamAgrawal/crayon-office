@@ -62,10 +62,12 @@ app-dashboard-search-bar {
     border-radius: 3px;
     z-index: 1;
 }
+
 .create-task-btn {
     background-color: #1868DB;
     color: white;
 }
+
 .create-task-btn:hover {
     background-color: #1558BC;
 }
@@ -97,6 +99,7 @@ app-dashboard-search-bar {
     .notifications-user {
         min-width: 330px;
     }
+
     .notifications-user {
         justify-self: end;
         width: max-content;
@@ -180,6 +183,7 @@ app-dashboard-search-bar {
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
@@ -194,6 +198,7 @@ app-dashboard-search-bar {
     padding-top: 24px;
     padding-bottom: 18px;
 }
+
 .section-header-shimmer {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -205,6 +210,7 @@ app-dashboard-search-bar {
     background-color: #0515240F;
     border-radius: .25rem;
 }
+
 .placeholder {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -215,6 +221,7 @@ app-dashboard-search-bar {
     padding-block: .5rem;
     align-items: center;
 }
+
 .icon-placeholder {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -227,6 +234,7 @@ app-dashboard-search-bar {
     border-radius: .5rem;
     margin-right: .5rem;
 }
+
 .row-shimmer {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -238,6 +246,7 @@ app-dashboard-search-bar {
     background-color: #0515240F;
     border-radius: 4px;
 }
+
 .more {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -247,11 +256,13 @@ app-dashboard-search-bar {
     box-sizing: border-box;
     margin: 4px 9pt 0px 9pt;
 }
+
 .more-list {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
+
 .more-list-item {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -260,6 +271,7 @@ app-dashboard-search-bar {
     margin: 8px;
     margin-top: 0px;
 }
+
 .more-btn {
     color: #505A2E;
     position: relative;
@@ -283,6 +295,7 @@ app-dashboard-search-bar {
     border: 1px solid #0B120E24;
 
 }
+
 .more-btn-text {
     flex-grow: 1;
     white-space: nowrap;
@@ -290,12 +303,15 @@ app-dashboard-search-bar {
     flex-shrink: 1;
     transition: opacity .1s ease-out;
 }
+
 .more-btn:hover {
     background-color: #0515240F;
 }
+
 .list-icon:last-of-type {
     display: block;
 }
+
 .avatar {
     -webkit-align-items: baseline;
     -webkit-box-align: baseline;
@@ -337,9 +353,11 @@ app-dashboard-search-bar {
     background-color: transparent;
     aspect-ratio: 1;
 }
+
 .avatar:hover {
     background-color: #0515240F;
 }
+
 .avatar-text {
     opacity: 1;
     -webkit-transition: opacity 0.3s;
@@ -368,6 +386,7 @@ app-dashboard-search-bar {
     align-items: center;
     justify-content: center;
 }
+
 .avatar-icon {
     height: 20px;
     width: 20px;
@@ -386,6 +405,7 @@ app-dashboard-search-bar {
     box-shadow: 0px 8px 12px #1E1F2126, 0px 0px 1px #1E1F214F;
     border-radius: .5rem;
 }
+
 .notification-wrapper-2 {
     height: 100%;
     width: 100%;
@@ -407,6 +427,7 @@ app-dashboard-search-bar {
     margin-inline-start: 24px;
     margin-inline-end: 16px;
 }
+
 .notification-header-title {
     color: #292A2E;
     text-transform: none;
@@ -415,6 +436,7 @@ app-dashboard-search-bar {
     line-height: 1.75rem;
     font-weight: 653;
 }
+
 .notificationsIcons {
     display: flex;
     box-sizing: border-box;
@@ -422,14 +444,15 @@ app-dashboard-search-bar {
     align-items: center;
     flex-direction: row;
 }
+
 .icon-1 {
     display: flex;
     align-items: center;
     box-sizing: border-box;
 }
-.toggle-switch-label {
 
-}
+.toggle-switch-label {}
+
 .toggle-switch {
     box-sizing: initial;
     position: relative;
@@ -447,9 +470,11 @@ app-dashboard-search-bar {
     transition: transform .2s ease;
     cursor: default;
 }
+
 .toggle-switch:hover {
     background-color: #3B3D42;
 }
+
 .toggle-switch::before {
     position: absolute;
     width: .75rem;
@@ -457,21 +482,25 @@ app-dashboard-search-bar {
     transform: none;
     inset-inline-start: .25rem;
     inset-block-end: .25rem;
-    content:'';
+    content: '';
     background-color: #fff;
     transition: transform .2s ease;
     border-radius: 50%;
 
 }
+
 .toggle-switch.checked {
     background-color: #5B7F24;
 }
+
 .toggle-switch.checked:hover {
     background-color: #4C6B1F;
 }
+
 .toggle-switch.checked::before {
     transform: translateX(1rem);
 }
+
 .toggle-input {
     opacity: 0;
     margin: 0;
@@ -479,6 +508,7 @@ app-dashboard-search-bar {
     border: none;
     outline: none;
 }
+
 .toggle-on {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -493,6 +523,7 @@ app-dashboard-search-bar {
     justify-content: center;
     transition: opacity .2s ease;
 }
+
 .toggle-off {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -507,7 +538,8 @@ app-dashboard-search-bar {
     justify-content: center;
     transition: opacity .2s ease;
 }
-.toggle-on .icon-container ,
+
+.toggle-on .icon-container,
 .toggle-off .icon-container {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -518,15 +550,17 @@ app-dashboard-search-bar {
     display: inline-block;
     flex-shrink: 0;
 }
-.toggle-on .icon-container {
 
-}
+.toggle-on .icon-container {}
+
 .icon-2 {
     margin: 0 6px;
 }
+
 .icon-2 .new-tab-link:hover {
     background-color: #0B120E24;
 }
+
 .icon-2 .new-tab-link {
     -webkit-box-align: baseline;
     align-items: baseline;
@@ -555,6 +589,7 @@ app-dashboard-search-bar {
     background: transparent;
     color: #505258;
 }
+
 .icon-2 .new-tab-link .link-icon {
     opacity: 1;
     -webkit-transition: opacity 0.3s;
@@ -581,13 +616,15 @@ app-dashboard-search-bar {
     -ms-user-select: none;
     user-select: none;
 }
-.icon-2 .new-tab-link .link-icon > img {
+
+.icon-2 .new-tab-link .link-icon>img {
     vertical-align: bottom;
     height: 1.5rem;
     width: 1.5rem;
     pointer-events: none;
     overflow: hidden;
 }
+
 .more-btn {
     -webkit-box-align: baseline;
     align-items: baseline;
@@ -616,11 +653,13 @@ app-dashboard-search-bar {
     background: transparent;
     color: #505258;
 }
+
 .more-btn:hover {
     background-color: #0B120E24;
 }
+
 .more-btn .more-icon {
-        opacity: 1;
+    opacity: 1;
     -webkit-transition: opacity 0.3s;
     transition: opacity 0.3s;
     display: -webkit-box;
@@ -648,6 +687,7 @@ app-dashboard-search-bar {
     // flex-shrink: 0;
     // line-height: 1;
 }
+
 .notification-placeholder {
     margin: 0 24px;
     -webkit-box-flex: 1;
@@ -655,6 +695,7 @@ app-dashboard-search-bar {
     display: flex;
     flex-direction: column;
 }
+
 .tab-panel-shimmer {
     height: 16px;
     max-width: 50px;
@@ -662,6 +703,7 @@ app-dashboard-search-bar {
     background-color: var(--ds-background-neutral, #F4F5F7);
     margin-bottom: 8px;
 }
+
 .tab-row-placeholder {
     display: flex;
     margin-bottom: 12px;
@@ -670,6 +712,7 @@ app-dashboard-search-bar {
     margin-right: -8px;
     margin-left: -8px;
 }
+
 .tab-row-icon-shimmer {
     height: 40px;
     width: 40px;
@@ -677,17 +720,20 @@ app-dashboard-search-bar {
     border-radius: var(--ds-radius-full, 9999px);
     margin-right: var(--ds-space-150, 12px);
 }
+
 .tab-row-details {
     display: flex;
     flex-direction: column;
     -webkit-box-flex: 1;
     flex-grow: 1;
 }
+
 .tab-row-detail-shimmer {
     border-radius: 3px;
     background-color: #F4F5F7;
     margin-bottom: 4px;
 }
+
 .tab-row-detail-shimmer-1 {
     height: 16px;
     max-width: 269px;
@@ -695,6 +741,7 @@ app-dashboard-search-bar {
     background-color: var(--ds-background-neutral, #F4F5F7);
     margin-bottom: 4px;
 }
+
 .tab-row-detail-shimmer-2 {
     height: 16px;
     max-width: 320px;
@@ -702,6 +749,7 @@ app-dashboard-search-bar {
     background-color: var(--ds-background-neutral, #F4F5F7);
     margin-bottom: 4px;
 }
+
 .tab-row-detail-shimmer-3 {
     height: 16px;
     max-width: 100px;
@@ -713,7 +761,7 @@ app-dashboard-search-bar {
 .settings-wrapper {
     box-sizing: border-box;
     z-index: 400;
-    box-shadow:  0px 8px 12px #1E1F2126, 0px 0px 1px #1E1F214F;
+    box-shadow: 0px 8px 12px #1E1F2126, 0px 0px 1px #1E1F214F;
     background-color: var(--ds-surface-overlay, #fff);
     color: var(--ds-text, #292a2e);
     box-sizing: border-box;
@@ -738,6 +786,7 @@ app-dashboard-search-bar {
 .settings-wrapper-4 {
     flex-shrink: 0;
 }
+
 .settings-wrapper-4::after,
 .settings-wrapper-4::before,
 .settings-section::after,
@@ -746,6 +795,7 @@ app-dashboard-search-bar {
     display: block;
     height: 6px;
 }
+
 .settings-section-heading {
     box-sizing: border-box;
     justify-content: space-between;
@@ -783,9 +833,11 @@ app-dashboard-search-bar {
     appearance: none;
     box-sizing: border-box;
 }
+
 button.settings-keyboard-shortcut:hover {
     background-color: #0515240F;
 }
+
 button.settings-keyboard-shortcut {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -820,13 +872,15 @@ button.settings-keyboard-shortcut {
     border: 1px solid #0B120E24;
     border-radius: 3px;
 }
+
 button.settings-keyboard-shortcut::after {
     content: "";
     position: absolute;
     border: 1px solid #0B120E24;
     border-radius: 3px;
 }
-button.settings-keyboard-shortcut > span {
+
+button.settings-keyboard-shortcut>span {
     flex-grow: 1;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -837,7 +891,7 @@ button.settings-keyboard-shortcut > span {
     text-align: center;
 }
 
-button.settings-keyboard-shortcut > span > span.code-container {
+button.settings-keyboard-shortcut>span>span.code-container {
     // box-sizing: border-box;
     // column-gap: var(--ds-space-100, 8px);
     // display: inline-flex;
@@ -855,7 +909,8 @@ button.settings-keyboard-shortcut > span > span.code-container {
     font-size: .75rem;
     line-height: 1rem;
 }
-button.settings-keyboard-shortcut > span > span.code-container > .code {
+
+button.settings-keyboard-shortcut>span>span.code-container>.code {
     min-width: 14px;
     padding-bottom: var(--ds-space-025, 2px);
     padding-top: var(--ds-space-025, 2px);
@@ -883,9 +938,11 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     padding: var(--ds-space-0, 0px);
     margin: var(--ds-space-0, 0px);
 }
+
 .settings-section-item:hover {
     background-color: #0515240F;
 }
+
 .settings-section-item {
     box-sizing: border-box;
     appearance: none;
@@ -945,6 +1002,7 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     justify-content: center;
     display: flex;
 }
+
 .settings-section-item-details-container {
     outline-color: currentColor;
     flex-grow: 1;
@@ -957,6 +1015,7 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     justify-content: center;
     display: flex;
 }
+
 .settings-section-item-detail-1 {
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -972,6 +1031,7 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     color: currentColor;
     cursor: pointer;
 }
+
 .settings-section-item-detail-1 {
     -webkit-line-clamp: 1;
     color: #6B6E76;
@@ -1004,7 +1064,8 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
 .accounts-section {
     flex-shrink: 0;
 }
-.accounts-section::after, 
+
+.accounts-section::after,
 .accounts-section::before {
     height: 6px;
     content: "";
@@ -1018,27 +1079,29 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
 .accounts-section-3 {
     border-block-start: 1px solid #0B120E24;
 }
+
 .accounts-section.accounts-section-1 .accounts-details {
     display: flex;
     flex-direction: column;
     margin: 0px 8px;
 }
 
-.accounts-section.accounts-section-1 > .accounts-details > .accounts-details-container:hover {
+.accounts-section.accounts-section-1>.accounts-details>.accounts-details-container:hover {
     background-color: #F8F8F8;
 }
-.accounts-section.accounts-section-1 > .accounts-details > .accounts-details-container {
+
+.accounts-section.accounts-section-1>.accounts-details>.accounts-details-container {
     display: flex;
     flex-direction: column;
     border-radius: 3px;
 }
 
-.accounts-section.accounts-section-1 > .accounts-details > .accounts-details-container > .accounts-details-content {
+.accounts-section.accounts-section-1>.accounts-details>.accounts-details-container>.accounts-details-content {
     display: flex;
     margin: 1rem;
 }
 
-.accounts-section.accounts-section-1 > .accounts-details > .accounts-details-container > .accounts-details-content > .avatar-container {
+.accounts-section.accounts-section-1>.accounts-details>.accounts-details-container>.accounts-details-content>.avatar-container {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -1049,7 +1112,7 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     border: none;
 }
 
-.accounts-section.accounts-section-1 > .accounts-details > .accounts-details-container > .accounts-details-content > .details-container {
+.accounts-section.accounts-section-1>.accounts-details>.accounts-details-container>.accounts-details-content>.details-container {
     margin-left: var(--ds-space-200, 1pc);
     margin-bottom: auto;
     margin-top: auto;
@@ -1058,18 +1121,19 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     display: flex;
 }
 
-.accounts-section.accounts-section-1 > .accounts-details > .accounts-details-container > .accounts-details-content > .details-container > .details-user-name {
+.accounts-section.accounts-section-1>.accounts-details>.accounts-details-container>.accounts-details-content>.details-container>.details-user-name {
     font-size: 1.25rem;
     line-height: 1.5rem;
     font-weight: 653;
 }
-.accounts-section.accounts-section-1 > .accounts-details > .accounts-details-container > .accounts-details-content > .details-container > .details-user-email {
+
+.accounts-section.accounts-section-1>.accounts-details>.accounts-details-container>.accounts-details-content>.details-container>.details-user-email {
     margin-top: 2px;
     color: #6B6E76;
     font-weight: 400;
 }
 
-.accounts-section.accounts-section-2 .accounts-section-2-row ,
+.accounts-section.accounts-section-2 .accounts-section-2-row,
 .accounts-section.accounts-section-3 .accounts-section-3-row {
     outline-color: currentColor;
     text-decoration-style: solid;
@@ -1105,12 +1169,12 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     text-decoration: none;
 }
 
-.accounts-section.accounts-section-2 .accounts-section-2-row:hover ,
+.accounts-section.accounts-section-2 .accounts-section-2-row:hover,
 .accounts-section.accounts-section-3 .accounts-section-3-row:hover {
     background-color: #0515240F;
 }
 
-.accounts-section.accounts-section-2 .accounts-section-2-row .accounts-section-2-row-content ,
+.accounts-section.accounts-section-2 .accounts-section-2-row .accounts-section-2-row-content,
 .accounts-section.accounts-section-3 .accounts-section-3-row .accounts-section-3-row-content {
     padding-bottom: 0;
     box-sizing: border-box;
@@ -1126,8 +1190,9 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}  
-.accounts-section.accounts-section-2 button.accounts-section-2-row ,
+}
+
+.accounts-section.accounts-section-2 button.accounts-section-2-row,
 .accounts-section.accounts-section-3 button.accounts-section-3-row {
     outline-color: currentColor;
     text-decoration-style: solid;
@@ -1167,8 +1232,8 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     border: 0;
 }
 
-.accounts-section.accounts-section-2 .accounts-section-2-row .accounts-section-2-row-content > .accounts-section-2-row-icon-container ,
-.accounts-section.accounts-section-3 .accounts-section-3-row .accounts-section-3-row-content > .accounts-section-3-row-icon-container {
+.accounts-section.accounts-section-2 .accounts-section-2-row .accounts-section-2-row-content>.accounts-section-2-row-icon-container,
+.accounts-section.accounts-section-3 .accounts-section-3-row .accounts-section-3-row-content>.accounts-section-3-row-icon-container {
     min-width: 24px;
     min-height: 24px;
     display: flex;
@@ -1177,9 +1242,9 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     flex-shrink: 0;
 }
 
-.accounts-section.accounts-section-2 .accounts-section-2-row .accounts-section-2-row-content > .accounts-section-2-row-icon ,
-.accounts-section.accounts-section-3 .accounts-section-3-row .accounts-section-3-row-content > .accounts-section-3-row-icon {
-    height:24px;
+.accounts-section.accounts-section-2 .accounts-section-2-row .accounts-section-2-row-content>.accounts-section-2-row-icon,
+.accounts-section.accounts-section-3 .accounts-section-3-row .accounts-section-3-row-content>.accounts-section-3-row-icon {
+    height: 24px;
     width: 24px;
     display: inline-flex;
     box-sizing: border-box;
@@ -1187,8 +1252,8 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     flex-shrink: 0;
 }
 
-.accounts-section.accounts-section-2 .accounts-section-2-row .accounts-section-2-row-content > .accounts-section-2-row-details-container ,
-.accounts-section.accounts-section-3 .accounts-section-3-row .accounts-section-3-row-content > .accounts-section-3-row-details-container {
+.accounts-section.accounts-section-2 .accounts-section-2-row .accounts-section-2-row-content>.accounts-section-2-row-details-container,
+.accounts-section.accounts-section-3 .accounts-section-3-row .accounts-section-3-row-content>.accounts-section-3-row-details-container {
     outline-color: currentColor;
     flex-grow: 1;
     outline-width: medium;
@@ -1202,8 +1267,8 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     white-space: nowrap;
 }
 
-.accounts-section.accounts-section-2 .accounts-section-2-row .accounts-section-2-row-content > .accounts-section-2-row-details-container ,
-.accounts-section.accounts-section-3 .accounts-section-3-row .accounts-section-3-row-content > .accounts-section-3-row-details-container {
+.accounts-section.accounts-section-2 .accounts-section-2-row .accounts-section-2-row-content>.accounts-section-2-row-details-container,
+.accounts-section.accounts-section-3 .accounts-section-3-row .accounts-section-3-row-content>.accounts-section-3-row-details-container {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow-y: hidden;
@@ -1230,6 +1295,7 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     height: auto;
     width: 800px;
 }
+
 .create-task-wrapper .content-header {
     position: relative;
     margin-block-end: -2px;
@@ -1240,6 +1306,7 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     display: flex;
     padding-inline: 24px;
 }
+
 .create-task-wrapper .header-title {
     margin: 0;
     display: flex;
@@ -1248,12 +1315,14 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     line-height: 1.5rem;
     gap: 0.5rem;
 }
+
 .create-task-wrapper .header-content .header-options {
     display: flex;
     justify-content: flex-end;
     flex-shrink: 0;
     flex-direction: row;
 }
+
 .create-task-wrapper .content-header .header-options-list {
     box-sizing: border-box;
     gap: 8px;
@@ -1264,12 +1333,14 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     list-style-type: none;
     padding-left: 2.5rem;
 }
+
 .create-task-wrapper .header-content .header-options-item {
     box-sizing: border-box;
     appearance: none;
     border: none;
     margin: auto;
 }
+
 .create-task-wrapper .title-text {
     word-wrap: break-word;
     flex-shrink: 1;
@@ -1277,6 +1348,7 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     flex-basis: auto;
     min-width: 0;
 }
+
 .create-task-wrapper .close-btn-container {
     text-decoration: none;
     -webkit-appearance: none;
@@ -1302,9 +1374,11 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     transition: background .1s ease-out;
     border-radius: 3px;
 }
+
 .create-task-wrapper .close-btn-container:hover {
     background-color: #0515240F;
 }
+
 .create-task-wrapper .close-btn-span {
     -webkit-user-select: none;
     -ms-user-select: none;
@@ -1319,6 +1393,7 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     transition: opacity .3s;
     cursor: pointer;
 }
+
 .create-task-wrapper .close-btn-span-2 {
     box-sizing: border-box;
     padding-inline: 0;
@@ -1326,6 +1401,7 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     display: inline-block;
     flex-shrink: 0;
 }
+
 .create-task-wrapper .content-body {
     overflow-y: auto;
     height: unset;
@@ -1338,6 +1414,7 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     // border-block-end: 2px solid #0B120E24;
     padding-inline: 1.5rem;
 }
+
 .create-task-wrapper .content-body .content-container-1 {
     flex-grow: 1;
     flex-basis: auto;
@@ -1349,6 +1426,7 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     font-weight: 400;
     color: #292a2e;
 }
+
 .create-task-wrapper .content-body .content-container-2 {
     display: flex;
     box-sizing: border-box;
@@ -1356,18 +1434,22 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     flex-direction: column;
     justify-content: stretch;
 }
+
 .create-task-wrapper .content-body .info-indicator {
     color: #505258;
     margin-bottom: 1.5rem;
 }
+
 .create-task-wrapper .content-body .red-asterisk {
     padding-inline-start: 0.125rem;
     color: #AE2E24;
 }
+
 .create-task-wrapper .content-body .field-wrapper {
     margin-top: 0.5rem;
     width: 350px;
 }
+
 .create-task-wrapper .content-body .field-label {
     margin-block-end: .25rem;
     color: #505258;
@@ -1377,7 +1459,8 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     line-height: 1rem;
     margin-block-start: 0;
 }
-.create-task-wrapper .content-body .item-placeholder-wrapper > div {
+
+.create-task-wrapper .content-body .item-placeholder-wrapper>div {
     animation-name: loading;
     animation-delay: 0;
     animation-duration: 1s;
@@ -1390,27 +1473,134 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     border-radius: 2px;
     background-image: linear-gradient(to right, #0515240f 10%, #17171708 30%, #0515240f 50%);
 }
-.create-task-wrapper .content-body .item-placeholder-wrapper > div.item-placeholder-label {
+
+.create-task-wrapper .content-body .item-placeholder-wrapper>div.item-placeholder-label {
     margin-top: 20px;
     height: 20px;
     width: 90pt;
 }
+
 .create-task-wrapper .content-body .item-placeholder-row-1 {
     height: 40px;
     width: 350px;
 }
+
 .create-task-wrapper .content-body .item-placeholder-row-2 {
     height: 20px;
     width: 300px;
 }
+
+.create-task-wrapper .content-body .field-divider {
+    width: 100%;
+    height: 1px;
+    background-color: #0B120E24;
+    margin: 1.5rem 0;
+}
+
+.create-task-wrapper .content-body .info-container {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: #6B6E76;
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.create-task-wrapper.content-body .section-2 {
+    box-sizing: border-box;
+    appearance: none;
+    border: none;
+    padding-bottom: var(--ds-space-200, 16px);
+}
+
+.create-task-wrapper.content-body .section-2 .field-wrapper {
+    margin-top: 1.25rem;
+}
+
+.create-task-wrapper.content-body .section-2 .field-wrapper .text-field {
+    border-radius: 3px;
+    color: #292a2e;
+    box-sizing: border-box;
+    box-shadow: inset 0 0 0 1px #e2483d;
+    padding-inline-end: 0;
+    padding-inline-start: 0;
+    padding-block-end: 1px;
+    padding-block-start: 1px;
+    background-color: #fff;
+    cursor: text;
+    word-wrap: break-word;
+    vertical-align: top;
+    pointer-events: auto;
+    justify-content: space-between;
+    flex-basis: 100%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    align-items: center;
+    color: #292a2e;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    display: flex;
+    border-color: #e2483d;
+    border-width: 1px;
+    border-style: solid;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+    transition: background-color .2s ease-in-out, border-color .2s ease-in-out;
+}
+
+.create-task-wrapper .content-body .section-2 .field-wrapper .text-field .text-field-input {
+    box-shadow: none;
+    padding-inline: .375rem;
+    padding-block: .5rem;
+    outline: none;
+    border-radius: 3.01px;
+    box-shadow: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    color: #292a2e;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+    transition: background-color .2s ease-in-out, border-color .2s ease-in-out;
+    min-width: 0;
+    width: 100%;
+}
+
+.create-task-wrapper .content-body .section-2 .field-wrapper .field-feedback-container {
+    color: #AE2E24;
+    margin-block-start: .25rem;
+    font-size: .75rem;
+    line-height: 1rem;
+    gap: 0.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+}
+
+.create-task-wrapper .content-body .section-2 .field-wrapper.multi-purpose-field-wrapper {
+    width: 100% !important;
+}
+
+.create-task-wrapper .content-body .section-2 .field-wrapper.multi-purpose-field-wrapper .multipurpose-field {
+    margin-top: 0;
+    padding-bottom: 0;
+    width: 100%;
+}
+
 @keyframes loading {
     0% {
         background-position: -300px 0;
     }
+
     100% {
         background-position: 1700px 0;
     }
 }
+
 .create-task-wrapper .content-footer {
     display: flex;
     box-sizing: border-box;
@@ -1420,12 +1610,15 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     padding: 24px;
     padding-block-start: 16px;
 }
+
 .create-task-wrapper .content-footer .save-btn {
-        -webkit-appearance: none;
+    -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
 }
-.create-task-wrapper .content-footer .cancel-btn ,.content-footer .save-btn{
+
+.create-task-wrapper .content-footer .cancel-btn,
+.content-footer .save-btn {
     text-decoration: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -1452,23 +1645,29 @@ button.settings-keyboard-shortcut > span > span.code-container > .code {
     transition: background .1s ease-out;
     border-radius: 3px;
 }
+
 .create-task-wrapper .content-footer .save-btn {
     background-color: #1868DB;
     color: white;
 }
+
 .create-task-wrapper .content-footer .cancel-btn:hover {
     background-color: #0515240F;
 }
+
 .create-task-wrapper .content-footer .save-btn:hover {
     background-color: #1558BC;
 }
-.create-task-wrapper .content-footer .save-btn[disabled],.content-footer .cancel-btn[disabled] {
+
+.create-task-wrapper .content-footer .save-btn[disabled],
+.content-footer .cancel-btn[disabled] {
     color: #080F214A;
-    background-color: #17171708 ;
+    background-color: #17171708;
     cursor: not-allowed;
     text-decoration: none;
     pointer-events: none;
 }
+
 .create-task-wrapper .content-footer .create-another-checkbox {
     flex-grow: 1;
 }

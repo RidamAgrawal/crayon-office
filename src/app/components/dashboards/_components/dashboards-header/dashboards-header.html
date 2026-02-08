@@ -69,6 +69,7 @@
       viewBox="0 -960 960 960"
       width="16px"
       fill="#fff"
+      (click)="showCreate(createTemplate)"
     >
       <path
         d="M427-427H180.78v-106H427v-246.22h106V-533h246.22v106H533v246.22H427V-427Z"
@@ -541,7 +542,7 @@
     </div>
     <div class="content-body">
       <div class="content-container-1">
-        <div class="content-cotainer-2">
+        <div class="content-container-2">
           <p class="info-indicator">
             Required fields are marked with asterisk
             <span class="red-asterisk">*</span>
@@ -558,10 +559,44 @@
             </label>
             <app-multi-select></app-multi-select>
           </div>
-          <div class="item-placeholder-wrapper">
+          <!-- <div class="item-placeholder-wrapper">
             <div class="item-placeholder-label"></div>
             <div class="item-placeholder-row-1"></div>
             <div class="item-placeholder-row-2"></div>
+          </div> -->
+          <hr class="field-divider">
+          <div class="field-wrapper select-field-wrapper">
+            <label for="type" class="field-label">
+                Status
+            </label>
+            <app-multi-select></app-multi-select>
+            <div class="info-container font-body-small">
+                This is initial status of the work item
+            </div>
+          </div>
+          <div class="section-2">
+            <div class="field-wrapper text-field-wrapper">
+              <label for="" class="field-label">
+                Work type <span class="red-asterisk">*</span>
+              </label>
+              <div class="text-field">
+                <input type="text" class="text-field-input">
+              </div>
+              <div class="field-feedback-container font-body-small">
+                <app-icon-container>
+                  <img src="assets/icons/feedback.svg" alt="icon">
+                </app-icon-container>
+                <span>
+                  This field is required
+                </span>
+              </div>
+            </div>
+            <div class="field-wrapper multi-purpose-field-wrapper">
+              <label for="" class="field-label">Description</label>
+              <div class="multipurpose-field class='_1bsbhi17 _19pknek2 _n3td11zn'">
+                <wysiwyg-editor></wysiwyg-editor>
+              </div>
+            </div>
           </div>
         </div>
       </div>

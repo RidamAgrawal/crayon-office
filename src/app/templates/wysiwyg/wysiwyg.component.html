@@ -1,0 +1,197 @@
+<div class="wysiwyg-container">
+    <div class="wysiwyg-container-2">
+        <div class="wysiwyg-container-3">
+            <div class="wysiwyg-container-4">
+                <div class="wysiwyg-field-placeholder"></div>
+                <div class="wysiwyg-field-content">
+                    <div class="wysiwyg-tool-bar">
+                        <div class="wysiwyg-tool-bar-container">
+                            <div class="wysiwyg-tool-bar-container-2">
+                                <div class="wysiwyg-tool-bar-container-3">
+                                    <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-1">
+                                        <div class="dropdown">
+                                            <div class="dropdown-logo">
+                                                <button class="dropdown-logo-button">
+                                                    <span class="icon-content">
+                                                        <img src="assets/icons/foryou.svg" alt="icon">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="dropdown-icon">
+                                                <button class="dropdown-icon-button">
+                                                    <img src="assets/icons/arrow-down.svg" alt="icon">
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="long-btn">
+                                            <div class="long-btn-content">
+                                                <button class="long-btn-button">
+                                                    <span class="long-btn-icon">
+                                                        <img src="assets/icons/spaces.svg" alt="icon">
+                                                    </span>
+                                                    Improve description
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-2">
+                                        <div class="tool-bar-item-container">
+                                            <div class="wysiwyg-tool-bar-item-normal">
+                                                <button 
+                                                    class="wysiwyg-tool-bar-item-normal-button"
+                                                    (mousedown)="preventBlur($event)"
+                                                    (click)="onTextFormatClick(textFormatButton)"
+                                                    #textFormatButton>
+                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
+                                                        <img src="assets/icons/formatText.svg" alt="icon">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="dropdown">
+                                                <div class="dropdown-logo">
+                                                    <button class="dropdown-logo-button">
+                                                        <span class="icon-content">
+                                                            <img src="assets/icons/textBold.svg" alt="icon">
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="dropdown-icon">
+                                                    <button class="dropdown-icon-button"
+                                                        (mousedown)="preventBlur($event)"
+                                                        (click)="onTextStylesClick(textStylesButton)"
+                                                        #textStylesButton>
+                                                        <img src="assets/icons/arrow-down.svg" alt="icon">
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="dropdown">
+                                                <div class="dropdown-logo">
+                                                    <button class="dropdown-logo-button">
+                                                        <span class="icon-content">
+                                                            <img src="assets/icons/bulletedList.svg" alt="icon">
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="dropdown-icon">
+                                                    <button class="dropdown-icon-button"
+                                                        (mousedown)="preventBlur($event)"
+                                                        (click)="onListClick(listButton)"
+                                                        #listButton>
+                                                        <img src="assets/icons/arrow-down.svg" alt="icon">
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="wysiwyg-tool-bar-item-normal">
+                                                <button class="wysiwyg-tool-bar-item-normal-button"
+                                                    (click)="showColorPicker(colorPickerButton)"
+                                                    #colorPickerButton>
+                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
+                                                        <img src="assets/icons/textColor.svg" alt="icon">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-3">
+                                        <div class="tool-bar-item-container">
+                                            <div class="wysiwyg-tool-bar-item-normal">
+                                                <button class="wysiwyg-tool-bar-item-normal-button">
+                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
+                                                        <img src="assets/icons/dashboards.svg" alt="icon">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="wysiwyg-tool-bar-item-normal">
+                                                <button class="wysiwyg-tool-bar-item-normal-button">
+                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
+                                                        <img src="assets/icons/starred.svg" alt="icon">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="wysiwyg-tool-bar-item-normal">
+                                                <button class="wysiwyg-tool-bar-item-normal-button">
+                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
+                                                        <img src="assets/icons/recent.svg" alt="icon">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="wysiwyg-tool-bar-item-normal">
+                                                <button class="wysiwyg-tool-bar-item-normal-button">
+                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
+                                                        <img src="assets/icons/filter.svg" alt="icon">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-4">
+                                        <div class="tool-bar-item-container">
+                                            <div class="wysiwyg-tool-bar-item-normal">
+                                                <button class="wysiwyg-tool-bar-item-normal-button">
+                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
+                                                        <img src="assets/icons/projects.svg" alt="icon">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-5">
+                                        <div class="tool-bar-item-container">
+                                            <div class="wysiwyg-tool-bar-item-normal">
+                                                <button class="wysiwyg-tool-bar-item-normal-button">
+                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
+                                                        <img src="assets/icons/roadmap.svg" alt="icon">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="wysiwyg-tool-bar-item-normal">
+                                                <button class="wysiwyg-tool-bar-item-normal-button">
+                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
+                                                        <img src="assets/icons/settings.svg" alt="icon">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="wysiwyg-tool-bar-item-normal">
+                                                <button class="wysiwyg-tool-bar-item-normal-button">
+                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
+                                                        <img src="assets/icons/teams.svg" alt="icon">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wysiwyg-editor-container">
+                        <div class="wysiwyg-editor-content-area">
+                            <div></div>
+                            <div class="wysiwyg-editor-content-area-line">
+                                <span></span>
+                                <div class="wysiwyg-editor-content-parent">
+                                    
+                                </div>
+                                <input type="text" class="wysiwyg-media-picker-file-input" type="file">
+                            </div>
+                            <div 
+                                #editor 
+                                class="wysiwyg-editor-content-playground" 
+                                placeholder="Enter description, you can add images, links, tables, and more"
+                                contenteditable="true"
+                                (input)="onInput()"
+                                (focus)="onFocus()"
+                                (blur)="onBlur()">
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #colorPickerTemplate>
+    <img src="assets/icons/textColor.svg" alt="icon">
+</ng-template>
