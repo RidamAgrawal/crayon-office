@@ -7,4 +7,8 @@ export class Api {
     get sidebarItemConfig(){
         return 'assets/data/sidebarItemConfig.json';
     }
+
+    get wysiwygEditorConfig(){
+        return 'assets/data/wysiwygEditorConfig.json';
+    }
 }

@@ -1,0 +1,279 @@
+{
+    "textFormatOptions": [
+        {
+            "options": [
+                {
+                    "icon": "formatText",
+                    "id": "p",
+                    "label": "Normal Text",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "formatH1",
+                    "id": "h1",
+                    "label": "Heading H1",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "formatH2",
+                    "id": "h2",
+                    "label": "Heading H2",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "formatH3",
+                    "id": "h3",
+                    "label": "Heading H3",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "formatH4",
+                    "id": "h4",
+                    "label": "Heading H4",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "formatH5",
+                    "id": "h5",
+                    "label": "Heading H5",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "formatH6",
+                    "id": "h6",
+                    "label": "Heading H6",
+                    "type": "button",
+                    "visible": true
+                }
+            ]
+        }
+    ],
+    "textStyleOptions": [
+        {
+            "options": [
+            {
+              "icon": "formatText",
+              "id": "p",
+              "label": "Normal Text",
+              "type": "button",
+              "visible": true
+            },
+            {
+              "icon": "textBold",
+              "id": "strong",
+              "label": "Bold",
+              "type": "button",
+              "visible": true
+            },
+            {
+              "icon": "textItalic",
+              "id": "em",
+              "label": "Italic",
+              "type": "button",
+              "visible": true
+            },
+            {
+              "icon": "textUnderline",
+              "id": "u",
+              "label": "Underline",
+              "type": "button",
+              "visible": true
+            },
+            {
+              "icon": "textUnderlineSquiggle",
+              "id": "u",
+              "label": "Underline Squiggle",
+              "type": "button",
+              "visible": true
+            },
+            {
+              "icon": "textStrikethrough",
+              "id": "s",
+              "label": "Strikethrough",
+              "type": "button",
+              "visible": true
+            },
+            {
+              "icon": "textOverline",
+              "id": "overline",
+              "label": "Overline",
+              "type": "button",
+              "visible": true
+            },
+            {
+              "icon": "codeSnippet",
+              "id": "code",
+              "label": "Code",
+              "type": "button",
+              "visible": true
+            },
+            {
+              "icon": "textSubscript",
+              "id": "sub",
+              "label": "Subscript",
+              "type": "button",
+              "visible": true
+            },
+            {
+              "icon": "textSuperscript",
+              "id": "sup",
+              "label": "Superscript",
+              "type": "button",
+              "visible": true
+            }
+          ]
+        }
+    ],
+    "listsOptions": [
+        {
+            "options": [
+            {
+              "icon": "bulletedList",
+              "id": "ul",
+              "label": "Bulleted List",
+              "type": "button",
+              "visible": true
+            },
+            {
+              "icon": "numberedList",
+              "id": "ol",
+              "label": "Numbered List",
+              "type": "button",
+              "visible": true
+            },
+            {
+              "icon": "checkList",
+              "id": "ul",
+              "label": "Check List",
+              "type": "button",
+              "visible": true
+            }
+          ]
+        }
+    ],
+    "colorPickerOptions": [
+        {
+            "options": [
+                {
+                    "colorName": "Default",
+                    "colorClass": "default-pallette",
+                    "colorHexCode": "292A2E"
+                },
+                {
+                    "colorName": "Bold blue",
+                    "colorClass": "boldBlue-pallette",
+                    "colorHexCode": "1558BC"
+                },
+                {
+                    "colorName": "Bold teal",
+                    "colorClass": "boldTeal-pallette",
+                    "colorHexCode": "206A83"
+                },
+                {
+                    "colorName": "Bold green",
+                    "colorClass": "boldGreen",
+                    "colorHexCode": "216E4E"
+                },
+                {
+                    "colorName": "Bold orange",
+                    "colorClass": "boldOrange",
+                    "colorHexCode": "E06C00"
+                },
+                {
+                    "colorName": "Bold red",
+                    "colorClass": "boldRed",
+                    "colorHexCode": "AE2E24"
+                },
+                {
+                    "colorName": "Bold purple",
+                    "colorClass": "boldPurple",
+                    "colorHexCode": "803FA5"
+                }
+            ]
+        },
+        {
+            "options": [
+                {
+                    "colorName": "Gray",
+                    "colorClass": "gray-pallette",
+                    "colorHexCode": "7D818A"
+                },
+                {
+                    "colorName": "Blue",
+                    "colorClass": "blue-pallette",
+                    "colorHexCode": "357DE8"
+                },
+                {
+                    "colorName": "Teal",
+                    "colorClass": "teal-pallette",
+                    "colorHexCode": "2898BD"
+                },
+                {
+                    "colorName": "Green",
+                    "colorClass": "green-pallette",
+                    "colorHexCode": "22A06B"
+                },
+                {
+                    "colorName": "Yellow",
+                    "colorClass": "yellow-pallette",
+                    "colorHexCode": "FCA700"
+                },
+                {
+                    "colorName": "Red",
+                    "colorClass": "red-pallette",
+                    "colorHexCode": "C9372C"
+                },
+                {
+                    "colorName": "Purple",
+                    "colorClass": "purple-pallette",
+                    "colorHexCode": "AF59E1"
+                }
+            ]
+        },
+        {
+            "options": [
+                {
+                    "colorName": "White",
+                    "colorClass": "white-pallette",
+                    "colorHexCode": "FFFFFF"
+                },
+                {
+                    "colorName": "Subtle blue",
+                    "colorClass": "subtleBlue-pallette",
+                    "colorHexCode": "CFE1FD"
+                },
+                {
+                    "colorName": "Subtle teal",
+                    "colorClass": "subtleTeal-pallette",
+                    "colorHexCode": "C6EDFB"
+                },
+                {
+                    "colorName": "Subtle green",
+                    "colorClass": "subtleGreen-pallette",
+                    "colorHexCode": "BAF3DB"
+                },
+                {
+                    "colorName": "Subtle yellow",
+                    "colorClass": "subtleYellow-pallette",
+                    "colorHexCode": "F5E989"
+                },
+                {
+                    "colorName": "Subtle red",
+                    "colorClass": "subtleRed-pallette",
+                    "colorHexCode": "FFD5D2"
+                },
+                {
+                    "colorName": "Subtle purple",
+                    "colorClass": "subtlePurple-pallette",
+                    "colorHexCode": "EED7FC"
+                }
+            ]
+        }
+    ]
+}

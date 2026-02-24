@@ -18,6 +18,7 @@ export interface AppOverlayConfig {
   backdropClass?: string | string[];
   hasBackdrop?: boolean;
   matchWidth?: boolean;
+  beforeCloseCallback?: () => void;
 }
 
 
@@ -71,7 +72,10 @@ export class OverlayService {
     } else {
       this.outsideClickSubscription = this.overlayRef.
       _outsidePointerEvents
-      .subscribe(() => { this.close(); });
+      .subscribe(() => { 
+        options.beforeCloseCallback?.();
+        this.close();
+      });
     }
 
     if (options.template) {

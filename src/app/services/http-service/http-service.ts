@@ -11,4 +11,8 @@ export class HttpService {
   public getSidebarItemConfig(): Observable<any> {
     return this.http.get(this.api.sidebarItemConfig);
   }
+
+  public getWysiwygEditorConfig(): Observable<any> {
+    return this.http.get(this.api.wysiwygEditorConfig);
+  }
 }

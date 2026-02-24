@@ -1,4 +1,3 @@
-
 // Include theming for Angular Material with `mat.theme()`.
 // This Sass mixin will define CSS variables that are used for styling Angular Material
 // components according to the Material 3 design spec.
@@ -7,14 +6,12 @@
 @use '@angular/material' as mat;
 
 html {
-  @include mat.theme((
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+  @include mat.theme((color: (primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
 }
 
 body {
@@ -33,20 +30,161 @@ body {
   // Reset the user agent margin.
   margin: 0;
 }
+
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-body,*{
-    margin: 0px;
-    padding: 0px;
-    font-family: "Inter", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    outline-offset: 2px;
-    outline-color: #1868DB;
+
+body,
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: "Inter", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  outline-offset: 2px;
+  outline-color: #1868DB;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .font-body-small {
   font-size: 0.75rem;
   line-height: 1rem;
   font-weight: 400;
+}
+
+.font-body-large {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+}
+
+.primary-btn,
+.secondary-btn {
+  text-decoration: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
+  position: relative;
+  vertical-align: middle;
+  display: inline-flex;
+  column-gap: 4px;
+  width: auto;
+  align-items: baseline;
+  height: 2rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding-inline: 12px;
+  color: #292a2e;
+  flex-shrink: 0;
+  background-color: rgba(0, 0, 0, 0);
+  max-width: 100%;
+  text-align: center;
+  justify-content: center;
+  padding-block: 0.5rem;
+  border: none;
+  transition: background 0.1s ease-out;
+  border-radius: 3px;
+}
+
+.primary-btn {
+  background-color: #1868DB;
+  color: white;
+}
+
+.secondary-btn:hover {
+  background-color: #0515240f;
+}
+
+.primary-btn:hover {
+  background-color: #1558BC;
+}
+
+.primary-btn:disabled,
+.secondary-btn:disabled {
+  background-color: #17171708;
+  cursor: not-allowed;
+  color: #080F214A;
+  
+  svg {
+    fill: #080F214A;
+  }
+}
+
+.loader {
+  inset-inline-start: 0;
+  position: absolute;
+  align-items: center;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  justify-content: center;
+  display: flex;
+}
+
+.loader .loader-rotating-element {
+  animation-delay: 0ms;
+  width: 24px;
+  height: 24px;
+  transform-origin: center;
+  animation-timing-function: cubic-bezier(.4, .15, .6, .85);
+  animation-duration: .86s;
+  vertical-align: middle;
+  display: inline-flex;
+  animation-iteration-count: infinite;
+  animation-name: loaderAnim;
+}
+
+.loader .loader-rotating-element .loader-rotating-svg {
+  animation-delay: 0ms;
+  max-width: 100%;
+  animation-timing-function: ease-in-out;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  height: 24;
+  width: 24;
+  overflow-clip-margin: content-box;
+  overflow: hidden;
+  cursor: progress;
+  color: var(--ds-text-subtle, #505258);
+  font-weight: var(--ds-font-weight-medium, 500);
+  text-align: center;
+  font-size: .875rem;
+  line-height: 1rem;
+  animation-name: loaderEleAnim;
+}
+
+.loader .loader-rotating-element .loader-rotating-svg circle {
+    stroke: var(--ds-icon-subtle, #42526E);
+    stroke-width: 1.5;
+    stroke-dasharray: 60;
+    fill: none;
+    transform-origin: 0px 0px;
+    cursor: progress;
+    color: var(--ds-text-subtle, #505258);
+    font-weight: var(--ds-font-weight-medium, 500);
+    text-align: center;
+}
+
+@keyframes loaderAnim {
+    100% {
+        rotate: (1turn);
+    }
+}
+
+@keyframes loaderEleAnim {
+    0% {
+        transform: rotate(50deg);
+        stroke-dashoffset: 60;
+    }
+    100% {
+        transform: rotate(230deg);
+        stroke-dashoffset: 50;
+    }
 }

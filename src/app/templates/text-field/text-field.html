@@ -1,0 +1,21 @@
+<div class="text-field" [attr.data-touched]="isDirty() &&!!error()">
+    <input type="text" class="text-field-input font-body-large" [(ngModel)]="value" (blur)="onBlur()" [placeholder]="'Paste link to upload'" (input)="isDirty.set(true)">
+</div>
+@if (isDirty() && error()) {
+    <div class="text-field-feedback">
+        <div class="feedback-contents font-body-small">
+            @if (error()!['icon']) {
+                <span class="feedback-icon-container">
+                    <span class="feedback-icon-content">
+                        <img [src]="'assets/icons/' + error()!['icon'] + '.svg'" alt="icon">
+                    </span>
+                </span>
+            }
+            @if (error()!['feedback']) {
+                <span class="feedback-text-container">
+                    {{ error()!['feedback'] }}
+                </span>
+            }
+        </div>
+    </div>
+}
