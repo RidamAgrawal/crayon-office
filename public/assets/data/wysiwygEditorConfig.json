@@ -57,104 +57,104 @@
     "textStyleOptions": [
         {
             "options": [
-            {
-              "icon": "formatText",
-              "id": "p",
-              "label": "Normal Text",
-              "type": "button",
-              "visible": true
-            },
-            {
-              "icon": "textBold",
-              "id": "strong",
-              "label": "Bold",
-              "type": "button",
-              "visible": true
-            },
-            {
-              "icon": "textItalic",
-              "id": "em",
-              "label": "Italic",
-              "type": "button",
-              "visible": true
-            },
-            {
-              "icon": "textUnderline",
-              "id": "u",
-              "label": "Underline",
-              "type": "button",
-              "visible": true
-            },
-            {
-              "icon": "textUnderlineSquiggle",
-              "id": "u",
-              "label": "Underline Squiggle",
-              "type": "button",
-              "visible": true
-            },
-            {
-              "icon": "textStrikethrough",
-              "id": "s",
-              "label": "Strikethrough",
-              "type": "button",
-              "visible": true
-            },
-            {
-              "icon": "textOverline",
-              "id": "overline",
-              "label": "Overline",
-              "type": "button",
-              "visible": true
-            },
-            {
-              "icon": "codeSnippet",
-              "id": "code",
-              "label": "Code",
-              "type": "button",
-              "visible": true
-            },
-            {
-              "icon": "textSubscript",
-              "id": "sub",
-              "label": "Subscript",
-              "type": "button",
-              "visible": true
-            },
-            {
-              "icon": "textSuperscript",
-              "id": "sup",
-              "label": "Superscript",
-              "type": "button",
-              "visible": true
-            }
-          ]
+                {
+                    "icon": "formatText",
+                    "id": "p",
+                    "label": "Normal Text",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "textBold",
+                    "id": "strong",
+                    "label": "Bold",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "textItalic",
+                    "id": "em",
+                    "label": "Italic",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "textUnderline",
+                    "id": "u",
+                    "label": "Underline",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "textUnderlineSquiggle",
+                    "id": "us",
+                    "label": "Underline Squiggle",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "textStrikethrough",
+                    "id": "s",
+                    "label": "Strikethrough",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "textOverline",
+                    "id": "o",
+                    "label": "Overline",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "codeSnippet",
+                    "id": "code",
+                    "label": "Code",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "textSubscript",
+                    "id": "sub",
+                    "label": "Subscript",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "textSuperscript",
+                    "id": "sup",
+                    "label": "Superscript",
+                    "type": "button",
+                    "visible": true
+                }
+            ]
         }
     ],
     "listsOptions": [
         {
             "options": [
-            {
-              "icon": "bulletedList",
-              "id": "ul",
-              "label": "Bulleted List",
-              "type": "button",
-              "visible": true
-            },
-            {
-              "icon": "numberedList",
-              "id": "ol",
-              "label": "Numbered List",
-              "type": "button",
-              "visible": true
-            },
-            {
-              "icon": "checkList",
-              "id": "ul",
-              "label": "Check List",
-              "type": "button",
-              "visible": true
-            }
-          ]
+                {
+                    "icon": "bulletedList",
+                    "id": "ul",
+                    "label": "Bulleted List",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "numberedList",
+                    "id": "ol",
+                    "label": "Numbered List",
+                    "type": "button",
+                    "visible": true
+                },
+                {
+                    "icon": "checkList",
+                    "id": "taskList",
+                    "label": "Check List",
+                    "type": "button",
+                    "visible": true
+                }
+            ]
         }
     ],
     "colorPickerOptions": [

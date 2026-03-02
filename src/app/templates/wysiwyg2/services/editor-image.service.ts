@@ -6,7 +6,7 @@ import { catchError, finalize, map, of } from 'rxjs';
 @Injectable({
   providedIn: 'any',
 })
-export class WysiwygEditorImageService {
+export class WysiwygEditorImage2Service {
   private readonly http = inject(HttpClient);
   public readonly invalidImageLink = signal<boolean>(true);
   public readonly isPreviewImage = signal<boolean>(false);
@@ -15,6 +15,7 @@ export class WysiwygEditorImageService {
   public readonly isCameraOpen = signal<boolean>(false);
   public readonly isCameraLoading = signal<boolean>(false);
   public readonly isCameraPermissionDenied = signal<boolean>(false);
+  public readonly imgPreviewLink = signal<string>('');
   private closeStream: () => void = () => {};
   public isValidPreviewLink(link: string): boolean {
     const urlRegex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/.*)?$/;
@@ -22,11 +23,11 @@ export class WysiwygEditorImageService {
     return urlRegex.test(link);
   }
 
-  public loadImage(link: string) {
+  public loadImage() {
     this.isLoading.set(true);
     this.isPreviewImage.set(false);
     this.http
-      .get(link, { responseType: 'blob' })
+      .get(this.imgPreviewLink(), { responseType: 'blob' })
       .pipe(
         catchError((err) => {
           this.invalidImageLink.set(true);
@@ -50,12 +51,9 @@ export class WysiwygEditorImageService {
   public validateUrl = (value: string): ValidationErrors | null => {
     const urlRegex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/.*)?$/;
     this.resetLoadImageCalled();
-    if (!urlRegex.test(value)) {
-      this.invalidImageLink.set(true);
-      return { invalidUrl: true, feedback: 'Invalid link', icon: 'warningRed' };
-    }
-    this.invalidImageLink.set(false);
-    return null;
+    return urlRegex.test(value)
+      ? null
+      : { invalidUrl: true, feedback: 'Invalid link', icon: 'warningRed' };
   };
 
   public resetLoadImageCalled() {
@@ -105,18 +103,18 @@ export class WysiwygEditorImageService {
     // 1. MIME type check
     const mimeOk =
       file.type.startsWith('image/') &&
-      WysiwygEditorImageService.VALID_IMAGE_MIME_PREFIXES.some(
+      WysiwygEditorImage2Service.VALID_IMAGE_MIME_PREFIXES.some(
         (prefix) => file.type === prefix,
       );
 
     // 2. Extension check
     const ext = file.name.split('.').pop()?.toLowerCase() ?? '';
-    const extOk = WysiwygEditorImageService.VALID_IMAGE_EXTENSIONS.has(ext);
+    const extOk = WysiwygEditorImage2Service.VALID_IMAGE_EXTENSIONS.has(ext);
 
     if (!mimeOk && !extOk) {
       return {
         valid: false,
-        error: `Unsupported file type "${file.type || ext}". Allowed: ${[...WysiwygEditorImageService.VALID_IMAGE_EXTENSIONS].join(', ')}.`,
+        error: `Unsupported file type "${file.type || ext}". Allowed: ${[...WysiwygEditorImage2Service.VALID_IMAGE_EXTENSIONS].join(', ')}.`, 
       };
     }
 

@@ -22,6 +22,7 @@ import { MenuLinkItem } from '../../templates/menu-link-item/menu-link-item';
 import { ToggleBtn } from '../../templates/toggle-btn/toggle-btn';
 import { TooltipDirective } from "../../directives/tooltip-directive/tooltip-directive";
 import { WysiwygEditorComponent } from '../../templates/wysiwyg/wysiwyg.component';
+import { Wysiwyg2 } from '../../templates/wysiwyg2/wysiwyg2';
 
 const dashboardRoutes: Routes =[
   {
@@ -68,7 +69,8 @@ const dashboardRoutes: Routes =[
     ResizableDirective,
     OverlayModule,
     TooltipDirective,
-    WysiwygEditorComponent
+    WysiwygEditorComponent,
+    Wysiwyg2
 ],
   providers:[
     provideRouter(dashboardRoutes)
