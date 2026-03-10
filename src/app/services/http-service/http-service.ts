@@ -15,4 +15,8 @@ export class HttpService {
   public getWysiwygEditorConfig(): Observable<any> {
     return this.http.get(this.api.wysiwygEditorConfig);
   }
+
+  public getEmoji(): Observable<any> {
+    return this.http.get(this.api.emoji);
+  }
 }

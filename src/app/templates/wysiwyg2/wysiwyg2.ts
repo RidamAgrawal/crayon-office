@@ -8,6 +8,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  signal,
   TemplateRef,
   viewChild,
   ViewContainerRef,
@@ -45,10 +46,13 @@ import { OptionsList } from '../option-wrapper/option-wrapper.model';
 import { HttpService } from '../../services/http-service/http-service';
 import { TextField } from '../text-field/text-field';
 import { TabComponent } from '../../components/dashboards/_components/tabs/tabs';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { UnicodeToEmojiPipe } from './pipes/unicode-emoji-pipe';
+import { EmojiStructure, RaisedHandEmoji } from './wysiwyg2.models';
 
 @Component({
   selector: 'wysiwyg2',
-  imports: [TextField, TabComponent],
+  imports: [TextField, TabComponent, ScrollingModule, UnicodeToEmojiPipe],
   templateUrl: './wysiwyg2.html',
   styleUrl: './wysiwyg2.scss',
 })
@@ -66,6 +70,7 @@ export class Wysiwyg2 implements OnInit, AfterViewInit, OnDestroy {
     'uploadMultiMediaTemplate',
     { read: TemplateRef },
   );
+  private readonly emojiTemplate = viewChild('emojis', { read: TemplateRef });
 
   @Input() value: string = ''; // initial HTML
   @Output() valueChange = new EventEmitter<string>();
@@ -129,7 +134,8 @@ export class Wysiwyg2 implements OnInit, AfterViewInit, OnDestroy {
               'data-prosemirror-node-name': 'orderedList',
               'data-prosemirror-node-block': 'true',
               'data-indent-level': String(node.attrs['indentLevel']),
-              style: 'list-style-type: decimal;padding-left: 1.25rem;display: flow-root;box-sizing: border-box;'
+              style:
+                'list-style-type: decimal;padding-left: 1.25rem;display: flow-root;box-sizing: border-box;',
             },
             0,
           ] as any,
@@ -156,7 +162,8 @@ export class Wysiwyg2 implements OnInit, AfterViewInit, OnDestroy {
               'data-prosemirror-node-name': 'bulletList',
               'data-prosemirror-node-block': 'true',
               'data-indent-level': String(node.attrs['indentLevel']),
-              style: 'list-style-type: disc;padding-left: 1.25rem;display: flow-root;box-sizing: border-box;'
+              style:
+                'list-style-type: disc;padding-left: 1.25rem;display: flow-root;box-sizing: border-box;',
             },
             0,
           ] as any,
@@ -220,6 +227,43 @@ export class Wysiwyg2 implements OnInit, AfterViewInit, OnDestroy {
             class: `task-item ${node.attrs['checked'] ? 'task-item-checked' : ''}`,
           },
           0,
+        ],
+      },
+    });
+
+    nodes = nodes.append({
+      code_block: {
+        group: 'block',
+        content: 'text*',
+        code: true,
+        defining: true,
+        marks: '',
+        attrs: { language: { default: null } },
+        parseDOM: [
+          {
+            tag: 'div[data-prosemirror-node-name="codeBlock"]',
+            getAttrs: (el: HTMLElement) => ({
+              language: el.getAttribute('data-language') || null,
+            }),
+            preserveWhitespace: 'full',
+          },
+          {
+            tag: 'pre',
+            preserveWhitespace: 'full',
+            getAttrs: () => ({ language: null }),
+          },
+        ],
+        toDOM: (node) => [
+          'div',
+          {
+            class: 'code-block',
+            'data-prosemirror-content-type': 'node',
+            'data-prosemirror-node-name': 'codeBlock',
+            'data-prosemirror-node-block': 'true',
+            'data-language': node.attrs['language'] || '',
+            contenteditable: 'false',
+          },
+          ['pre', ['code', 0]],
         ],
       },
     });
@@ -297,6 +341,30 @@ export class Wysiwyg2 implements OnInit, AfterViewInit, OnDestroy {
       this.textFormatOptions = textFormatOptions;
       this.textStyleOptions = textStyleOptions;
       this.listsOptions = listsOptions;
+    });
+    this.httpService.getEmoji().subscribe((res) => {
+      const categorizedEmojis: Record<string, EmojiStructure[]> = {
+        ['Activities']: [],
+        ['Animals & Nature']: [],
+        ['Component']: [],
+        ['Flags']: [],
+        ['Food & Drink']: [],
+        ['Objects']: [],
+        ['People & Body']: [],
+        ['Smileys & Emotion']: [],
+        ['Symbols']: [],
+        ['Travel & Places']: [],
+      };
+      this.emojiContent = res.reduce((acc: EmojiStructure[][], emoji: EmojiStructure) => {
+        const lastRow = acc[acc.length - 1];
+        if (!lastRow || lastRow.length >= 8) {
+          acc.push([emoji]);
+        } else {
+          lastRow.push(emoji);
+        }
+        categorizedEmojis[emoji.category].push(emoji);
+        return acc;
+      }, []);
     });
   }
 
@@ -391,13 +459,12 @@ export class Wysiwyg2 implements OnInit, AfterViewInit, OnDestroy {
           let isChecked = node.attrs['checked'];
 
           checkboxWrap.addEventListener('mousedown', (e) => {
-  
             const pos = getPos();
-            
+
             if (pos == null) return;
             isChecked = !isChecked;
             updateIcon(isChecked);
-            
+
             view.dispatch(
               view.state.tr.setNodeMarkup(pos, undefined, {
                 ...view.state.doc.nodeAt(pos)?.attrs,
@@ -544,6 +611,225 @@ export class Wysiwyg2 implements OnInit, AfterViewInit, OnDestroy {
                 updateIcon(newChecked);
               }
 
+              return true;
+            },
+          };
+        },
+        code_block: (node, view, getPos) => {
+          let currentCode = node.textContent;
+
+          // ── Outer wrapper ──────────────────────────────────────────
+          const outer = document.createElement('div');
+          outer.className = 'cm-editor code-block';
+          outer.setAttribute('data-prosemirror-content-type', 'node');
+          outer.setAttribute('data-prosemirror-node-name', 'codeBlock');
+          outer.setAttribute('data-prosemirror-node-block', 'true');
+          outer.contentEditable = 'false';
+          outer.style.cssText = `
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: relative;
+    background: #FFFFFF;
+    border-radius: 3px;
+    font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+    font-size: .875rem;
+    line-height: 1.5rem;
+    min-width: 48px;
+    cursor: pointer;
+    clear: both;
+    white-space: normal;
+  `;
+
+          // ── Scroller (gutters + content side by side) ──────────────
+          const scroller = document.createElement('div');
+          scroller.className = 'cm-scroller';
+          scroller.style.cssText = `
+    display: flex;
+    align-items: flex-start;
+    height: 100%;
+    overflow-x: auto;
+    position: relative;
+    z-index: 0;
+    overflow-anchor: none;
+    background-color: #0515240F;
+    line-height: unset;
+    border-radius: 4px;
+    background-image: linear-gradient(to right, #0515240F 24px, transparent 24px), linear-gradient(to right, #FFFFFF 24px, transparent 24px), linear-gradient(to left, #0515240F 8px, transparent 8px), linear-gradient(to left, #FFFFFF 8px, transparent 8px), linear-gradient(to left, #1E1F2129 0, transparent 8px), linear-gradient(to left, #1E1F211f 0, transparent 8px), linear-gradient(to right, #1E1F2129) 0, transparent 8px), linear-gradient(to right,  #1E1F211f 0, transparent 8px);
+    background-attachment: local, local, local, local, scroll, scroll, scroll, scroll;
+  `;
+          outer.appendChild(scroller);
+
+          // ── Gutters (line numbers) ─────────────────────────────────
+          const gutters = document.createElement('div');
+          gutters.className = 'cm-gutters';
+          gutters.setAttribute('aria-hidden', 'true');
+          gutters.style.cssText = `
+          flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+    inset-inline-start: 0;
+    z-index: 200;
+    background-color: #0515240F;
+    border: none;
+    padding: 0;
+    color: #6B6E76;
+    min-height: 64px;
+  `;
+          scroller.appendChild(gutters);
+
+          const guttersContainer = document.createElement('div');
+          guttersContainer.classList.add('cm-gutter');
+          guttersContainer.classList.add('cm-lineNumbers');
+          guttersContainer.style.cssText = `
+          padding: 8px;
+          display: flex;
+          flex-direction: column;
+          flex-shrink: 0;
+          box-sizing: border-box;
+          min-height: 100%;
+          overflow: hidden;
+          `;
+          gutters.appendChild(guttersContainer);
+
+          // ── Content area (textarea) ────────────────────────────────
+          const content = document.createElement('div');
+          content.className = 'cm-content';
+          content.style.cssText = `
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  `;
+          scroller.appendChild(content);
+
+          const textarea = document.createElement('textarea');
+          textarea.className = 'cm-textarea';
+          textarea.setAttribute('aria-label', 'Code snippet');
+          textarea.setAttribute('autocorrect', 'off');
+          textarea.setAttribute('autocapitalize', 'off');
+          textarea.setAttribute('spellcheck', 'false');
+          textarea.value = currentCode;
+          textarea.style.cssText = `
+          tab-size: 4;
+          -webkit-user-modify: read-write-plaintext-only;
+          cursor: text;
+          caret-color: #292A2E;
+
+          flex-grow: 2;
+          flex-shrink: 0;
+          display: block;
+          white-space: pre;
+          word-wrap: normal;
+          box-sizing: border-box;
+          min-height: 100%;
+          outline: none;
+          margin: 8px;
+
+          display: block;
+          width: 100%;
+          background: transparent;
+          border: none;
+          outline: none;
+          resize: none;
+          font-family: inherit;
+          font-size: inherit;
+          line-height: 1.5rem;
+          white-space: pre;
+          overflow: hidden;
+          box-sizing: border-box;
+        `;
+          content.appendChild(textarea);
+
+          // ── Line number helpers ────────────────────────────────────
+          const updateLineNumbers = (code: string) => {
+            const lineCount = code.split('\n').length;
+            guttersContainer.innerHTML = '';
+            for (let i = 1; i <= lineCount; i++) {
+              const el = document.createElement('div');
+              el.className = 'cm-gutterElement';
+              el.style.cssText = `min-height: 1.5rem; padding: 0 3px 0 5px; text-align: right; white-space: nowrap; box-sizing: border-box;`;
+              el.textContent = String(i);
+              guttersContainer.appendChild(el);
+            }
+          };
+
+          const autoResize = () => {
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+          };
+
+          updateLineNumbers(currentCode);
+
+          // ── Sync textarea → ProseMirror ────────────────────────────
+          textarea.addEventListener('input', () => {
+            currentCode = textarea.value;
+            updateLineNumbers(currentCode);
+            autoResize();
+
+            const pos = getPos();
+            if (pos == null) return;
+
+            const start = pos + 1; // inside the node
+            const end = pos + 1 + view.state.doc.nodeAt(pos)!.content.size;
+
+            view.dispatch(
+              view.state.tr.replaceWith(
+                start,
+                end,
+                currentCode ? view.state.schema.text(currentCode) : [],
+              ),
+            );
+          });
+
+          // Tab key → insert spaces instead of focusing next element
+          textarea.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+              e.preventDefault();
+              const start = textarea.selectionStart;
+              const end = textarea.selectionEnd;
+              textarea.value =
+                textarea.value.substring(0, start) +
+                '    ' +
+                textarea.value.substring(end);
+              textarea.selectionStart = textarea.selectionEnd = start + 4;
+              textarea.dispatchEvent(new Event('input'));
+            }
+
+            // Escape → return focus to ProseMirror
+            if (e.key === 'Escape') {
+              view.focus();
+            }
+          });
+
+          // Prevent ProseMirror from stealing clicks inside the editor
+          textarea.addEventListener('mousedown', (e) => e.stopPropagation());
+          textarea.addEventListener('click', (e) => e.stopPropagation());
+
+          // ── nodeView return ────────────────────────────────────────
+          return {
+            dom: outer,
+            // No contentDOM — we manage content ourselves via the textarea
+            update(updatedNode) {
+              if (updatedNode.type !== node.type) return false;
+
+              // Only update textarea if content changed externally (undo/redo/collab)
+              const newCode = updatedNode.textContent;
+              if (newCode !== currentCode) {
+                currentCode = newCode;
+                textarea.value = currentCode;
+                updateLineNumbers(currentCode);
+                autoResize();
+              }
+              return true;
+            },
+            stopEvent(e) {
+              // Let all events inside the textarea be handled natively
+              return e.target === textarea;
+            },
+            ignoreMutation() {
+              // We manage DOM ourselves — ignore all mutations
               return true;
             },
           };
@@ -806,4 +1092,29 @@ export class Wysiwyg2 implements OnInit, AfterViewInit, OnDestroy {
   protected onInsertUrlImage() {
     this.insertImage(this.editorImageService.imgPreviewLink());
   }
+
+  protected onCodeSnippetClick() {
+    const codeBlockType = this.schema.nodes['code_block'];
+    const { state, dispatch } = this.view;
+
+    // If already in a code block, do nothing
+    const { $from } = state.selection;
+    if ($from.parent.type === codeBlockType) return;
+
+    setBlockType(codeBlockType)(state, dispatch);
+    this.view.focus();
+  }
+
+  protected onEmojiBtnClick(element: HTMLElement) {
+    this.overlayService.open({
+      template: this.emojiTemplate(),
+      viewContainerRef: this.viewContainerRef,
+      connectedTo: new ElementRef(element),
+      positions: [FLOAT_BOTTOM_POSITION, FLOAT_TOP_POSITION],
+    });
+  }
+
+  protected emojiContent: EmojiStructure[][] = [];
+  protected raisedHandEmoji: EmojiStructure = RaisedHandEmoji;
+  protected isEmojiTonePickerOpen = signal(false);
 }

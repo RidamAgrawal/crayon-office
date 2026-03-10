@@ -11,4 +11,8 @@ export class Api {
     get wysiwygEditorConfig(){
         return 'assets/data/wysiwygEditorConfig.json';
     }
+
+    get emoji(){
+        return 'assets/data/emoji.json';
+    }
 }

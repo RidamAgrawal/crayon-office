@@ -100,7 +100,8 @@
                                                 </button>
                                             </div>
                                             <div class="wysiwyg-tool-bar-item-normal">
-                                                <button class="wysiwyg-tool-bar-item-normal-button">
+                                                <button class="wysiwyg-tool-bar-item-normal-button"
+                                                    (click)="onCodeSnippetClick()">
                                                     <span class="wysiwyg-tool-bar-item-normal-icon">
                                                         <img src="assets/icons/codeSnippet.svg" alt="icon">
                                                     </span>
@@ -122,17 +123,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-4">
+                                    <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-4">
                                         <div class="tool-bar-item-container">
                                             <div class="wysiwyg-tool-bar-item-normal">
-                                                <button class="wysiwyg-tool-bar-item-normal-button">
+                                                <button class="wysiwyg-tool-bar-item-normal-button"
+                                                (click)="onEmojiBtnClick(emojiBtn)"
+                                                #emojiBtn>
                                                     <span class="wysiwyg-tool-bar-item-normal-icon">
-                                                        <img src="assets/icons/projects.svg" alt="icon">
+                                                        <img src="assets/icons/emoji.svg" alt="icon">
                                                     </span>
                                                 </button>
                                             </div>
                                         </div>
-                                    </div> -->
+                                    </div>
                                     <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-5">
                                         <div class="tool-bar-item-container">
                                             <div class="wysiwyg-tool-bar-item-normal">
@@ -368,5 +371,134 @@
                 </div>
             </div>
         </div>
+    </div>
+</ng-template>
+
+<ng-template #emojis>
+    <div class="emoji-picker-container">
+        <div class="emoji-picker-header">
+            <div class="emoji-categories">
+                <div role="presentation" class="emoji-category-icon-container selected">
+                    <button class="emoji-category-icon-btn secondary-btn">
+                        <span class="emoji-category-icon-content">
+                            <img src="./assets/icons/recent.svg" alt="">
+                        </span>
+                    </button>
+                </div>
+                <div role="presentation" class="emoji-category-icon-container">
+                    <button class="emoji-category-icon-btn secondary-btn">
+                        <span class="emoji-category-icon-content">
+                            <img src="./assets/icons/emoji2.svg" alt="">
+                        </span>
+                    </button>
+                </div>
+                <div role="presentation" class="emoji-category-icon-container">
+                    <button class="emoji-category-icon-btn secondary-btn">
+                        <span class="emoji-category-icon-content">
+                            <img src="./assets/icons/tree.svg" alt="">
+                        </span>
+                    </button>
+                </div>
+                <div role="presentation" class="emoji-category-icon-container">
+                    <button class="emoji-category-icon-btn secondary-btn">
+                        <span class="emoji-category-icon-content">
+                            <img src="./assets/icons/food.svg" alt="">
+                        </span>
+                    </button>
+                </div>
+                <div role="presentation" class="emoji-category-icon-container">
+                    <button class="emoji-category-icon-btn secondary-btn">
+                        <span class="emoji-category-icon-content">
+                            <img src="./assets/icons/sport.svg" alt="">
+                        </span>
+                    </button>
+                </div>
+                <div role="presentation" class="emoji-category-icon-container">
+                    <button class="emoji-category-icon-btn secondary-btn">
+                        <span class="emoji-category-icon-content">
+                            <img src="./assets/icons/tech.svg" alt="">
+                        </span>
+                    </button>
+                </div>
+                <div role="presentation" class="emoji-category-icon-container">
+                    <button class="emoji-category-icon-btn secondary-btn">
+                        <span class="emoji-category-icon-content">
+                            <img src="./assets/icons/heart.svg" alt="">
+                        </span>
+                    </button>
+                </div>
+                <div role="presentation" class="emoji-category-icon-container">
+                    <button class="emoji-category-icon-btn secondary-btn">
+                        <span class="emoji-category-icon-content">
+                            <img src="./assets/icons/flag.svg" alt="">
+                        </span>
+                    </button>
+                </div>
+                <div role="presentation" class="emoji-category-icon-container">
+                    <button class="emoji-category-icon-btn secondary-btn">
+                        <span class="emoji-category-icon-content">
+                            <img src="./assets/icons/checkCircle.svg" alt="">
+                        </span>
+                    </button>
+                </div>
+                <div role="presentation" class="emoji-category-icon-container">
+                    <button class="emoji-category-icon-btn secondary-btn">
+                        <span class="emoji-category-icon-content">
+                            <img src="./assets/icons/add2.svg" alt="">
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="emoji-picker-body">
+            <div class="emoji-search-container">
+                <div class="emoji-search-and-tone-container">
+                    <div class="emoji-search">
+                        <text-field></text-field>
+                    </div>
+                    <div [class]="isEmojiTonePickerOpen() ? 'emoji-tone-picker open' : 'emoji-tone-picker'" (mouseleave)="isEmojiTonePickerOpen.set(false)">
+                        <div class="emoji-tones">
+                            @for (skinVariation of raisedHandEmoji.skin_variations_emoji; track skinVariation.unified) {
+                                <label for="">
+                                    <input type="radio">
+                                    <span class="">
+                                        {{ skinVariation.unified | unicodeToEmoji }}
+                                    </span>
+                                </label>
+                            }
+                        </div>
+                        <button class="emoji-tone-selector secondary-btn" (click)="isEmojiTonePickerOpen.set(!isEmojiTonePickerOpen())">
+                            <span>
+                                {{ raisedHandEmoji.unified | unicodeToEmoji }}
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="add-your-emoji-btn-container">
+                    <button class="add-your-emoji-btn secondary-btn">
+                        <span class="add-icon-container">
+                            <img src="./assets/icons/add2.svg" alt="icon">
+                        </span>
+                        <span class="add-your-emoji-btn-text">
+                            Add your own emoji
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="emoji-list-scroll-container">
+                <cdk-virtual-scroll-viewport itemSize="40" class="emoji-list-viewport">
+                    <div *cdkVirtualFor="let emojiRow of emojiContent" class="emoji-list-scroll-row" role="row">
+                        @for (emoji of emojiRow; track emoji.unified) {
+                        <span class="emoji-wrapper" role="grid-cell">
+                            <span class="emoji-content">
+                                {{ emoji.unified | unicodeToEmoji}}
+                            </span>
+                        </span>
+                        }
+                    </div>
+                </cdk-virtual-scroll-viewport>
+            </div>
+        </div>
+        <div class="emoji-picker-footer"></div>
     </div>
 </ng-template>
