@@ -1,0 +1,217 @@
+.extra-element-container {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    height: 470px;
+    background-color: #FFFFFF;
+    border-radius: 3px;
+    box-shadow: 0px 8px 12px #1E1F2126, 0px 0px 1px #1E1F214F;
+}
+
+.extra-element-container .extra-element-container-2 {
+    display: flex;
+    flex: 1 1 0%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.extra-element-container .extra-element-container-2 .extra-element-container-3 {
+    width: 100%;
+    max-height: inherit;
+    overflow: hidden;
+}
+
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 {
+    display: flex;
+    height: 100%;
+    min-height: -webkit-fill-available;
+    flex-direction: column;
+}
+
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .search-container {
+    display: flex;
+    flex-direction: column;
+    overflow: auto hidden;
+    flex: 0 0 54px;
+    padding: 12px 12px 0 12px;
+}
+
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab {
+    flex: 1 1 0%;
+    flex-flow: wrap;
+    align-items: flex-start;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    overflow: hidden;
+    padding: 2px;
+}
+
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container {
+    overflow: visible;
+    height: 0px;
+}
+
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport {
+    box-sizing: border-box;
+    direction: ltr;
+    height: 400px;
+    position: relative;
+    width: 316px;
+    will-change: transform;
+    overflow: auto;
+}
+
+// .extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-container-2 .browse-category-container-3 {
+//     width: auto;
+//     overflow: hidden;
+//     position: relative;
+// }
+
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport .category-item-container {
+    min-height: 60px;
+    align-items: flex-start;
+    padding: 12px 12px 11px;
+    outline-color: currentColor;
+    text-decoration-style: solid;
+    text-decoration-line: none;
+    text-decoration-color: initial;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position: relative;
+    color: #1868DB;
+    background-color: #fff;
+    cursor: pointer;
+    outline-width: 0;
+    outline-style: none;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    padding-block: 8px;
+    padding-inline: 16px;
+    border: 0;
+}
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport .category-item-container:hover {
+    background-color: #0515240F;
+}
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport .category-item-container.selected {
+    background-color: #E9F2FE;
+}
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport .category-item-container.selected:hover {
+    background-color: #CFE1FD;
+}
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport .category-item-container.selected::before {
+    width: 2px;
+    content: '';
+    position: absolute;
+    background-color: #1868DB;
+}
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport .category-item-container .category-item-content {
+    box-sizing: border-box;
+    row-gap: 9pt;
+    column-gap: 9pt;
+    justify-content: space-between;
+    flex-grow: 1;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+}
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport .category-item-container .category-item-content .category-item-icon-container {
+    min-width: 24px;
+    min-height: 24px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport .category-item-container .category-item-content .category-item-icon-container .category-item-icon-content {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border: var(--ds-border-width, 1px) solid var(--ds-border, rgba(223, 225, 229, 0.5));
+    border-radius: var(--ds-radius-small, 3px);
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport .category-item-container .category-item-content .category-item-icon-container .category-item-icon-content .category-item-icon {
+    display: inline-block;
+    flex-shrink: 0;
+    line-height: 1;
+    box-sizing: border-box;
+}
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport .category-item-container .category-item-content .category-item-details-container {
+    outline-color: currentColor;
+    flex-grow: 1;
+    outline-width: medium;
+    outline-style: none;
+    text-align: left;
+    flex-direction: column;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    justify-content: center;
+    display: flex;
+}
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport .category-item-container .category-item-content .category-item-details-container .category-item-details-container-2 {
+    box-sizing: border-box;
+    justify-content: stretch;
+    row-gap: var(--ds-space-025, 2px);
+    column-gap: var(--ds-space-025, 2px);
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+}
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport .category-item-container .category-item-content .category-item-details-container .category-item-details-container-2 .category-item-name {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport .category-item-container .category-item-content .category-item-details-container .category-item-details-container-2 .category-item-name .category-item-name-text{
+    -webkit-line-clamp: 1;
+    overflow-wrap: anywhere;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    margin-left: 0;
+    margin-right: 0;
+    color: #292a2e;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport .category-item-container .category-item-content .category-item-details-container .category-item-details-container-2 .category-item-name .category-item-name-icon {
+    flex: 0 0 auto;
+    padding-top: 2px;
+    margin-bottom: -2px;
+}
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport .category-item-container .category-item-content .category-item-details-container .category-item-details-container-2 .category-item-name .category-item-name-icon .category-item-name-icon-content {
+    background-color: #0515240F;
+    color: #505258;
+    border-radius: 3px;
+    padding: 4px;
+    line-height: 12px;
+    font-size: 0.729375rem;
+    align-self: flex-end;
+}
+.extra-element-container .extra-element-container-2 .extra-element-container-3 .extra-element-container-4 .dropdown-option-container .browse-category-all-tab .browse-category-container .browse-category-viewport .category-item-container .category-item-content .category-item-details-container .category-item-details-container-2 .category-item-description {
+    -webkit-line-clamp: 2;
+    overflow-wrap: anywhere;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    color: #505258;
+}
+

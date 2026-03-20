@@ -1,0 +1,152 @@
+<div class="wysiwyg-tool-bar-container">
+    <div class="wysiwyg-tool-bar-container-2">
+        <div class="wysiwyg-tool-bar-container-3">
+            <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-1">
+                <div class="dropdown">
+                    <div class="dropdown-logo">
+                        <button class="dropdown-logo-button">
+                            <span class="icon-content">
+                                <img src="assets/icons/foryou.svg" alt="icon">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="dropdown-icon">
+                        <button class="dropdown-icon-button">
+                            <img src="assets/icons/arrow-down.svg" alt="icon">
+                        </button>
+                    </div>
+                </div>
+                <div class="long-btn">
+                    <div class="long-btn-content">
+                        <button class="long-btn-button">
+                            <span class="long-btn-icon">
+                                <img src="assets/icons/spaces.svg" alt="icon">
+                            </span>
+                            Improve description
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-2">
+                <div class="tool-bar-item-container">
+                    <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button"
+                            (click)="onTextFormatClick(textFormatButton)" #textFormatButton>
+                            <span class="wysiwyg-tool-bar-item-normal-icon">
+                                <img src="assets/icons/formatText.svg" alt="icon">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="dropdown">
+                        <div class="dropdown-logo">
+                            <button class="dropdown-logo-button">
+                                <span class="icon-content">
+                                    <img src="assets/icons/textBold.svg" alt="icon">
+                                </span>
+                            </button>
+                        </div>
+                        <div class="dropdown-icon">
+                            <button class="dropdown-icon-button" (click)="onTextStylesClick(textStylesButton)"
+                                #textStylesButton>
+                                <img src="assets/icons/arrow-down.svg" alt="icon">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <div class="dropdown-logo">
+                            <button class="dropdown-logo-button">
+                                <span class="icon-content">
+                                    <img src="assets/icons/bulletedList.svg" alt="icon">
+                                </span>
+                            </button>
+                        </div>
+                        <div class="dropdown-icon">
+                            <button class="dropdown-icon-button" (click)="onListClick(listButton)" #listButton>
+                                <img src="assets/icons/arrow-down.svg" alt="icon">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button"
+                            (click)="onColorPickerClick(colorPickerButton)" #colorPickerButton>
+                            <span class="wysiwyg-tool-bar-item-normal-icon">
+                                <img src="assets/icons/textColor.svg" alt="icon">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-3">
+                <div class="tool-bar-item-container">
+                    <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button"
+                            (click)="onMultiMediaUploadClick(multiMediaUploadButton)" #multiMediaUploadButton>
+                            <span class="wysiwyg-tool-bar-item-normal-icon">
+                                <img src="assets/icons/img.svg" alt="icon">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button" (click)="onCodeSnippetClick()">
+                            <span class="wysiwyg-tool-bar-item-normal-icon">
+                                <img src="assets/icons/codeSnippet.svg" alt="icon">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button"
+                            (click)="onExtraElementClick(extraElementButton)" #extraElementButton>
+                            <span class="wysiwyg-tool-bar-item-normal-icon">
+                                <img src="assets/icons/add1.svg" alt="icon">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button">
+                            <span class="wysiwyg-tool-bar-item-normal-icon">
+                                <img src="assets/icons/link.svg" alt="icon">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-4">
+                <div class="tool-bar-item-container">
+                    <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button" (click)="onEmojiBtnClick(emojiBtn)"
+                            #emojiBtn>
+                            <span class="wysiwyg-tool-bar-item-normal-icon">
+                                <img src="assets/icons/emoji.svg" alt="icon">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-5">
+                <div class="tool-bar-item-container">
+                    <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button" (click)="onUndo()">
+                            <span class="wysiwyg-tool-bar-item-normal-icon">
+                                <img src="assets/icons/undo.svg" alt="icon">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button" (click)="onRedo()">
+                            <span class="wysiwyg-tool-bar-item-normal-icon">
+                                <img src="assets/icons/redo.svg" alt="icon">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button">
+                            <span class="wysiwyg-tool-bar-item-normal-icon">
+                                <img src="assets/icons/recent.svg" alt="icon">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

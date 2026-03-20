@@ -1,4 +1,4 @@
-import { Component, effect, forwardRef, Input, model, signal } from '@angular/core';
+import { Component, effect, forwardRef, input, Input, model, signal } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 
 @Component({
@@ -21,6 +21,7 @@ import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_V
 })
 export class TextField implements ControlValueAccessor, Validator {
   public readonly value = model<string>('');
+  public readonly placeholder = input<string>('');
   @Input() public validatorFn?: (value: string) => ValidationErrors | null;
 
   private onChange = (value: string) => {};

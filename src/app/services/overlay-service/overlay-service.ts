@@ -1,11 +1,13 @@
 import { ConnectedPosition, Overlay, OverlayConfig, OverlayOutsideClickDispatcher, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
-import { ComponentRef, ElementRef, Injectable, Injector, TemplateRef, Type, ViewContainerRef } from '@angular/core';
+import { ClassProvider, ComponentRef, ConstructorProvider, ElementRef, ExistingProvider, FactoryProvider, Injectable, Injector, StaticClassProvider, TemplateRef, Type, TypeProvider, ValueProvider, ViewContainerRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 export interface AppOverlayConfig {
   component?: Type<any>;
   template?: TemplateRef<any>;
+  providers?: (any[] | ValueProvider | ExistingProvider | StaticClassProvider | ConstructorProvider | FactoryProvider | TypeProvider | ClassProvider)[];
+  injector?: Injector;
   context?: any;
   viewContainerRef?: ViewContainerRef;
   data?: any;
@@ -88,8 +90,11 @@ export class OverlayService {
 
     if (options.component) {
       const injector = Injector.create({
-        providers: [{ provide: 'OVERLAY_DATA', useValue: options.data }],
-        parent: this.injector
+        providers: [
+          { provide: 'OVERLAY_DATA', useValue: options.data },
+          ...(options.providers ?? [])
+        ],
+        parent: options.injector ??this.injector
       });
       const portal = new ComponentPortal(options.component, null, injector);
       const componentRef = this.overlayRef.attach(portal);

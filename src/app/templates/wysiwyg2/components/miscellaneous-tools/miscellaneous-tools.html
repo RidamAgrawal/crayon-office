@@ -1,0 +1,51 @@
+<div class="extra-element-container">
+    <div class="extra-element-container-2">
+        <div class="extra-element-container-3">
+            <div class="extra-element-container-4">
+                <div class="search-container">
+                    <text-field></text-field>
+                </div>
+                <div class="dropdown-option-container">
+                    <div class="browse-category-all-tab">
+                        <div class="browse-category-container">
+                            <cdk-virtual-scroll-viewport itemSize="60" class="browse-category-viewport">
+                                <button *cdkVirtualFor="let option of extraElementOptions(); let idx = index"
+                                    class="category-item-container" role="row"
+                                    (click)="handleExtraElementClick(option, optionElement)"
+                                    #optionElement>
+                                    <!-- @for(option of extraElementOptions; track option.id) { -->
+                                    <!-- <button class="category-item-container"> -->
+                                    <span class="category-item-content">
+                                        <span class="category-item-icon-container">
+                                            <div class="category-item-icon-content">
+                                                <span class="category-item-icon">
+                                                    <img [src]="'./assets/icons/'+option.icon+'.svg'" alt="icon">
+                                                </span>
+                                            </div>
+                                        </span>
+                                        <div class="category-item-details-container">
+                                            <div class="category-item-details-container-2">
+                                                <div class="category-item-name">
+                                                    <span class="category-item-name-text">{{option.label}}</span>
+                                                    <span class="category-item-name-icon">
+                                                        <div class="category-item-name-icon-content">{{option.shortcut}}
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                                <div class="category-item-description">
+                                                    {{option.description}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
+                                    <!-- </button> -->
+                                    <!-- } -->
+                                </button>
+                            </cdk-virtual-scroll-viewport>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

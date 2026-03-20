@@ -1,0 +1,159 @@
+<div class="upload-multi-media-container">
+    <app-tab [config]="{headings: ['File','Link'], bodyPlaceholders: [uploadFile, uploadLink]}"></app-tab>
+</div>
+
+<ng-template #uploadFile>
+    <div class="upload-file-container">
+        <div class="upload-file-container-2">
+            <button class="secondary-btn" (click)="onUploadFileClick()">
+                <span class="upload-file-icon-container">
+                    <span class="upload-file-icon-content">
+                        <img src="assets/icons/upload.svg" alt="icon">
+                    </span>
+                </span>
+                <span class="upload-file-icon-text">Upload</span>
+            </button>
+            <video autoplay playsinline muted #videoElement
+                [class.video-hidden]="!imageCaptureService.isCameraOpen()"></video>
+            @if (imageCaptureService.isCameraPermissionDenied()) {
+                <div class="preview-loader-feedback">
+                    <div class="preview-loader-feedback-container">
+                        <div class="preview-loader-feedback-container-2">
+                            <div class="preview-loader-feedback-icon">
+                                <span class="preview-loader-feedback-icon-container">
+                                    <img src="./assets/icons/warningRed.svg" alt="icon">
+                                </span>
+                            </div>
+                            <div class="preview-loader-feedback-text">
+                                <div class="preview-loader-feedback-text-container">
+                                    Unfortunately, we can’t access the device camera. Please allow camera permission to use it.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="upload-file-capture-cancel-btn">
+                <div class="upload-file-capture-cancel-btn-container" [class.upload-file-capture-cancel-show]="imageCaptureService.isCameraOpen()">
+                    @if (imageCaptureService.isCameraOpen()){
+                        <button class="secondary-btn" (click)="onCaptureCancelClick()">
+                            <span class="upload-file-icon-text">Cancel</span>
+                        </button>
+                    }
+                    <button 
+                        [attr.class]="(imageCaptureService.isCameraOpen()) 
+                        ? 'primary-btn upload-file-capture-btn'
+                        : 'secondary-btn upload-file-capture-btn'" 
+                        (click)="imageCaptureService.onCaptureClick(videoElement)"
+                        [disabled]="imageCaptureService.isCameraLoading()">
+                        @if(imageCaptureService.isCameraLoading()){
+                            <span class="loader">
+                                <span class="loader-rotating-element">
+                                    <svg class="loader-rotating-svg" height="24" width="24" viewBox="0 0 16 16"
+                                        xmlns="http://www.w3.org/2000/svg" role="none">
+                                        <circle cx="8" cy="8" r="7"></circle>
+                                    </svg>
+                                </span>
+                            </span>
+                        } @else {
+                            @if(!imageCaptureService.isCameraOpen()){
+                                <span class="upload-file-icon-container">
+                                    <span class="upload-file-icon-content">
+                                        <img src="assets/icons/capture.svg" alt="icon">
+                                    </span>
+                                </span>
+                            }
+                            <span class="upload-file-icon-text">{{(imageCaptureService.isCameraOpen())?'Capture':'Open Camera'}}</span>
+                        }
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #uploadLink>
+    <div class="upload-link-container">
+        <div class="upload-link-container-2">
+            <div class="upload-link-container-3">
+                <div class="text-field-and-load-preview">
+                    <div class="field-and-preview-container">
+                        <text-field [(value)]="imagePreviewService.imgPreviewLink"
+                            [validatorFn]="imagePreviewService.validateUrl"
+                            [placeholder]="'Paste link to upload'"></text-field>
+                        @if (!imagePreviewService.loadImageCalled()) {
+                        <div class="load-preview-container">
+                            <button class="load-preview-button secondary-btn" (click)="imagePreviewService.loadImage()"
+                                [disabled]="imagePreviewService.isLoading()||imagePreviewService.invalidImageLink()">
+                                @if (imagePreviewService.isLoading()){
+                                <span class="loader">
+                                    <span class="loader-rotating-element">
+                                        <svg class="loader-rotating-svg" height="24" width="24" viewBox="0 0 16 16"
+                                            xmlns="http://www.w3.org/2000/svg" role="none">
+                                            <circle cx="8" cy="8" r="7"></circle>
+                                        </svg>
+                                    </span>
+                                </span>
+                                } @else {
+                                <span class="load-preview-icon-container">
+                                    <span class="load-preview-icon-content">
+                                        <img src="assets/icons/preview.svg" alt="icon">
+                                    </span>
+                                </span>
+                                <span class="load-preview-text">Load Preview</span>
+                                }
+                            </button>
+                        </div>
+                        }
+                    </div>
+                </div>
+                @if (imagePreviewService.loadImageCalled()) {
+                @if(imagePreviewService.invalidImageLink()){
+                <div class="preview-loader-feedback">
+                    <div class="preview-loader-feedback-container">
+                        <div class="preview-loader-feedback-container-2">
+                            <div class="preview-loader-feedback-icon">
+                                <span class="preview-loader-feedback-icon-container">
+                                    <img src="./assets/icons/warningRed.svg" alt="icon">
+                                </span>
+                            </div>
+                            <div class="preview-loader-feedback-text">
+                                <div class="preview-loader-feedback-text-container">
+                                    Unfortunately, we can’t add this image link. Download the image, then drag and drop
+                                    onto the page.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                } @else {
+                <div class="img-loader-wrapper">
+                    <div class="img-loader-wrapper-2">
+                        <div class="img-loader-wrapper-3">
+                            <div class="img-loader-wrapper-4">
+                                <img [src]="imagePreviewService.imgPreviewLink()" alt="preview">
+                            </div>
+                            <div class="img-loader-blanket"></div>
+                            <div class="img-loader-progress-bar">
+                                <div class="progress"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+                }
+                <div class="upload-link-save-cancel-btn">
+                    <div class="upload-link-save-cancel-btn-container">
+                        <button class="cancel-button secondary-btn" (click)="onCancelBtnClick()">
+                            <span>Cancel</span>
+                        </button>
+                        <button class="insert-button primary-btn" (click)="onInsertUrlImage()"
+                            [disabled]="!imagePreviewService.isPreviewImage()">
+                            <span>Insert</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

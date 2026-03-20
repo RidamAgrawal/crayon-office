@@ -124,7 +124,7 @@ export const RaisedHandEmoji: EmojiStructure = {
   },
   skin_variations_emoji: [
     {
-      unified: '270B',
+      unified: '',
       non_qualified: null,
       image: '270b.png',
       sheet_x: 60,
@@ -136,7 +136,7 @@ export const RaisedHandEmoji: EmojiStructure = {
       has_img_facebook: true,
     },
     {
-      unified: '270B-1F3FB',
+      unified: '1F3FB',
       non_qualified: null,
       image: '270b-1f3fb.png',
       sheet_x: 60,
@@ -148,7 +148,7 @@ export const RaisedHandEmoji: EmojiStructure = {
       has_img_facebook: true,
     },
     {
-      unified: '270B-1F3FC',
+      unified: '1F3FC',
       non_qualified: null,
       image: '270b-1f3fc.png',
       sheet_x: 60,
@@ -160,7 +160,7 @@ export const RaisedHandEmoji: EmojiStructure = {
       has_img_facebook: true,
     },
     {
-      unified: '270B-1F3FD',
+      unified: '1F3FD',
       non_qualified: null,
       image: '270b-1f3fd.png',
       sheet_x: 60,
@@ -172,7 +172,7 @@ export const RaisedHandEmoji: EmojiStructure = {
       has_img_facebook: true,
     },
     {
-      unified: '270B-1F3FE',
+      unified: '1F3FE',
       non_qualified: null,
       image: '270b-1f3fe.png',
       sheet_x: 60,
@@ -184,7 +184,7 @@ export const RaisedHandEmoji: EmojiStructure = {
       has_img_facebook: true,
     },
     {
-      unified: '270B-1F3FF',
+      unified: '1F3FF',
       non_qualified: null,
       image: '270b-1f3ff.png',
       sheet_x: 60,
@@ -197,3 +197,6 @@ export const RaisedHandEmoji: EmojiStructure = {
     },
   ],
 };
+export type EmojiRow =
+  | { type: 'heading'; name: string }
+  | { type: 'emojis'; emojis: EmojiStructure[] };

@@ -275,5 +275,283 @@
                 }
             ]
         }
+    ],
+    "extraElementOptions": [
+        {
+            "options": [
+                {
+                    "id": "actionItem",
+                    "icon": "taskList",
+                    "label": "Action Item",
+                    "type": "button",
+                    "description": "Create and assign action items",
+                    "tooltip": "Create and assign action items",
+                    "visible": true,
+                    "shortcut": "[]",
+                    "onclick": "onActionItemClick()"
+                },
+                {
+                    "id": "multiMediaPanel",
+                    "icon": "imagePanel",
+                    "label": "Image, video, or file",
+                    "type": "button",
+                    "description": "Add images and other files to your description",
+                    "tooltip": "Add images and other files to your description",
+                    "visible": true,
+                    "shortcut": null,
+                    "onclick": "onUploadFileClick()"
+                },
+                {
+                    "id": "mention",
+                    "icon": "mentionPanel",
+                    "label": "Mention",
+                    "type": "button",
+                    "description": "Mention someone to send them a notification",
+                    "tooltip": "Mention someone to send them a notification",
+                    "visible": true,
+                    "shortcut": "@"
+                },
+                {
+                    "id": "emoji",
+                    "icon": "emojiPanel",
+                    "label": "Emoji",
+                    "type": "button",
+                    "description": "Use emojis to express ideas 🎉 and emotions 😄",
+                    "tooltip": "Use emojis to express ideas 🎉 and emotions 😄",
+                    "visible": true,
+                    "shortcut":":",
+                    "onclick":"onEmojiClick()"
+                },
+                {
+                    "id": "expandPanel",
+                    "icon": "expandPanel",
+                    "label": "Expand",
+                    "type": "button",
+                    "description": "Insert an expandable section",
+                    "tooltip": "Insert an expandable section",
+                    "visible": true,
+                    "shortcut":null
+                },
+                {
+                    "id": "table",
+                    "icon": "tablePanel",
+                    "label": "Insert Table",
+                    "type": "button",
+                    "description": "Insert a table",
+                    "tooltip": "Insert a table",
+                    "visible": true,
+                    "shortcut": "Shift+Alt+T"
+                },
+                {
+                    "id": "codeSnippet",
+                    "icon": "codeSnippetPanel",
+                    "label": "Code snippet",
+                    "type": "button",
+                    "description": "Insert code snippets to share code with your team",
+                    "tooltip": "Insert code snippets to share code with your team",
+                    "visible": true,
+                    "shortcut": "```",
+                    "onclick": "onCodeSnippetClick()"
+                },
+                {
+                    "id": "status",
+                    "icon": "StatusPanel",
+                    "label": "Status",
+                    "type": "button",
+                    "description": "Add a custom status label",
+                    "tooltip": "Add a custom status label",
+                    "visible": true,
+                    "shortcut":null
+                },
+                {
+                    "id": "infoPanel",
+                    "icon": "infoPanel",
+                    "label": "Info Panel",
+                    "type": "button",
+                    "description": "Highlight information in a colored panel",
+                    "tooltip": "Highlight information in a colored panel",
+                    "visible": true,
+                    "shortcut":null
+                },
+                {
+                    "id": "date",
+                    "icon": "date",
+                    "label": "Date",
+                    "type": "button",
+                    "description": "Add a date using calender",
+                    "tooltip": "Add a date using calender",
+                    "visible": true,
+                    "shortcut":"//"
+                },
+                {
+                    "id": "decision",
+                    "icon": "decision",
+                    "label": "Decision",
+                    "type": "button",
+                    "description": "Capture decisions so they're easy to track",
+                    "tooltip": "Capture decisions so they're easy to track",
+                    "visible": true,
+                    "shortcut":"<>"
+                },
+                {
+                    "id": "notePanel",
+                    "icon": "notePanel",
+                    "label": "Note Panel",
+                    "type": "button",
+                    "description": "Highlight information in a colored panel",
+                    "tooltip": "Highlight information in a colored panel",
+                    "visible": true,
+                    "shortcut":null
+                },
+                {
+                    "id": "successPanel",
+                    "icon": "successPanel",
+                    "label": "Success Panel",
+                    "type": "button",
+                    "description": "Add tips in a colored panel",
+                    "tooltip": "Add tips in a colored panel",
+                    "visible": true,
+                    "shortcut":null
+                },
+                {
+                    "id": "warningPanel",
+                    "icon": "warningPanel",
+                    "label": "Warning Panel",
+                    "type": "button",
+                    "description": "Add a note of caution in a colored panel",
+                    "tooltip": "Add a note of caution in a colored panel",
+                    "visible": true,
+                    "shortcut":null
+                },
+                {
+                    "id": "errorPanel",
+                    "icon": "errorPanel",
+                    "label": "Error Panel",
+                    "type": "button",
+                    "description": "Call out errors in a colored panel",
+                    "tooltip": "Call out errors in a colored panel",
+                    "visible": true,
+                    "shortcut":null
+                },
+                {
+                    "id": "bulletedList",
+                    "icon": "unorderedList",
+                    "label": "Bulleted List",
+                    "type": "button",
+                    "description": "Create an unordered list",
+                    "tooltip": "Create an unordered list",
+                    "visible": true,
+                    "shortcut":"Ctrl+Shift+8",
+                    "onclick": "onBulletedListClick()"
+                },
+                {
+                    "id": "numberedList",
+                    "icon": "orderedList",
+                    "label": "Numbered List",
+                    "type": "button",
+                    "description": "Create an ordered list",
+                    "tooltip": "Create an ordered list",
+                    "visible": true,
+                    "shortcut":"Ctrl+Shift+7",
+                    "onclick": "onOrderedListClick()"
+                },
+                {
+                    "id": "link",
+                    "icon": "linkPanel",
+                    "label": "Link",
+                    "type": "button",
+                    "description": "Insert a link",
+                    "tooltip": "Insert a link",
+                    "visible": true,
+                    "shortcut":"Ctrl+K"
+                },
+                {
+                    "id": "dividerPanel",
+                    "icon": "dividerPanel",
+                    "label": "Divider",
+                    "type": "button",
+                    "description": "Separate content using horizontal line",
+                    "tooltip": "Separate content using horizontal line",
+                    "visible": true,
+                    "shortcut":"---"
+                },
+                {
+                    "id": "quote",
+                    "icon": "quotation",
+                    "label": "Quote",
+                    "type": "button",
+                    "description": "Insert a quote or citation",
+                    "tooltip": "Insert a quote or citation",
+                    "visible": true,
+                    "shortcut":">"
+                },
+                {
+                    "id": "headingH1",
+                    "icon": "headingH1",
+                    "label": "Heading 1",
+                    "type": "button",
+                    "description": "Use this for top level headings",
+                    "tooltip": "Use this for top level headings",
+                    "visible": true,
+                    "shortcut":"#",
+                    "onclick": "setHeading(1)"
+                },
+                {
+                    "id": "headingH2",
+                    "icon": "headingH2",
+                    "label": "Heading 2",
+                    "type": "button",
+                    "description": "Use this for key sections",
+                    "tooltip": "Use this for key sections",
+                    "visible": true,
+                    "shortcut":"##",
+                    "onclick": "setHeading(2)"
+                },
+                {
+                    "id": "headingH3",
+                    "icon": "headingH3",
+                    "label": "Heading 3",
+                    "type": "button",
+                    "description": "Use this for subsections and group headings",
+                    "tooltip": "Use this for subsections and group headings",
+                    "visible": true,
+                    "shortcut":"###",
+                    "onclick": "setHeading(3)"
+                },
+                {
+                    "id": "headingH4",
+                    "icon": "headingH4",
+                    "label": "Heading 4",
+                    "type": "button",
+                    "description": "Use this for deep headings",
+                    "tooltip": "Use this for deep headings",
+                    "visible": true,
+                    "shortcut":"####",
+                    "onclick": "setHeading(4)"
+                },
+                {
+                    "id": "headingH5",
+                    "icon": "headingH5",
+                    "label": "Heading 5",
+                    "type": "button",
+                    "description": "Use this for grouping list items",
+                    "tooltip": "Use this for grouping list items",
+                    "visible": true,
+                    "shortcut":"#####",
+                    "onclick": "setHeading(5)"
+                },
+                {
+                    "id": "headingH6",
+                    "icon": "headingH6",
+                    "label": "Heading 6",
+                    "type": "button",
+                    "description": "Use this for low level headings",
+                    "tooltip": "Use this for low level headings",
+                    "visible": true,
+                    "shortcut":"######",
+                    "onclick": "setHeading(6)"
+                }
+            ]
+        }
     ]
 }

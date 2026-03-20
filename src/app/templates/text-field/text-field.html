@@ -1,5 +1,5 @@
 <div class="text-field" [attr.data-touched]="isDirty() &&!!error()">
-    <input type="text" class="text-field-input font-body-large" [(ngModel)]="value" (blur)="onBlur()" [placeholder]="'Paste link to upload'" (input)="isDirty.set(true)">
+    <input type="text" class="text-field-input font-body-large" [(ngModel)]="value" (blur)="onBlur()" [placeholder]="placeholder()" (input)="isDirty.set(true)">
 </div>
 @if (isDirty() && error()) {
     <div class="text-field-feedback">

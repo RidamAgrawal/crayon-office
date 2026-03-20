@@ -1,0 +1,304 @@
+:host {
+    position: relative;
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    height: auto;
+    background-color: white;
+    box-shadow: none;
+    padding: 8px 8px 0;
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 2px 0 0 #f0f1f2;
+}
+
+.wysiwyg-tool-bar-container {
+    display: flex;
+    width: 100%;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.wysiwyg-tool-bar-container-2 {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    border: none;
+    width: 100%;
+}
+
+.wysiwyg-tool-bar-container-3 {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    background-color: #fff;
+    min-height: 2pc;
+    align-items: center;
+    display: flex;
+    border-radius: 6px;
+    gap: 4px;
+    border: none;
+}
+
+.wysiwyg-tool-bar-item {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    align-items: center;
+    display: flex;
+    border: none;
+    gap: 0.25rem;
+}
+
+.wysiwyg-tool-bar-item .dropdown {
+    display: flex;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.wysiwyg-tool-bar-item .dropdown .dropdown-logo .dropdown-logo-button,
+.wysiwyg-tool-bar-item .dropdown .dropdown-icon .dropdown-icon-button {
+    padding-inline: .375px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding-right: 0.5rem;
+    color: #505258;
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: #00000000;
+    padding-left: 0.5rem;
+    justify-content: center;
+    display: flex;
+    border-radius: 4px;
+    min-height: 28px;
+}
+
+.wysiwyg-tool-bar-item .dropdown .dropdown-logo .dropdown-logo-button:hover,
+.wysiwyg-tool-bar-item .dropdown .dropdown-icon .dropdown-icon-button:hover {
+    background-color: #0515240F;
+}
+
+.wysiwyg-tool-bar-item .dropdown .dropdown-logo .dropdown-logo-button {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.wysiwyg-tool-bar-item .dropdown .dropdown-icon .dropdown-icon-button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.wysiwyg-tool-bar-item .dropdown .dropdown-logo .dropdown-logo-button .icon-content,
+.wysiwyg-tool-bar-item .dropdown .dropdown-icon .dropdown-icon-button .icon-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 9pt;
+    height: 9pt;
+    line-height: 9pt;
+}
+
+.wysiwyg-tool-bar-item .dropdown .dropdown-logo .dropdown-logo-button .icon-content img,
+.wysiwyg-tool-bar-item .dropdown .dropdown-icon .dropdown-icon-button .icon-content img {
+    width: 9pt;
+    height: 9pt;
+    line-height: 9pt;
+}
+
+.wysiwyg-tool-bar-item .dropdown .dropdown-icon .dropdown-icon-button:focus {
+    background-color: #E9F2FE;
+    color: #1868db;
+}
+
+.wysiwyg-tool-bar-item .dropdown .dropdown-icon .dropdown-icon-button:hover {
+    background-color: #0515240F;
+}
+
+.wysiwyg-tool-bar-item .dropdown .dropdown-icon .dropdown-icon-button:focus:hover {
+    background-color: #CFE1FD;
+}
+
+.wysiwyg-tool-bar-item .long-btn {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding-right: 0.5rem;
+    color: #505258;
+    cursor: pointer;
+}
+
+.wysiwyg-tool-bar-item .long-btn .long-btn-content {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+.wysiwyg-tool-bar-item .long-btn .long-btn-content .long-btn-button:hover {
+    background-color: #0515240F;
+}
+
+.wysiwyg-tool-bar-item .long-btn .long-btn-content .long-btn-button:focus {
+    background-color: #E9F2FE;
+    color: #1868db;
+}
+
+.wysiwyg-tool-bar-item .long-btn .long-btn-content .long-btn-button:focus:hover {
+    background-color: #CFE1FD;
+}
+
+.wysiwyg-tool-bar-item .long-btn .long-btn-content .long-btn-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+    color: #505258;
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: #00000000;
+    justify-content: center;
+    display: flex;
+    border-radius: 4px;
+    min-height: 28px;
+    border: none;
+    color: #080F214A; // bcz disabled
+    gap: 0.375rem;
+}
+
+.wysiwyg-tool-bar-item .long-btn .long-btn-content .long-btn-button .long-btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 9pt;
+    height: 9pt;
+    line-height: 9pt;
+    box-sizing: border-box;
+    cursor: not-allowed;
+}
+
+.wysiwyg-tool-bar-item .tool-bar-item-2-container {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: #505258;
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: #00000000;
+    justify-content: center;
+    display: flex;
+    border-radius: 4px;
+    min-height: 28px;
+}
+
+.wysiwyg-tool-bar-item .wysiwyg-tool-bar-item-normal {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    color: #505258;
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: #00000000;
+    justify-content: center;
+    display: flex;
+    border-radius: 4px;
+    min-height: 28px;
+    border: none;
+}
+
+.wysiwyg-tool-bar-item .wysiwyg-tool-bar-item-normal .wysiwyg-tool-bar-item-normal-button:hover {
+    background-color: #0515240F;
+}
+
+.wysiwyg-tool-bar-item .wysiwyg-tool-bar-item-normal .wysiwyg-tool-bar-item-normal-button:focus {
+    background-color: #E9F2FE;
+    color: #1868db;
+}
+
+.wysiwyg-tool-bar-item .wysiwyg-tool-bar-item-normal .wysiwyg-tool-bar-item-normal-button:focus:hover {
+    background-color: #CFE1FD;
+}
+
+.wysiwyg-tool-bar-item .wysiwyg-tool-bar-item-normal .wysiwyg-tool-bar-item-normal-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding-right: 0.5rem;
+    color: #505258;
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: #00000000;
+    padding-left: 0.5rem;
+    justify-content: center;
+    display: flex;
+    border-radius: 4px;
+    min-height: 28px;
+    gap: 0.375rem;
+    border: none;
+}
+
+.wysiwyg-tool-bar-item .wysiwyg-tool-bar-item-normal .wysiwyg-tool-bar-item-normal-button .wysiwyg-tool-bar-item-normal-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 9pt;
+    height: 9pt;
+    line-height: 9pt;
+    box-sizing: border-box;
+}
+
+.wysiwyg-tool-bar-item .wysiwyg-tool-bar-item-normal .wysiwyg-tool-bar-item-normal-button .wysiwyg-tool-bar-item-normal-icon img {
+    width: 9pt;
+    height: 9pt;
+    line-height: 9pt;
+}
+
+.wysiwyg-tool-bar-item .tool-bar-item-container {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: #505258;
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: #00000000;
+    justify-content: center;
+    display: flex;
+    border-radius: 4px;
+    min-height: 28px;
+}
+
+.tool-bar-item .tool-bar-item-container .tool-bar-item-button .tool-bar-item-icon img {
+    width: 9pt;
+    height: 9pt;
+    line-height: 9pt;
+}

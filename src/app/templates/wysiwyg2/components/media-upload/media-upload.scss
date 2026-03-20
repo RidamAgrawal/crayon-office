@@ -1,0 +1,432 @@
+.upload-multi-media-container {
+    box-sizing: border-box;
+    appearance: none;
+    border: none;
+    white-space: initial;
+    text-align: initial;
+    box-shadow: 0px 8px 12px #1E1F2126, 0px 0px 1px #1E1F214F;
+    width: 340px;
+    padding: var(--ds-space-200, 16px);
+    border-radius: var(--ds-radius-small, 3px);
+    background-color: var(--ds-surface-overlay, #FFFFFF);
+}
+
+.upload-multi-media-container .upload-multi-media-container-2 {
+    min-height: 0;
+    flex-basis: 100%;
+    flex-grow: 1;
+    max-width: 100%;
+    flex-direction: column;
+    display: flex;
+}
+
+.upload-link-container {
+    flex-grow: 1;
+    min-height: 0;
+    display: flex;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    padding-block-end: var(--ds-space-150, 9pt);
+    box-sizing: border-box;
+    border: none;
+}
+
+.upload-link-container .upload-link-container-2 {
+    box-sizing: border-box;
+    appearance: none;
+    border: none;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 {
+    display: flex;
+    box-sizing: border-box;
+    gap: var(--ds-space-150, 12px);
+    flex-direction: column;
+    justify-content: stretch;
+    width: 100%;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .text-field-and-load-preview {
+    margin-block-start: var(--ds-space-100, 8px);
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .text-field-and-load-preview .field-and-preview-container {
+    display: flex;
+    box-sizing: border-box;
+    gap: var(--ds-space-150, 12px);
+    flex-direction: column;
+    justify-content: stretch;
+    width: 100%;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .text-field-and-load-preview .field-and-preview-container text-field {
+    box-sizing: border-box;
+    appearance: none;
+    border: none;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .text-field-and-load-preview .field-and-preview-container .load-preview-container {
+    display: flex;
+    box-sizing: border-box;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border-width: var(--ds-border-width, 1px);
+    border-style: dashed;
+    border-color: var(--ds-border, #0B120E24);
+    border-radius: var(--ds-radius-small, 3px);
+    height: 200px;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .text-field-and-load-preview .field-and-preview-container .load-preview-container .load-preview-button::after {
+    position: absolute;
+    content: "";
+    border-color: var(--ds-border-disabled, #0515240f);
+    border-width: var(--ds-border-width, 1px);
+    border-style: solid;
+    border-radius: inherit;
+    inset: var(--ds-space-0, 0);
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .text-field-and-load-preview .field-and-preview-container .load-preview-container .load-preview-button {}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .text-field-and-load-preview .field-and-preview-container .load-preview-container .load-preview-button .load-preview-icon-container {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 0;
+    line-height: 0;
+    flex-shrink: 0;
+    flex-grow: 0;
+    align-self: center;
+    display: flex;
+    transition: opacity .3s;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .text-field-and-load-preview .field-and-preview-container .load-preview-container .load-preview-button .load-preview-icon-container .load-preview-icon-content {
+    display: inline-block;
+    height: 9pt;
+    width: 9pt;
+    line-height: 1rem;
+    vertical-align: top;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .text-field-and-load-preview .field-and-preview-container .load-preview-container .load-preview-button .load-preview-icon-container .load-preview-icon-content img {
+    height: 9pt;
+    width: 9pt;
+}
+
+.load-preview-button:disabled .load-preview-icon-container .load-preview-icon-content img {
+    filter: brightness(0) saturate(100%) invert(6%) sepia(28%) saturate(884%) hue-rotate(190deg) brightness(20%) contrast(95%);
+    opacity: 0.29;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .text-field-and-load-preview .field-and-preview-container .load-preview-container .load-preview-button .load-preview-text {
+    flex-grow: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    transition: opacity .3s;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .text-field-and-load-preview .field-and-preview-container .load-preview-container .load-preview-button .loader {
+    inset-inline-start: var(--ds-space-0, 0);
+    position: absolute;
+    align-items: center;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    justify-content: center;
+    display: flex;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .img-loader-wrapper {
+    display: flex;
+    box-sizing: border-box;
+    gap: var(--ds-space-200, 16px);
+    -webkit-box-align: center;
+    align-items: center;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 200px;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .img-loader-wrapper .img-loader-wrapper-2 {
+    font-size: 11px;
+    line-height: 14px;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: var(--ds-radius-large, 3px);
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .img-loader-wrapper .img-loader-wrapper-2 .img-loader-wrapper-3 {
+    box-sizing: border-box;
+    position: relative;
+    max-height: 100%;
+    max-width: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-radius: var(--ds-radius-large, 3px);
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .img-loader-wrapper .img-loader-wrapper-2 .img-loader-wrapper-3 .img-loader-blanket {
+    box-sizing: border-box;
+    background-color: #050C1F75;
+    left: 0;
+    max-height: 100%;
+    top: 0;
+    position: absolute;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    transition: all .3s;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .preview-loader-feedback,
+.upload-file-container .upload-file-container-2 .preview-loader-feedback {
+    display: flex;
+    box-sizing: border-box;
+    gap: var(--ds-space-150, 12px);
+    flex-direction: column;
+    justify-content: stretch;
+    width: 100%;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .preview-loader-feedback-container,
+.upload-file-container .upload-file-container-2 .preview-loader-feedback-container {
+    background-color: var(--ds-background-danger, #ffeceb);
+    word-break: break-word;
+    padding-inline: var(--ds-space-200, 1pc);
+    padding-block: var(--ds-space-200, 1pc);
+    border-radius: var(--ds-radius-small, 4px);
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .preview-loader-feedback-container-2,
+.upload-file-container .upload-file-container-2 .preview-loader-feedback-container-2 {
+    box-sizing: border-box;
+    row-gap: var(--ds-space-200, 1pc);
+    column-gap: var(--ds-space-200, 1pc);
+    align-items: stretch;
+    flex-direction: row;
+    display: flex;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .img-loader-progress-bar {
+    box-sizing: border-box;
+    background-color: #fffc;
+    left: 2.5%;
+    padding-left: 1px;
+    padding-right: 1px;
+    box-sizing: border-box;
+    height: 5px;
+    width: 95%;
+    padding-bottom: 1px;
+    padding-top: 1px;
+    position: absolute;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    border-radius: var(--ds-radius-small, 3px);
+    bottom: 0.5rem;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .preview-loader-feedback-icon,
+.upload-file-container .upload-file-container-2 .preview-loader-feedback-icon {
+    display: flex;
+    margin-block: -0.125rem;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .preview-loader-feedback-icon .preview-loader-feedback-icon-container,
+.upload-file-container .upload-file-container-2 .preview-loader-feedback-icon .preview-loader-feedback-icon-container {
+    display: inline-block;
+    line-height: 1;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .preview-loader-feedback-text-container,
+.upload-file-container .upload-file-container-2 .preview-loader-feedback-text-container {
+    display: inline-block;
+    line-height: 0.75rem;
+    flex-shrink: 0;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .preview-loader-feedback-text,
+.upload-file-container .upload-file-container-2 .preview-loader-feedback-text {
+    box-sizing: border-box;
+    justify-content: stretch;
+    column-gap: var(--ds-space-100, 8px);
+    row-gap: var(--ds-space-100, 8px);
+    flex-grow: 1;
+    flex-direction: column;
+    display: flex;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .img-loader-progress-bar .progress {
+    width: 0%;
+    box-sizing: border-box;
+    background-color: #44546f;
+    display: block;
+    height: 100%;
+    border-radius: var(--ds-radius-small, 3px);
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .img-loader-wrapper .img-loader-wrapper-2 .img-loader-wrapper-3 .img-loader-wrapper-4 {
+    box-sizing: border-box;
+    box-sizing: border-box;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    display: flex;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .img-loader-wrapper .img-loader-wrapper-2 .img-loader-wrapper-3 .img-loader-wrapper-4 img {
+    box-sizing: border-box;
+    position: relative;
+    max-height: 100%;
+    max-width: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    width: 100%;
+    object-fit: contain;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .upload-link-save-cancel-btn,
+.upload-file-container .upload-file-container-2 .upload-file-capture-cancel-btn {
+    justify-content: flex-end;
+    // margin-block-start: var(--ds-space-300, 24px);
+    display: flex;
+}
+
+.upload-link-container .upload-link-container-2 .upload-link-container-3 .upload-link-save-cancel-btn .upload-link-save-cancel-btn-container,
+.upload-file-container .upload-file-container-2 .upload-file-capture-cancel-btn .upload-file-capture-cancel-btn-container {
+    display: inline-flex;
+    gap: var(--ds-space-050, 4px);
+}
+
+.upload-file-container .upload-file-container-2 .upload-file-capture-cancel-btn .upload-file-capture-cancel-btn-container {
+    flex-grow: 1;
+}
+
+.upload-file-container .upload-file-container-2 .upload-file-capture-cancel-btn .upload-file-capture-cancel-btn-container.upload-file-capture-cancel-show {
+    flex-grow: 0;
+
+    .upload-file-capture-btn {
+        width: auto;
+    }
+}
+
+.upload-file-container .upload-file-container-2 .upload-file-capture-cancel-btn .upload-file-capture-cancel-btn-container .upload-file-capture-btn {
+    width: 100%;
+}
+
+.upload-file-container .upload-file-container-2 .upload-file-capture-cancel-btn .upload-file-capture-cancel-btn-container .upload-file-capture-btn .loader {
+    position: relative;
+    align-self: center;
+    display: block;
+}
+
+.upload-file-container {
+    flex-grow: 1;
+    min-height: 0;
+    display: flex;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    padding-block: var(--ds-space-150, 9pt);
+    box-sizing: border-box;
+    border: none;
+}
+
+.upload-file-container .upload-file-container-2 {
+    box-sizing: border-box;
+    justify-content: stretch;
+    row-gap: var(--ds-space-200, 1pc);
+    column-gap: var(--ds-space-200, 1pc);
+    flex-grow: 1;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.upload-file-container .upload-file-container-2 .secondary-btn::after {
+    position: absolute;
+    content: "";
+    pointer-events: none;
+    border-color: var(--ds-border, #0b120e24);
+    border-width: var(--ds-border-width, 1px);
+    border-style: solid;
+    border-radius: inherit;
+    inset: var(--ds-space-0, 0);
+}
+
+.upload-file-container .upload-file-container-2 video {
+    width: 100%;
+    max-height: 200px;
+    border-radius: var(--ds-radius-small, 3px);
+    background-color: #1e1e1e;
+    object-fit: cover;
+    margin-top: 1pc;
+}
+
+.upload-file-container .upload-file-container-2 video.video-hidden {
+    display: none;
+}
+
+
+.upload-file-container .upload-file-container-2 .secondary-btn .upload-file-icon-container {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 0;
+    line-height: 0;
+    flex-shrink: 0;
+    flex-grow: 0;
+    align-self: center;
+    display: flex;
+    transition: opacity .3s;
+}
+
+.upload-file-container .upload-file-container-2 .secondary-btn .upload-file-icon-container .upload-file-icon-content {
+    box-sizing: border-box;
+    padding-inline: 0;
+    line-height: 1;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.upload-file-container .upload-file-container-2 .secondary-btn .upload-file-icon-text {
+    flex-grow: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    transition: opacity .3s;
+}

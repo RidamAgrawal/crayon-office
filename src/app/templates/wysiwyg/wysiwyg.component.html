@@ -298,7 +298,8 @@
                 <div class="text-field-and-load-preview">
                     <div class="field-and-preview-container">
                         <text-field [(value)]="imgPreviewLink"
-                            [validatorFn]="editorImageService.validateUrl"></text-field>
+                            [validatorFn]="editorImageService.validateUrl"
+                            [placeholder]="'Paste link to upload'"></text-field>
                         @if (!editorImageService.loadImageCalled()) {
                         <div class="load-preview-container">
                             <button class="load-preview-button secondary-btn" (click)="onPreviewBtnClick()"
