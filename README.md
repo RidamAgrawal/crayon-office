@@ -1,59 +1,139 @@
-# JiraClone
+# 📋 Jira Clone
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
+A feature-rich **Jira-inspired project management tool** built with **Angular 20**. Users can create accounts, manage dashboards, and create ticket items — all through a polished, component-driven UI.
 
-## Development server
+> **⚠️ Work in Progress** — This project is under active development. Core features like user accounts, dashboards, and ticket creation are functional, with more capabilities being added.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
+## ✨ Features
+
+| Feature | Status |
+|---|---|
+| 🔐 User account creation & landing page | ✅ |
+| 📊 Dashboard with sidebar navigation | ✅ |
+| 🏠 Dashboard Home & Recent views | ✅ |
+| 📝 Rich-text WYSIWYG editor (ProseMirror) | ✅ |
+| 🎨 Color picker for text styling | ✅ |
+| 😄 Emoji picker with search & skin tones | ✅ |
+| 📷 Image upload, link preview & camera capture | ✅ |
+| 📋 Task lists, bullet/ordered lists, code blocks | ✅ |
+| 🔍 Dashboard search bar | ✅ |
+| 🧩 Drag-and-drop support (CDK) | ✅ |
+| 🎫 Full ticket management workflow | 🚧 |
+| 👥 Team collaboration features | 🚧 |
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** [Angular 20](https://angular.dev/)
+- **Language:** TypeScript 5.8
+- **Styling:** SCSS
+- **Rich-Text Editor:** [ProseMirror](https://prosemirror.net/)
+- **UI Kit:** Angular CDK (Overlay, Drag & Drop, Virtual Scroll)
+- **State Management:** Angular Signals & RxJS
+- **Build Tool:** Angular CLI / `@angular/build`
+
+---
+
+## 📁 Project Structure
+
+```
+src/app/
+├── components/
+│   ├── dashboards/          # Main dashboard module & child routes
+│   │   └── _components/     # Header, sidebar, search bar, modals, tabs
+│   ├── header/              # App header
+│   └── landing/             # Landing / sign-up page
+├── directives/              # click-outside, tooltip, resizable, floating-container
+├── modules/                 # Feature modules
+├── services/
+│   ├── http-service/        # API communication
+│   ├── overlay-service/     # CDK overlay manager
+│   └── template-service/    # Template helpers
+└── templates/               # Reusable UI components
+    ├── wysiwyg2/            # ProseMirror-based rich-text editor
+    │   ├── components/      # Toolbar, ColorPicker, EmojiPicker, MediaUpload, MiscTools
+    │   ├── pipes/           # Unicode-to-emoji pipe
+    │   └── services/        # EditorView, EditorCommands, EditorImage
+    ├── text-field/          # Input field with validation
+    ├── checkbox/            # Checkbox component
+    ├── multi-select/        # Multi-select dropdown
+    ├── toggle-btn/          # Toggle switch
+    ├── radio-group/         # Radio button group
+    └── ...                  # listing, sidebar-item, option-wrapper, etc.
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 🚀 Getting Started
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Prerequisites
 
-```bash
-ng generate component component-name
-```
+- **Node.js** ≥ 18
+- **npm** ≥ 9
+- **Angular CLI** ≥ 20 (`npm install -g @angular/cli`)
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+### Installation
 
 ```bash
-ng build
+# Clone the repository
+git clone https://github.com/your-username/jira-clone.git
+cd jira-clone
+
+# Install dependencies
+npm install
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Development Server
 
 ```bash
-ng test
+npm start
 ```
 
-## Running end-to-end tests
+Navigate to **http://localhost:4200/**. The app will auto-reload on source file changes.
 
-For end-to-end (e2e) testing, run:
+### Build
 
 ```bash
-ng e2e
+npm run build
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Build artifacts are stored in the `dist/` directory.
 
-## Additional Resources
+### Running Tests
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+npm test
+```
+
+---
+
+## 📸 Screenshots
+
+> _Screenshots coming soon — the project is under active development._
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is for learning and practice purposes.
+
+---
+
+<p align="center">
+  Built with ❤️ using <strong>Angular 20</strong> & <strong>ProseMirror</strong>
+</p>
