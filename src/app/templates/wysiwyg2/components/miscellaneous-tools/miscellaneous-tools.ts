@@ -89,4 +89,24 @@ export class MiscellaneousTools {
       positions: [FLOAT_TOP_POSITION, FLOAT_BOTTOM_POSITION],
     });
   }
+
+  private onExpandClick() {
+    this.editorCommandService.toggleExpand();
+  }
+
+  private onPanelClick(panelType: string) {
+    this.editorCommandService.insertPanel(panelType);
+  }
+
+  private onBlockquoteClick() {
+    this.editorCommandService.toggleBlockquote();
+  }
+
+  private onHorizontalRuleClick() {
+    this.editorCommandService.insertHorizontalRule();
+  }
+
+  private onTableClick(rows: number, cols: number) {
+    this.editorCommandService.insertTable(rows, cols);
+  }
 }

@@ -1,0 +1,41 @@
+.ak-editor-panel {
+  display: flex;
+  border-radius: 3px;
+  margin: 4px 0;
+  padding: 8px;
+  box-sizing: border-box;
+  min-height: 40px;
+  cursor: pointer;
+}
+
+.ak-editor-panel__icon {
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  user-select: none;
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.ak-editor-panel__content {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
+  cursor: text;
+}
+
+.ak-editor-panel__content:focus:not(:focus-visible) {
+  outline: 2px solid #0066cc;
+}

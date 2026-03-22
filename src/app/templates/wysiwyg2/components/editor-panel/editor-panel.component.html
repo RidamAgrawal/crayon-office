@@ -1,0 +1,57 @@
+<div class="ak-editor-panel" [attr.data-panel-type]="panelType" [style.background-color]="config.background">
+
+    <!-- Icon (non-editable) -->
+    <div class="ak-editor-panel__icon" contenteditable="false" [style.color]="config.iconColor">
+        <span role="img" [attr.aria-label]="config.label + ' panel'">
+            @switch (panelType) {
+            @case ('info') {
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"  [style.color]="isEmpty() ? '#505258' : '#1558BC'">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-8.625a1.25 1.25 0 0 0-1.25 1.25v3.125a1.25 1.25 0 1 0 2.5 0v-3.125a1.25 1.25 0 0 0-1.25-1.25zM12 9.969a1.719 1.719 0 1 0 0-3.438 1.719 1.719 0 0 0 0 3.438z"
+                    fill="currentColor" />
+            </svg>
+            }
+            @case ('note') {
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"  [style.color]="isEmpty() ? '#505258' : '#803FA5'">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M19 22H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3zM7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z"
+                    fill="currentColor" />
+            </svg>
+            }
+            @case ('success') {
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"  [style.color]="isEmpty() ? '#505258' : '#216E4E'">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1.177-7.86l-2.765-2.767L6.644 12.8l4.178 4.178 6.472-6.476-1.414-1.414-5.057 5.052z"
+                    fill="currentColor" />
+            </svg>
+            }
+            @case ('warning') {
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"  [style.color]="isEmpty() ? '#505258' : '#E06C00'">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M12.874 3.5c-.39-.67-1.358-.67-1.748 0l-8.66 15c-.39.67.097 1.5.874 1.5h17.32c.777 0 1.264-.83.874-1.5l-8.66-15zM13 16h-2v2h2v-2zm0-7h-2v5h2V9z"
+                    fill="currentColor" />
+            </svg>
+            }
+            @case ('error') {
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"  [style.color]="isEmpty() ? '#505258' : '#AE2E24'">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-7v2h2v-2h-2zm0-8v6h2V7h-2z"
+                    fill="currentColor" />
+            </svg>
+            }
+            @case ('decision') {
+            <svg viewBox="0 0 24 24" width="24" height="24" [style.color]="isEmpty() ? '#505258' : '#6A9A23'">
+                <path fill-rule="evenodd" fill-rule="evenodd"
+                    d="m9.414 8 3.293 3.293c.187.187.293.442.293.707v5a1 1 0 0 1-2 0v-4.586l-3-3V10.5a1 1 0 0 1-2 0V7a1 1 0 0 1 1-1h3.5a1 1 0 0 1 0 2zm8.293-1.707a1 1 0 0 1 0 1.414l-2.5 2.5a.997.997 0 0 1-1.414 0 1 1 0 0 1 0-1.414l2.5-2.5a1 1 0 0 1 1.414 0"
+                    fill="currentColor">
+                </path>
+            </svg>
+            }
+            }
+        </span>
+    </div>
+
+    <!-- Editable content area (ProseMirror contentDOM) -->
+    <div #contentSlot class="ak-editor-panel__content" tabindex="-1">
+    </div>
+</div>

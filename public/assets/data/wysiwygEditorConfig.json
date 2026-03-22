@@ -330,7 +330,8 @@
                     "description": "Insert an expandable section",
                     "tooltip": "Insert an expandable section",
                     "visible": true,
-                    "shortcut":null
+                    "shortcut":null,
+                    "onclick":"onExpandClick()"
                 },
                 {
                     "id": "table",
@@ -340,7 +341,8 @@
                     "description": "Insert a table",
                     "tooltip": "Insert a table",
                     "visible": true,
-                    "shortcut": "Shift+Alt+T"
+                    "shortcut": "Shift+Alt+T",
+                    "onclick":"onTableClick(3,3)"
                 },
                 {
                     "id": "codeSnippet",
@@ -355,7 +357,7 @@
                 },
                 {
                     "id": "status",
-                    "icon": "StatusPanel",
+                    "icon": "statusPanel",
                     "label": "Status",
                     "type": "button",
                     "description": "Add a custom status label",
@@ -371,7 +373,8 @@
                     "description": "Highlight information in a colored panel",
                     "tooltip": "Highlight information in a colored panel",
                     "visible": true,
-                    "shortcut":null
+                    "shortcut":null,
+                    "onclick":"onPanelClick('info')"
                 },
                 {
                     "id": "date",
@@ -391,7 +394,8 @@
                     "description": "Capture decisions so they're easy to track",
                     "tooltip": "Capture decisions so they're easy to track",
                     "visible": true,
-                    "shortcut":"<>"
+                    "shortcut":"<>",
+                    "onclick":"onPanelClick('decision')"
                 },
                 {
                     "id": "notePanel",
@@ -401,7 +405,8 @@
                     "description": "Highlight information in a colored panel",
                     "tooltip": "Highlight information in a colored panel",
                     "visible": true,
-                    "shortcut":null
+                    "shortcut":null,
+                    "onclick":"onPanelClick('note')"
                 },
                 {
                     "id": "successPanel",
@@ -411,7 +416,8 @@
                     "description": "Add tips in a colored panel",
                     "tooltip": "Add tips in a colored panel",
                     "visible": true,
-                    "shortcut":null
+                    "shortcut":null,
+                    "onclick":"onPanelClick('success')"
                 },
                 {
                     "id": "warningPanel",
@@ -421,7 +427,8 @@
                     "description": "Add a note of caution in a colored panel",
                     "tooltip": "Add a note of caution in a colored panel",
                     "visible": true,
-                    "shortcut":null
+                    "shortcut":null,
+                    "onclick":"onPanelClick('warning')"
                 },
                 {
                     "id": "errorPanel",
@@ -431,7 +438,8 @@
                     "description": "Call out errors in a colored panel",
                     "tooltip": "Call out errors in a colored panel",
                     "visible": true,
-                    "shortcut":null
+                    "shortcut":null,
+                    "onclick":"onPanelClick('error')"
                 },
                 {
                     "id": "bulletedList",
@@ -473,7 +481,8 @@
                     "description": "Separate content using horizontal line",
                     "tooltip": "Separate content using horizontal line",
                     "visible": true,
-                    "shortcut":"---"
+                    "shortcut":"---",
+                    "onclick": "onHorizontalRuleClick()"
                 },
                 {
                     "id": "quote",
@@ -483,7 +492,8 @@
                     "description": "Insert a quote or citation",
                     "tooltip": "Insert a quote or citation",
                     "visible": true,
-                    "shortcut":">"
+                    "shortcut":">",
+                    "onclick": "onBlockquoteClick()"
                 },
                 {
                     "id": "headingH1",

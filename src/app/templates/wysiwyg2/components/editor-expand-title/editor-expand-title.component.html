@@ -1,0 +1,33 @@
+<div class="ak-editor-expand" [class.expanded]="expanded">
+    <div class="ak-editor-expand__title-container" contenteditable="false">
+        <button (mousedown)="onToggle($event)" class="expand-collapse-btn secondary-btn">
+            <span class="expand-collapse-icon">
+                <svg viewBox="0 0 16 16" width="16" height="16" fill="none"
+                    [style.transform]="expanded ? 'rotate(90deg)' : 'rotate(0deg)'">
+                    <path fill="currentColor"
+                        d="m6.03 1.47 6 6a.75.75 0 0 1 .052 1.004l-.052.056-6 6-1.06-1.06L10.44 8 4.97 2.53z" />
+                </svg>
+            </span>
+        </button>
+        <input [value]="title" (input)="onTitleChange(titleInput.value)" #titleInput
+            (mousedown)="$event.stopPropagation()" placeholder="Give this expand a title..." class="title-input" />
+    </div>
+    <!-- contentDOM is injected here by ProseMirror -->
+    <div #contentSlot class="ak-editor-expand__content" [style.display]="expanded ? 'flow-root' : 'none'">
+    </div>
+    <!-- <div #toolbar class="expand-toolbar" contenteditable="false"
+        style="display: none; justify-content: center; gap: 4px; padding: 4px 0 8px;">
+        <button type="button" class="toolbar-btn" (mousedown)="onCopy($event)">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="5" y="5" width="8" height="9" rx="1" stroke="#44546F" stroke-width="1.5" />
+                <path d="M3 11V3a1 1 0 0 1 1-1h7" stroke="#44546F" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+        </button>
+        <button type="button" class="toolbar-btn" (mousedown)="onDelete($event)">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M2 4h12M5 4V2h6v2M6 7v5M10 7v5M3 4l1 9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1l1-9" stroke="#44546F"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </button>
+    </div> -->
+</div>
