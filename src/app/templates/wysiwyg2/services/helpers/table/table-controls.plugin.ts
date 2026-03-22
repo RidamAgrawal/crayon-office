@@ -37,6 +37,8 @@ interface TableDomInfo {
 interface TableHoverState {
   rowIndex: number | null;
   colIndex: number | null;
+  rowMarkerIndex: number | null;
+  colMarkerIndex: number | null;
   rowBoundaryIndex: number | null;
   colBoundaryIndex: number | null;
 }
@@ -77,6 +79,8 @@ function createEmptyHoverState(): TableHoverState {
   return {
     rowIndex: null,
     colIndex: null,
+    rowMarkerIndex: null,
+    colMarkerIndex: null,
     rowBoundaryIndex: null,
     colBoundaryIndex: null,
   };
@@ -86,6 +90,8 @@ function sameHoverState(a: TableHoverState, b: TableHoverState) {
   return (
     a.rowIndex === b.rowIndex &&
     a.colIndex === b.colIndex &&
+    a.rowMarkerIndex === b.rowMarkerIndex &&
+    a.colMarkerIndex === b.colMarkerIndex &&
     a.rowBoundaryIndex === b.rowBoundaryIndex &&
     a.colBoundaryIndex === b.colBoundaryIndex
   );
@@ -220,6 +226,8 @@ function getHoverStateFromTableEvent(
   return {
     rowIndex,
     colIndex,
+    rowMarkerIndex: null,
+    colMarkerIndex: null,
     rowBoundaryIndex,
     colBoundaryIndex,
   };
@@ -653,7 +661,8 @@ function buildRowControls(
   tablePos: number,
   tableEl: HTMLElement,
   container: HTMLElement,
-  activeRowIndex: number | null,
+  visibleRowIndex: number | null,
+  emphasizedRowIndex: number | null,
 ): HTMLElement {
   const wrapper = document.createElement('div');
   wrapper.className = '__pm-row-controls';
@@ -677,32 +686,53 @@ function buildRowControls(
 
   rows.forEach((rowEl, rowIndex) => {
     const rowRect = (rowEl as HTMLElement).getBoundingClientRect();
-    const isActive = activeRowIndex === rowIndex;
+    const isVisible = visibleRowIndex === rowIndex;
+    const isEmphasized = emphasizedRowIndex === rowIndex;
     const slot = document.createElement('div');
     slot.dataset['tableRowMarker'] = String(rowIndex);
     slot.style.cssText = `
-      width: 16px;
+      width: 18px;
       height: ${rowRect.height || 40}px;
       display: flex;
       align-items: center;
       justify-content: center;
-      pointer-events: ${isActive ? 'auto' : 'none'};
+      pointer-events: ${isVisible ? 'auto' : 'none'};
       cursor: pointer;
       flex-shrink: 0;
-      opacity: ${isActive ? 1 : 0};
+      opacity: ${isVisible ? 1 : 0};
       transition: opacity 0.12s ease;
     `;
 
     const marker = document.createElement('div');
     marker.style.cssText = `
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: ${isActive ? '#0052cc' : '#dfe1e6'};
-      transition: background 0.15s, transform 0.15s;
+      width: 16px;
+      height: 28px;
+      border-radius: 6px;
+      background: ${isEmphasized ? '#0c66e4' : '#dfe1e6'};
+      box-shadow: ${isEmphasized
+        ? '0 1px 2px rgba(9, 30, 66, 0.24)'
+        : '0 1px 2px rgba(9, 30, 66, 0.12)'};
+      transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+      display: grid;
+      grid-template-columns: repeat(2, 2px);
+      grid-auto-rows: 2px;
+      gap: 2px 3px;
+      place-content: center;
       flex-shrink: 0;
-      transform: ${isActive ? 'scale(1.3)' : 'scale(1)'};
+      transform: ${isEmphasized ? 'scale(1)' : 'scale(0.92)'};
     `;
+
+    for (let index = 0; index < 6; index++) {
+      const dot = document.createElement('span');
+      dot.style.cssText = `
+        width: 2px;
+        height: 2px;
+        border-radius: 50%;
+        background: ${isEmphasized ? '#ffffff' : '#6b778c'};
+      `;
+      marker.appendChild(dot);
+    }
+
     slot.appendChild(marker);
 
     slot.addEventListener('mousedown', (event) => {
@@ -784,7 +814,8 @@ function buildColControls(
   tablePos: number,
   tableEl: HTMLElement,
   container: HTMLElement,
-  activeColIndex: number | null,
+  visibleColIndex: number | null,
+  emphasizedColIndex: number | null,
   gridMetrics: TableGridMetrics,
 ): HTMLElement {
   const wrapper = document.createElement('div');
@@ -805,31 +836,47 @@ function buildColControls(
   `;
 
   gridMetrics.colMetrics.forEach((colMetric, colIndex) => {
-    const isActive = activeColIndex === colIndex;
+    const isVisible = visibleColIndex === colIndex;
+    const isEmphasized = emphasizedColIndex === colIndex;
     const slot = document.createElement('div');
     slot.dataset['tableColMarker'] = String(colIndex);
     slot.style.cssText = `
       width: ${colMetric.width || 100}px;
-      height: 14px;
+      height: 16px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      pointer-events: ${isActive ? 'auto' : 'none'};
+      pointer-events: ${isVisible ? 'auto' : 'none'};
       cursor: pointer;
-      opacity: ${isActive ? 1 : 0};
+      opacity: ${isVisible ? 1 : 0};
       transition: opacity 0.12s ease;
     `;
 
     const marker = document.createElement('div');
     marker.style.cssText = `
-      width: 8px;
+      width: 34px;
       height: 8px;
-      border-radius: 50%;
-      background: ${isActive ? '#0052cc' : '#dfe1e6'};
-      transition: background 0.15s, transform 0.15s;
-      transform: ${isActive ? 'scale(1.3)' : 'scale(1)'};
+      border-radius: 999px;
+      background: ${isEmphasized ? '#0c66e4' : '#dfe1e6'};
+      box-shadow: ${isEmphasized
+        ? '0 1px 2px rgba(9, 30, 66, 0.18)'
+        : 'inset 0 0 0 1px rgba(255, 255, 255, 0.65)'};
+      transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+      transform: ${isEmphasized ? 'scale(1)' : 'scale(0.94)'};
+      display: flex;
+      align-items: center;
+      justify-content: center;
     `;
+
+    const grip = document.createElement('div');
+    grip.style.cssText = `
+      width: 14px;
+      height: 2px;
+      border-radius: 999px;
+      background: ${isEmphasized ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.95)'};
+    `;
+    marker.appendChild(grip);
     slot.appendChild(marker);
 
     slot.addEventListener('mousedown', (event) => {
@@ -1358,6 +1405,7 @@ export function tableControlsPlugin(): Plugin {
           tableDomInfo.tableEl,
           container,
           hoverState.rowIndex ?? selectedMarkers.rowIndex,
+          hoverState.rowMarkerIndex ?? selectedMarkers.rowIndex,
         );
         colControlsEl = buildColControls(
           view,
@@ -1366,6 +1414,7 @@ export function tableControlsPlugin(): Plugin {
           tableDomInfo.tableEl,
           container,
           hoverState.colIndex ?? selectedMarkers.colIndex,
+          hoverState.colMarkerIndex ?? selectedMarkers.colIndex,
           gridMetrics,
         );
         guidesEl = buildBoundaryGuides(
@@ -1433,6 +1482,7 @@ export function tableControlsPlugin(): Plugin {
           updateHoverState({
             ...createEmptyHoverState(),
             rowIndex: Number(rowMarker.dataset['tableRowMarker']),
+            rowMarkerIndex: Number(rowMarker.dataset['tableRowMarker']),
           });
           return;
         }
@@ -1444,6 +1494,7 @@ export function tableControlsPlugin(): Plugin {
           updateHoverState({
             ...createEmptyHoverState(),
             colIndex: Number(colMarker.dataset['tableColMarker']),
+            colMarkerIndex: Number(colMarker.dataset['tableColMarker']),
           });
           return;
         }
