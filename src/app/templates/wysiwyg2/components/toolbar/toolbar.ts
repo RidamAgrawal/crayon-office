@@ -191,6 +191,10 @@ export class Toolbar {
       viewContainerRef: this.viewContainerRef,
       connectedTo: new ElementRef(element),
       positions: [FLOAT_BOTTOM_POSITION, FLOAT_TOP_POSITION],
+      injector: this.injector,
+      providers: [
+        { provide: EditorCommandsService, useValue: this.editorCommandService },
+      ],
     });
   }
 
@@ -229,6 +233,10 @@ export class Toolbar {
       viewContainerRef: this.viewContainerRef,
       connectedTo: new ElementRef(element),
       positions: [FLOAT_BOTTOM_POSITION, FLOAT_TOP_POSITION],
+      injector: this.injector,
+      providers: [
+        { provide: EditorCommandsService, useValue: this.editorCommandService },
+      ],
     });
   }
 

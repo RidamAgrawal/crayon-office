@@ -9,13 +9,13 @@ import {
   CellSelection,
   deleteColumn,
   deleteRow,
-  deleteTable,
-  mergeCells,
   setCellAttr,
-  splitCell,
   TableMap,
-  toggleHeaderRow,
 } from 'prosemirror-tables';
+
+// ═══════════════════════════════════════════════════════════════════
+// Constants & types
+// ═══════════════════════════════════════════════════════════════════
 
 const MIN_TABLE_WIDTH = 240;
 const tableControlsKey = new PluginKey<TableControlsState>('tableControls');
@@ -30,8 +30,8 @@ interface TableInfo {
 }
 
 interface TableDomInfo {
-  wrapperEl: HTMLElement;
-  tableEl: HTMLElement;
+  wrapperEl: HTMLElement; // .tableView-content-wrap (nodeView dom)
+  tableEl: HTMLElement;   // <table>
 }
 
 interface TableHoverState {
@@ -62,6 +62,10 @@ interface TableGridMetrics {
   rowMetrics: RowMetric[];
   colMetrics: ColMetric[];
 }
+
+// ═══════════════════════════════════════════════════════════════════
+// Pure helpers
+// ═══════════════════════════════════════════════════════════════════
 
 function findTable(state: EditorState): TableInfo | null {
   const { $from } = state.selection;
@@ -97,11 +101,15 @@ function sameHoverState(a: TableHoverState, b: TableHoverState) {
   );
 }
 
-function findIndexForPoint<T extends { index: number; top?: number; bottom?: number; left?: number; right?: number }>(
-  metrics: T[],
-  point: number,
-  axis: 'x' | 'y',
-): number | null {
+function findIndexForPoint<
+  T extends {
+    index: number;
+    top?: number;
+    bottom?: number;
+    left?: number;
+    right?: number;
+  },
+>(metrics: T[], point: number, axis: 'x' | 'y'): number | null {
   for (const metric of metrics) {
     const start = axis === 'x' ? metric.left! : metric.top!;
     const end = axis === 'x' ? metric.right! : metric.bottom!;
@@ -148,7 +156,9 @@ function getTableGridMetrics(
   const remainingWidth = Math.max(totalWidth - positiveTotal, 0);
   const fallbackWidth =
     zeroCount > 0
-      ? (remainingWidth > 0 ? remainingWidth / zeroCount : totalWidth / colCount)
+      ? remainingWidth > 0
+        ? remainingWidth / zeroCount
+        : totalWidth / colCount
       : totalWidth / Math.max(colCount, 1);
 
   let left = tableRect.left;
@@ -201,8 +211,16 @@ function getHoverStateFromTableEvent(
   if (!tableEl.contains(target)) {
     return createEmptyHoverState();
   }
-  const rowIndex = findIndexForPoint(gridMetrics.rowMetrics, event.clientY, 'y');
-  const colIndex = findIndexForPoint(gridMetrics.colMetrics, event.clientX, 'x');
+  const rowIndex = findIndexForPoint(
+    gridMetrics.rowMetrics,
+    event.clientY,
+    'y',
+  );
+  const colIndex = findIndexForPoint(
+    gridMetrics.colMetrics,
+    event.clientX,
+    'x',
+  );
 
   if (rowIndex === null || colIndex === null) return createEmptyHoverState();
 
@@ -233,6 +251,10 @@ function getHoverStateFromTableEvent(
   };
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// DOM discovery helpers (find containers inside the node-view)
+// ═══════════════════════════════════════════════════════════════════
+
 function getTableDomInfo(
   view: EditorView,
   tablePos: number,
@@ -240,30 +262,31 @@ function getTableDomInfo(
   const tableDOM = view.nodeDOM(tablePos) as HTMLElement | null;
   if (!tableDOM) return null;
 
+  // New hierarchy: nodeDOM is .tableView-content-wrap
+  const tableEl = tableDOM.querySelector(
+    '.pm-table-wrapper > table',
+  ) as HTMLElement | null;
+  if (tableEl) {
+    return { wrapperEl: tableDOM, tableEl };
+  }
+
+  // Fallback: old flat structure
   if (tableDOM.tagName === 'TABLE') {
     const wrapperEl =
       tableDOM.parentElement?.classList.contains('tableWrapper')
         ? (tableDOM.parentElement as HTMLElement)
         : tableDOM;
-
     return { wrapperEl, tableEl: tableDOM };
   }
 
-  const tableEl = tableDOM.querySelector('table') as HTMLElement | null;
-  if (!tableEl) return null;
-
-  return { wrapperEl: tableDOM, tableEl };
+  const fallbackTable = tableDOM.querySelector('table') as HTMLElement | null;
+  if (!fallbackTable) return null;
+  return { wrapperEl: tableDOM, tableEl: fallbackTable };
 }
 
-function getControlContainer(editorEl: HTMLElement): HTMLElement {
-  const container = editorEl.parentElement ?? editorEl;
-
-  if (getComputedStyle(container).position === 'static') {
-    container.style.position = 'relative';
-  }
-
-  return container;
-}
+// ═══════════════════════════════════════════════════════════════════
+// Table width / row-height persistence
+// ═══════════════════════════════════════════════════════════════════
 
 function applyTableWidth(tableNode: Node, tableEl: HTMLElement) {
   const width = tableNode.attrs['width'];
@@ -276,26 +299,6 @@ function applyTableWidth(tableNode: Node, tableEl: HTMLElement) {
 
   tableEl.style.removeProperty('width');
   tableEl.style.removeProperty('max-width');
-}
-
-function setPersistedTableWidth(
-  view: EditorView,
-  tablePos: number,
-  width: number,
-) {
-  const tableNode = view.state.doc.nodeAt(tablePos);
-  if (!tableNode) return;
-
-  const nextWidth = Math.max(MIN_TABLE_WIDTH, Math.round(width));
-  if (tableNode.attrs['width'] === nextWidth) return;
-
-  view.dispatch(
-    view.state.tr.setNodeMarkup(tablePos, undefined, {
-      ...tableNode.attrs,
-      width: nextWidth,
-    }),
-  );
-  view.focus();
 }
 
 function applyRowHeights(tableNode: Node, tableEl: HTMLElement) {
@@ -347,6 +350,10 @@ function setPersistedRowHeight(
   view.focus();
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// Row / Column selection helpers
+// ═══════════════════════════════════════════════════════════════════
+
 function resolveRowSelection(
   view: EditorView,
   tableNode: Node,
@@ -358,7 +365,8 @@ function resolveRowSelection(
 
   const firstCellPos = tablePos + map.positionAt(rowIndex, 0, tableNode);
   const lastCellPos =
-    tablePos + map.positionAt(rowIndex, Math.max(map.width - 1, 0), tableNode);
+    tablePos +
+    map.positionAt(rowIndex, Math.max(map.width - 1, 0), tableNode);
 
   return CellSelection.rowSelection(
     view.state.doc.resolve(firstCellPos),
@@ -377,7 +385,8 @@ function resolveColSelection(
 
   const firstCellPos = tablePos + map.positionAt(0, colIndex, tableNode);
   const lastCellPos =
-    tablePos + map.positionAt(Math.max(map.height - 1, 0), colIndex, tableNode);
+    tablePos +
+    map.positionAt(Math.max(map.height - 1, 0), colIndex, tableNode);
 
   return CellSelection.colSelection(
     view.state.doc.resolve(firstCellPos),
@@ -466,7 +475,13 @@ function clearRow(
   view.focus();
 }
 
-function buildColorPicker(onPick: (color: string | null) => void): HTMLElement {
+// ═══════════════════════════════════════════════════════════════════
+// Context menu helpers
+// ═══════════════════════════════════════════════════════════════════
+
+function buildColorPicker(
+  onPick: (color: string | null) => void,
+): HTMLElement {
   const colors = [
     null,
     '#DEEBFF',
@@ -485,33 +500,20 @@ function buildColorPicker(onPick: (color: string | null) => void): HTMLElement {
 
   const picker = document.createElement('div');
   picker.style.cssText = `
-    position: absolute;
-    left: 100%;
-    top: 0;
-    background: #ffffff;
-    border: 1px solid #dfe1e6;
-    border-radius: 4px;
-    padding: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-    z-index: 1001;
-    display: grid;
-    grid-template-columns: repeat(4, 28px);
-    gap: 4px;
+    position: absolute; left: 100%; top: 0;
+    background: #ffffff; border: 1px solid #dfe1e6; border-radius: 4px;
+    padding: 8px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); z-index: 1001;
+    display: grid; grid-template-columns: repeat(4, 28px); gap: 4px;
   `;
 
   colors.forEach((color) => {
     const swatch = document.createElement('button');
     swatch.type = 'button';
     swatch.style.cssText = `
-      width: 28px;
-      height: 28px;
-      border-radius: 3px;
-      border: 1px solid #dfe1e6;
-      cursor: pointer;
+      width: 28px; height: 28px; border-radius: 3px;
+      border: 1px solid #dfe1e6; cursor: pointer;
       background: ${color ?? '#ffffff'};
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
     `;
 
     if (!color) {
@@ -549,13 +551,9 @@ function buildMenu(
   menu.className = '__pm-table-menu';
   menu.style.cssText = `
     position: fixed;
-    background: #ffffff;
-    border: 1px solid #dfe1e6;
-    border-radius: 4px;
-    padding: 4px 0;
-    min-width: 200px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-    z-index: 9999;
+    background: #ffffff; border: 1px solid #dfe1e6; border-radius: 4px;
+    padding: 4px 0; min-width: 200px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); z-index: 9999;
   `;
 
   items.forEach((item) => {
@@ -569,50 +567,28 @@ function buildMenu(
     const button = document.createElement('button');
     button.type = 'button';
     button.style.cssText = `
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      padding: 7px 12px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-      text-align: left;
-      position: relative;
-      color: ${item.danger ? '#de350b' : '#172b4d'};
-      box-sizing: border-box;
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 7px 12px; background: none; border: none;
+      cursor: pointer; font-size: 14px; text-align: left; position: relative;
+      color: ${item.danger ? '#de350b' : '#172b4d'}; box-sizing: border-box;
     `;
 
     const left = document.createElement('span');
-    left.style.cssText = `
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex: 1;
-    `;
+    left.style.cssText = `display: flex; align-items: center; gap: 8px; flex: 1;`;
     left.textContent = item.label;
     button.appendChild(left);
 
     if (item.shortcut) {
       const shortcut = document.createElement('span');
       shortcut.textContent = item.shortcut;
-      shortcut.style.cssText = `
-        font-size: 11px;
-        color: #6b778c;
-        white-space: nowrap;
-      `;
+      shortcut.style.cssText = `font-size: 11px; color: #6b778c; white-space: nowrap;`;
       button.appendChild(shortcut);
     }
 
     if (item.hasSubmenu) {
       const arrow = document.createElement('span');
       arrow.textContent = '>';
-      arrow.style.cssText = `
-        font-size: 16px;
-        color: #6b778c;
-        margin-left: 4px;
-      `;
+      arrow.style.cssText = `font-size: 16px; color: #6b778c; margin-left: 4px;`;
       button.appendChild(arrow);
     }
 
@@ -655,341 +631,493 @@ function showMenu(menu: HTMLElement, x: number, y: number) {
   setTimeout(() => document.addEventListener('mousedown', close), 0);
 }
 
-function buildRowControls(
+// ═══════════════════════════════════════════════════════════════════
+// SVG pill helper (reusable for drag handles)
+// ═══════════════════════════════════════════════════════════════════
+
+function buildPillSvg(fill: string): SVGSVGElement {
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('xmlns', ns);
+  svg.setAttribute('width', '24');
+  svg.setAttribute('height', '5');
+  svg.setAttribute('fill', 'none');
+
+  const rect = document.createElementNS(ns, 'rect');
+  rect.classList.add('pm-table-drag-handle-minimised');
+  rect.setAttribute('width', '24');
+  rect.setAttribute('height', '5');
+  rect.setAttribute('rx', '3');
+  rect.setAttribute('fill', fill);
+  svg.appendChild(rect);
+
+  return svg;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// Row controls — grid-based, inside .pm-table-drag-row-controls
+// ═══════════════════════════════════════════════════════════════════
+
+function populateRowControls(
+  container: HTMLElement,
   view: EditorView,
   tableNode: Node,
   tablePos: number,
   tableEl: HTMLElement,
-  container: HTMLElement,
+  pmTableContainer: HTMLElement,
+  gridMetrics: TableGridMetrics,
   visibleRowIndex: number | null,
   emphasizedRowIndex: number | null,
-): HTMLElement {
-  const wrapper = document.createElement('div');
-  wrapper.className = '__pm-row-controls';
-  wrapper.contentEditable = 'false';
+) {
+  container.innerHTML = '';
 
+  // Position the row controls wrapper to the left of the table
   const tableRect = tableEl.getBoundingClientRect();
-  const containerRect = container.getBoundingClientRect();
+  const containerRect = pmTableContainer.getBoundingClientRect();
+  const rowControlsWrapper = container.closest(
+    '.pm-table-drag-row-controls-wrapper',
+  ) as HTMLElement | null;
+  if (rowControlsWrapper) {
+    rowControlsWrapper.style.left = `${tableRect.left - containerRect.left - 14}px`;
+    rowControlsWrapper.style.top = `${tableRect.top - containerRect.top}px`;
+  }
 
-  wrapper.style.cssText = `
-    position: absolute;
-    left: ${tableRect.left - containerRect.left - 18}px;
-    top: ${tableRect.top - containerRect.top}px;
-    display: flex;
-    flex-direction: column;
-    z-index: 10;
-    pointer-events: none;
+  const rowHeights = gridMetrics.rowMetrics
+    .map((m) => `${m.height || 40}px`)
+    .join(' ');
+
+  container.style.cssText = `
+    display: grid;
+    grid-template-rows: ${rowHeights};
+    grid-template-columns: 0px 14px 0px;
+    pointer-events: auto;
   `;
 
-  const tbody = tableEl.querySelector('tbody') ?? tableEl;
-  const rows = Array.from(tbody.querySelectorAll(':scope > tr'));
+  // ── Per-row insert-dot wrappers ─────────────────────────────
+  gridMetrics.rowMetrics.forEach((_, ri) => {
+    const dotWrapper = document.createElement('div');
+    dotWrapper.setAttribute('data-start-index', String(ri));
+    dotWrapper.setAttribute('data-end-index', String(ri + 1));
+    dotWrapper.className = 'pm-table-drag-row-floating-insert-dot-wrapper';
+    dotWrapper.contentEditable = 'false';
+    dotWrapper.style.cssText = `grid-area: ${ri + 1} / 2 / span 1;`;
 
-  rows.forEach((rowEl, rowIndex) => {
-    const rowRect = (rowEl as HTMLElement).getBoundingClientRect();
-    const isVisible = visibleRowIndex === rowIndex;
-    const isEmphasized = emphasizedRowIndex === rowIndex;
-    const slot = document.createElement('div');
-    slot.dataset['tableRowMarker'] = String(rowIndex);
-    slot.style.cssText = `
-      width: 18px;
-      height: ${rowRect.height || 40}px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: ${isVisible ? 'auto' : 'none'};
-      cursor: pointer;
-      flex-shrink: 0;
-      opacity: ${isVisible ? 1 : 0};
-      transition: opacity 0.12s ease;
-    `;
+    const dot = document.createElement('div');
+    dot.className = 'pm-table-drag-row-floating-insert-dot';
+    dotWrapper.appendChild(dot);
 
-    const marker = document.createElement('div');
-    marker.style.cssText = `
-      width: 16px;
-      height: 28px;
-      border-radius: 6px;
-      background: ${isEmphasized ? '#0c66e4' : '#dfe1e6'};
-      box-shadow: ${isEmphasized
-        ? '0 1px 2px rgba(9, 30, 66, 0.24)'
-        : '0 1px 2px rgba(9, 30, 66, 0.12)'};
-      transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
-      display: grid;
-      grid-template-columns: repeat(2, 2px);
-      grid-auto-rows: 2px;
-      gap: 2px 3px;
-      place-content: center;
-      flex-shrink: 0;
-      transform: ${isEmphasized ? 'scale(1)' : 'scale(0.92)'};
-    `;
-
-    for (let index = 0; index < 6; index++) {
-      const dot = document.createElement('span');
-      dot.style.cssText = `
-        width: 2px;
-        height: 2px;
-        border-radius: 50%;
-        background: ${isEmphasized ? '#ffffff' : '#6b778c'};
-      `;
-      marker.appendChild(dot);
-    }
-
-    slot.appendChild(marker);
-
-    slot.addEventListener('mousedown', (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      const slotRect = slot.getBoundingClientRect();
-      selectRow(view, tableNode, tablePos, rowIndex);
-
-      let colorPicker: HTMLElement | null = null;
-      const menu = buildMenu([
-        {
-          label: 'Add row above',
-          shortcut: 'Ctrl+Alt+Up',
-          onClick: () =>
-            runRowCommand(view, tableNode, tablePos, rowIndex, addRowBefore),
-        },
-        {
-          label: 'Add row below',
-          shortcut: 'Ctrl+Alt+Down',
-          onClick: () =>
-            runRowCommand(view, tableNode, tablePos, rowIndex, addRowAfter),
-        },
-        { separator: true, label: '', onClick: () => {} },
-        {
-          label: 'Clear cells',
-          onClick: () => clearRow(view, tableNode, tablePos, rowIndex),
-        },
-        {
-          label: 'Delete row',
-          danger: true,
-          onClick: () =>
-            runRowCommand(view, tableNode, tablePos, rowIndex, deleteRow),
-        },
-        { separator: true, label: '', onClick: () => {} },
-        {
-          label: 'Background color',
-          hasSubmenu: true,
-          onClick: () => {},
-          onHover: (button) => {
-            if (colorPicker) return;
-
-            colorPicker = buildColorPicker((color) => {
-              if (selectRow(view, tableNode, tablePos, rowIndex)) {
-                setCellAttr('background', color ?? '')(
-                  view.state,
-                  view.dispatch,
-                );
-              }
-
-              document
-                .querySelectorAll('.__pm-table-menu')
-                .forEach((menuElement) => menuElement.remove());
-              colorPicker = null;
-            });
-
-            button.appendChild(colorPicker);
-          },
-          onHoverLeave: (event) => {
-            if (!colorPicker?.contains(event.relatedTarget as HTMLElement)) {
-              colorPicker?.remove();
-              colorPicker = null;
-            }
-          },
-        },
-      ]);
-
-      showMenu(menu, slotRect.right + 4, slotRect.top);
+    // Click → insert row after this row
+    dotWrapper.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      selectRow(view, tableNode, tablePos, ri);
+      addRowAfter(view.state, view.dispatch);
+      view.focus();
     });
 
-    wrapper.appendChild(slot);
+    container.appendChild(dotWrapper);
   });
 
-  return wrapper;
+  // ── Floating drag handle (positioned at hovered / selected row) ──
+  const targetRow = visibleRowIndex ?? 0;
+  const isEmphasized = emphasizedRowIndex === targetRow;
+  const appearance =
+    visibleRowIndex != null
+      ? isEmphasized
+        ? 'selected'
+        : 'default'
+      : 'placeholder';
+
+  const handleSlot = document.createElement('div');
+  handleSlot.setAttribute(
+    'data-testid',
+    `table-floating-row-${visibleRowIndex ?? 'undefined'}-drag-handle`,
+  );
+  handleSlot.setAttribute('data-handle-appearance', appearance);
+  handleSlot.setAttribute('data-row-index', String(targetRow));
+  handleSlot.dataset['tableRowMarker'] = String(targetRow);
+  handleSlot.style.cssText = `
+    grid-column: 2;
+    grid-row: ${targetRow + 1};
+    display: flex;
+    width: 9px;
+    height: 100%;
+    position: relative;
+    right: -0.5px;
+    pointer-events: ${visibleRowIndex != null ? 'auto' : 'none'};
+    align-items: center;
+    opacity: ${visibleRowIndex != null ? 1 : 0};
+    transition: opacity 0.12s ease;
+  `;
+
+  // Clickable zone
+  const clickableZone = document.createElement('button');
+  clickableZone.type = 'button';
+  clickableZone.className = 'pm-table-drag-handle-button-clickable-zone';
+  clickableZone.setAttribute(
+    'data-testid',
+    'table-drag-handle-clickable-zone-button',
+  );
+  clickableZone.setAttribute('aria-label', 'Activate drag handle zone');
+  clickableZone.style.cssText = `
+    height: calc(100% - 16px); width: var(--ds-space-200, 16px);
+    left: var(--ds-space-050, 4px); align-self: center;
+    z-index: auto; pointer-events: auto;
+    background: none; border: none; padding: 0; cursor: pointer;
+  `;
+  handleSlot.appendChild(clickableZone);
+
+  // Handle button
+  const handleBtn = document.createElement('button');
+  handleBtn.type = 'button';
+  handleBtn.id = 'drag-handle-button-row';
+  handleBtn.className = `pm-table-drag-handle-button-container ${appearance}`;
+  handleBtn.setAttribute('data-testid', 'table-drag-handle-button');
+  handleBtn.setAttribute('aria-label', 'Row options');
+  handleBtn.setAttribute('aria-expanded', 'false');
+  handleBtn.setAttribute('aria-haspopup', 'menu');
+  handleBtn.draggable = true;
+  handleBtn.style.cssText = `
+    transform: rotate(90deg); align-self: center;
+    background: none; border: none; padding: 0; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  `;
+
+  const iconSpan = document.createElement('span');
+  iconSpan.style.pointerEvents = 'none';
+  iconSpan.appendChild(
+    buildPillSvg(isEmphasized ? '#0c66e4' : '#dfe1e6'),
+  );
+  handleBtn.appendChild(iconSpan);
+  handleSlot.appendChild(handleBtn);
+
+  // ── Row context menu ────────────────────────────────────────
+  const openRowMenu = (event: MouseEvent) => {
+    if (visibleRowIndex == null) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const slotRect = handleSlot.getBoundingClientRect();
+    selectRow(view, tableNode, tablePos, visibleRowIndex);
+
+    let colorPicker: HTMLElement | null = null;
+    const menu = buildMenu([
+      {
+        label: 'Add row above',
+        shortcut: 'Ctrl+Alt+Up',
+        onClick: () =>
+          runRowCommand(view, tableNode, tablePos, visibleRowIndex, addRowBefore),
+      },
+      {
+        label: 'Add row below',
+        shortcut: 'Ctrl+Alt+Down',
+        onClick: () =>
+          runRowCommand(view, tableNode, tablePos, visibleRowIndex, addRowAfter),
+      },
+      { separator: true, label: '', onClick: () => {} },
+      {
+        label: 'Clear cells',
+        onClick: () => clearRow(view, tableNode, tablePos, visibleRowIndex),
+      },
+      {
+        label: 'Delete row',
+        danger: true,
+        onClick: () =>
+          runRowCommand(view, tableNode, tablePos, visibleRowIndex, deleteRow),
+      },
+      { separator: true, label: '', onClick: () => {} },
+      {
+        label: 'Background color',
+        hasSubmenu: true,
+        onClick: () => {},
+        onHover: (button) => {
+          if (colorPicker) return;
+          colorPicker = buildColorPicker((color) => {
+            if (selectRow(view, tableNode, tablePos, visibleRowIndex)) {
+              setCellAttr('background', color ?? '')(view.state, view.dispatch);
+            }
+            document
+              .querySelectorAll('.__pm-table-menu')
+              .forEach((el) => el.remove());
+            colorPicker = null;
+          });
+          button.appendChild(colorPicker);
+        },
+        onHoverLeave: (event) => {
+          if (!colorPicker?.contains(event.relatedTarget as HTMLElement)) {
+            colorPicker?.remove();
+            colorPicker = null;
+          }
+        },
+      },
+    ]);
+
+    showMenu(menu, slotRect.right + 4, slotRect.top);
+  };
+
+  clickableZone.addEventListener('mousedown', openRowMenu);
+  handleBtn.addEventListener('mousedown', openRowMenu);
+
+  container.appendChild(handleSlot);
 }
 
-function buildColControls(
+// ═══════════════════════════════════════════════════════════════════
+// Column controls — grid-based, inside .pm-table-col-controls__inner
+// ═══════════════════════════════════════════════════════════════════
+
+function populateColControls(
+  container: HTMLElement,
   view: EditorView,
   tableNode: Node,
   tablePos: number,
   tableEl: HTMLElement,
-  container: HTMLElement,
+  _pmTableContainer: HTMLElement,
+  gridMetrics: TableGridMetrics,
   visibleColIndex: number | null,
   emphasizedColIndex: number | null,
-  gridMetrics: TableGridMetrics,
-): HTMLElement {
-  const wrapper = document.createElement('div');
-  wrapper.className = '__pm-col-controls';
-  wrapper.contentEditable = 'false';
+) {
+  container.innerHTML = '';
 
+  // Position the column controls wrapper above the table
   const tableRect = tableEl.getBoundingClientRect();
-  const containerRect = container.getBoundingClientRect();
+  const wrapperEl = container.closest(
+    '.pm-table-col-controls-wrapper',
+  ) as HTMLElement | null;
+  if (wrapperEl) {
+    const pmTableWrapper = wrapperEl.parentElement;
+    if (pmTableWrapper) {
+      const wrapperRect = pmTableWrapper.getBoundingClientRect();
+      wrapperEl.style.top = `${tableRect.top - wrapperRect.top - 12}px`;
+      wrapperEl.style.left = `${tableRect.left - wrapperRect.left}px`;
+      wrapperEl.style.width = `${tableRect.width}px`;
+    }
+  }
 
-  wrapper.style.cssText = `
-    position: absolute;
-    left: ${tableRect.left - containerRect.left}px;
-    top: ${tableRect.top - containerRect.top - 16}px;
-    display: flex;
-    flex-direction: row;
-    z-index: 10;
-    pointer-events: none;
+  const colWidths = gridMetrics.colMetrics
+    .map((m) => `${m.width || 100}px`)
+    .join(' ');
+
+  container.style.cssText = `
+    display: grid;
+    grid-template-columns: ${colWidths};
+    margin-top: 0px;
+    overflow-x: visible;
   `;
 
-  gridMetrics.colMetrics.forEach((colMetric, colIndex) => {
-    const isVisible = visibleColIndex === colIndex;
-    const isEmphasized = emphasizedColIndex === colIndex;
-    const slot = document.createElement('div');
-    slot.dataset['tableColMarker'] = String(colIndex);
-    slot.style.cssText = `
-      width: ${colMetric.width || 100}px;
-      height: 16px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: ${isVisible ? 'auto' : 'none'};
-      cursor: pointer;
-      opacity: ${isVisible ? 1 : 0};
-      transition: opacity 0.12s ease;
-    `;
+  // ── Per-column insert-dot wrappers ──────────────────────────
+  gridMetrics.colMetrics.forEach((_colMetric, ci) => {
+    const dotWrapper = document.createElement('div');
+    dotWrapper.setAttribute('data-start-index', String(ci));
+    dotWrapper.setAttribute('data-end-index', String(ci + 1));
+    dotWrapper.className = 'pm-table-drag-columns-floating-insert-dot-wrapper';
+    dotWrapper.contentEditable = 'false';
+    dotWrapper.style.cssText = `grid-column: ${ci + 1} / span 1;`;
 
-    const marker = document.createElement('div');
-    marker.style.cssText = `
-      width: 34px;
-      height: 8px;
-      border-radius: 999px;
-      background: ${isEmphasized ? '#0c66e4' : '#dfe1e6'};
-      box-shadow: ${isEmphasized
-        ? '0 1px 2px rgba(9, 30, 66, 0.18)'
-        : 'inset 0 0 0 1px rgba(255, 255, 255, 0.65)'};
-      transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
-      transform: ${isEmphasized ? 'scale(1)' : 'scale(0.94)'};
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    `;
+    const dot = document.createElement('div');
+    dot.className = 'pm-table-drag-columns-floating-insert-dot';
+    if (ci === gridMetrics.colMetrics.length - 1) {
+      dot.style.right = '0px';
+    }
+    dotWrapper.appendChild(dot);
 
-    const grip = document.createElement('div');
-    grip.style.cssText = `
-      width: 14px;
-      height: 2px;
-      border-radius: 999px;
-      background: ${isEmphasized ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.95)'};
-    `;
-    marker.appendChild(grip);
-    slot.appendChild(marker);
-
-    slot.addEventListener('mousedown', (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      const slotRect = slot.getBoundingClientRect();
-      selectColumn(view, tableNode, tablePos, colIndex);
-
-      let colorPicker: HTMLElement | null = null;
-      const menu = buildMenu([
-        {
-          label: 'Insert column left',
-          onClick: () =>
-            runColumnCommand(
-              view,
-              tableNode,
-              tablePos,
-              colIndex,
-              addColumnBefore,
-            ),
-        },
-        {
-          label: 'Insert column right',
-          onClick: () =>
-            runColumnCommand(
-              view,
-              tableNode,
-              tablePos,
-              colIndex,
-              addColumnAfter,
-            ),
-        },
-        { separator: true, label: '', onClick: () => {} },
-        {
-          label: 'Delete column',
-          danger: true,
-          onClick: () =>
-            runColumnCommand(
-              view,
-              tableNode,
-              tablePos,
-              colIndex,
-              deleteColumn,
-            ),
-        },
-        { separator: true, label: '', onClick: () => {} },
-        {
-          label: 'Background color',
-          hasSubmenu: true,
-          onClick: () => {},
-          onHover: (button) => {
-            if (colorPicker) return;
-
-            colorPicker = buildColorPicker((color) => {
-              if (selectColumn(view, tableNode, tablePos, colIndex)) {
-                setCellAttr('background', color ?? '')(
-                  view.state,
-                  view.dispatch,
-                );
-              }
-
-              document
-                .querySelectorAll('.__pm-table-menu')
-                .forEach((menuElement) => menuElement.remove());
-              colorPicker = null;
-            });
-
-            button.appendChild(colorPicker);
-          },
-          onHoverLeave: (event) => {
-            if (!colorPicker?.contains(event.relatedTarget as HTMLElement)) {
-              colorPicker?.remove();
-              colorPicker = null;
-            }
-          },
-        },
-      ]);
-
-      showMenu(menu, slotRect.left, slotRect.bottom + 4);
+    // Click → insert column after this column
+    dotWrapper.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      selectColumn(view, tableNode, tablePos, ci);
+      addColumnAfter(view.state, view.dispatch);
+      view.focus();
     });
 
-    wrapper.appendChild(slot);
+    container.appendChild(dotWrapper);
   });
 
-  return wrapper;
+  // ── Floating drag handle (positioned at hovered / selected col) ──
+  const targetCol = visibleColIndex ?? 0;
+  const isEmphasized = emphasizedColIndex === targetCol;
+  const appearance =
+    visibleColIndex != null
+      ? isEmphasized
+        ? 'selected'
+        : 'default'
+      : 'placeholder';
+
+  const handleSlot = document.createElement('div');
+  handleSlot.contentEditable = 'false';
+  handleSlot.setAttribute(
+    'data-testid',
+    `table-floating-column-${visibleColIndex ?? 'placeholder'}-drag-handle`,
+  );
+  handleSlot.dataset['tableColMarker'] = String(targetCol);
+  handleSlot.style.cssText = `
+    grid-area: 1 / ${targetCol + 1} / auto / span 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    place-self: center;
+    z-index: 99;
+    width: 100%;
+    position: relative;
+    pointer-events: ${visibleColIndex != null ? 'auto' : 'none'};
+    opacity: ${visibleColIndex != null ? 1 : 0};
+    transition: opacity 0.12s ease;
+  `;
+
+  // Clickable zone
+  const clickableZone = document.createElement('button');
+  clickableZone.type = 'button';
+  clickableZone.className = 'pm-table-drag-handle-button-clickable-zone';
+  clickableZone.setAttribute(
+    'data-testid',
+    'table-drag-handle-clickable-zone-button',
+  );
+  clickableZone.setAttribute('aria-label', 'Activate drag handle zone');
+  clickableZone.style.cssText = `
+    height: var(--ds-space-200, 16px);
+    width: calc(100% - 16px);
+    bottom: var(--ds-space-0, 0px);
+    z-index: -1; pointer-events: auto;
+    background: none; border: none; padding: 0; cursor: pointer;
+  `;
+  handleSlot.appendChild(clickableZone);
+
+  // Handle button
+  const handleBtn = document.createElement('button');
+  handleBtn.type = 'button';
+  handleBtn.id = 'drag-handle-button-column';
+  handleBtn.className = `pm-table-drag-handle-button-container ${appearance}`;
+  handleBtn.setAttribute('data-testid', 'table-drag-handle-button');
+  handleBtn.setAttribute('aria-label', 'Column options');
+  handleBtn.setAttribute('aria-expanded', 'false');
+  handleBtn.setAttribute('aria-haspopup', 'menu');
+  handleBtn.draggable = true;
+  handleBtn.style.cssText = `
+    transform: none; background: none; border: none;
+    padding: 0; cursor: pointer;
+    display: flex; align-items: flex-start; justify-content: center;
+  `;
+
+  const iconSpan = document.createElement('span');
+  iconSpan.style.pointerEvents = 'none';
+  iconSpan.appendChild(
+    buildPillSvg(isEmphasized ? '#0c66e4' : '#dfe1e6'),
+  );
+  handleBtn.appendChild(iconSpan);
+  handleSlot.appendChild(handleBtn);
+
+  // ── Column context menu ─────────────────────────────────────
+  const openColMenu = (event: MouseEvent) => {
+    if (visibleColIndex == null) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const slotRect = handleSlot.getBoundingClientRect();
+    selectColumn(view, tableNode, tablePos, visibleColIndex);
+
+    let colorPicker: HTMLElement | null = null;
+    const menu = buildMenu([
+      {
+        label: 'Insert column left',
+        onClick: () =>
+          runColumnCommand(
+            view,
+            tableNode,
+            tablePos,
+            visibleColIndex,
+            addColumnBefore,
+          ),
+      },
+      {
+        label: 'Insert column right',
+        onClick: () =>
+          runColumnCommand(
+            view,
+            tableNode,
+            tablePos,
+            visibleColIndex,
+            addColumnAfter,
+          ),
+      },
+      { separator: true, label: '', onClick: () => {} },
+      {
+        label: 'Delete column',
+        danger: true,
+        onClick: () =>
+          runColumnCommand(
+            view,
+            tableNode,
+            tablePos,
+            visibleColIndex,
+            deleteColumn,
+          ),
+      },
+      { separator: true, label: '', onClick: () => {} },
+      {
+        label: 'Background color',
+        hasSubmenu: true,
+        onClick: () => {},
+        onHover: (button) => {
+          if (colorPicker) return;
+          colorPicker = buildColorPicker((color) => {
+            if (selectColumn(view, tableNode, tablePos, visibleColIndex)) {
+              setCellAttr('background', color ?? '')(view.state, view.dispatch);
+            }
+            document
+              .querySelectorAll('.__pm-table-menu')
+              .forEach((el) => el.remove());
+            colorPicker = null;
+          });
+          button.appendChild(colorPicker);
+        },
+        onHoverLeave: (event) => {
+          if (!colorPicker?.contains(event.relatedTarget as HTMLElement)) {
+            colorPicker?.remove();
+            colorPicker = null;
+          }
+        },
+      },
+    ]);
+
+    showMenu(menu, slotRect.left, slotRect.bottom + 4);
+  };
+
+  clickableZone.addEventListener('mousedown', openColMenu);
+  handleBtn.addEventListener('mousedown', openColMenu);
+
+  container.appendChild(handleSlot);
 }
+
+// ═══════════════════════════════════════════════════════════════════
+// Boundary guides (resize lines + insert dots between rows/cols)
+// Absolutely positioned inside .pm-table-container
+// ═══════════════════════════════════════════════════════════════════
 
 function buildBoundaryGuides(
   view: EditorView,
   tableNode: Node,
   tablePos: number,
-  tableEl: HTMLElement,
-  container: HTMLElement,
+  _tableEl: HTMLElement,
+  pmTableContainer: HTMLElement,
   hoverState: TableHoverState,
   gridMetrics: TableGridMetrics,
   onRowResizeStart: (event: MouseEvent, rowIndex: number) => void,
 ): HTMLElement {
   const wrapper = document.createElement('div');
   wrapper.className = '__pm-table-boundary-guides';
+  wrapper.contentEditable = 'false';
   wrapper.style.cssText = `
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 11;
+    position: absolute; inset: 0;
+    pointer-events: none; z-index: 11;
   `;
 
   const tableRect = gridMetrics.tableRect;
-  const containerRect = container.getBoundingClientRect();
+  const containerRect = pmTableContainer.getBoundingClientRect();
 
-  if (hoverState.rowBoundaryIndex !== null) {
-    const rowMetric = gridMetrics.rowMetrics[hoverState.rowBoundaryIndex];
+  // ── Row boundary lines + dots ───────────────────────────────
+  for (let ri = 0; ri < gridMetrics.rowMetrics.length - 1; ri++) {
+    const rowMetric = gridMetrics.rowMetrics[ri];
+    const isHovered = hoverState.rowBoundaryIndex === ri;
 
-    if (rowMetric) {
+    if (isHovered) {
       const line = document.createElement('div');
       line.style.cssText = `
         position: absolute;
@@ -1009,272 +1137,101 @@ function buildBoundaryGuides(
       });
       wrapper.appendChild(line);
     }
+
+    const dotSize = isHovered ? 18 : 8;
+    const rowDot = document.createElement('div');
+    rowDot.className = 'pm-table-drag-row-floating-insert-dot';
+    rowDot.style.cssText = `
+      position: absolute;
+      left: ${tableRect.left - containerRect.left - 14 - dotSize / 2}px;
+      top: ${rowMetric.bottom - containerRect.top - dotSize / 2}px;
+      width: ${dotSize}px; height: ${dotSize}px;
+      background: ${isHovered ? '#0c66e4' : '#DFE1E6'};
+      border-radius: 50%;
+      pointer-events: auto; cursor: pointer; z-index: 12;
+      transition: background 0.15s, width 0.15s, height 0.15s;
+      display: flex; align-items: center; justify-content: center;
+    `;
+
+    if (isHovered) {
+      const plus = document.createElement('span');
+      plus.textContent = '+';
+      plus.style.cssText = `
+        color: #ffffff; font-size: 14px; font-weight: 700;
+        line-height: 1; pointer-events: none;
+      `;
+      rowDot.appendChild(plus);
+    }
+
+    rowDot.addEventListener('mousedown', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      selectRow(view, tableNode, tablePos, rowMetric.index);
+      addRowAfter(view.state, view.dispatch);
+      view.focus();
+    });
+    wrapper.appendChild(rowDot);
   }
 
-  if (hoverState.colBoundaryIndex !== null) {
-    const colMetric = gridMetrics.colMetrics[hoverState.colBoundaryIndex];
+  // ── Column boundary lines + dots ────────────────────────────
+  for (let ci = 0; ci < gridMetrics.colMetrics.length - 1; ci++) {
+    const colMetric = gridMetrics.colMetrics[ci];
+    const isHovered = hoverState.colBoundaryIndex === ci;
 
-    if (colMetric) {
+    if (isHovered) {
       const line = document.createElement('div');
       line.style.cssText = `
         position: absolute;
         left: ${colMetric.right - containerRect.left - 1}px;
         top: ${tableRect.top - containerRect.top}px;
-        width: 2px;
-        height: ${tableRect.height}px;
+        width: 2px; height: ${tableRect.height}px;
         background: #0c66e4;
         border-radius: 999px;
       `;
       wrapper.appendChild(line);
     }
+
+    const dotSize = isHovered ? 18 : 8;
+    const colDot = document.createElement('div');
+    colDot.className = 'pm-table-drag-columns-floating-insert-dot';
+    colDot.style.cssText = `
+      position: absolute;
+      left: ${colMetric.right - containerRect.left - dotSize / 2}px;
+      top: ${tableRect.top - containerRect.top - 14 - dotSize / 2}px;
+      width: ${dotSize}px; height: ${dotSize}px;
+      background: ${isHovered ? '#0c66e4' : '#DFE1E6'};
+      border-radius: 50%;
+      pointer-events: auto; cursor: pointer; z-index: 12;
+      transition: background 0.15s, width 0.15s, height 0.15s;
+      display: flex; align-items: center; justify-content: center;
+    `;
+
+    if (isHovered) {
+      const plus = document.createElement('span');
+      plus.textContent = '+';
+      plus.style.cssText = `
+        color: #ffffff; font-size: 14px; font-weight: 700;
+        line-height: 1; pointer-events: none;
+      `;
+      colDot.appendChild(plus);
+    }
+
+    colDot.addEventListener('mousedown', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      selectColumn(view, tableNode, tablePos, colMetric.index);
+      addColumnAfter(view.state, view.dispatch);
+      view.focus();
+    });
+    wrapper.appendChild(colDot);
   }
 
   return wrapper;
 }
 
-function buildFloatingToolbar(
-  view: EditorView,
-  tableEl: HTMLElement,
-  container: HTMLElement,
-): HTMLElement {
-  const toolbar = document.createElement('div');
-  toolbar.className = '__pm-table-toolbar';
-  toolbar.contentEditable = 'false';
-
-  const tableRect = tableEl.getBoundingClientRect();
-  const containerRect = container.getBoundingClientRect();
-
-  toolbar.style.cssText = `
-    position: absolute;
-    left: ${tableRect.left - containerRect.left + tableRect.width / 2}px;
-    top: ${tableRect.bottom - containerRect.top + 14}px;
-    transform: translateX(-50%);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px;
-    background: #ffffff;
-    border: 1px solid #dfe1e6;
-    border-radius: 8px;
-    box-shadow: 0 8px 18px rgba(9, 30, 66, 0.15);
-    z-index: 12;
-    white-space: nowrap;
-  `;
-
-  const makeButton = (
-    label: string,
-    onMouseDown: (event: MouseEvent) => void,
-    style = '',
-  ) => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.textContent = label;
-    button.style.cssText = `
-      background: none;
-      border: none;
-      color: #172b4d;
-      padding: 6px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 13px;
-      ${style}
-    `;
-
-    button.addEventListener('mouseenter', () => {
-      button.style.background = '#f1f2f4';
-    });
-
-    button.addEventListener('mouseleave', () => {
-      button.style.background = 'transparent';
-    });
-
-    button.addEventListener('mousedown', onMouseDown);
-    return button;
-  };
-
-  const makeSeparator = () => {
-    const separator = document.createElement('div');
-    separator.style.cssText = `
-      width: 1px;
-      height: 22px;
-      background: #dfe1e6;
-    `;
-    return separator;
-  };
-
-  const tableOptionsButton = makeButton('Table options', (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const menu = buildMenu([
-      {
-        label: 'Toggle header row',
-        onClick: () => {
-          toggleHeaderRow(view.state, view.dispatch);
-          view.focus();
-        },
-      },
-      {
-        label: 'Merge selected cells',
-        onClick: () => {
-          mergeCells(view.state, view.dispatch);
-          view.focus();
-        },
-      },
-      {
-        label: 'Split selected cell',
-        onClick: () => {
-          splitCell(view.state, view.dispatch);
-          view.focus();
-        },
-      },
-      { separator: true, label: '', onClick: () => {} },
-      {
-        label: 'Delete table',
-        danger: true,
-        onClick: () => {
-          deleteTable(view.state, view.dispatch);
-          view.focus();
-        },
-      },
-    ]);
-
-    const rect = tableOptionsButton.getBoundingClientRect();
-    showMenu(menu, rect.left, rect.bottom + 6);
-  });
-
-  const addRowButton = makeButton('Add row', (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    addRowAfter(view.state, view.dispatch);
-    view.focus();
-  });
-
-  const addColumnButton = makeButton('Add column', (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    addColumnAfter(view.state, view.dispatch);
-    view.focus();
-  });
-
-  const deleteButton = makeButton(
-    'Delete',
-    (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      deleteTable(view.state, view.dispatch);
-      view.focus();
-    },
-    'color: #de350b;',
-  );
-
-  toolbar.appendChild(tableOptionsButton);
-  toolbar.appendChild(makeSeparator());
-  toolbar.appendChild(addRowButton);
-  toolbar.appendChild(addColumnButton);
-  toolbar.appendChild(makeSeparator());
-  toolbar.appendChild(deleteButton);
-
-  return toolbar;
-}
-
-function buildTableResizeHandle(
-  view: EditorView,
-  tableNode: Node,
-  tablePos: number,
-  tableEl: HTMLElement,
-  container: HTMLElement,
-): HTMLElement {
-  const handle = document.createElement('div');
-  handle.className = '__pm-table-resize-handle';
-  handle.contentEditable = 'false';
-
-  const tableRect = tableEl.getBoundingClientRect();
-  const containerRect = container.getBoundingClientRect();
-
-  handle.style.cssText = `
-    position: absolute;
-    left: ${tableRect.right - containerRect.left - 5}px;
-    top: ${tableRect.top - containerRect.top}px;
-    width: 10px;
-    height: ${tableRect.height}px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: col-resize;
-    z-index: 13;
-  `;
-
-  const bar = document.createElement('div');
-  bar.style.cssText = `
-    width: 3px;
-    height: calc(100% - 8px);
-    border-radius: 999px;
-    background: #c7d1db;
-    transition: background 0.15s;
-  `;
-  handle.appendChild(bar);
-
-  let dragging = false;
-
-  const positionHandle = () => {
-    const nextTableRect = tableEl.getBoundingClientRect();
-    const nextContainerRect = container.getBoundingClientRect();
-    handle.style.left = `${nextTableRect.right - nextContainerRect.left - 5}px`;
-    handle.style.top = `${nextTableRect.top - nextContainerRect.top}px`;
-    handle.style.height = `${nextTableRect.height}px`;
-  };
-
-  handle.addEventListener('mouseenter', () => {
-    bar.style.background = '#0c66e4';
-  });
-
-  handle.addEventListener('mouseleave', () => {
-    if (!dragging) {
-      bar.style.background = '#c7d1db';
-    }
-  });
-
-  handle.addEventListener('mousedown', (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    dragging = true;
-    bar.style.background = '#0c66e4';
-
-    const startX = event.clientX;
-    const startWidth =
-      (typeof tableNode.attrs['width'] === 'number' &&
-      Number.isFinite(tableNode.attrs['width'])
-        ? tableNode.attrs['width']
-        : tableEl.getBoundingClientRect().width) || MIN_TABLE_WIDTH;
-
-    let currentWidth = startWidth;
-
-    const onMove = (moveEvent: MouseEvent) => {
-      currentWidth = Math.max(
-        MIN_TABLE_WIDTH,
-        startWidth + (moveEvent.clientX - startX),
-      );
-      tableEl.style.width = `${Math.round(currentWidth)}px`;
-      tableEl.style.maxWidth = 'none';
-      positionHandle();
-    };
-
-    const onUp = () => {
-      dragging = false;
-      bar.style.background = '#c7d1db';
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseup', onUp);
-      setPersistedTableWidth(view, tablePos, currentWidth);
-    };
-
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseup', onUp);
-  });
-
-  return handle;
-}
+// ═══════════════════════════════════════════════════════════════════
+// Plugin
+// ═══════════════════════════════════════════════════════════════════
 
 export function tableControlsPlugin(): Plugin {
   return new Plugin({
@@ -1296,36 +1253,50 @@ export function tableControlsPlugin(): Plugin {
         return { tablePos: null };
       },
     },
+
     view(editorView: EditorView) {
       const editorEl = editorView.dom as HTMLElement;
-      const container = getControlContainer(editorEl);
+      const editorContainer = editorEl.parentElement ?? editorEl;
 
+      // Ensure the editor container is a positioning ancestor
+      if (getComputedStyle(editorContainer).position === 'static') {
+        editorContainer.style.position = 'relative';
+      }
+
+      let currentWrapperEl: HTMLElement | null = null;
       let currentTableEl: HTMLElement | null = null;
       let currentGridMetrics: TableGridMetrics | null = null;
       let hoverState = createEmptyHoverState();
       let isRowResizing = false;
-      let rowControlsEl: HTMLElement | null = null;
-      let colControlsEl: HTMLElement | null = null;
       let guidesEl: HTMLElement | null = null;
-      let toolbarEl: HTMLElement | null = null;
-      let resizeHandleEl: HTMLElement | null = null;
 
-      const remove = () => {
-        rowControlsEl?.remove();
-        colControlsEl?.remove();
+      const cleanup = () => {
+        // Clear controls in the previously-active table's containers
+        if (currentWrapperEl) {
+          const rowCtrl = currentWrapperEl.querySelector(
+            '.pm-table-drag-row-controls',
+          ) as HTMLElement | null;
+          if (rowCtrl) {
+            rowCtrl.innerHTML = '';
+            rowCtrl.removeAttribute('style');
+          }
+          const colCtrl = currentWrapperEl.querySelector(
+            '.pm-table-col-controls__inner',
+          ) as HTMLElement | null;
+          if (colCtrl) {
+            colCtrl.innerHTML = '';
+            colCtrl.removeAttribute('style');
+          }
+        }
         guidesEl?.remove();
-        toolbarEl?.remove();
-        resizeHandleEl?.remove();
+        guidesEl = null;
+        currentWrapperEl = null;
         currentTableEl = null;
         currentGridMetrics = null;
-        rowControlsEl = null;
-        colControlsEl = null;
-        guidesEl = null;
-        toolbarEl = null;
-        resizeHandleEl = null;
+
         document
           .querySelectorAll('.__pm-table-menu')
-          .forEach((menuElement) => menuElement.remove());
+          .forEach((el) => el.remove());
       };
 
       const startRowResize = (
@@ -1354,7 +1325,10 @@ export function tableControlsPlugin(): Plugin {
         let currentHeight = startHeight;
 
         const onMove = (moveEvent: MouseEvent) => {
-          currentHeight = Math.max(32, startHeight + moveEvent.clientY - startY);
+          currentHeight = Math.max(
+            32,
+            startHeight + moveEvent.clientY - startY,
+          );
           rowEl.style.height = `${Math.round(currentHeight)}px`;
         };
 
@@ -1376,7 +1350,7 @@ export function tableControlsPlugin(): Plugin {
       };
 
       const render = (view: EditorView) => {
-        remove();
+        cleanup();
 
         const tableInfo = findTable(view.state);
         if (!tableInfo) return;
@@ -1384,71 +1358,87 @@ export function tableControlsPlugin(): Plugin {
         const tableDomInfo = getTableDomInfo(view, tableInfo.pos);
         if (!tableDomInfo) return;
 
+        currentWrapperEl = tableDomInfo.wrapperEl;
         currentTableEl = tableDomInfo.tableEl;
+
         applyTableWidth(tableInfo.node, tableDomInfo.tableEl);
         applyRowHeights(tableInfo.node, tableDomInfo.tableEl);
+
         const gridMetrics = getTableGridMetrics(
           tableInfo.node,
           tableDomInfo.tableEl,
         );
         currentGridMetrics = gridMetrics;
+
         const selectedMarkers = getSelectedMarkerState(
           view.state,
           tableInfo.node,
           tableInfo.pos,
         );
 
-        rowControlsEl = buildRowControls(
-          view,
-          tableInfo.node,
-          tableInfo.pos,
-          tableDomInfo.tableEl,
-          container,
-          hoverState.rowIndex ?? selectedMarkers.rowIndex,
-          hoverState.rowMarkerIndex ?? selectedMarkers.rowIndex,
-        );
-        colControlsEl = buildColControls(
-          view,
-          tableInfo.node,
-          tableInfo.pos,
-          tableDomInfo.tableEl,
-          container,
-          hoverState.colIndex ?? selectedMarkers.colIndex,
-          hoverState.colMarkerIndex ?? selectedMarkers.colIndex,
-          gridMetrics,
-        );
-        guidesEl = buildBoundaryGuides(
-          view,
-          tableInfo.node,
-          tableInfo.pos,
-          tableDomInfo.tableEl,
-          container,
-          hoverState,
-          gridMetrics,
-          (event, rowIndex) =>
-            startRowResize(
-              event,
-              view,
-              tableInfo.node,
-              tableInfo.pos,
-              tableDomInfo.tableEl,
-              rowIndex,
-            ),
-        );
-        toolbarEl = buildFloatingToolbar(view, tableDomInfo.tableEl, container);
-        resizeHandleEl = buildTableResizeHandle(
-          view,
-          tableInfo.node,
-          tableInfo.pos,
-          tableDomInfo.tableEl,
-          container,
-        );
+        // ── Find containers inside the node-view DOM ──────────
+        const rowControlsEl = currentWrapperEl.querySelector(
+          '.pm-table-drag-row-controls',
+        ) as HTMLElement | null;
+        const colControlsEl = currentWrapperEl.querySelector(
+          '.pm-table-col-controls__inner',
+        ) as HTMLElement | null;
+        const pmTableContainer = currentWrapperEl.querySelector(
+          '.pm-table-container',
+        ) as HTMLElement | null;
 
-        container.appendChild(rowControlsEl);
-        container.appendChild(colControlsEl);
-        container.appendChild(guidesEl);
-        container.appendChild(toolbarEl);
-        container.appendChild(resizeHandleEl);
+        // ── Populate row controls ─────────────────────────────
+        if (rowControlsEl && pmTableContainer) {
+          populateRowControls(
+            rowControlsEl,
+            view,
+            tableInfo.node,
+            tableInfo.pos,
+            tableDomInfo.tableEl,
+            pmTableContainer,
+            gridMetrics,
+            hoverState.rowIndex ?? selectedMarkers.rowIndex,
+            hoverState.rowMarkerIndex ?? selectedMarkers.rowIndex,
+          );
+        }
+
+        // ── Populate column controls ──────────────────────────
+        if (colControlsEl && pmTableContainer) {
+          populateColControls(
+            colControlsEl,
+            view,
+            tableInfo.node,
+            tableInfo.pos,
+            tableDomInfo.tableEl,
+            pmTableContainer,
+            gridMetrics,
+            hoverState.colIndex ?? selectedMarkers.colIndex,
+            hoverState.colMarkerIndex ?? selectedMarkers.colIndex,
+          );
+        }
+
+        // ── Boundary guides (resize lines + insert dots) ──────
+        if (pmTableContainer) {
+          guidesEl = buildBoundaryGuides(
+            view,
+            tableInfo.node,
+            tableInfo.pos,
+            tableDomInfo.tableEl,
+            pmTableContainer,
+            hoverState,
+            gridMetrics,
+            (event, rowIndex) =>
+              startRowResize(
+                event,
+                view,
+                tableInfo.node,
+                tableInfo.pos,
+                tableDomInfo.tableEl,
+                rowIndex,
+              ),
+          );
+          pmTableContainer.appendChild(guidesEl);
+        }
       };
 
       const updateHoverState = (nextHoverState: TableHoverState) => {
@@ -1467,17 +1457,19 @@ export function tableControlsPlugin(): Plugin {
         const target = event.target as HTMLElement | null;
         if (!target) return;
 
+        // Don't update hover when over toolbar, menus, or resize handles
         if (
           target.closest('.__pm-table-toolbar') ||
-          target.closest('.__pm-table-resize-handle') ||
+          target.closest('.resizer-handle-wrapper') ||
           target.closest('.__pm-table-menu')
         ) {
           return;
         }
 
-        const rowMarker = target.closest('[data-table-row-marker]') as
-          | HTMLElement
-          | null;
+        // Check if over a row marker (drag handle)
+        const rowMarker = target.closest(
+          '[data-table-row-marker]',
+        ) as HTMLElement | null;
         if (rowMarker) {
           updateHoverState({
             ...createEmptyHoverState(),
@@ -1487,9 +1479,10 @@ export function tableControlsPlugin(): Plugin {
           return;
         }
 
-        const colMarker = target.closest('[data-table-col-marker]') as
-          | HTMLElement
-          | null;
+        // Check if over a column marker (drag handle)
+        const colMarker = target.closest(
+          '[data-table-col-marker]',
+        ) as HTMLElement | null;
         if (colMarker) {
           updateHoverState({
             ...createEmptyHoverState(),
@@ -1499,6 +1492,7 @@ export function tableControlsPlugin(): Plugin {
           return;
         }
 
+        // If not over the active table, clear hover
         if (
           !currentTableEl ||
           !currentGridMetrics ||
@@ -1509,7 +1503,11 @@ export function tableControlsPlugin(): Plugin {
         }
 
         updateHoverState(
-          getHoverStateFromTableEvent(event, currentTableEl, currentGridMetrics),
+          getHoverStateFromTableEvent(
+            event,
+            currentTableEl,
+            currentGridMetrics,
+          ),
         );
       };
 
@@ -1517,11 +1515,11 @@ export function tableControlsPlugin(): Plugin {
         render(editorView);
       };
 
-      container.addEventListener('mousemove', handlePointerMove);
-      container.addEventListener('mouseleave', clearHoverState);
+      editorContainer.addEventListener('mousemove', handlePointerMove);
+      editorContainer.addEventListener('mouseleave', clearHoverState);
       window.addEventListener('resize', handleExternalLayout);
       window.addEventListener('scroll', handleExternalLayout, true);
-      container.addEventListener('scroll', handleExternalLayout, true);
+      editorContainer.addEventListener('scroll', handleExternalLayout, true);
 
       render(editorView);
 
@@ -1530,12 +1528,16 @@ export function tableControlsPlugin(): Plugin {
           render(view);
         },
         destroy() {
-          remove();
-          container.removeEventListener('mousemove', handlePointerMove);
-          container.removeEventListener('mouseleave', clearHoverState);
+          cleanup();
+          editorContainer.removeEventListener('mousemove', handlePointerMove);
+          editorContainer.removeEventListener('mouseleave', clearHoverState);
           window.removeEventListener('resize', handleExternalLayout);
           window.removeEventListener('scroll', handleExternalLayout, true);
-          container.removeEventListener('scroll', handleExternalLayout, true);
+          editorContainer.removeEventListener(
+            'scroll',
+            handleExternalLayout,
+            true,
+          );
         },
       };
     },

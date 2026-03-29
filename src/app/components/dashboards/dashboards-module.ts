@@ -23,6 +23,7 @@ import { ToggleBtn } from '../../templates/toggle-btn/toggle-btn';
 import { TooltipDirective } from "../../directives/tooltip-directive/tooltip-directive";
 import { WysiwygEditorComponent } from '../../templates/wysiwyg/wysiwyg.component';
 import { Wysiwyg2 } from '../../templates/wysiwyg2/wysiwyg2';
+import { ScrollBorder } from '../../directives/scroll-border/scroll-border.directive';
 
 const dashboardRoutes: Routes =[
   {
@@ -70,7 +71,8 @@ const dashboardRoutes: Routes =[
     OverlayModule,
     TooltipDirective,
     WysiwygEditorComponent,
-    Wysiwyg2
+    Wysiwyg2,
+    ScrollBorder,
 ],
   providers:[
     provideRouter(dashboardRoutes)

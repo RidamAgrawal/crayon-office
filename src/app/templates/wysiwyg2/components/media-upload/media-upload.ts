@@ -22,9 +22,10 @@ export class MediaUpload {
     const inputEle = document.createElement('input');
     inputEle.type = 'file';
     inputEle.accept = 'image/*';
+    inputEle.style.display = 'none';
+    document.body.appendChild(inputEle);
+    inputEle.addEventListener('change', () => this.onUploadingFile(inputEle));
     inputEle.click();
-    if (inputEle.onchange) return;
-    inputEle.onchange = this.onUploadingFile.bind(this, inputEle);
   }
 
   private async onUploadingFile(inputEle: HTMLInputElement) {
@@ -40,21 +41,16 @@ export class MediaUpload {
       return;
     }
 
-    // 2. Read file as data-URL
+    // 2. Read file as data-URL and insert into editor
     try {
       const dataUrl = await this.imageCaptureService.readFileAsDataUrl(file);
-
-      // 3. Insert <img> at saved cursor position / replace selection
-      const imgHtml = `<img src="${dataUrl}" alt="${file.name}" style="max-width:100%;height:auto;" />`;
-      // this.editorCommandService.insertHTML(imgHtml);
-      // this.emitValue();
+      this.editorCommandService.insertImage(dataUrl, file.name);
       this.closeOverlay();
     } catch (err) {
       console.error('[WYSIWYG] Failed to read image:', err);
       alert('Failed to read the image file. Please try again.');
     }
 
-    //destroying temporarily created input element
     inputEle.remove();
   }
 

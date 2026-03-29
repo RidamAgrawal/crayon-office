@@ -224,7 +224,12 @@ export class EditorCommandsService {
   }
 
   public insertImage(src: string, alt = '') {
-    const node = this.schema().nodes['image'].create({ src, alt });
+    const node = this.schema().nodes['media_single'].create({
+      src,
+      alt,
+      width: null,
+      layout: 'center',
+    });
     this.view().dispatch(this.view().state.tr.replaceSelectionWith(node));
     this.view().focus();
   }

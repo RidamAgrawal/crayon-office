@@ -27,6 +27,10 @@ function buildCellNodeView(
   const isHeader = tag === 'th';
 
   const cell = document.createElement(tag);
+  // Add Confluence-style class names
+  cell.className = isHeader
+    ? 'pm-table-header-content-wrap'
+    : 'pm-table-cell-content-wrap';
   cell.style.cssText = `
     border: 1px solid #DFE1E6;
     padding: 8px;
@@ -35,97 +39,155 @@ function buildCellNodeView(
     min-width: 48px;
     box-sizing: border-box;
     overflow: visible;
-    background-color: ${
-      node.attrs['background'] || (isHeader ? '#F1F2F4' : 'transparent')
-    };
+    background-color: ${node.attrs['background'] || (isHeader ? '#F1F2F4' : 'transparent')};
+    ${isHeader ? 'font-weight: 600;' : ''}
   `;
 
   if (node.attrs['colspan'] > 1) cell.colSpan = node.attrs['colspan'];
   if (node.attrs['rowspan'] > 1) cell.rowSpan = node.attrs['rowspan'];
 
-  // ── Column bump (appears on top border of cell on hover) ──
+  const svgNs = 'http://www.w3.org/2000/svg';
+
+  // Helper: build a Confluence-style SVG pill (24×5, rx=3)
+  function buildPillSvg(): { svg: SVGSVGElement; rect: SVGRectElement } {
+    const svg = document.createElementNS(svgNs, 'svg');
+    svg.setAttribute('xmlns', svgNs);
+    svg.setAttribute('width', '24');
+    svg.setAttribute('height', '5');
+    svg.setAttribute('fill', 'none');
+    const rect = document.createElementNS(svgNs, 'rect');
+    rect.classList.add('pm-table-drag-handle-minimised');
+    rect.setAttribute('width', '24');
+    rect.setAttribute('height', '5');
+    rect.setAttribute('rx', '3');
+    rect.setAttribute('fill', '#DFE1E6');
+    svg.appendChild(rect);
+    return { svg, rect };
+  }
+
+  // ── Column bump (appears on top border of first-row cell on hover) ──
   const colBump = document.createElement('div');
   colBump.contentEditable = 'false';
   colBump.style.cssText = `
     display: none;
     position: absolute;
-    top: -5px;
+    top: -13px;
     left: 50%;
     transform: translateX(-50%);
-    width: 24px;
-    height: 8px;
-    background: #C1C7D0;
-    border-radius: 4px;
-    cursor: pointer;
+    cursor: grab;
     z-index: 20;
     pointer-events: auto;
-    transition: background 0.15s;
   `;
+  const colPill = buildPillSvg();
+  const colRect = colPill.rect;
+  const colSpan = document.createElement('span');
+  colSpan.style.pointerEvents = 'none';
+  colSpan.appendChild(colPill.svg);
+  colBump.appendChild(colSpan);
   cell.appendChild(colBump);
 
-  // ── Row bump (appears on left border of cell on hover) ────
+  // ── Row bump (appears on left border of first-column cell on hover) ──
   const rowBump = document.createElement('div');
   rowBump.contentEditable = 'false';
   rowBump.style.cssText = `
     display: none;
     position: absolute;
-    left: -5px;
+    left: -13px;
     top: 50%;
-    transform: translateY(-50%);
-    width: 8px;
-    height: 24px;
-    background: #C1C7D0;
-    border-radius: 4px;
-    cursor: pointer;
+    transform: translateY(-50%) rotate(90deg);
+    cursor: grab;
     z-index: 20;
     pointer-events: auto;
-    transition: background 0.15s;
   `;
+  const rowPill = buildPillSvg();
+  const rowRect = rowPill.rect;
+  const rowSpan = document.createElement('span');
+  rowSpan.style.pointerEvents = 'none';
+  rowSpan.appendChild(rowPill.svg);
+  rowBump.appendChild(rowSpan);
   cell.appendChild(rowBump);
 
-  // ── IMPORTANT: separate content wrapper so ProseMirror doesn't clobber the bumps ──
-  // If contentDOM === dom (the cell itself), ProseMirror owns ALL children of the
-  // cell and will strip the bump divs on every update. We give it a dedicated
-  // inner div instead.
+  // ── Content wrapper (separate from cell DOM so PM doesn't clobber bumps) ──
   const contentDOM = document.createElement('div');
   contentDOM.style.cssText = 'min-height: 1em; outline: none;';
   cell.appendChild(contentDOM);
 
+  // ── Determine if this cell is in the first row / first column ──
+  function isFirstRow(): boolean {
+    const tr = cell.closest('tr');
+    if (!tr) return false;
+    const tbody = tr.parentElement;
+    if (!tbody) return false;
+    return tbody.querySelector(':scope > tr') === tr;
+  }
+
+  function isFirstCol(): boolean {
+    const tr = cell.closest('tr');
+    if (!tr) return false;
+    return tr.querySelector('td, th') === cell;
+  }
+
+  // ── Guard flag: prevent synthetic mouseenter on newly-visible bump ──
+  let bumpReady = false;
+  let bumpReadyTimer: ReturnType<typeof setTimeout> | null = null;
+
+  function showBumps(showCol: boolean, showRow: boolean) {
+    bumpReady = false;
+    if (bumpReadyTimer) clearTimeout(bumpReadyTimer);
+    if (showCol) colBump.style.display = 'block';
+    if (showRow) rowBump.style.display = 'block';
+    bumpReadyTimer = setTimeout(() => {
+      bumpReady = true;
+    }, 100);
+  }
+
+  function resetBumpFill(rect: SVGRectElement) {
+    rect.setAttribute('fill', '#DFE1E6');
+  }
+
+  function hideBumps() {
+    if (bumpReadyTimer) clearTimeout(bumpReadyTimer);
+    bumpReady = false;
+    colBump.style.display = 'none';
+    rowBump.style.display = 'none';
+    resetBumpFill(colRect);
+    resetBumpFill(rowRect);
+  }
+
   // ── Show/hide bumps on cell hover ──────────────────────────
   cell.addEventListener('mouseenter', () => {
-    colBump.style.display = 'block';
-    rowBump.style.display = 'block';
+    showBumps(isFirstRow(), isFirstCol());
   });
   cell.addEventListener('mouseleave', (e) => {
     if (e.relatedTarget === colBump || e.relatedTarget === rowBump) return;
-    colBump.style.display = 'none';
-    rowBump.style.display = 'none';
+    hideBumps();
   });
 
   colBump.addEventListener('mouseleave', (e) => {
-    if (e.relatedTarget === cell) return;
-    colBump.style.display = 'none';
-    rowBump.style.display = 'none';
+    if (e.relatedTarget === cell) {
+      resetBumpFill(colRect);
+      return;
+    }
+    hideBumps();
   });
 
   rowBump.addEventListener('mouseleave', (e) => {
-    if (e.relatedTarget === cell) return;
-    colBump.style.display = 'none';
-    rowBump.style.display = 'none';
+    if (e.relatedTarget === cell) {
+      resetBumpFill(rowRect);
+      return;
+    }
+    hideBumps();
   });
 
+  // ── On bump hover: turn blue ──────────────────────────────────
   colBump.addEventListener('mouseenter', () => {
-    colBump.style.background = '#0052CC';
-  });
-  colBump.addEventListener('mouseleave', () => {
-    colBump.style.background = '#C1C7D0';
+    if (!bumpReady) return;
+    colRect.setAttribute('fill', '#0C66E4');
   });
 
   rowBump.addEventListener('mouseenter', () => {
-    rowBump.style.background = '#0052CC';
-  });
-  rowBump.addEventListener('mouseleave', () => {
-    rowBump.style.background = '#C1C7D0';
+    if (!bumpReady) return;
+    rowRect.setAttribute('fill', '#0C66E4');
   });
 
   // ── Col bump click → select entire column ─────────────────
@@ -242,7 +304,8 @@ function buildCellNodeView(
     update(updatedNode: Node) {
       if (updatedNode.type !== nodeType) return false;
       const bg = updatedNode.attrs['background'];
-      cell.style.backgroundColor = bg || (isHeader ? '#F1F2F4' : 'transparent');
+      cell.style.backgroundColor =
+        bg || (isHeader ? '#F1F2F4' : 'transparent');
       return true;
     },
   };

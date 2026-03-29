@@ -45,6 +45,13 @@ import { blockquoteNodeView } from './helpers/block-quote.node-view';
 import { horizontalRuleNodeView } from './helpers/horizontal-rule.node-view';
 import { panelNodeView } from './helpers/panel.node-view';
 import { tableControlsPlugin } from './helpers/table/table-controls.plugin';
+import { tableNodeView } from './helpers/table/table.node-view';
+import { tableRowNodeView } from './helpers/table/table-row.node-view';
+import {
+  tableCellNodeView,
+  tableHeaderNodeView,
+} from './helpers/table/table-cell.node-view';
+import { mediaSingleNodeView } from './helpers/media-single.node-view';
 
 export interface MountFn {
   <T>(
@@ -100,6 +107,16 @@ export class EditorViewService {
             blockquoteNodeView(node, view, getPos),
           horizontal_rule: (node, view, getPos) =>
             horizontalRuleNodeView(node, view, getPos),
+          table: (node, view, getPos) =>
+            tableNodeView(node, view, getPos),
+          table_row: (node, view, getPos) =>
+            tableRowNodeView(node, view, getPos),
+          table_cell: (node, view, getPos) =>
+            tableCellNodeView(node, view, getPos),
+          table_header: (node, view, getPos) =>
+            tableHeaderNodeView(node, view, getPos),
+          media_single: (node, view, getPos) =>
+            mediaSingleNodeView(node, view, getPos),
         },
       }),
     );
@@ -389,6 +406,47 @@ export class EditorViewService {
             'data-prosemirror-node-name': 'horizontal_rule',
             'data-prosemirror-node-block': 'true',
           },
+        ],
+      },
+    });
+
+    nodes = nodes.append({
+      media_single: {
+        group: 'block',
+        attrs: {
+          src: { default: '' },
+          alt: { default: '' },
+          width: { default: null },
+          layout: { default: 'center' },
+        },
+        parseDOM: [
+          {
+            tag: 'div[data-node-type="mediaSingle"]',
+            getAttrs: (el: HTMLElement) => ({
+              src: el.querySelector('img')?.getAttribute('src') || '',
+              alt: el.querySelector('img')?.getAttribute('alt') || '',
+              width: el.getAttribute('data-width')
+                ? Number(el.getAttribute('data-width'))
+                : null,
+              layout: el.getAttribute('data-layout') || 'center',
+            }),
+          },
+        ],
+        toDOM: (node) => [
+          'div',
+          {
+            'data-node-type': 'mediaSingle',
+            'data-width':
+              node.attrs['width'] != null ? String(node.attrs['width']) : '',
+            'data-layout': node.attrs['layout'] || 'center',
+            'data-prosemirror-content-type': 'node',
+            'data-prosemirror-node-name': 'media_single',
+            'data-prosemirror-node-block': 'true',
+          },
+          [
+            'img',
+            { src: node.attrs['src'], alt: node.attrs['alt'] || '' },
+          ],
         ],
       },
     });
