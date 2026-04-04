@@ -6,7 +6,7 @@ import {
   inject,
   input,
   OnDestroy,
-  Output,
+  output,
   viewChild,
 } from '@angular/core';
 import { EditorViewService } from './services';
@@ -24,11 +24,11 @@ export class Wysiwyg2 implements AfterViewInit, OnDestroy {
   private readonly editorRef = viewChild<ElementRef>('editor');
 
   public value = input<string>(); // initial HTML
-  @Output() valueChange = new EventEmitter<string>();
+  public readonly valueChange = output<string>();
 
 
   ngAfterViewInit() {
-    this.editorViewService.createView(this.value() ?? "", this.editorRef()!.nativeElement);
+    this.editorViewService.createView(this.value() ?? "", this.editorRef()!.nativeElement, this.valueChange);
   }
 
   ngOnDestroy() {

@@ -1,10 +1,26 @@
-import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input } from '@angular/core';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
+import { Component, Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { OptionConfigurations, OptionListsConfig } from './option-wrapper.model';
+
+@Directive({
+  selector: '[insertElement]',
+  standalone: true
+})
+export class InsertElementDirective implements OnInit {
+  @Input('insertElement') contentElementRef!: ElementRef;
+
+  constructor(private hostEl: ElementRef, private renderer: Renderer2) {}
+
+  ngOnInit() {
+    if (this.contentElementRef?.nativeElement) {
+      this.renderer.appendChild(this.hostEl.nativeElement, this.contentElementRef.nativeElement);
+    }
+  }
+}
 
 @Component({
   selector: 'app-option-wrapper',
-  imports: [CommonModule],
+  imports: [CommonModule, NgTemplateOutlet, InsertElementDirective],
   templateUrl: './option-wrapper.html',
   styleUrl: './option-wrapper.scss',
   host: {

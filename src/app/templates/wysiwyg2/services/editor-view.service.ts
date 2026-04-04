@@ -5,6 +5,7 @@ import {
   inject,
   Injectable,
   Injector,
+  OutputEmitterRef,
   signal,
   Type,
   WritableSignal,
@@ -73,7 +74,7 @@ export class EditorViewService {
   // Track component refs for cleanup
   private componentRefs: ComponentRef<any>[] = [];
 
-  public createView(value: string, node: HTMLElement | null) {
+  public createView(value: string, node: HTMLElement | null, valueChange: OutputEmitterRef<string>) {
     if (!node) {
       console.warn('editor element not passed');
       return;
@@ -92,7 +93,7 @@ export class EditorViewService {
           const html = DOMSerializer.fromSchema(schema).serializeFragment(
             newState.doc.content,
           );
-          // console.log(html);
+          valueChange.emit(html.textContent ?? '');
         },
         nodeViews: {
           task_item: (node, view, getPos) =>

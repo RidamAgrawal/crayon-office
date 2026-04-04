@@ -27,6 +27,8 @@
     overflow-x: auto;
     flex-direction: column;
     display: flex;
+    max-height: 300px;
+    overflow-y: auto;
 }
 .more-btn-content .options-list {
     flex-shrink: 0;

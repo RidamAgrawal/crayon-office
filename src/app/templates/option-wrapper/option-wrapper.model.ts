@@ -1,4 +1,4 @@
-import { ElementRef } from "@angular/core";
+import { ElementRef, TemplateRef } from "@angular/core";
 
 export interface OptionConfigurations {
     type: 'link' | 'button';
@@ -8,6 +8,8 @@ export interface OptionConfigurations {
     visible?: boolean;
     disabled?: boolean;
     elementRef?: ElementRef;
+    contentTemplateRef?: TemplateRef<any>;
+    contentElementRef?: ElementRef;
 }
 
 export interface OptionsList {
