@@ -248,3 +248,8 @@ body {
     max-height: calc(100vh - 119px);
   }
 }
+
+.login-backdrop {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(1px);
+}
