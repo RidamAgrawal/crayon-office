@@ -11,6 +11,8 @@ import {
   AppOverlayConfig,
   OverlayService,
 } from '../../../../services/overlay-service/overlay-service';
+import { WorkItemModalComponent } from './_components/work-item-modal/work-item-modal.component';
+
 @Component({
   selector: 'app-dashboards-header',
   standalone: false,
@@ -120,9 +122,9 @@ export class DashboardsHeader {
   public toggleAside() {
     this.helpIconClick.emit(true);
   }
-  public showCreate(templateRef: TemplateRef<any>) {
+  public showCreate() {
     this.overlayService.open({
-      template: templateRef,
+      component: WorkItemModalComponent,
       viewContainerRef: this.viewContainerRef,
       hasBackdrop: true
     });

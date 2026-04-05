@@ -50,7 +50,7 @@ const dashboardRoutes: Routes =[
 ]
 
 @NgModule({
-  declarations: [Dashboards,DashboardsHeader,DashboardsSidebar,CustomizeSidebar,FeedbackSidebar,IconContainer,DashboardSearchBar],
+  declarations: [Dashboards,DashboardsHeader,DashboardsSidebar,CustomizeSidebar,FeedbackSidebar,DashboardSearchBar],
   imports: [
     CommonModule,
     RouterOutlet,
@@ -73,6 +73,7 @@ const dashboardRoutes: Routes =[
     WysiwygEditorComponent,
     Wysiwyg2,
     ScrollBorder,
+    IconContainer,
 ],
   providers:[
     provideRouter(dashboardRoutes)

@@ -2,7 +2,7 @@ import { Component, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-icon-container',
-  standalone: false,
+  standalone: true,
   templateUrl: './icon-container.html',
   styleUrl: './icon-container.scss',
   exportAs: 'elementRef',
