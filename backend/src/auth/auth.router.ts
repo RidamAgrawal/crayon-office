@@ -54,21 +54,26 @@ router.post("/login", async (req: Request, res: Response) => {
     return;
   }
 
-  const user = await prisma.user.findUnique({ where: { email } });
-  if (!user) {
-    res.status(401).json({ error: "Invalid credentials" });
-    return;
-  }
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user) {
+      res.status(401).json({ error: "Invalid credentials" });
+      return;
+    }
 
-  const valid = await bcrypt.compare(password, user.passwordHash);
-  if (!valid) {
-    res.status(401).json({ error: "Invalid credentials" });
-    return;
-  }
+    const valid = await bcrypt.compare(password, user.passwordHash);
+    if (!valid) {
+      res.status(401).json({ error: "Invalid credentials" });
+      return;
+    }
 
-  const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "7d" });
-  const { passwordHash: _, ...safeUser } = user;
-  res.json({ token, user: safeUser });
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "7d" });
+    const { passwordHash: _, ...safeUser } = user;
+    res.json({ token, user: safeUser });
+  } catch (err: any) {
+    console.error("[login error] code:", err?.code, "message:", err?.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 // ── Signup with OTP ─────────────────────────────────────────────
@@ -88,7 +93,15 @@ router.post("/signup/send-otp", async (req: Request, res: Response) => {
     return;
   }
 
-  const existing = await prisma.user.findUnique({ where: { email } });
+  let existing;
+  try {
+    existing = await prisma.user.findUnique({ where: { email } });
+  } catch (err: any) {
+    console.error("[send-otp] db error — code:", err?.code, "| message:", err?.message, "| meta:", JSON.stringify(err?.meta));
+    res.status(500).json({ error: "Internal server error" });
+    return;
+  }
+
   if (existing) {
     res.status(409).json({ error: "Email already in use" });
     return;

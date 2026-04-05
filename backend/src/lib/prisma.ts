@@ -1,12 +1,8 @@
-import { config } from "dotenv";
-import { resolve } from "path";
-config({ path: resolve(__dirname, "../../.env") });
+import "dotenv/config"; // no-op on Netlify (env vars already injected), loads .env locally
 
-import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../generated/prisma/client";
+import { withAccelerate } from "@prisma/extension-accelerate";
 
-const url = process.env["DIRECT_DATABASE_URL"];
-console.log("[prisma] DIRECT_DATABASE_URL starts with:", url?.slice(0, 40) ?? "UNDEFINED");
-
-const adapter = new PrismaPg({ connectionString: url! });
-export const prisma = new PrismaClient({ adapter });
+export const prisma = new PrismaClient({
+  accelerateUrl: process.env["DATABASE_URL"],
+}).$extends(withAccelerate());
