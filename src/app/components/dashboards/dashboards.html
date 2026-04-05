@@ -8,7 +8,8 @@
     </div> <app-dashboards-header (sidebarIconHover)="sidebarIconHovered($event)"
         (sidebarIconClick)="sidebarIconClicked($event)" (helpIconClick)="toggleAside()"></app-dashboards-header>
     <app-dashboards-sidebar appResizableDirective [config]="resizableConfig"></app-dashboards-sidebar>
-    <main>
+    <main (mousemove)="onMainMouseMove($event)" (mouseleave)="onMainMouseLeave()">
+        <div class="dot-spotlight" [style.--mouse-x]="spotlightX" [style.--mouse-y]="spotlightY"></div>
         <div class="main-wrapper"> <router-outlet></router-outlet> </div>
     </main>
     <section class="aside" [ngClass]="{hideAside: !isAside}">

@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "start": "node dist/server.js",
+    "predev": "prisma generate",
     "dev": "tsx watch src/server.ts"
   },
   "keywords": [],

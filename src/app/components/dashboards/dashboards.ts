@@ -28,6 +28,8 @@ export class Dashboards {
   public isNotificationBar: boolean = true;
   public isSidebar: boolean = false;
   public isAside: boolean = false;
+  public spotlightX: string = '-200px';
+  public spotlightY: string = '-200px';
   constructor(
     private vcr: ViewContainerRef
   ) { }
@@ -50,5 +52,15 @@ export class Dashboards {
   }
   public toggleAside(): void {
     this.isAside = !this.isAside;
+  }
+  public onMainMouseMove(event: MouseEvent): void {
+    const target = event.currentTarget as HTMLElement;
+    const rect = target.getBoundingClientRect();
+    this.spotlightX = (event.clientX - rect.left) + 'px';
+    this.spotlightY = (event.clientY - rect.top) + 'px';
+  }
+  public onMainMouseLeave(): void {
+    this.spotlightX = '-200px';
+    this.spotlightY = '-200px';
   }
 }
