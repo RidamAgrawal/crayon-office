@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { FormsModule, ValidationErrors } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TextField } from '../../../../templates/text-field/text-field';
 import { OverlayService } from '../../../../services/overlay-service/overlay-service';
@@ -7,6 +7,7 @@ import { HttpService } from '../../../../services/http-service/http-service';
 import { AuthenticationService } from '../../../../services/authentication/authentication.service';
 import { catchError, EMPTY } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { triggerGoogleSignIn, triggerMicrosoftSignIn, validateEmail, validatePassword } from '../../login.utils';
 
 type Step = 'email' | 'otp';
 
@@ -38,6 +39,9 @@ export class SignupModal {
   private readonly overlayService = inject(OverlayService);
   private readonly httpService = inject(HttpService);
   private readonly authService = inject(AuthenticationService);
+
+  protected readonly validateEmail = validateEmail;
+  protected readonly validatePassword = validatePassword;
 
   protected onSignup(): void {
     if (this.isSignupDisabled()) return;
@@ -132,61 +136,30 @@ export class SignupModal {
     (inputs?.[focusIdx] as HTMLInputElement)?.focus();
   }
 
-  protected onLoginClick(): void {
-    this.overlayService.close();
-    this.router.navigate(['login'], { queryParams: { mode: 'login' } });
+
+  protected async onGoogleClick(): Promise<void> {
+    const idToken = await triggerGoogleSignIn();
+    this.httpService.googleLogin(idToken)
+      .pipe(catchError((error: HttpErrorResponse) => {
+        return EMPTY;
+      }))
+      .subscribe((res) => { /* store token, navigate */ });
   }
 
-  protected validateEmail = (value: string): ValidationErrors | null => {
-    if (!value) return null;
+  protected async onMicrosoftClick(): Promise<void> {
+    const idToken = await triggerMicrosoftSignIn();
+    this.httpService.microsoftLogin(idToken)
+      .pipe(catchError((error: HttpErrorResponse) => {
+        return EMPTY;
+      }))
+      .subscribe((res) => {
+        if (!res) return;
+        this.authService.authToken = res.token;
+        sessionStorage.setItem('example_token', res.token);
+        this.authService.currentUser = res.user;
+        this.router.navigate(['app/home']);
+        this.overlayService.close();
+      });
+  }
 
-    if (!value.includes('@')) {
-      return { invalidEmail: true, feedback: 'Email must contain an "@" symbol', icon: 'warningRed' };
-    }
-
-    const atIndex = value.indexOf('@');
-    const localPart = value.slice(0, atIndex);
-    const domain = value.slice(atIndex + 1);
-
-    if (!localPart) {
-      return { invalidEmail: true, feedback: 'Enter your username before the "@" symbol', icon: 'warningRed' };
-    }
-
-    if (!domain) {
-      return { invalidEmail: true, feedback: 'Enter a domain after the "@" symbol', icon: 'warningRed' };
-    }
-
-    if (!domain.includes('.') || domain.startsWith('.') || domain.endsWith('.')) {
-      return { invalidEmail: true, feedback: 'Domain must include a valid extension (e.g. ".com")', icon: 'warningRed' };
-    }
-
-    const emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
-    if (!emailRegex.test(value)) {
-      return { invalidEmail: true, feedback: 'Enter a valid email address (e.g. name@example.com)', icon: 'warningRed' };
-    }
-
-    return null;
-  };
-
-  protected validatePassword = (value: string): ValidationErrors | null => {
-    if (!value) return null;
-
-    if (value.length < 8) {
-      return { invalidPassword: true, feedback: 'Password must be at least 8 characters', icon: 'warningRed' };
-    }
-
-    if (!/[A-Z]/.test(value)) {
-      return { invalidPassword: true, feedback: 'Password must contain at least one uppercase letter', icon: 'warningRed' };
-    }
-
-    if (!/[a-z]/.test(value)) {
-      return { invalidPassword: true, feedback: 'Password must contain at least one lowercase letter', icon: 'warningRed' };
-    }
-
-    if (!/[^a-zA-Z0-9]/.test(value)) {
-      return { invalidPassword: true, feedback: 'Password must contain at least one special character', icon: 'warningRed' };
-    }
-
-    return null;
-  };
 }

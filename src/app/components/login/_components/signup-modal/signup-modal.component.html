@@ -31,7 +31,7 @@
 
       <div class="divider-text">Or continue with:</div>
 
-      <button class="social-btn">
+      <button class="social-btn" (click)="onGoogleClick()">
         <svg width="20" height="20" viewBox="0 0 20 20">
           <path d="M19.6 10.23c0-.68-.06-1.36-.18-2.02H10v3.83h5.38a4.6 4.6 0 0 1-2 3.02v2.5h3.24c1.89-1.74 2.98-4.3 2.98-7.33z" fill="#4285F4"/>
           <path d="M10 20c2.7 0 4.96-.9 6.62-2.44l-3.24-2.5c-.9.6-2.04.95-3.38.95-2.6 0-4.8-1.76-5.58-4.12H1.08v2.58A9.99 9.99 0 0 0 10 20z" fill="#34A853"/>
@@ -41,7 +41,7 @@
         <span>Google</span>
       </button>
 
-      <button class="social-btn">
+      <button class="social-btn" (click)="onMicrosoftClick()">
         <svg width="20" height="20" viewBox="0 0 20 20">
           <rect x="1" y="1" width="8.5" height="8.5" fill="#F25022"/>
           <rect x="10.5" y="1" width="8.5" height="8.5" fill="#7FBA00"/>
@@ -70,7 +70,7 @@
     </div>
 
     <div class="login-footer-links">
-      <a href="javascript:void(0)" (click)="onLoginClick()">Already have an Atlassian account? Log in</a>
+      <a href="/login">Already have an Atlassian account? Log in</a>
     </div>
   }
 

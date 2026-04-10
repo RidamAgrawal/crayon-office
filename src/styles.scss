@@ -253,3 +253,8 @@ body {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(1px);
 }
+
+.session-lock-backdrop {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+}

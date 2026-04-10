@@ -37,4 +37,23 @@ export class HttpService {
   public verifyOtp(email: string, code: string, displayName: string, password: string): Observable<UserLoginSuccessResponse> {
     return this.http.post<UserLoginSuccessResponse>('http://localhost:3000/api/auth/signup/verify-otp', { email, code, displayName, password });
   }
+
+  public sendRecoveryLink(email: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>('http://localhost:3000/api/auth/signup/send-recovery-link', { email });
+  }
+
+  public resetPassword(token: string, newPassword: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>('http://localhost:3000/api/auth/reset-password', { token, newPassword });
+  }
+
+  public googleLogin(idToken: string): Observable<UserLoginSuccessResponse | null> {
+    const apiUrl = 'http://localhost:3000/api/auth/google';
+    return this.http.post<UserLoginSuccessResponse>(apiUrl, { idToken });
+  }
+
+  public microsoftLogin(idToken: string): Observable<UserLoginSuccessResponse | null> {
+    return this.http.post<UserLoginSuccessResponse>(
+      'http://localhost:3000/api/auth/microsoft', { idToken }
+    );
+  }
 }

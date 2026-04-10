@@ -30,3 +30,19 @@ export async function sendOtpEmail(to: string, code: string): Promise<void> {
     `,
     });
 }
+
+export async function sendRecoveryLinkEmail(to: string, resetUrl: string): Promise<void> {
+  await getTransporter().sendMail({
+    from: process.env["GMAIL_USER"],
+    to,
+    subject: "Reset your password",
+    html: `
+      <div style="font-family: ...">
+        <h2>Reset your password</h2>
+        <p>Click the link below. It expires in 15 minutes.</p>
+        <a href="${resetUrl}">Reset password</a>
+        <p>If you didn't request this, ignore this email.</p>
+      </div>
+    `,
+  });
+}

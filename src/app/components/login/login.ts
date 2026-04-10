@@ -1,8 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OverlayService } from '../../services/overlay-service/overlay-service';
-import { LoginModal } from './_components/modal/login-modal';
-import { SignupModal } from './_components/signup-modal/signup-modal.component';
+import { LoginModalComponent } from './_components/modal';
+import { SignupModal } from './_components/signup-modal';
+import { ResetPasswordComponent } from './_components/reset-password';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class Login implements OnInit {
 
   ngOnInit() {
     const mode = this.route.snapshot.data[0];
-    const component = mode === 'login' ? LoginModal : SignupModal;
+    const component = mode === 'login' ? LoginModalComponent : mode === 'signup' ? SignupModal : ResetPasswordComponent;
 
     this.overlayService.open({
       component,
