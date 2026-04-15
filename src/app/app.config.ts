@@ -2,8 +2,9 @@ import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalE
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AppInitService } from './services/app-init/app-init.service';
+import { JwtInterceptor } from './services/interceptor/jwt.interceptor';
 
 export function appInitFactory(appInitService: AppInitService) {
   return () => appInitService.init();
@@ -15,7 +16,8 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(),
-    provideAppInitializer(() => appInitFactory(inject(AppInitService))())
+    provideHttpClient(withInterceptorsFromDi()),
+    provideAppInitializer(() => appInitFactory(inject(AppInitService))()),
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ]
 };

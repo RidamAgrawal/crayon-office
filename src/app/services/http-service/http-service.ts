@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Api } from './api/api';
 import { Observable } from 'rxjs';
 import { UserLoginSuccessResponse } from '../../models';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -55,5 +56,44 @@ export class HttpService {
     return this.http.post<UserLoginSuccessResponse>(
       'http://localhost:3000/api/auth/microsoft', { idToken }
     );
+  }
+
+  public githubLogin(code: string): Observable<UserLoginSuccessResponse> {
+    return this.http.post<{ token: string; user: any }>(
+      environment.backendUrl + '/api/auth/github',
+      { code }
+    );
+  }
+
+  public linkedinLogin(code: string): Observable<UserLoginSuccessResponse> {
+    return this.http.post<{ token: string; user: any }>(
+      environment.backendUrl + '/api/auth/linkedin',
+      { code }
+    );
+  }
+
+
+  // Spaces
+  public getSpaces(): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.backendUrl}/api/spaces`);
+  }
+
+  public createSpace(name: string, key: string): Observable<any> {
+    return this.http.post(`${environment.backendUrl}/api/spaces`, { name, key });
+  }
+
+  // Work Items
+  public createWorkItem(payload: {
+    spaceId: string;
+    summary: string;
+    workType: string;
+    description?: string;
+    status?: string;
+  }): Observable<any> {
+    return this.http.post(`${environment.backendUrl}/api/work-items`, payload);
+  }
+
+  public getWorkItems(spaceId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.backendUrl}/api/work-items?spaceId=${spaceId}`);
   }
 }

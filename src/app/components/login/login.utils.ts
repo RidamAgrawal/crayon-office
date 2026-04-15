@@ -92,3 +92,19 @@ export async function triggerMicrosoftSignIn(): Promise<string> {
   });
   return result.idToken;
 }
+
+export function triggerGithubSignIn(): void {
+  const clientId = environment.githubClientId;
+  const redirectUri = encodeURIComponent(window.location.origin + '/login');
+  window.location.href =
+    `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=user:email`;
+}
+
+export function triggerLinkedinSignIn(): void {
+  const clientId = environment.linkedinClientId;
+  const redirectUri = encodeURIComponent(window.location.origin + '/login');
+  const state = crypto.randomUUID(); // CSRF protection
+  sessionStorage.setItem('linkedin_oauth_state', state);
+  window.location.href =
+    `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=openid%20profile%20email&state=${state}`;
+}

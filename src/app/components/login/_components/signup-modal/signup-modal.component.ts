@@ -7,7 +7,13 @@ import { HttpService } from '../../../../services/http-service/http-service';
 import { AuthenticationService } from '../../../../services/authentication/authentication.service';
 import { catchError, EMPTY } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { triggerGoogleSignIn, triggerMicrosoftSignIn, validateEmail, validatePassword } from '../../login.utils';
+import {
+  triggerGithubSignIn,
+  triggerGoogleSignIn,
+  triggerMicrosoftSignIn,
+  validateEmail,
+  validatePassword,
+} from '../../login.utils';
 
 type Step = 'email' | 'otp';
 
@@ -27,12 +33,16 @@ export class SignupModal {
   protected readonly serverError = signal('');
   protected readonly isSending = signal(false);
 
-  protected readonly isSignupDisabled = computed(() =>
-    !this.email() || !!this.validateEmail(this.email())
+  protected readonly isSignupDisabled = computed(
+    () => !this.email() || !!this.validateEmail(this.email()),
   );
 
-  protected readonly isVerifyDisabled = computed(() =>
-    this.otpDigits().some(d => !d) || !this.displayName() || !this.password() || !!this.validatePassword(this.password())
+  protected readonly isVerifyDisabled = computed(
+    () =>
+      this.otpDigits().some((d) => !d) ||
+      !this.displayName() ||
+      !this.password() ||
+      !!this.validatePassword(this.password()),
   );
 
   private readonly router = inject(Router);
@@ -48,13 +58,14 @@ export class SignupModal {
     this.isSending.set(true);
     this.serverError.set('');
 
-    this.httpService.sendOtp(this.email())
+    this.httpService
+      .sendOtp(this.email())
       .pipe(
         catchError((error: HttpErrorResponse) => {
           this.serverError.set(error.error?.error || 'Failed to send OTP');
           this.isSending.set(false);
           return EMPTY;
-        })
+        }),
       )
       .subscribe(() => {
         this.isSending.set(false);
@@ -67,12 +78,13 @@ export class SignupModal {
     this.serverError.set('');
     const code = this.otpDigits().join('');
 
-    this.httpService.verifyOtp(this.email(), code, this.displayName(), this.password())
+    this.httpService
+      .verifyOtp(this.email(), code, this.displayName(), this.password())
       .pipe(
         catchError((error: HttpErrorResponse) => {
           this.serverError.set(error.error?.error || 'Verification failed');
           return EMPTY;
-        })
+        }),
       )
       .subscribe((res) => {
         if (!res) return;
@@ -87,13 +99,14 @@ export class SignupModal {
   protected onResendOtp(): void {
     this.isSending.set(true);
     this.serverError.set('');
-    this.httpService.sendOtp(this.email())
+    this.httpService
+      .sendOtp(this.email())
       .pipe(
         catchError((error: HttpErrorResponse) => {
           this.serverError.set(error.error?.error || 'Failed to resend OTP');
           this.isSending.set(false);
           return EMPTY;
-        })
+        }),
       )
       .subscribe(() => {
         this.isSending.set(false);
@@ -117,41 +130,54 @@ export class SignupModal {
 
   protected onOtpKeydown(event: KeyboardEvent, index: number): void {
     if (event.key === 'Backspace' && !this.otpDigits()[index] && index > 0) {
-      const prev = (event.target as HTMLElement).parentElement?.querySelectorAll('input')[index - 1];
+      const prev = (
+        event.target as HTMLElement
+      ).parentElement?.querySelectorAll('input')[index - 1];
       prev?.focus();
     }
   }
 
   protected onOtpPaste(event: ClipboardEvent): void {
     event.preventDefault();
-    const pasted = (event.clipboardData?.getData('text') || '').replace(/\D/g, '').slice(0, 6);
+    const pasted = (event.clipboardData?.getData('text') || '')
+      .replace(/\D/g, '')
+      .slice(0, 6);
     if (!pasted) return;
     const digits = [...this.otpDigits()];
     for (let i = 0; i < 6; i++) {
       digits[i] = pasted[i] || '';
     }
     this.otpDigits.set(digits);
-    const inputs = (event.target as HTMLElement).closest('.otp-inputs')?.querySelectorAll('input');
+    const inputs = (event.target as HTMLElement)
+      .closest('.otp-inputs')
+      ?.querySelectorAll('input');
     const focusIdx = Math.min(pasted.length, 5);
     (inputs?.[focusIdx] as HTMLInputElement)?.focus();
   }
 
-
   protected async onGoogleClick(): Promise<void> {
     const idToken = await triggerGoogleSignIn();
-    this.httpService.googleLogin(idToken)
-      .pipe(catchError((error: HttpErrorResponse) => {
-        return EMPTY;
-      }))
-      .subscribe((res) => { /* store token, navigate */ });
+    this.httpService
+      .googleLogin(idToken)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return EMPTY;
+        }),
+      )
+      .subscribe((res) => {
+        /* store token, navigate */
+      });
   }
 
   protected async onMicrosoftClick(): Promise<void> {
     const idToken = await triggerMicrosoftSignIn();
-    this.httpService.microsoftLogin(idToken)
-      .pipe(catchError((error: HttpErrorResponse) => {
-        return EMPTY;
-      }))
+    this.httpService
+      .microsoftLogin(idToken)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return EMPTY;
+        }),
+      )
       .subscribe((res) => {
         if (!res) return;
         this.authService.authToken = res.token;
@@ -162,4 +188,11 @@ export class SignupModal {
       });
   }
 
+  protected async onLinkedInClick(): Promise<void> {
+    triggerGithubSignIn();
+  }
+
+  protected async onGithubClick(): Promise<void> {
+    triggerGithubSignIn();
+  }
 }

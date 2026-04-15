@@ -1,14 +1,16 @@
 import { Component, computed, inject, Signal, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Checkbox } from '../../../../templates/checkbox/checkbox';
 import { OverlayService } from '../../../../services/overlay-service/overlay-service';
 import { TextField } from '../../../../templates/text-field/text-field';
 import { HttpService } from '../../../../services/http-service/http-service';
 import { AuthenticationService } from '../../../../services/authentication/authentication.service';
-import { catchError, EMPTY } from 'rxjs';
+import { catchError, EMPTY, map, switchMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { triggerGoogleSignIn, triggerMicrosoftSignIn, validateEmail, validatePassword } from '../../login.utils';
+import { triggerGithubSignIn, triggerGoogleSignIn, triggerLinkedinSignIn, triggerMicrosoftSignIn, validateEmail, validatePassword } from '../../login.utils';
+import { environment } from '../../../../../environments/environment';
+import { UserLoginSuccessResponse } from '../../../../models';
 
 @Component({
   selector: 'app-login-modal',
@@ -43,6 +45,33 @@ export class LoginModalComponent {
   protected readonly rememberMeConfig = { title: 'Remember me' };
   protected resetPassword = true;
 
+  public ngOnInit(): void {
+    this.activatedRoute.queryParams
+      .pipe(
+        switchMap(queryParams => {
+          const code = queryParams['code'];
+          return code
+            ? this.httpService.githubLogin(queryParams['code'])
+            : EMPTY
+        })
+      )
+      .subscribe(res => {
+        if (!res) return;
+        this.loginSuccessHandler(res);
+      })
+
+    const params = new URL(window.location.href).searchParams;
+    const code = params.get('code');
+    const state = params.get('state');
+
+    if (code && state === sessionStorage.getItem('linkedin_oauth_state')) {
+      sessionStorage.removeItem('linkedin_oauth_state');
+      this.httpService.linkedinLogin(code).subscribe(res => {
+        this.loginSuccessHandler(res);
+      });
+    }
+  }
+
   protected onClick(): void {
     this.login();
   }
@@ -71,23 +100,38 @@ export class LoginModalComponent {
       .pipe(catchError((error: HttpErrorResponse) => {
         return EMPTY;
       }))
-      .subscribe((res) => { /* store token, navigate */ });
+      .subscribe((res) => {
+        if (!res) return;
+        this.loginSuccessHandler(res);
+      });
   }
 
   protected async onMicrosoftClick(): Promise<void> {
     const idToken = await triggerMicrosoftSignIn();
     this.httpService.microsoftLogin(idToken)
-      .pipe(catchError((error: HttpErrorResponse)=> {
+      .pipe(catchError((error: HttpErrorResponse) => {
         return EMPTY;
       }))
       .subscribe((res) => {
         if (!res) return;
-        this.authService.authToken = res.token;
-        sessionStorage.setItem('example_token', res.token);
-        this.authService.currentUser = res.user;
-        this.router.navigate(['app/home']);
-        this.overlayService.close();
+        this.loginSuccessHandler(res);
       });
+  }
+
+  protected async onLinkedInClick(): Promise<void> {
+    triggerLinkedinSignIn();
+  }
+
+  protected async onGithubClick(): Promise<void> {
+    triggerGithubSignIn();
+  }
+
+  private loginSuccessHandler(res: UserLoginSuccessResponse): void {
+    this.authService.authToken = res.token;
+    sessionStorage.setItem('example_token', res.token);
+    this.authService.currentUser = res.user;
+    this.router.navigate(['app/home']);
+    this.overlayService.close();
   }
 
 }

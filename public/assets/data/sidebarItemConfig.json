@@ -17,7 +17,8 @@
                 }
             ],
             "icon": "recent",
-            "visible": true
+            "visible": true,
+            "dragEnabled": true
         },
         {
             "type": "modal",
@@ -29,7 +30,8 @@
                 }
             ],
             "icon": "starred",
-            "visible": true
+            "visible": true,
+            "dragEnabled": true
         },
         {
             "type": "group",
@@ -89,7 +91,8 @@
                     "visible": true
                 }
             ],
-            "visible": true
+            "visible": true,
+            "dragEnabled": true
         },
         {
             "type": "link",
@@ -102,7 +105,8 @@
                 }
             ],
             "icon": "plans",
-            "visible": true
+            "visible": true,
+            "dragEnabled": true
         },
         {
             "type": "group",
@@ -111,13 +115,17 @@
                 {
                     "icon": "add1",
                     "alt": "add",
-                    "title": "Add spaces"
+                    "title": "Add spaces",
+                    "type": "emit",
+                    "emitOptions": {
+                        "id": "addSpace"
+                    }
                 },
                 {
                     "icon": "more",
                     "alt": "more",
                     "type": "options",
-                    "title":"More actions",
+                    "title": "More actions",
                     "optionLists": [
                         {
                             "options": [
@@ -153,6 +161,7 @@
             ],
             "icon": "spaces",
             "visible": true,
+            "dragEnabled": true,
             "multipleLists": [
                 {
                     "heading": "Recent",
@@ -319,6 +328,7 @@
             ],
             "icon": "filterList",
             "visible": true,
+            "dragEnabled": true,
             "list": [
                 {
                     "type": "link",
@@ -691,6 +701,7 @@
             ],
             "icon": "dashboards",
             "visible": true,
+            "dragEnabled": true,
             "multipleLists": [
                 {
                     "heading": null,
@@ -711,6 +722,7 @@
             "title": "Operations",
             "icon": "action",
             "visible": true,
+            "dragEnabled": true,
             "list": [
                 {
                     "type": "link",
@@ -841,7 +853,8 @@
                 }
             ],
             "disableHoverAnimation": true,
-            "visible": true
+            "visible": true,
+            "dragEnabled": true
         },
         {
             "type": "link",
@@ -854,7 +867,8 @@
                 }
             ],
             "disableHoverAnimation": true,
-            "visible": true
+            "visible": true,
+            "dragEnabled": true
         },
         {
             "type": "link",
@@ -889,11 +903,12 @@
                                 }
                             ]
                         }
-                    ]                    
+                    ]
                 }
             ],
             "disableHoverAnimation": true,
-            "visible": true
+            "visible": true,
+            "dragEnabled": true
         }
     ],
     "customizeSidebar": {
