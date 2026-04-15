@@ -7,7 +7,7 @@
                         <div class="list">
                             @if(internalItems){
                                 @for(item of internalItems;track $index){
-                                <sidebar-item [sideBarItemConfig]="item"></sidebar-item>
+                                <sidebar-item [sideBarItemConfig]="item" (emit)="handleEmitEvent($event)"></sidebar-item>
                                 }
                             } @else {
                                 <div class="list-placeholder-header"></div>

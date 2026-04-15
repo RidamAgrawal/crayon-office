@@ -5,6 +5,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../src/generated/prisma/client"
 }
 
 datasource db {
@@ -20,5 +21,49 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  // Relations will grow as you add Jira/Confluence models
+  ownedSpaces  Space[]    @relation("SpaceOwner")
+  reported     WorkItem[] @relation("WorkItemReporter")
+}
+
+model Space {
+  id        String   @id @default(uuid())
+  name      String
+  key       String   @unique
+  counter   Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ownerId   String
+  owner     User       @relation("SpaceOwner", fields: [ownerId], references: [id])
+  workItems WorkItem[]
+  template  String   @default("kanban")  // just the template id
+}
+
+model WorkItem {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  summary     String
+  description String?
+  workType    WorkType
+  status      Status   @default(OPEN)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  spaceId    String
+  space      Space @relation(fields: [spaceId], references: [id])
+  reporterId String
+  reporter   User  @relation("WorkItemReporter", fields: [reporterId], references: [id])
+}
+
+enum WorkType {
+  TASK
+  BUG
+  EPIC
+  STORY
+}
+
+enum Status {
+  OPEN
+  IN_PROGRESS
+  DONE
 }

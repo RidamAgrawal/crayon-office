@@ -1,0 +1,66 @@
+<div class="space-template-picker">
+    <div class="space-template-categories">
+        <div class="close-btn-container">
+            <button class="close-btn secondary-btn" (click)="close()">
+                <span class="close-btn-content">
+                    <img src="./assets/icons/close.svg" alt="close">
+                </span>
+            </button>
+        </div>
+        <div class="space-template-picker-heading">
+            <h2>Space templates</h2>
+        </div>
+        <div class="space-template-categories-menu">
+            @for (category of categories; track category) {
+            <div class="space-template-categories-item">
+                <button class="space-template-categories-item-btn"
+                    [class.selected]="selectedCategory() === category" (click)="selectCategory(category)">
+                    <span class="space-template-categories-item-text">
+                        {{ category }}
+                    </span>
+                </button>
+            </div>
+            }
+        </div>
+    </div>
+    <div class="space-template-body">
+        <ul class="space-template-cards-grid">
+            <li class="space-template-cards-grid-header">
+                <div class="header-title">
+                    <span class="header-title-text">Space templates</span>
+                </div>
+                <div class="header-body">
+                    <h2 class="header-body-heading">{{ heading() }}</h2>
+                    @if (description()) {
+                    <p class="header-body-info">{{ description() }}</p>
+                    }
+                </div>
+            </li>
+            @for (template of filteredTemplates(); track template.id) {
+            <li class="space-template-card">
+                <button class="space-template-card-container" (click)="selectTemplate(template)">
+                    <div class="space-template-card-content">
+                        <div class="space-template-card-illustration"></div>
+                        <div class="space-template-card-details">
+                            <div class="space-template-card-details-header">
+                                <div class="space-template-card-details-header-body">
+                                    <span class="space-template-card-details-header-body-title">
+                                        {{ template.name }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="space-template-card-info">
+                                {{ template.description }}
+                            </div>
+                        </div>
+                    </div>
+                </button>
+            </li>
+            } @empty {
+            <li class="space-template-cards-grid-header">
+                <p class="header-body-info">No templates available for this category yet.</p>
+            </li>
+            }
+        </ul>
+    </div>
+</div>

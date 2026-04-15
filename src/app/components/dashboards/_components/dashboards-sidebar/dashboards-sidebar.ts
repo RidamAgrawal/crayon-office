@@ -4,6 +4,7 @@ import { HttpService } from '../../../../services/http-service/http-service';
 import { TemplateService } from '../../../../services/template-service/template-service';
 import { Observable } from 'rxjs';
 import { AppOverlayConfig, OverlayService } from '../../../../services/overlay-service/overlay-service';
+import { CreateSpaceModalComponent } from '../dashboards-header/_components/create-space-modal/create-space-modal.component';
 
 export interface CustomizeModalConfig {
   isTemplate?: boolean | null;
@@ -135,6 +136,15 @@ export class DashboardsSidebar {
       internalItems: this.internalItems.map( (item: any) => { return {visible: item.visible, title: item.title, icon: item.icon, contentOutside: true} }),
       externalLinks: this.externalLinks.map( (item: any) => { return {visible: item.visible, title: item.title, icon: item.icon, contentOutside: true} })
     };
+  }
+  protected handleEmitEvent(emitOptions: any) {
+    if (emitOptions.id === 'space') {
+      this.overlayService.open({
+        component: CreateSpaceModalComponent,
+        hasBackdrop: true,
+        closeOnBackdropClick: true
+      })
+    }
   }
   public ngOnDestroy() {
 

@@ -397,3 +397,37 @@
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
+.drag-indicator {
+    display: none;
+}
+.sidebar-item-btn:hover,
+.sidebar-item-btn:focus,
+.sidebar-item-link:hover,
+.sidebar-item-link:focus{
+    .drag-indicator.enabled {
+    inset-block-end: 0;
+    color: #505258;
+    position: absolute;
+    margin-inline-start: -9pt;
+    flex-direction: column;
+    display: flex;
+    inset-inline-start: 0;
+    justify-content: center;
+    inset-block-start: 0;
+    cursor: grab;
+    .drag-indicator-container {
+        line-height: 9pt;
+        box-sizing: border-box;
+        flex-shrink: 0;
+        display: inline-block;
+        img {
+            pointer-events: none;
+            vertical-align: bottom;
+            height: 9pt;
+            width: 9pt;
+            overflow: hidden;
+        }
+    }
+}
+ }

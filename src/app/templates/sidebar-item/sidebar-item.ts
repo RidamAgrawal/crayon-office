@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   ElementRef,
+  input,
   Input,
+  output,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
@@ -25,11 +27,12 @@ import { OptionWrapper } from '../option-wrapper/option-wrapper';
     '[style.--sidebar-item-icon-arrow]': 'opened ? "flex" : "none"',
     '[style.--sidebar-item-icon]': 'opened ? "none" : "block"',
     '[style.--sidebar-item-no-hover-animation]':
-      'sideBarItemConfig?.disableHoverAnimation ? "4px" : "8px"',
+      'sideBarItemConfig()?.disableHoverAnimation ? "4px" : "8px"',
   },
 })
 export class SidebarItem {
-  @Input({ required: true }) sideBarItemConfig: any;
+  public sideBarItemConfig = input.required<any>();
+  public emit = output<any>();
   @ViewChild('moreBtn', { read: TemplateRef, static: true })
   optionsTemplate!: TemplateRef<any>;
   public opened: boolean = false;
@@ -49,16 +52,16 @@ export class SidebarItem {
     // }
     // this.overlayService.open(overlayConfig);
     if (
-      this.sideBarItemConfig.actionEventHandler &&
-      typeof this.sideBarItemConfig.actionEventHandler == 'function'
+      this.sideBarItemConfig().actionEventHandler &&
+      typeof this.sideBarItemConfig().actionEventHandler == 'function'
     ) {
       const action = {
-        title: this.sideBarItemConfig.title,
-        type: this.sideBarItemConfig.type,
+        title: this.sideBarItemConfig().title,
+        type: this.sideBarItemConfig().type,
         connectedTo: this.elementRef,
         viewContainerRef: this.viewContainerRef,
       };
-      this.sideBarItemConfig.actionEventHandler(this.sideBarItemConfig, action);
+      this.sideBarItemConfig().actionEventHandler(this.sideBarItemConfig, action);
     }
   }
 
@@ -71,7 +74,7 @@ export class SidebarItem {
           optionListsConfig: {
             optionLists: toolEvent.optionLists,
             handleOptionEvent: (action: any) => {
-              this.sideBarItemConfig.actionEventHandler(this.sideBarItemConfig, action);
+              this.sideBarItemConfig().actionEventHandler(this.sideBarItemConfig, action);
             },
           },
         },
@@ -96,6 +99,8 @@ export class SidebarItem {
         connectedTo: new ElementRef(event.target),
       };
       toolEvent.optionOverlayRef = this.overlayService.open(overlayConfig);
+    } else if (toolEvent.type === 'emit') {
+      this.emit.emit(toolEvent.emitOptions);
     }
   }
 }
