@@ -1,4 +1,4 @@
-import { Component, computed, inject, Signal, signal, WritableSignal } from '@angular/core';
+import { AfterViewInit, Component, computed, ElementRef, inject, Signal, signal, ViewChild, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Checkbox } from '../../../../templates/checkbox/checkbox';
@@ -8,7 +8,7 @@ import { HttpService } from '../../../../services/http-service/http-service';
 import { AuthenticationService } from '../../../../services/authentication/authentication.service';
 import { catchError, EMPTY, map, switchMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { triggerGithubSignIn, triggerGoogleSignIn, triggerLinkedinSignIn, triggerMicrosoftSignIn, validateEmail, validatePassword } from '../../login.utils';
+import { initGoogleButton, triggerGithubSignIn, triggerLinkedinSignIn, triggerMicrosoftSignIn, validateEmail, validatePassword } from '../../login.utils';
 import { environment } from '../../../../../environments/environment';
 import { UserLoginSuccessResponse } from '../../../../models';
 
@@ -19,7 +19,9 @@ import { UserLoginSuccessResponse } from '../../../../models';
   templateUrl: './login-modal.html',
   styleUrl: './login-modal.scss',
 })
-export class LoginModalComponent {
+export class LoginModalComponent implements AfterViewInit {
+  @ViewChild('googleBtnContainer') private googleBtnContainer!: ElementRef<HTMLElement>;
+
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute)
   private readonly overlayService = inject(OverlayService);
@@ -94,16 +96,18 @@ export class LoginModalComponent {
       });
   }
 
-  protected async onGoogleClick(): Promise<void> {
-    const idToken = await triggerGoogleSignIn();
-    this.httpService.googleLogin(idToken)
-      .pipe(catchError((error: HttpErrorResponse) => {
-        return EMPTY;
-      }))
-      .subscribe((res) => {
-        if (!res) return;
-        this.loginSuccessHandler(res);
-      });
+  public ngAfterViewInit(): void {
+    initGoogleButton(this.googleBtnContainer.nativeElement, (idToken) => {
+      this.httpService.googleLogin(idToken)
+        .pipe(catchError((error: HttpErrorResponse) => {
+          console.error('[Google login]', error);
+          return EMPTY;
+        }))
+        .subscribe((res) => {
+          if (!res) return;
+          this.loginSuccessHandler(res);
+        });
+    });
   }
 
   protected async onMicrosoftClick(): Promise<void> {

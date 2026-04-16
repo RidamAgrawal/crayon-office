@@ -60,23 +60,18 @@
 
     <div class="divider-text">Or continue with:</div>
 
-    <button class="social-btn" (click)="onGoogleClick()">
+    <button class="social-btn google-btn secondary-btn">
       <svg width="20" height="20" viewBox="0 0 20 20">
-        <path
-          d="M19.6 10.23c0-.68-.06-1.36-.18-2.02H10v3.83h5.38a4.6 4.6 0 0 1-2 3.02v2.5h3.24c1.89-1.74 2.98-4.3 2.98-7.33z"
-          fill="#4285F4" />
-        <path
-          d="M10 20c2.7 0 4.96-.9 6.62-2.44l-3.24-2.5c-.9.6-2.04.95-3.38.95-2.6 0-4.8-1.76-5.58-4.12H1.08v2.58A9.99 9.99 0 0 0 10 20z"
-          fill="#34A853" />
+        <path d="M19.6 10.23c0-.68-.06-1.36-.18-2.02H10v3.83h5.38a4.6 4.6 0 0 1-2 3.02v2.5h3.24c1.89-1.74 2.98-4.3 2.98-7.33z" fill="#4285F4" />
+        <path d="M10 20c2.7 0 4.96-.9 6.62-2.44l-3.24-2.5c-.9.6-2.04.95-3.38.95-2.6 0-4.8-1.76-5.58-4.12H1.08v2.58A9.99 9.99 0 0 0 10 20z" fill="#34A853" />
         <path d="M4.42 11.89a6 6 0 0 1 0-3.78V5.53H1.08a10 10 0 0 0 0 8.94l3.34-2.58z" fill="#FBBC05" />
-        <path
-          d="M10 3.96c1.47 0 2.78.5 3.82 1.5l2.86-2.86A9.96 9.96 0 0 0 10 0 9.99 9.99 0 0 0 1.08 5.53l3.34 2.58C5.2 5.72 7.4 3.96 10 3.96z"
-          fill="#EA4335" />
+        <path d="M10 3.96c1.47 0 2.78.5 3.82 1.5l2.86-2.86A9.96 9.96 0 0 0 10 0 9.99 9.99 0 0 0 1.08 5.53l3.34 2.58C5.2 5.72 7.4 3.96 10 3.96z" fill="#EA4335" />
       </svg>
       <span>Google</span>
+      <div #googleBtnContainer class="google-overlay"></div>
     </button>
 
-    <button class="social-btn" (click)="onMicrosoftClick()">
+    <button class="social-btn secondary-btn" (click)="onMicrosoftClick()">
       <svg width="20" height="20" viewBox="0 0 20 20">
         <rect x="1" y="1" width="8.5" height="8.5" fill="#F25022" />
         <rect x="10.5" y="1" width="8.5" height="8.5" fill="#7FBA00" />
@@ -86,7 +81,7 @@
       <span>Microsoft</span>
     </button>
 
-    <button class="social-btn" (click)="onLinkedInClick()">
+    <button class="social-btn secondary-btn" (click)="onLinkedInClick()">
       <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
         version="1.1" id="Layer_1" viewBox="0 0 382 382" xml:space="preserve">
         <path style="fill:#0077B7;"
@@ -95,7 +90,7 @@
       <span>LinkedIn</span>
     </button>
 
-    <button class="social-btn" (click)="onGithubClick()">
+    <button class="social-btn secondary-btn" (click)="onGithubClick()">
       <svg width="20" height="20" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <title>GitHub</title>
         <path
@@ -141,7 +136,7 @@
     <p class="server-error">{{ serverError() }}</p>
     }
 
-    <button class="continue-btn" (click)="onVerify()" [disabled]="isVerifyDisabled()">Verify</button>
+    <button class="continue-btn primary-btn" (click)="onVerify()" [disabled]="isVerifyDisabled()">Verify</button>
 
     <div class="resend-row">
       <span>Didn't receive an email?</span>

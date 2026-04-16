@@ -276,3 +276,15 @@
     padding: 24px 20px;
   }
 }
+.social-btn.google-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.google-overlay {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.01;
+  cursor: pointer;
+}

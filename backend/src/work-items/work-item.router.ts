@@ -95,7 +95,7 @@ router.get("/", requireAuth, async (req: AuthRequest, res: Response) => {
 router.get("/:id", requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const workItem = await prisma.workItem.findUnique({
-      where: { id: req.params["id"] },
+      where: { id: req.params["id"] as string },
       include: {
         space: { select: { id: true, name: true, key: true } },
         reporter: { select: { id: true, displayName: true, avatarUrl: true } },

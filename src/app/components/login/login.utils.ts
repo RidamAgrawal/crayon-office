@@ -1,6 +1,5 @@
 import { ValidationErrors } from "@angular/forms";
 import { PublicClientApplication } from '@azure/msal-browser';
-import googleOneTap from 'google-one-tap';
 import { environment } from "../../../environments/environment";
 
 export const validateEmail = (value: string): ValidationErrors | null => {
@@ -56,18 +55,56 @@ export const validatePassword = (value: string): ValidationErrors | null => {
     return null;
 };
 
-const googleOptions = {
-  client_id: environment.googleClientId,
-  auto_select: false,
-  cancel_on_tap_outside: false,
-  context: 'signin' as const,
-};
+let gisScriptPromise: Promise<void> | null = null;
 
-export function triggerGoogleSignIn(): Promise<string> {
-  return new Promise((resolve, reject) => {
-    googleOneTap(googleOptions, (response: { credential: string }) => {
-      resolve(response.credential);
+function ensureGisLoaded(): Promise<void> {
+  if ((window as any).google?.accounts?.id) return Promise.resolve();
+  if (!gisScriptPromise) {
+    gisScriptPromise = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error('Failed to load Google Identity Services'));
+      document.head.appendChild(script);
     });
+  }
+  return gisScriptPromise;
+}
+
+export function initGoogleButton(
+  container: HTMLElement,
+  onCredential: (idToken: string) => void,
+): void {
+  ensureGisLoaded().then(() => {
+    (window as any).google.accounts.id.initialize({
+      client_id: environment.googleClientId,
+      callback: (response: { credential: string }) => onCredential(response.credential),
+    });
+
+    // Render a small icon button, then scale it to fill the overlay container.
+    // This lets us keep our own custom button styling while still using GIS for the click.
+    const observer = new MutationObserver(() => {
+      const btn = container.firstElementChild as HTMLElement | null;
+      if (btn) {
+        btn.style.transform = 'scale(10)';
+        btn.style.transformOrigin = '0 0';
+        observer.disconnect();
+      }
+    });
+    observer.observe(container, { childList: true });
+
+    (window as any).google.accounts.id.renderButton(container, {
+      type: 'icon',
+      size: 'large',
+    });
+
+    // In case renderButton is synchronous
+    const btn = container.firstElementChild as HTMLElement | null;
+    if (btn) {
+      btn.style.transform = 'scale(10)';
+      btn.style.transformOrigin = '0 0';
+      observer.disconnect();
+    }
   });
 }
 

@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TextField } from '../../../../templates/text-field/text-field';
@@ -8,8 +8,8 @@ import { AuthenticationService } from '../../../../services/authentication/authe
 import { catchError, EMPTY } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
+  initGoogleButton,
   triggerGithubSignIn,
-  triggerGoogleSignIn,
   triggerMicrosoftSignIn,
   validateEmail,
   validatePassword,
@@ -24,7 +24,8 @@ type Step = 'email' | 'otp';
   templateUrl: './signup-modal.component.html',
   styleUrl: './signup-modal.component.scss',
 })
-export class SignupModal {
+export class SignupModal implements AfterViewInit {
+  @ViewChild('googleBtnContainer') private googleBtnContainer!: ElementRef<HTMLElement>;
   protected readonly step = signal<Step>('email');
   protected readonly email = signal('');
   protected readonly otpDigits = signal<string[]>(['', '', '', '', '', '']);
@@ -155,18 +156,20 @@ export class SignupModal {
     (inputs?.[focusIdx] as HTMLInputElement)?.focus();
   }
 
-  protected async onGoogleClick(): Promise<void> {
-    const idToken = await triggerGoogleSignIn();
-    this.httpService
-      .googleLogin(idToken)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          return EMPTY;
-        }),
-      )
-      .subscribe((res) => {
-        /* store token, navigate */
-      });
+  public ngAfterViewInit(): void {
+    initGoogleButton(this.googleBtnContainer.nativeElement, (idToken) => {
+      this.httpService
+        .googleLogin(idToken)
+        .pipe(catchError(() => EMPTY))
+        .subscribe((res) => {
+          if (!res) return;
+          this.authService.authToken = res.token;
+          sessionStorage.setItem('example_token', res.token);
+          this.authService.currentUser = res.user;
+          this.router.navigate(['app/home']);
+          this.overlayService.close();
+        });
+    });
   }
 
   protected async onMicrosoftClick(): Promise<void> {

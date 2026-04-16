@@ -62,7 +62,7 @@ router.get("/", requireAuth, async (req: AuthRequest, res: Response) => {
 router.get("/:id", requireAuth, async (req: AuthRequest, res: Response) => {
   try {
     const space = await prisma.space.findUnique({
-      where: { id: req.params["id"] },
+      where: { id: req.params["id"] as string },
     });
 
     if (!space) {
