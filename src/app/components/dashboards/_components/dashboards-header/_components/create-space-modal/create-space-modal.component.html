@@ -16,27 +16,28 @@
                 <p class="form-subtext">Required fields are marked with asterisk <span class="red-asterisk">*</span>
                 </p>
 
-                <form [formGroup]="spaceForm" (ngSubmit)="submit()">
+                <form class="form-body" [formGroup]="spaceForm" (ngSubmit)="submit()">
                     <div class="field-wrapper">
                         <label class="field-label" for="name">
                             Name <span class="red-asterisk">*</span>
                         </label>
-                        <input id="name" type="text" class="text-field-input" formControlName="name"
-                            (input)="onNameInput()" placeholder="Try a team name, project goal, milestone...">
+                        <!-- <input id="name" type="text" class="text-field-input" formControlName="name"
+                            (input)="onNameInput()" placeholder="Try a team name, project goal, milestone..."> -->
+                        <text-field [placeholder]="'Try a team name, project goal, milestone'" formControlName="name">
+                        </text-field>
                     </div>
 
-                    <div class="field-wrapper">
+                    <!-- <div class="field-wrapper">
                         <label class="field-label">
                             How your space is managed
-                            <img class="info-icon" src="./assets/icons/info.svg" alt="info">
                         </label>
                         <div class="select-field">
                             <span class="select-field-value">Team-managed</span>
                             <img class="select-chevron" src="./assets/icons/chevronDown.svg" alt="">
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="field-wrapper">
+                    <!-- <div class="field-wrapper">
                         <label class="field-label">
                             Access <span class="red-asterisk">*</span>
                         </label>
@@ -44,15 +45,15 @@
                             <span class="select-field-value">Open</span>
                             <img class="select-chevron" src="./assets/icons/chevronDown.svg" alt="">
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="field-wrapper">
                         <label class="field-label" for="key">
                             Key <span class="red-asterisk">*</span>
                             <img class="info-icon" src="./assets/icons/info.svg" alt="info">
                         </label>
-                        <input id="key" type="text" class="text-field-input key-input" formControlName="key"
-                            placeholder="e.g. MP">
+                        <text-field formControlName="key">
+                        </text-field>
                     </div>
 
                     <div class="template-section">
@@ -61,7 +62,9 @@
                             <button type="button" class="see-details-link">See details</button>
                         </div>
                         <div class="template-card-preview">
-                            <div class="template-card-illustration"></div>
+                            <div class="template-card-illustration">
+                                <img [src]="selectedTemplate()?.illustration" alt="icon">
+                            </div>
                             <div class="template-card-info">
                                 <span class="template-card-name">{{ selectedTemplate()?.name }}</span>
                                 <span class="template-card-desc">{{ selectedTemplate()?.description }}</span>
@@ -73,7 +76,7 @@
 
             <div class="form-footer">
                 <span class="step-indicator">Step 1 of 2</span>
-                <button class="next-btn" [disabled]="spaceForm.invalid || isSubmitting()"
+                <button class="next-btn primary-btn" [disabled]="spaceForm.invalid || isSubmitting()"
                     (click)="submit()">
                     {{ isSubmitting() ? 'Creating...' : 'Next' }}
                 </button>

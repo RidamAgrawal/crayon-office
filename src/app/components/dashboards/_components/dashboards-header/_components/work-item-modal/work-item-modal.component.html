@@ -20,7 +20,7 @@
                 </app-icon-container>
             </li>
             <li class="header-option-item">
-                <app-icon-container>
+                <app-icon-container (click)="closeWorkItemModal()">
                     <img class="icon-content" [src]="'assets/icons/close.svg'" alt="close" />
                 </app-icon-container>
             </li>
@@ -35,13 +35,9 @@
                 Required fields are marked with asterisk
                 <span class="red-asterisk">*</span>
             </p>
-            <div class="field-wrapper">
-                <label for="" class="field-label">
-                    Space <span class="red-asterisk">*</span>
-                </label>
-                <app-multi-select></app-multi-select>
-            </div>
-            <multi-select-wrapper label="Work type" [optionsConfig]="workTypeConfig"
+            <multi-select-wrapper label="Space" [optionsConfig]="spaceConfig()" [isMandatory]="true"
+                formControlName="space"></multi-select-wrapper>
+            <multi-select-wrapper label="Work type" [optionsConfig]="workTypeConfig()" [isMandatory]="true"
                 formControlName="workType"></multi-select-wrapper>
             <!-- <div class="item-placeholder-wrapper">
             <div class="item-placeholder-label"></div>
@@ -58,6 +54,11 @@
                     This is initial status of the work item
                 </div>
             </div>
+            <work-item-modal-text-field-wrapper 
+                [label]="'summary'"
+                formControlName="summary"
+                [textFieldValidatorFn]="summaryValidator">
+            </work-item-modal-text-field-wrapper>
             <div class="section-2">
                 <div class="field-wrapper text-field-wrapper">
                     <label for="" class="field-label">
@@ -75,18 +76,14 @@
                         </span>
                     </div>
                 </div>
-                <div class="field-wrapper multi-purpose-field-wrapper">
-                    <label for="" class="field-label">Description</label>
-                    <div class="multipurpose-field class='_1bsbhi17 _19pknek2 _n3td11zn'">
-                        <wysiwyg2></wysiwyg2>
-                    </div>
-                </div>
+                <wysiwyg-editor-wrapper [isMandatory]="false" formControlName="description">
+                </wysiwyg-editor-wrapper>
             </div>
         </div>
     </div>
 </div>
 <div class="content-footer">
     <app-checkbox class="create-another-checkbox" [checkboxConfig]="{title: 'create another'}"></app-checkbox>
-    <button class="cancel-btn"><span>Cancel</span></button>
-    <button class="save-btn" [disabled]="createWorkItemForm.invalid"><span>Create</span></button>
+    <button class="cancel-btn" (click)="closeWorkItemModal()"><span>Cancel</span></button>
+    <button class="save-btn" [disabled]="createWorkItemForm.invalid" (click)="createWorkItem()"><span>Create</span></button>
 </div>

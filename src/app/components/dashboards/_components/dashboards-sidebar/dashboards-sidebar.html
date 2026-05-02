@@ -4,7 +4,7 @@
             <div class="contents">
                 <div class="ctr1">
                     <div class="ctr2">
-                        <div class="list">
+                        <div class="list" cdkDropList>
                             @if(internalItems){
                                 @for(item of internalItems;track $index){
                                 <sidebar-item [sideBarItemConfig]="item" (emit)="handleEmitEvent($event)"></sidebar-item>

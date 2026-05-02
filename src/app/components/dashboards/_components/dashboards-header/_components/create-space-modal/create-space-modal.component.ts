@@ -3,13 +3,14 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SpaceTemplate, SpaceTemplatePickerComponent } from '../space-template-picker';
 import { OverlayService } from '../../../../../../services/overlay-service/overlay-service';
 import { HttpService } from '../../../../../../services/http-service/http-service';
+import { TextField } from '../../../../../../templates/text-field/text-field';
 
 @Component({
   selector: 'create-space-modal',
   templateUrl: './create-space-modal.component.html',
   styleUrl: './create-space-modal.component.scss',
   standalone: true,
-  imports: [SpaceTemplatePickerComponent, ReactiveFormsModule],
+  imports: [SpaceTemplatePickerComponent, ReactiveFormsModule, TextField],
 })
 export class CreateSpaceModalComponent {
   private readonly overlayService = inject(OverlayService);

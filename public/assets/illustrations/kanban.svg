@@ -1,0 +1,105 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="100%"
+  height="100%"
+  viewBox="0 0 120 80"
+  preserveAspectRatio="xMidYMid meet"
+  fill="none"
+  role="img"
+>
+  <title>Animated Kanban board</title>
+  <style>
+    svg { cursor: pointer; overflow: visible; }
+    @media (prefers-reduced-motion: no-preference) {
+      #left-board {
+        transform-origin: 34px 40px;
+        transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
+      }
+      .space-template-card-container:hover #left-board { transform: translateY(-4px) scale(1.02); }
+
+      #right-board {
+        transform-origin: 86px 40px;
+        transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1) 0.05s;
+      }
+      .space-template-card-container:hover #right-board { transform: translateY(-4px) scale(1.02); }
+
+      #green-card { transform-origin: 60px 49px; transition: none; }
+      .space-template-card-container:hover #green-card {
+        animation: card-travel 1.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) 0.1s forwards;
+      }
+      @keyframes card-travel {
+        0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+        30%  { transform: translate(8px, -10px) rotate(-3deg) scale(1.06); }
+        60%  { transform: translate(20px, 12px) rotate(4deg) scale(1.04); }
+        100% { transform: translate(28px, 18px) rotate(0deg) scale(1); }
+      }
+
+      #arrow-up   { transition: opacity 0.4s ease 0.04s; opacity: 0.6; }
+      .space-template-card-container:hover #arrow-up { opacity: 1; }
+      #arrow-down { transition: opacity 0.4s ease 0.08s; opacity: 0; }
+      .space-template-card-container:hover #arrow-down { opacity: 1; }
+
+      #drop-zone-left  { transition: opacity 0.4s ease 0.05s; opacity: 1; }
+      .space-template-card-container:hover #drop-zone-left { opacity: 0.4; }
+      #drop-zone-right { transition: opacity 0.4s ease 0.6s; opacity: 0.5; }
+      .space-template-card-container:hover #drop-zone-right { opacity: 1; }
+
+      #avatar1 { transform-origin: 49.9px 24.1px; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) 0.06s; }
+      .space-template-card-container:hover #avatar1 { transform: scale(1.18); }
+      #avatar2 { transform-origin: 102px 24.1px; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s; }
+      .space-template-card-container:hover #avatar2 { transform: scale(1.18); }
+      #avatar3 { transform-origin: 102px 44.2px; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) 0.14s; }
+      .space-template-card-container:hover #avatar3 { transform: scale(1.18); }
+    }
+  </style>
+
+  <g id="left-board">
+    <rect x="10" y="8" width="47.87" height="64" rx="0.7" fill="#CFD4DB" />
+    <rect x="12.94" y="10.96" width="42.7" height="17.94" rx="0.7" fill="white" />
+    <circle id="avatar1" cx="49.94" cy="24.13" r="3.39" fill="#CFD4DB" />
+    <line x1="14.5" y1="13.73" x2="40.34" y2="13.73" stroke="#CFD4DB" stroke-width="0.76" />
+    <line x1="14.5" y1="16.82" x2="40.34" y2="16.82" stroke="#CFD4DB" stroke-width="0.76" />
+    <g id="drop-zone-left">
+      <rect x="12.68" y="31.21" width="42.54" height="17.59" fill="#FAFBFC" />
+    </g>
+    <g id="arrow-up">
+      <path d="M26.2347 40.0957C29.4445 36.7776 33.7014 34.6693 38.2861 34.127C42.8707 33.5848 47.502 34.6419 51.3973 37.1197C53.7212 38.719 55.6822 40.7898 57.1525 43.1974C58.6227 45.605 59.5694 48.2953 59.9307 51.0931" stroke="#A5ADBA" stroke-width="0.76" stroke-dasharray="3.8 3.8" />
+      <path d="M56.1227 49.0133L56.6133 48.3626L59.792 50.7946L61.9787 47.4453L62.6613 47.8933L59.9947 51.968L56.1227 49.0133Z" fill="#A5ADBA" />
+    </g>
+    <g opacity="0.63">
+      <rect x="33.46" y="45.15" width="24.42" height="17.95" rx="0.7" fill="#DFE1E5" />
+    </g>
+  </g>
+
+  <g id="right-board">
+    <rect x="62.13" y="8" width="47.87" height="64" rx="0.7" fill="#0065FF" />
+    <rect x="64.36" y="10.96" width="43.4" height="17.94" rx="0.7" fill="white" />
+    <circle id="avatar2" cx="102.05" cy="24.13" r="3.39" fill="#66A3FF" />
+    <line x1="66.62" y1="13.73" x2="92.45" y2="13.73" stroke="#66A3FF" stroke-width="0.76" />
+    <line x1="66.62" y1="16.82" x2="92.45" y2="16.82" stroke="#66A3FF" stroke-width="0.76" />
+    <line x1="66.62" y1="24.69" x2="81.91" y2="24.69" stroke="#66A3FF" stroke-width="0.76" />
+    <rect x="64.36" y="31.03" width="43.4" height="17.94" rx="0.7" fill="white" />
+    <circle id="avatar3" cx="102.05" cy="44.2" r="3.39" fill="#66A3FF" />
+    <line x1="66.62" y1="33.79" x2="92.45" y2="33.79" stroke="#66A3FF" stroke-width="0.76" />
+    <line x1="66.62" y1="36.89" x2="92.45" y2="36.89" stroke="#66A3FF" stroke-width="0.76" />
+    <line x1="66.62" y1="44.77" x2="81.91" y2="44.77" stroke="#97A0AF" stroke-width="1.38" />
+    <g id="drop-zone-right">
+      <rect x="64.82" y="51.64" width="42.54" height="17.59" fill="#3384FF" />
+    </g>
+    <g id="arrow-down">
+      <path d="M64.1333 53.333C65.6373 58.1117 65.3386 61.2477 70.4373 63.9997C75.536 66.7517 80.6986 66.3143 84.112 65.813C89.5888 64.9425 94.699 62.5133 98.832 58.8157" stroke="#A5ADBA" stroke-width="0.76" stroke-dasharray="3.8 3.8" />
+      <path d="M98.896 63.0179L98.096 62.9219L98.576 58.9539L94.5867 58.7726L94.6187 57.9619L99.4827 58.1859L98.896 63.0179Z" fill="#A5ADBA" />
+    </g>
+    <g opacity="0.63">
+      <rect x="62.13" y="45.15" width="14.72" height="17.95" rx="0.7" fill="#DFE1E5" />
+    </g>
+  </g>
+
+  <g id="green-card">
+    <rect x="38.51" y="40.44" width="43.49" height="17.98" rx="0.7" fill="#57D9A3" />
+    <circle cx="76" cy="52.34" r="3.14" fill="white" />
+    <line x1="42.1" y1="44.19" x2="70.8" y2="44.19" stroke="#00875A" stroke-width="1.04" />
+    <line x1="42.1" y1="47.94" x2="70.8" y2="47.94" stroke="#00875A" stroke-width="1.04" />
+    <line x1="42.1" y1="53.85" x2="52.34" y2="53.85" stroke="#00875A" stroke-width="1.04" />
+  </g>
+</svg>

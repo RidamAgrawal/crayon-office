@@ -15,22 +15,32 @@
   background-color: #fff;
 }
 
+@media (min-width: 48rem) {
+  .space-details-layout {
+    grid-template-columns: 50% 50% !important;
+  }
+}
+
 .space-details-layout {
-  display: flex;
-  height: 100%;
+  width: 100%;
+  display: grid;
+  box-sizing: border-box;
+  grid-template-areas: initial;
+  grid-template-rows: initial;
+  gap: var(--ds-space-0, 0px);
+  grid-template-columns: 100%;
+  -webkit-box-align: center;
+  align-items: center;
+  height: 100vh;
 }
 
 // ── Left Panel (Form) ──
 .space-details-form-panel {
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  width: 50%;
-  min-width: 400px;
-  max-width: 600px;
-  height: 100%;
-  padding: 24px 40px;
   box-sizing: border-box;
-  overflow-y: auto;
+  flex-direction: column;
+  width: 100%;
 }
 
 .back-link {
@@ -43,7 +53,17 @@
   color: #505258;
   font-size: 0.875rem;
   padding: 0;
-  margin-bottom: 32px;
+  appearance: none;
+  border: none;
+  padding-top: 24px;
+  padding-bottom: 16px;
+  padding-left: 24px;
+  padding-right: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 100;
+  flex-shrink: 0;
+  min-height: 72px;
 
   img {
     width: 14px;
@@ -58,37 +78,62 @@
 
 .space-details-form-content {
   flex: 1;
+  box-sizing: border-box;
+  appearance: none;
+  border: none;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  overflow: hidden auto;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  padding: 0px 64px;
+  gap: 1pc;
 }
 
 .form-heading {
-  font-size: 1.5rem;
-  font-weight: 600;
+  outline: none;
+  font-size: 1.75rem;
+  line-height: 2rem;
+  font-weight: 653;
   color: #292a2e;
-  margin: 0 0 8px;
 }
 
 .form-subtext {
-  font-size: 0.8125rem;
   color: #6b6e76;
-  margin: 0 0 24px;
+  overflow-wrap: anywhere;
+  text-wrap: nowrap;
+  display: inline;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .red-asterisk {
   color: #e34935;
 }
 
+.form-body {
+  margin-top: 1pc;
+  box-sizing: border-box;
+  appearance: none;
+  border: none;
+}
+
 .field-wrapper {
-  margin-bottom: 20px;
+  padding-bottom: 9pt;
+  margin-block-start: 0.5rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 .field-label {
-  display: flex;
+  display: inline-block;
   align-items: center;
   gap: 4px;
-  margin-bottom: 6px;
+  margin-block-end: 4px;
   font-size: 0.8125rem;
-  font-weight: 600;
-  color: #292a2e;
+  font-weight: 653;
+  color: #505258;
 }
 
 .info-icon {
@@ -180,6 +225,8 @@
   background: #e4e5e9;
   border-radius: 6px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
 }
 
 .template-card-info {
@@ -201,12 +248,28 @@
 
 // ── Footer ──
 .form-footer {
+  box-sizing: border-box;
+  appearance: none;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+  border-image: initial;
+  width: 100%;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #0b120e24;
   display: flex;
-  justify-content: space-between;
+  box-sizing: border-box;
+  -webkit-box-align: center;
   align-items: center;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  color: #6b6e76;
   padding-top: 16px;
-  border-top: 1px solid #dfe1e6;
-  margin-top: 24px;
+  padding-bottom: 16px;
+  padding-left: 64px;
+  padding-right: 64px;
 }
 
 .step-indicator {
@@ -215,38 +278,30 @@
 }
 
 .next-btn {
-  padding: 8px 20px;
-  border: none;
-  background-color: #1868db;
-  color: #fff;
-  border-radius: 3px;
-  cursor: pointer;
   font-size: 0.875rem;
   font-weight: 600;
-
-  &:hover:not(:disabled) {
-    background-color: #1459b3;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
 }
 
 // ── Right Panel (Preview) ──
 .space-details-preview-panel {
-  flex: 1;
-  background: linear-gradient(135deg, #deebff 0%, #e6f0ff 50%, #f0f4ff 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  box-sizing: border-box;
+  appearance: none;
+  border: none;
+  display: none;
   position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+@media (min-width: 48rem){
+  .space-details-preview-panel {
+    display: flex;
+  }
 }
 
 .preview-container {
-  width: 420px;
+  width: 100%;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);

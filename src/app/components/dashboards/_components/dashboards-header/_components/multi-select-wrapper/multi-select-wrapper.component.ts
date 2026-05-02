@@ -23,6 +23,7 @@ export class MultiSelectWrapper implements ControlValueAccessor {
   });
 
   public readonly label = input.required<string>();
+  public readonly isMandatory = input<boolean>();
   public readonly optionsConfig = input.required<any>();
 
   public isDisabled = false;
@@ -41,8 +42,8 @@ export class MultiSelectWrapper implements ControlValueAccessor {
       const selectedArray = Array.from(selectedSet);
 
       const value = this.optionsConfig()?.isMultiSelect
-        ? selectedArray.map((o: OptionConfigurations) => o.label)
-        : (selectedArray[0]?.label ?? null);
+        ? selectedArray.map((o: OptionConfigurations) => o.id)
+        : (selectedArray[0]?.id ?? null);
 
       this.onChange?.(value as any);
     });

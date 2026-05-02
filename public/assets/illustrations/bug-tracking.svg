@@ -1,0 +1,107 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="100%"
+  height="100%"
+  viewBox="0 0 120 80"
+  preserveAspectRatio="xMidYMid meet"
+  fill="none"
+  role="img"
+>
+  <title>Animated bug tracker illustration</title>
+  <style>
+    svg { cursor: pointer; overflow: visible; }
+    @media (prefers-reduced-motion: no-preference) {
+      #bug-body { transform-origin: 60px 50px; }
+      .space-template-card-container:hover #bug-body { animation: bug-wiggle 0.6s ease-in-out 0.05s infinite alternate; }
+      @keyframes bug-wiggle {
+        0%   { transform: rotate(0deg) translateY(0); }
+        30%  { transform: rotate(-2deg) translateY(-2px); }
+        60%  { transform: rotate(2deg) translateY(-1px); }
+        100% { transform: rotate(-1deg) translateY(-3px); }
+      }
+
+      #antenna-left  { transform-origin: 54.6px 21.6px; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+      .space-template-card-container:hover #antenna-left { animation: antenna-twitch 0.4s ease 0.1s infinite alternate; }
+      @keyframes antenna-twitch { 0% { transform: rotate(0deg); } 100% { transform: rotate(-12deg); } }
+
+      #antenna-right { transform-origin: 66.2px 21.6px; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+      .space-template-card-container:hover #antenna-right { animation: antenna-twitch-r 0.4s ease 0.15s infinite alternate; }
+      @keyframes antenna-twitch-r { 0% { transform: rotate(0deg); } 100% { transform: rotate(12deg); } }
+
+      #leg-tl { transform-origin: 30.65px 32.5px; }
+      .space-template-card-container:hover #leg-tl { animation: leg-wave 0.35s ease 0s infinite alternate; }
+      #leg-tr { transform-origin: 90.24px 32.5px; }
+      .space-template-card-container:hover #leg-tr { animation: leg-wave-r 0.35s ease 0.05s infinite alternate; }
+      #leg-ml { transform-origin: 30.65px 48.5px; }
+      .space-template-card-container:hover #leg-ml { animation: leg-wave 0.4s ease 0.1s infinite alternate; }
+      #leg-mr { transform-origin: 90.24px 48.5px; }
+      .space-template-card-container:hover #leg-mr { animation: leg-wave-r 0.4s ease 0.15s infinite alternate; }
+      #leg-bl { transform-origin: 30.65px 64.5px; }
+      .space-template-card-container:hover #leg-bl { animation: leg-wave 0.45s ease 0.2s infinite alternate; }
+      #leg-br { transform-origin: 90.24px 64.5px; }
+      .space-template-card-container:hover #leg-br { animation: leg-wave-r 0.45s ease 0.25s infinite alternate; }
+      @keyframes leg-wave   { 0% { transform: rotate(0deg); } 100% { transform: rotate(-10deg); } }
+      @keyframes leg-wave-r { 0% { transform: rotate(0deg); } 100% { transform: rotate(10deg); } }
+
+      #red-x { transform-origin: 60.45px 49.06px; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+      .space-template-card-container:hover #red-x { animation: x-pulse 0.5s ease 0.1s infinite alternate; }
+      @keyframes x-pulse { 0% { transform: scale(1); } 100% { transform: scale(1.08) rotate(2deg); } }
+    }
+  </style>
+
+  <defs>
+    <linearGradient id="headLeftGrad" x1="293.936" y1="269.77" x2="436.364" y2="127.559" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0049B0" />
+      <stop offset="1" stop-color="#0065FF" />
+    </linearGradient>
+    <linearGradient id="headRightGrad" x1="60.32" y1="26.5101" x2="68.84" y2="17.9901" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0065FF" />
+      <stop offset="1" stop-color="#66A3FF" />
+    </linearGradient>
+    <linearGradient id="bodyRightGrad" x1="53.35" y1="65.56" x2="85.26" y2="33.65" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0065FF" />
+      <stop offset="0.72" stop-color="#66A3FF" />
+    </linearGradient>
+    <linearGradient id="bodyLeftGrad" x1="39.94" y1="61.2397" x2="63.23" y2="37.9597" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0049B0" />
+      <stop offset="1" stop-color="#0065FF" />
+    </linearGradient>
+  </defs>
+
+  <g id="antenna-left">
+    <path d="M60.45 21.6299C58.8264 21.6334 57.2384 21.1542 55.8877 20.2533C54.537 19.3524 53.4846 18.0703 52.8641 16.5699C52.2436 15.0696 52.083 13.4186 52.4028 11.8268C52.7226 10.235 53.5083 8.7742 54.66 7.62988" stroke="#344563" stroke-width="1.31" stroke-miterlimit="10" stroke-linecap="round" fill="none" />
+  </g>
+  <g id="antenna-right">
+    <path d="M66.23 7.64941C67.3812 8.79313 68.1667 10.2531 68.4868 11.8439C68.8068 13.4348 68.6471 15.0849 68.0279 16.5848C67.4086 18.0848 66.3577 19.3669 65.0085 20.2686C63.6594 21.1703 62.0728 21.6509 60.45 21.6494" stroke="#0065FF" stroke-width="1.31" stroke-miterlimit="10" stroke-linecap="round" fill="none" />
+  </g>
+
+  <g id="leg-tl">
+    <path d="M60.08 40.0003H38.13C36.1479 40.0003 34.2469 39.2136 32.8444 37.813C31.4419 36.4124 30.6527 34.5124 30.65 32.5303" stroke="#253858" stroke-width="1.29" stroke-linecap="round" fill="none" />
+  </g>
+  <g id="leg-tr">
+    <path d="M90.24 32.5303C90.2374 34.5124 89.4481 36.4124 88.0456 37.813C86.6432 39.2136 84.7421 40.0003 82.76 40.0003H60.08" stroke="#0065FF" stroke-width="1.29" stroke-linecap="round" fill="none" />
+  </g>
+  <g id="leg-ml">
+    <path d="M30.65 48.4902H60.08" stroke="#253858" stroke-width="1.29" stroke-linecap="round" fill="none" />
+  </g>
+  <g id="leg-mr">
+    <path d="M60.08 48.4902H90.24" stroke="#0065FF" stroke-width="1.29" stroke-linecap="round" fill="none" />
+  </g>
+  <g id="leg-bl">
+    <path d="M60.08 57H38.13C36.1497 57 34.2501 57.7853 32.8479 59.1838C31.4457 60.5822 30.6553 62.4796 30.65 64.46" stroke="#253858" stroke-width="1.29" stroke-linecap="round" fill="none" />
+  </g>
+  <g id="leg-br">
+    <path d="M90.24 64.46C90.2347 62.4796 89.4443 60.5822 88.0421 59.1838C86.6399 57.7853 84.7404 57 82.76 57H60.08" stroke="#0065FF" stroke-width="1.29" stroke-linecap="round" fill="none" />
+  </g>
+
+  <g id="bug-body">
+    <path d="M58.72 24.7998H62.17C65.6718 24.7998 69.0303 26.1902 71.5074 28.6654C73.9844 31.1406 75.3774 34.498 75.38 37.9998V44.8998H45.51V37.9998C45.5127 34.498 46.9056 31.1406 49.3827 28.6654C51.8597 26.1902 55.2182 24.7998 58.72 24.7998Z" fill="#253858" />
+    <path d="M60.45 26.6401H49.2C48.97 26.6401 48.7494 26.5497 48.5853 26.388C48.4212 26.2263 48.3266 26.0073 48.32 25.7773C48.5347 22.7388 49.8913 19.8939 52.1173 17.8144C54.3434 15.7349 57.2738 14.575 60.32 14.5674L60.45 26.6401Z" fill="url(#headLeftGrad)" />
+    <path d="M60.44 14.5801C63.4869 14.5853 66.4187 15.7446 68.6452 17.8245C70.8717 19.9044 72.2276 22.7506 72.44 25.7901C72.4337 26.0223 72.3373 26.2433 72.1715 26.4067C72.0057 26.5701 71.7833 26.663 71.55 26.6655H60.45L60.44 14.5801Z" fill="url(#headRightGrad)" />
+    <path d="M71.42 28.75C68.5027 28.75 65.7048 29.9089 63.6419 31.9718C61.579 34.0347 60.42 36.8326 60.42 39.75V72.65C66.2548 72.65 71.8506 70.3321 75.9764 66.2063C80.1022 62.0805 82.42 56.4848 82.42 50.65V32.22C82.42 31.2997 82.0545 30.4171 81.4037 29.7663C80.753 29.1156 79.8703 28.75 78.95 28.75H71.42Z" fill="url(#bodyRightGrad)" />
+    <path d="M38.49 32.2197V50.6997C38.49 56.5345 40.8079 62.1303 44.9337 66.2561C49.0595 70.3819 54.6553 72.6997 60.49 72.6997V39.7297C60.49 36.8123 59.3311 34.0145 57.2682 31.9516C55.2053 29.8886 52.4074 28.7297 49.49 28.7297H42C41.0697 28.7297 40.1775 29.0989 39.5181 29.7563C38.8587 30.4137 38.49 31.305 38.49 32.2197Z" fill="url(#bodyLeftGrad)" />
+    <g id="red-x">
+      <path d="M74.59 40.8302L68.68 34.9102L60.4501 43.1402L52.21 34.9102L46.3 40.8302L54.5301 49.0602L46.3 57.2902L52.21 63.2102L60.4501 54.9702L68.68 63.2102L74.59 57.2902L66.3601 49.0602L74.59 40.8302Z" fill="#E64418" />
+    </g>
+  </g>
+</svg>

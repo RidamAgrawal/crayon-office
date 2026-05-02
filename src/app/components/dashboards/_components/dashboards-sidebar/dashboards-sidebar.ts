@@ -5,6 +5,7 @@ import { TemplateService } from '../../../../services/template-service/template-
 import { Observable } from 'rxjs';
 import { AppOverlayConfig, OverlayService } from '../../../../services/overlay-service/overlay-service';
 import { CreateSpaceModalComponent } from '../dashboards-header/_components/create-space-modal/create-space-modal.component';
+import { CdkDropList, DragDropModule } from '@angular/cdk/drag-drop';
 
 export interface CustomizeModalConfig {
   isTemplate?: boolean | null;
@@ -19,7 +20,8 @@ export interface CustomizeModalConfig {
   selector: 'app-dashboards-sidebar',
   standalone: false,
   templateUrl: './dashboards-sidebar.html',
-  styleUrl: './dashboards-sidebar.scss'
+  styleUrl: './dashboards-sidebar.scss',
+  providers: [DragDropModule],
 })
 export class DashboardsSidebar {
   @ViewChild('recentTemplate', { read: TemplateRef, static: true }) recentTemplate!: TemplateRef<any>;
@@ -138,7 +140,7 @@ export class DashboardsSidebar {
     };
   }
   protected handleEmitEvent(emitOptions: any) {
-    if (emitOptions.id === 'space') {
+    if (emitOptions.id === 'addSpace') {
       this.overlayService.open({
         component: CreateSpaceModalComponent,
         hasBackdrop: true,

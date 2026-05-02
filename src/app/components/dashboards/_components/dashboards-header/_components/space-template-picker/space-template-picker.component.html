@@ -13,8 +13,8 @@
         <div class="space-template-categories-menu">
             @for (category of categories; track category) {
             <div class="space-template-categories-item">
-                <button class="space-template-categories-item-btn"
-                    [class.selected]="selectedCategory() === category" (click)="selectCategory(category)">
+                <button class="space-template-categories-item-btn" [class.selected]="selectedCategory() === category"
+                    (click)="selectCategory(category)">
                     <span class="space-template-categories-item-text">
                         {{ category }}
                     </span>
@@ -24,6 +24,7 @@
         </div>
     </div>
     <div class="space-template-body">
+        @if(!selectedSpaceTemplate()) {
         <ul class="space-template-cards-grid">
             <li class="space-template-cards-grid-header">
                 <div class="header-title">
@@ -40,7 +41,8 @@
             <li class="space-template-card">
                 <button class="space-template-card-container" (click)="selectTemplate(template)">
                     <div class="space-template-card-content">
-                        <div class="space-template-card-illustration"></div>
+                        <div class="space-template-card-illustration"
+                             [innerHTML]="illustrationFor(template)"></div>
                         <div class="space-template-card-details">
                             <div class="space-template-card-details-header">
                                 <div class="space-template-card-details-header-body">
@@ -62,5 +64,103 @@
             </li>
             }
         </ul>
+        } @else {
+        <div class="selected-space-template-heading">
+            <div class="space-template-navigation">
+                <button class="space-template-navigation-item">
+                    <span class="space-template-navigation-text">Space templates</span>
+                </button>
+                <button class="space-template-navigation-item">
+                    <span class="space-template-navigation-text">{{selectedCategory()}}</span>
+                </button>
+            </div>
+        </div>
+        <div class="selected-space-template-modal">
+            <div class="selected-space-template-modal-header">
+                <div class="space-template-modal-header-content">
+                    <h2 class="space-template-modal-heading-text">{{selectedSpaceTemplate()!.modalTitle}}</h2>
+                    <button class="space-template-modal-heading-close-btn secondary-btn"
+                        (click)="deselectSpaceTemplate()">
+                        <img src="./assets/icons/close.svg" alt="icon">
+                    </button>
+                </div>
+            </div>
+            <div class="selected-space-template-modal-body" appScrollBorder>
+                <div class="selected-space-template-modal-body-part1">
+                    <p class="selected-space-template-modal-body-description">{{selectedSpaceTemplate()!.description}}
+                    </p>
+                    @for(feature of selectedSpaceTemplate()!.templateFeatures;track $index){
+                    <div class="selected-space-template-features">
+                        <div class="selected-space-template-features-image">
+                            <img [src]='feature.img' alt="">
+                        </div>
+                        <div class="selected-space-template-features-content">
+                            <h3 class="selected-space-template-features-content-heading">
+                                {{feature.title}}
+                            </h3>
+                            <p class="selected-space-template-features-content-text">
+                                {{feature.description}}
+                            </p>
+                        </div>
+                    </div>
+                    }
+                </div>
+                <div class="selected-space-template-modal-body-part2">
+                    <div class="selected-space-template-side-details">
+                        <h3 class="selected-space-template-side-details-header">Product</h3>
+                        <ul class="selected-space-template-side-details-body">
+                            @for(product of selectedSpaceTemplate()?.product;track $index) {
+                                <li class="selected-space-template-side-details-products-item">
+                                    {{product.label}}
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="selected-space-template-side-details">
+                        <h3 class="selected-space-template-side-details-header">Recommended for</h3>
+                        <ul class="selected-space-template-side-details-body">
+                            @for(recommendation of selectedSpaceTemplate()?.recommendedFor;track $index) {
+                                <li class="selected-space-template-side-details-body-item">
+                                    {{recommendation}}
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="selected-space-template-side-details">
+                        <h3 class="selected-space-template-side-details-header">Work Types</h3>
+                        <ul class="selected-space-template-side-details-body">
+                            @for(workType of selectedSpaceTemplate()?.workTypes;track $index) {
+                                <li class="selected-space-template-side-details-body-item">
+                                    <div class="selected-space-template-side-details-work-type-icon">
+                                        <img [src]="`./assets/data/icon/${workType.icon}.svg`" alt="">
+                                    </div>
+                                    {{workType.label}}
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="selected-space-template-side-details">
+                        <h3 class="selected-space-template-side-details-header">Workflow</h3>
+                        <ul class="selected-space-template-side-details-body">
+                            @for(workflow of selectedSpaceTemplate()?.workflow;track $index) {
+                                <li class="selected-space-template-side-details-body-item">
+                                    <span class="selected-space-template-side-details-status-workflow" [class]="workflow.classes">
+                                        <span class="selected-space-template-side-details-status-workflow-text">{{workflow.label}}</span>
+                                    </span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="selected-space-template-modal-footer">
+                <div class="space-template-modal-footer-content">
+                    <button class="space-template-modal-footer-submit-btn primary-btn" (click)="selectCurrentTemplate()">
+                        <span>Use Template</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        }
     </div>
 </div>
