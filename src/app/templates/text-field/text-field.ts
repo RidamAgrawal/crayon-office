@@ -1,4 +1,4 @@
-import { Component, effect, forwardRef, input, Input, model, signal } from '@angular/core';
+import { Component, forwardRef, input, Input, model, signal } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 
 @Component({
@@ -30,32 +30,31 @@ export class TextField implements ControlValueAccessor, Validator {
 
   protected error = signal<ValidationErrors | null>(null);
   protected isDirty = signal<boolean>(false);
-
-  constructor() {
-    effect(() => {
-      const val = this.value();
-      this.onChange(val);
-      this.runValidation(val);
-    });
+  
+  protected onValueChange(value: string): void {
+    this.value.set(value);
+    this.onChange(value);
+    this.runValidation(value);
+    this.isDirty.set(true);
   }
 
-  writeValue(value: string): void {
+  public writeValue(value: string): void {
     this.value.set(value);
   }
 
-  registerOnChange(fn: (value: string) => void): void {
+  public registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: () => void): void {
+  public registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
-  validate(control: AbstractControl<any, any, any>): ValidationErrors | null {
+  public validate(control: AbstractControl<any, any, any>): ValidationErrors | null {
     return this.error();
   }
 
-  registerOnValidatorChange(fn: () => void): void {
+  public registerOnValidatorChange(fn: () => void): void {
     this.onValidatorChange = fn;
   }
 
@@ -64,11 +63,11 @@ export class TextField implements ControlValueAccessor, Validator {
     this.onValidatorChange();
   }
 
-  onBlur() {
+  public onBlur() {
     this.onTouched();
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.error.set(null);
     this.isDirty.set(false);
   }
