@@ -80,7 +80,7 @@
     outline: none;
     white-space: nowrap;
     text-overflow: ellipsis;
-    overflow: auto;
+    // overflow: auto;
 }
 
 .explore-container {
@@ -707,4 +707,84 @@
     color: currentColor;
     line-height: 1;
     word-wrap: break-word;
+}
+
+.no-spaces-container{
+    text-align: center;
+    box-sizing: border-box;
+    color: #292A2E;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 2px 0px;
+    width: 100%;
+    max-width: 29pc;
+    margin-inline: auto;
+    margin-block: 3pc;
+    .no-spaces-found{
+        padding-block-end: 1pc;
+        border: none;
+        text-transform: none;
+        letter-spacing: normal;
+        font-weight: 653;
+        font-size: 1.25rem;
+        line-height: 1.625rem;
+    }
+    .no-spaces-message{
+        padding-block-end: 1pc;
+        border: none;
+        text-transform: none;
+        letter-spacing: normal;
+        font-weight: 400;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        margin: 0px;
+    }
+}
+
+.no-recents-container{
+    box-sizing: border-box;
+    appearance: none;
+    border-width: medium;
+    border-style: none;
+    border-color: currentcolor;
+    border-image: initial;
+    padding-top: 24px;
+    padding-bottom: 32px;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    max-width: 29pc;
+    margin-inline: auto;
+    margin-block: 3pc;
+    .no-recents-found{
+        padding-block-end: 1pc;
+        border: none;
+        text-transform: none;
+        letter-spacing: normal;
+        font-weight: 653;
+        font-size: 1.25rem;
+        line-height: 1.625rem;
+    }
+    .no-recents-message{
+        padding-block-end: 1pc;
+        border: none;
+        text-transform: none;
+        letter-spacing: normal;
+        font-weight: 400;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        margin: 0px;
+    }
+    .view-space-btn {
+        padding-inline: 2.5rem;
+        margin-block: .5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-inline: auto;
+        .primary-btn {
+            align-items: center;
+        }
+    }
 }
