@@ -14,7 +14,10 @@ export class AuthenticationService {
     public currentUser: User | null = null;
     public serverError: boolean = false;
     private backendUrl = 'http://localhost:3000';
-    public authToken: string | null = null;
+    
+    public get authToken() : string | null {
+        return sessionStorage.getItem('example_token');
+    }
 
     public getUser(token: string) {
         let baseUrl = this.backendUrl + '/api/user';

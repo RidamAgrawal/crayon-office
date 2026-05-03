@@ -37,7 +37,6 @@ export class SessionLockComponent {
 
   protected onUseAnotherAccount(): void {
     this.overlayService.close();
-    this.authService.authToken = null;
     this.authService.currentUser = null;
     sessionStorage.removeItem('example_token');
     this.idleService.stop();

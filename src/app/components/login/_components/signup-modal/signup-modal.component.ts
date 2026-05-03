@@ -89,7 +89,6 @@ export class SignupModal implements AfterViewInit {
       )
       .subscribe((res) => {
         if (!res) return;
-        this.authService.authToken = res.token;
         sessionStorage.setItem('example_token', res.token);
         this.authService.currentUser = res.user;
         this.router.navigate(['app/home']);
@@ -163,7 +162,6 @@ export class SignupModal implements AfterViewInit {
         .pipe(catchError(() => EMPTY))
         .subscribe((res) => {
           if (!res) return;
-          this.authService.authToken = res.token;
           sessionStorage.setItem('example_token', res.token);
           this.authService.currentUser = res.user;
           this.router.navigate(['app/home']);
@@ -183,7 +181,6 @@ export class SignupModal implements AfterViewInit {
       )
       .subscribe((res) => {
         if (!res) return;
-        this.authService.authToken = res.token;
         sessionStorage.setItem('example_token', res.token);
         this.authService.currentUser = res.user;
         this.router.navigate(['app/home']);

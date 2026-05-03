@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpStatusCode } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { catchError, EMPTY, Observable } from "rxjs";
+import { catchError, Observable, throwError } from "rxjs";
 import { AuthenticationService } from "../authentication/authentication.service";
 
 @Injectable()
@@ -26,7 +26,7 @@ export class JwtInterceptor implements HttpInterceptor {
                 } else if (error.status === HttpStatusCode.Forbidden) {
                     console.warn('forbidden');
                 }
-                return EMPTY;
+                return throwError(() => error);
             })
         );
     }
