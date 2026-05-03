@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, computed, effect, ElementRef, EventEmitter, Input, Output, Signal, signal, TemplateRef, ViewChild, ViewContainerRef, WritableSignal } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, effect, ElementRef, EventEmitter, Input, OnChanges, Output, Signal, signal, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef, WritableSignal } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { OverlayService } from '../../services/overlay-service/overlay-service';
 import { OverlayRef } from '@angular/cdk/overlay';
@@ -13,7 +13,7 @@ import { OptionConfigurations, OptionListsConfig, OptionsList } from '../option-
   templateUrl: './multi-select.html',
   styleUrl: './multi-select.scss'
 })
-export class MultiSelect {
+export class MultiSelect implements OnChanges {
   @ViewChild('input', { static: true }) public inputElRef!: ElementRef<HTMLInputElement>;
   @ViewChild('optionContainer', { static: true }) public optionTemplateRef!: TemplateRef<any>;
   @Input() config: any = {
@@ -80,6 +80,17 @@ export class MultiSelect {
   }
 
   ngOnInit() {
+    this.bindConfig();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['config']) {
+      this.bindConfig();
+    }
+  }
+
+  private bindConfig() {
+    if (!this.config) return;
     this.availOptions.set(this.config.optionLists);
     this.config.handleOptionEvent = (option: OptionConfigurations) => this.selectOption(option);
   }
