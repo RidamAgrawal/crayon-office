@@ -395,90 +395,127 @@ router.post("/microsoft", async (req: Request, res: Response) => {
 });
 
 router.post('/github', async (req: Request, res: Response) => {
-  const { code } = req.body;
+  try {
+    const { code } = req.body;
 
-  // Exchange code for access token
-  const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({
-      client_id: process.env.GITHUB_CLIENT_ID,
-      client_secret: process.env.GITHUB_CLIENT_SECRET,
-      code,
-    }),
-  });
-  const { access_token } = await tokenRes.json();
-
-  // Fetch user profile + email
-  const [userRes, emailsRes] = await Promise.all([
-    fetch('https://api.github.com/user', {
-      headers: { Authorization: `Bearer ${access_token}` },
-    }),
-    fetch('https://api.github.com/user/emails', {
-      headers: { Authorization: `Bearer ${access_token}` },
-    }),
-  ]);
-
-  const ghUser = await userRes.json();
-  const emails = await emailsRes.json();
-  const primaryEmail = emails.find((e: any) => e.primary)?.email;
-
-  // Find or create user (same pattern as your Google/Microsoft handlers)
-  let user = await prisma.user.findUnique({ where: { email: primaryEmail } });
-  if (!user) {
-    user = await prisma.user.create({
-      data: {
-        email: primaryEmail,
-        displayName: ghUser.name || ghUser.login,
-        avatarUrl: ghUser.avatar_url,
-        passwordHash: '',  // OAuth user, no password
-      },
+    // Exchange code for access token
+    const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        client_id: process.env.GITHUB_CLIENT_ID,
+        client_secret: process.env.GITHUB_CLIENT_SECRET,
+        code,
+      }),
     });
-  }
+    const tokenData = await tokenRes.json();
+    const access_token = tokenData.access_token;
+    if (!access_token) {
+      console.error('[github auth] token exchange failed:', tokenData);
+      return res.status(401).json({ error: 'GitHub token exchange failed' });
+    }
 
-  const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' });
-  res.json({ token, user });
+    // Fetch user profile + email
+    const [userRes, emailsRes] = await Promise.all([
+      fetch('https://api.github.com/user', {
+        headers: { Authorization: `Bearer ${access_token}` },
+      }),
+      fetch('https://api.github.com/user/emails', {
+        headers: { Authorization: `Bearer ${access_token}` },
+      }),
+    ]);
+
+    const ghUser = await userRes.json();
+    const emails = await emailsRes.json();
+
+    if (!Array.isArray(emails)) {
+      console.error('[github auth] emails fetch failed:', emails);
+      return res.status(401).json({ error: 'Failed to fetch GitHub emails' });
+    }
+
+    const primaryEmail = emails.find((e: any) => e.primary && e.verified)?.email
+      ?? emails.find((e: any) => e.verified)?.email
+      ?? emails[0]?.email;
+
+    if (!primaryEmail) {
+      return res.status(400).json({ error: 'No email address found on GitHub account' });
+    }
+
+    // Find or create user (same pattern as your Google/Microsoft handlers)
+    let user = await prisma.user.findUnique({ where: { email: primaryEmail } });
+    if (!user) {
+      user = await prisma.user.create({
+        data: {
+          email: primaryEmail,
+          displayName: ghUser.name || ghUser.login,
+          avatarUrl: ghUser.avatar_url,
+          passwordHash: '',  // OAuth user, no password
+        },
+      });
+    }
+
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' });
+    res.json({ token, user });
+  } catch (err) {
+    console.error('[github auth] error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 router.post('/linkedin', async (req, res) => {
-  const { code } = req.body as { code: string };
+  try {
+    const { code } = req.body as { code: string };
 
-  // Exchange code for access token
-  const tokenRes = await fetch('https://www.linkedin.com/oauth/v2/accessToken', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      grant_type: 'authorization_code',
-      code,
-      client_id: process.env.LINKEDIN_CLIENT_ID as string,
-      client_secret: process.env.LINKEDIN_CLIENT_SECRET as string,
-      redirect_uri: process.env.FRONTEND_URL + '/login',
-    }),
-  });
-  const { access_token } = await tokenRes.json();
-
-  // Fetch user profile using OpenID Connect userinfo endpoint
-  const userRes = await fetch('https://api.linkedin.com/v2/userinfo', {
-    headers: { Authorization: `Bearer ${access_token}` },
-  });
-  const liUser = await userRes.json();
-  // liUser contains: sub, name, given_name, family_name, picture, email, email_verified
-
-  // Find or create user (same pattern as your Google/Microsoft handlers)
-  let user = await prisma.user.findUnique({ where: { email: liUser.email } });
-  if (!user) {
-    user = await prisma.user.create({
-      data: {
-        email: liUser.email,
-        displayName: liUser.name,
-        avatarUrl: liUser.picture || null,
-        passwordHash: '',  // OAuth user, no password
-      },
+    // Exchange code for access token
+    const tokenRes = await fetch('https://www.linkedin.com/oauth/v2/accessToken', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type: 'authorization_code',
+        code,
+        client_id: process.env.LINKEDIN_CLIENT_ID as string,
+        client_secret: process.env.LINKEDIN_CLIENT_SECRET as string,
+        redirect_uri: process.env.FRONTEND_URL + '/login',
+      }),
     });
-  }
+    const tokenData = await tokenRes.json();
+    const access_token = tokenData.access_token;
+    if (!access_token) {
+      console.error('[linkedin auth] token exchange failed:', tokenData);
+      return res.status(401).json({ error: 'LinkedIn token exchange failed' });
+    }
 
-  const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' });
-  res.json({ token, user });
+    // Fetch user profile using OpenID Connect userinfo endpoint
+    const userRes = await fetch('https://api.linkedin.com/v2/userinfo', {
+      headers: { Authorization: `Bearer ${access_token}` },
+    });
+    const liUser = await userRes.json();
+    // liUser contains: sub, name, given_name, family_name, picture, email, email_verified
+
+    if (!liUser.email) {
+      console.error('[linkedin auth] no email in userinfo response:', liUser);
+      return res.status(400).json({ error: 'No email address found on LinkedIn account' });
+    }
+
+    // Find or create user (same pattern as your Google/Microsoft handlers)
+    let user = await prisma.user.findUnique({ where: { email: liUser.email } });
+    if (!user) {
+      user = await prisma.user.create({
+        data: {
+          email: liUser.email,
+          displayName: liUser.name,
+          avatarUrl: liUser.picture || null,
+          passwordHash: '',  // OAuth user, no password
+        },
+      });
+    }
+
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' });
+    res.json({ token, user });
+  } catch (err) {
+    console.error('[linkedin auth] error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 export default router;
