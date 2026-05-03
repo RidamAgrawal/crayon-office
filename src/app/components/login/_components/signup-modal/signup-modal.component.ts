@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  signal,
+  ViewChild,
+  WritableSignal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TextField } from '../../../../templates/text-field/text-field';
@@ -6,7 +15,7 @@ import { OverlayService } from '../../../../services/overlay-service/overlay-ser
 import { HttpService } from '../../../../services/http-service/http-service';
 import { AuthenticationService } from '../../../../services/authentication/authentication.service';
 import { catchError, EMPTY } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import {
   initGoogleButton,
   triggerGithubSignIn,
@@ -25,7 +34,8 @@ type Step = 'email' | 'otp';
   styleUrl: './signup-modal.component.scss',
 })
 export class SignupModal implements AfterViewInit {
-  @ViewChild('googleBtnContainer') private googleBtnContainer!: ElementRef<HTMLElement>;
+  @ViewChild('googleBtnContainer')
+  private googleBtnContainer!: ElementRef<HTMLElement>;
   protected readonly step = signal<Step>('email');
   protected readonly email = signal('');
   protected readonly otpDigits = signal<string[]>(['', '', '', '', '', '']);
@@ -53,6 +63,11 @@ export class SignupModal implements AfterViewInit {
 
   protected readonly validateEmail = validateEmail;
   protected readonly validatePassword = validatePassword;
+
+  protected readonly errorMessage: WritableSignal<string> = signal<string>('');
+  protected readonly errorStatus: WritableSignal<number | null> = signal<
+    number | null
+  >(0);
 
   protected onSignup(): void {
     if (this.isSignupDisabled()) return;
@@ -176,6 +191,16 @@ export class SignupModal implements AfterViewInit {
       .microsoftLogin(idToken)
       .pipe(
         catchError((error: HttpErrorResponse) => {
+          if (
+            [
+              HttpStatusCode.Conflict,
+              HttpStatusCode.InternalServerError,
+              HttpStatusCode.BadRequest,
+            ].includes(error.status)
+          ) {
+            this.errorMessage.set(error.error.error);
+            this.errorStatus.set(error.status);
+          }
           return EMPTY;
         }),
       )

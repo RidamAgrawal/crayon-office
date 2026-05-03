@@ -233,3 +233,36 @@
   opacity: 0.01;
   cursor: pointer;
 }
+
+.form-error {
+  border-radius: 4px;
+  padding-block: 1rem;
+  padding-inline: 1rem;
+  background-color: #FFF5DB;
+  word-break: break-word;
+  display: flex;
+  row-gap: 1pc;
+  column-gap: 1pc;
+  align-items: stretch;
+  .error-icon-container{
+    display: flex;
+    margin-block: -2px;
+    box-sizing: border-box;
+    svg{
+      height: 24px;
+      width: 24px;
+      color: #E06C00;
+      line-height: 1;
+      flex-shrink: 0;
+      overflow: hidden;
+      vertical-align: bottom;
+      pointer-events: none;
+    }
+  }
+  .error-message-container{
+    box-sizing: border-box;
+    a{
+      color: #1869db;
+    }
+  }
+}
