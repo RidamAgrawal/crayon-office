@@ -2,16 +2,22 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  inject,
   Output,
+  signal,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
+  WritableSignal,
 } from '@angular/core';
 import {
   AppOverlayConfig,
   OverlayService,
 } from '../../../../services/overlay-service/overlay-service';
 import { WorkItemModalComponent } from './_components/work-item-modal/work-item-modal.component';
+import { Store } from '@ngrx/store';
+import { selectUserDetail } from '../../store/dashboards-store.selector';
+import { User } from '../../../../models';
 
 @Component({
   selector: 'app-dashboards-header',
@@ -20,6 +26,7 @@ import { WorkItemModalComponent } from './_components/work-item-modal/work-item-
   styleUrl: './dashboards-header.scss',
 })
 export class DashboardsHeader {
+  private readonly store = inject(Store);
   @Output() public sidebarIconHover: EventEmitter<boolean> =
     new EventEmitter<boolean>();
   @Output() public sidebarIconClick: EventEmitter<boolean> =
@@ -87,10 +94,11 @@ export class DashboardsHeader {
     offsetX: 0,
     offsetY: 8,
   };
+  protected user: WritableSignal<User | null> = signal(null);
   constructor(
     private viewContainerRef: ViewContainerRef,
     private overlayService: OverlayService,
-  ) {}
+  ) { }
   public showSidebar() {
     this.sidebarIconClick.emit(!this.isSidebar);
     this.isSidebar = !this.isSidebar;
@@ -128,5 +136,12 @@ export class DashboardsHeader {
       viewContainerRef: this.viewContainerRef,
       hasBackdrop: true
     });
+  }
+
+  public ngOnInit(): void {
+    this.store.select(selectUserDetail)
+      .subscribe((user) => {
+        this.user.set(user);
+      });
   }
 }

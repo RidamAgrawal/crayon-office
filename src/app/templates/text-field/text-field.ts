@@ -22,7 +22,7 @@ import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_V
 export class TextField implements ControlValueAccessor, Validator {
   public readonly value = model<string>('');
   public readonly placeholder = input<string>('');
-  @Input() public validatorFn?: (value: string) => ValidationErrors | null;
+  public readonly validatorFn = input<(value: string) => ValidationErrors | null>();
 
   private onChange = (value: string) => {};
   private onTouched = () => {};
@@ -30,7 +30,7 @@ export class TextField implements ControlValueAccessor, Validator {
 
   protected error = signal<ValidationErrors | null>(null);
   protected isDirty = signal<boolean>(false);
-  
+
   protected onValueChange(value: string): void {
     this.value.set(value);
     this.onChange(value);
@@ -59,7 +59,7 @@ export class TextField implements ControlValueAccessor, Validator {
   }
 
   private runValidation(value: string) {
-    this.error.set(this.validatorFn ? this.validatorFn(value) : null);
+    this.error.set(this.validatorFn()?.(value) ?? null);
     this.onValidatorChange();
   }
 

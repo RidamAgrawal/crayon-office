@@ -27,13 +27,13 @@
             }
         </div>
         <div class="action">
-            <button class="header-btn">
+            <a class="header-btn">
                 Get Free
-            </button>
+            </a>
             <div class="header-divider"></div>
-            <button class="header-btn">
+            <a routerLink="/login" class="header-btn">
                 Sign in
-            </button>
+            </a>
         </div>
     </nav>
 </div>
@@ -62,10 +62,10 @@
         </div>
     </div>
     <div class="action">
-        <button class="header-btn">
+        <a routerLink="/sign-up" class="header-btn">
             Get Free
-        </button>
-        <button class="header-btn">Sign in</button>
+        </a>
+        <a routerLink="/login" class="header-btn">Sign in</a>
         <div class="header-divider"></div>
         <app-nav-menu-btn [config]="buttonConfig">
             <svg class="label-content" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">

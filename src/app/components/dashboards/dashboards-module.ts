@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { CdkDrag, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Dashboards } from './dashboards';
 import { provideRouter, RouterModule, RouterOutlet, Routes } from '@angular/router';
+import { provideState } from '@ngrx/store';
+import { DashboardsStoreKey } from './store/dashboards-store.models';
+import { dashboardsStoreReducer } from './store/dashboards-store.reducer';
 import { DashboardsHeader } from './_components/dashboards-header/dashboards-header';
 import { IconContainer } from './_components/icon-container/icon-container';
 import { DashboardSearchBar } from './_components/dashboard-search-bar/dashboard-search-bar';
@@ -24,6 +27,7 @@ import { TooltipDirective } from "../../directives/tooltip-directive/tooltip-dir
 import { WysiwygEditorComponent } from '../../templates/wysiwyg/wysiwyg.component';
 import { Wysiwyg2 } from '../../templates/wysiwyg2/wysiwyg2';
 import { ScrollBorder } from '../../directives/scroll-border/scroll-border.directive';
+import { NamePipe } from '../../pipes/name-pipe/name-pipe';
 
 const dashboardRoutes: Routes =[
   {
@@ -44,6 +48,11 @@ const dashboardRoutes: Routes =[
         path: 'recent',
         loadComponent: ()=> import('./_components/dashboard-recent/dashboard-recent')
         .then(c=>c.DashboardRecent),
+      },
+      {
+        path: 'spaces/:spaceId/:viewId',
+        loadComponent: ()=> import('./_components/dashboard-space')
+        .then(c=>c.DashboardSpace),
       }
     ]
   }
@@ -74,9 +83,11 @@ const dashboardRoutes: Routes =[
     Wysiwyg2,
     ScrollBorder,
     IconContainer,
+    NamePipe
 ],
   providers:[
-    provideRouter(dashboardRoutes)
+    provideRouter(dashboardRoutes),
+    provideState(DashboardsStoreKey, dashboardsStoreReducer),
   ]
 })
 export class DashboardsModule { }

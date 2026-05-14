@@ -388,12 +388,14 @@ app-dashboard-search-bar {
 }
 
 .avatar-icon {
-    height: 20px;
-    width: 20px;
+    height: 24px;
+    width: 24px;
     border-radius: 100%;
     border: none;
     background-color: #1868DB;
-    color: #292A2E;
+    color: #fff;
+    font-size: 0.675rem;
+    line-height: 1.50rem;
 }
 
 
@@ -1110,6 +1112,14 @@ button.settings-keyboard-shortcut>span>span.code-container>.code {
     width: 4pc;
     box-sizing: border-box;
     border: none;
+    border-radius: 100%;
+    border: none;
+    background-color: #1868DB;
+    >.avatar-text {
+        color: #fff;
+        font-size: 1.5rem;
+        line-height: 4pc;
+    }
 }
 
 .accounts-section.accounts-section-1>.accounts-details>.accounts-details-container>.accounts-details-content>.details-container {

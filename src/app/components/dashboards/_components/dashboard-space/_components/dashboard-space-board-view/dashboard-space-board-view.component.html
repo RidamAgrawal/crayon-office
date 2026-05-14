@@ -1,0 +1,126 @@
+<div class="space-search-filter">
+    <div class="space-search-filter-row-group space-search-filter-row-group-1">
+        <div class="space-search-filter-row-group-1-container">
+            <text-field placeholder="Search Board"></text-field>
+            <div class="assignee-filter">
+                <fieldset>
+                    <legend>Filter by Assignee</legend>
+                    <div class="avatars">
+                        <div class="unassigned-avatar avatar">
+                            <input type="checkbox" class="avatar-checkbox">
+                            <div class="avatar-icon-container">
+                                <span class="avatar-icon-content">
+                                    <span class="avatar-icon">
+                                        <img src="./assets/icons/person.svg" alt="">
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="user-avatar avatar">
+                            <input type="checkbox" class="avatar-checkbox">
+                            <div class="avatar-icon-container">
+                                <span class="avatar-icon-content">
+                                    <span class="avatar-icon">
+                                        {{ 'R' }}
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <button class="filter-grp-btn secondary-btn" (click)="openFilterModal(filterGrpBtn)" #filterGrpBtn>
+                <span class="filter-grp-content">
+                    <span><img src="./assets/icons/filterList.svg" alt="icon"></span>
+                </span>
+                <span>Filter</span>
+            </button>
+        </div>
+    </div>
+    <div class="space-search-filter-row-group space-search-filter-row-group-2">
+        <button class="secondary-btn">
+            <span>Group</span>
+            <span><img src="./assets/icons/arrow-down.svg" alt="icon"></span>
+        </button>
+        <button class="secondary-btn">
+            <span><img src="./assets/icons/customize.svg" alt="icon"></span>
+        </button>
+        <button class="secondary-btn">
+            <span><img src="./assets/icons/customize.svg" alt="icon"></span>
+        </button>
+        <button class="secondary-btn">
+            <span><img src="./assets/icons/more.svg" alt="icon"></span>
+        </button>
+    </div>
+</div>
+<div class="space-body">
+    <div class="outer left-outer"></div>
+    <div class="body-columns">
+        <div class="columns-container">
+            <div class="column"></div>
+        </div>
+    </div>
+    <div class="add-columns-btn-container">
+        <button class="add-columns-btn">
+            <span class="icon-content">
+                <img src="./assets/icons/add2.svg" alt="icon">
+            </span>
+        </button>
+    </div>
+    <div class="outer right-outer"></div>
+</div>
+
+<ng-template #filterModalTemplate>
+    <div class="filter-modal-template">
+        <div class="filter-modal-body">
+            <div class="filter-modal-nav">
+                @for(filter of modalTemplatefilters;track $index) {
+                <button class="filter-modal-nav-item" [class.selected]="selectedModalTemplateFilter()?.id===filter.id"
+                    (click)="selectedModalTemplateFilter.set(filter)">
+                    <div class="filter-modal-nav-item-text">
+                        {{filter.text}}
+                        @if (filter.isInfoIcon){
+                        <span class="icon">
+                            <img src="./assets/icons/info.svg" alt="">
+                        </span>
+                        }
+                    </div>
+                </button>
+                }
+            </div>
+            <div class="filter-modal-main">
+                @if(selectedModalTemplateFilter()) {
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <text-field [placeholder]="'Search '+selectedModalTemplateFilter()?.text"></text-field>
+                        <div class="filter-options-container">
+                            <app-checkbox [checkboxConfig]="{title:'No parent'}"></app-checkbox>
+                        </div>
+                        @if(false){
+                        <div class="shimmer text-field-placeholder"></div>
+                        <div class="shimmer checkbox-placeholder"></div>
+                        <div class="shimmer checkbox-placeholder"></div>
+                        <div class="shimmer checkbox-placeholder"></div>
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <div class="footer-text">showing 1 of 1</div>
+                        @if(false){
+                        <div class="modal-footer-placeholder">
+                            <div class="shimmer modal-footer-shimmer modal-footer-shimmer-1"></div>
+                            <div class="shimmer modal-footer-shimmer modal-footer-shimmer-2"></div>
+                        </div>
+                        }
+                    </div>
+                </div>
+                } @else {
+                <div class="empty-modal-body">
+                    Select a field to start creating a filter.
+                </div>
+                }
+            </div>
+        </div>
+        <div class="filter-modal-footer">
+        </div>
+    </div>
+</ng-template>

@@ -19,6 +19,8 @@
     "@angular/platform-browser": "^20.0.0",
     "@angular/router": "^20.0.0",
     "@azure/msal-browser": "^5.6.3",
+    "@ngrx/effects": "^21.1.0",
+    "@ngrx/store": "^21.1.0",
     "@types/google-one-tap": "^1.2.7",
     "google-one-tap": "^1.0.6",
     "prosemirror-commands": "^1.7.1",

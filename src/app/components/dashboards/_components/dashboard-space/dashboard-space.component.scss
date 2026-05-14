@@ -1,0 +1,16 @@
+:host {
+    height: inherit;
+    font-weight: 400;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-space-body {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}

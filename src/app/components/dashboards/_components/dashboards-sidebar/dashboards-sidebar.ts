@@ -1,11 +1,13 @@
 
-import { ChangeDetectorRef, Component, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { HttpService } from '../../../../services/http-service/http-service';
 import { TemplateService } from '../../../../services/template-service/template-service';
 import { Observable } from 'rxjs';
 import { AppOverlayConfig, OverlayService } from '../../../../services/overlay-service/overlay-service';
 import { CreateSpaceModalComponent } from '../dashboards-header/_components/create-space-modal/create-space-modal.component';
 import { CdkDropList, DragDropModule } from '@angular/cdk/drag-drop';
+import { Store } from '@ngrx/store';
+import { SPACES_SIDEBAR_ITEM_HOVERTOOLS } from './dashboards-sidebar.constants';
 
 export interface CustomizeModalConfig {
   isTemplate?: boolean | null;
@@ -24,6 +26,7 @@ export interface CustomizeModalConfig {
   providers: [DragDropModule],
 })
 export class DashboardsSidebar {
+  private readonly store = inject(Store);
   @ViewChild('recentTemplate', { read: TemplateRef, static: true }) recentTemplate!: TemplateRef<any>;
 
   public internalItems!: any[];
@@ -57,8 +60,9 @@ export class DashboardsSidebar {
         this.customizeItem = res.customizeSidebar;
         this.feedbackItem = res.feedback;
         this.subscribeToolsActions();
+        this.updateSpaces();
         this.cdr.detectChanges();
-      })
+      });
   }
   public openModal(modalConfig: AppOverlayConfig) {
     if (modalConfig.closeOnBackdropClick) {
@@ -150,5 +154,28 @@ export class DashboardsSidebar {
   }
   public ngOnDestroy() {
 
+  }
+
+  private updateSpaces(): void {
+    this.httpService.getSpaces()
+    .subscribe(response => {
+      const spaceItem = this.internalItems.find(itm => itm.title==='Spaces');
+      if (spaceItem) {
+        const recentList = spaceItem.multipleLists.find((list: any) => list.heading === 'Recent');
+        if (recentList && Array.isArray(recentList.list) && Array.isArray(response)) {
+          response.forEach(space => {
+            recentList.list.unshift({
+              hoverTools: SPACES_SIDEBAR_ITEM_HOVERTOOLS,
+              icon: "projects",
+              title: space.name,
+              type: "link",
+              visible: true,
+            });
+          });          
+        }
+      }
+    })
+    this.subscribeToolsActions();
+    this.cdr.detectChanges();
   }
 }

@@ -1,7 +1,10 @@
 
-import { Component, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, inject, signal, TemplateRef, ViewChild, ViewContainerRef, WritableSignal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DashboardsModal } from './_components/dashboards-modal/dashboards-modal';
+import { Store } from '@ngrx/store';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { setUserDetails } from './store/dashboards-store.actions';
 
 @Component({
   selector: 'app-dashboards',
@@ -17,7 +20,8 @@ import { DashboardsModal } from './_components/dashboards-modal/dashboards-modal
   }
 })
 export class Dashboards {
-  @ViewChild('modal', { read: TemplateRef, static: true }) modalTemplate!: TemplateRef<any>;
+  private readonly store = inject(Store);
+  private readonly authService = inject(AuthenticationService);
 
   public resizableConfig = {
     resizableRight: true,
@@ -30,19 +34,9 @@ export class Dashboards {
   public isAside: boolean = false;
   public spotlightX: string = '-200px';
   public spotlightY: string = '-200px';
-  constructor(
-    private vcr: ViewContainerRef
-  ) { }
   
-  public openModal(modalConfig: any): Observable<any> {
-    this.vcr.clear();
-    const dashboardsModalCompRef = this.vcr.createComponent(DashboardsModal);
-    dashboardsModalCompRef.setInput('modalConfig', modalConfig);
-    return dashboardsModalCompRef.instance.getComponentOutputs();
-  }
-  public dismissModal() {
-    this.vcr.clear();
-  }
+  protected readonly spaces: WritableSignal<any[]> = signal<any>([]);
+
   public sidebarIconHovered(hovered: boolean): void {
     this.sidebarHovered = hovered;
   }
@@ -62,5 +56,10 @@ export class Dashboards {
   public onMainMouseLeave(): void {
     this.spotlightX = '-200px';
     this.spotlightY = '-200px';
+  }
+
+  public ngOnInit(): void {
+    const userDetail = this.authService.currentUser;
+    if (userDetail) this.store.dispatch(setUserDetails({ userDetail }));
   }
 }

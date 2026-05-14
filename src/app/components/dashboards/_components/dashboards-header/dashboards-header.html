@@ -121,10 +121,10 @@
       class="list-icon"
       #accountsIcon
       (click)="show(accountsIcon, accountTemplate, notificationPosition)"
-      [appTooltipDirective]="{text: 'anonymous@person.com', position: 'below'}"
+      [appTooltipDirective]="{text: user()?.displayName ?? 'anonymous@person.com', position: 'below'}"
     >
       <button class="avatar">
-        <span class="avatar-text"> <span class="avatar-icon"> A </span> </span>
+        <span class="avatar-text"> <div class="avatar-icon"> {{ user()?.displayName ?? null | name  }} </div> </span>
       </button>
     </div>
   </div>
@@ -426,11 +426,17 @@
             <div class="accounts-details-container">
               <div class="accounts-details-content">
                 <div class="avatar-container">
-                  <img src="assets/icons/foryou.svg" alt="icons" />
+                  @if (user()?.avatarUrl) {
+                    <img [src]="user()!.avatarUrl" alt="icons" />
+                  } @else {
+                    <div class="avatar-text">
+                      {{ user()?.displayName ?? null | name }}
+                    </div>
+                  }
                 </div>
                 <div class="details-container">
-                  <h3 class="details-user-name">Unknown</h3>
-                  <p class="details-user-email">Anonymous@person.com</p>
+                  <h3 class="details-user-name">{{ user()?.displayName ?? 'Unknown' }}</h3>
+                  <p class="details-user-email">{{ user()?.email ?? 'Anonymous@person.com' }}</p>
                 </div>
               </div>
             </div>
