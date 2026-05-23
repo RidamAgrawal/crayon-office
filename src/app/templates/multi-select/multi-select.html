@@ -27,10 +27,12 @@
         <div class="dropdown-icon-container">
             <div class="loading-indicator">
                 <span class="loader">
-                    <svg height="16" width="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
-                        class="svg">
-                        <circle cx="8" cy="8" r="7" class="loader-circle"></circle>
-                    </svg>
+                    <span class="loader-rotating-element">
+                        <svg class="loader-rotating-svg" height="24" width="24" viewBox="0 0 16 16"
+                            xmlns="http://www.w3.org/2000/svg" role="none">
+                            <circle cx="8" cy="8" r="7"></circle>
+                        </svg>
+                    </span>
                 </span>
             </div>
             <div class="clear-container" [ngClass]="{'show': selectedOptions().size}" (click)="clearAll()">

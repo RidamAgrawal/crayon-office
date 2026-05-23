@@ -1,9 +1,17 @@
-
-import { ChangeDetectorRef, Component, inject, TemplateRef, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { HttpService } from '../../../../services/http-service/http-service';
 import { TemplateService } from '../../../../services/template-service/template-service';
 import { Observable } from 'rxjs';
-import { AppOverlayConfig, OverlayService } from '../../../../services/overlay-service/overlay-service';
+import {
+  AppOverlayConfig,
+  OverlayService,
+} from '../../../../services/overlay-service/overlay-service';
 import { CreateSpaceModalComponent } from '../dashboards-header/_components/create-space-modal/create-space-modal.component';
 import { CdkDropList, DragDropModule } from '@angular/cdk/drag-drop';
 import { Store } from '@ngrx/store';
@@ -27,42 +35,48 @@ export interface CustomizeModalConfig {
 })
 export class DashboardsSidebar {
   private readonly store = inject(Store);
-  @ViewChild('recentTemplate', { read: TemplateRef, static: true }) recentTemplate!: TemplateRef<any>;
+  @ViewChild('recentTemplate', { read: TemplateRef, static: true })
+  recentTemplate!: TemplateRef<any>;
 
   public internalItems!: any[];
   public externalLinks!: any[];
-  public customizeItem: any = { visible: true, disableHoverAnimation: true};
-  public feedbackItem: any = { visible: true, disableHoverAnimation: true};
+  public customizeItem: any = { visible: true, disableHoverAnimation: true };
+  public feedbackItem: any = { visible: true, disableHoverAnimation: true };
   public customizeModalConfig: AppOverlayConfig = {
-    componentOutputs: { saveChanges: (data: any) => this.onCustomizedChanges(data) },
+    componentOutputs: {
+      saveChanges: (data: any) => this.onCustomizedChanges(data),
+    },
     hasBackdrop: true,
-    closeOnBackdropClick: true 
+    closeOnBackdropClick: true,
   };
   public feedbackModalConfig: AppOverlayConfig = {
-   componentOutputs: { sendFeedback: (data: any) => this.onSendFeedback(data) },
-   hasBackdrop: true, 
+    componentOutputs: {
+      sendFeedback: (data: any) => this.onSendFeedback(data),
+    },
+    hasBackdrop: true,
   };
   public subscriptions!: Observable<any>[];
   constructor(
     private httpService: HttpService,
     private templateService: TemplateService,
     private cdr: ChangeDetectorRef,
-    private overlayService: OverlayService
+    private overlayService: OverlayService,
   ) {
-    this.customizeModalConfig.component = this.templateService.templates['customize-sidebar'];
-    this.feedbackModalConfig.component = this.templateService.templates['feedback-sidebar'];
+    this.customizeModalConfig.component =
+      this.templateService.templates['customize-sidebar'];
+    this.feedbackModalConfig.component =
+      this.templateService.templates['feedback-sidebar'];
   }
   ngOnInit() {
-    this.httpService.getSidebarItemConfig()
-      .subscribe((res: any) => {
-        this.internalItems = res.internalItems;
-        this.externalLinks = res.externalLinks;
-        this.customizeItem = res.customizeSidebar;
-        this.feedbackItem = res.feedback;
-        this.subscribeToolsActions();
-        this.updateSpaces();
-        this.cdr.detectChanges();
-      });
+    this.httpService.getSidebarItemConfig().subscribe((res: any) => {
+      this.internalItems = res.internalItems;
+      this.externalLinks = res.externalLinks;
+      this.customizeItem = res.customizeSidebar;
+      this.feedbackItem = res.feedback;
+      this.subscribeToolsActions();
+      this.updateSpaces();
+      this.cdr.detectChanges();
+    });
   }
   public openModal(modalConfig: AppOverlayConfig) {
     if (modalConfig.closeOnBackdropClick) {
@@ -71,16 +85,20 @@ export class DashboardsSidebar {
     this.overlayService.open(modalConfig);
   }
   public onCustomizedChanges(data: any) {
-    if(data) {
+    if (data) {
       const oldIternalItems = this.internalItems;
-      this.internalItems = data.internalItems.map((item: any)=>{
-        const targetItem = oldIternalItems.find(oldItem=>oldItem.title==item.title);
+      this.internalItems = data.internalItems.map((item: any) => {
+        const targetItem = oldIternalItems.find(
+          (oldItem) => oldItem.title == item.title,
+        );
         targetItem.visible = item.visible;
         return targetItem;
       });
       const oldExternalLinks = this.externalLinks;
-      this.externalLinks = data.externalLinks.map((item: any)=>{
-        const targetItem = oldExternalLinks.find(oldItem=>oldItem.title==item.title);
+      this.externalLinks = data.externalLinks.map((item: any) => {
+        const targetItem = oldExternalLinks.find(
+          (oldItem) => oldItem.title == item.title,
+        );
         targetItem.visible = item.visible;
         return targetItem;
       });
@@ -95,20 +113,20 @@ export class DashboardsSidebar {
   public subscribeToolsActions() {
     const recursivelyIterateItems = (items: any[]) => {
       items.forEach((item: any) => {
-        item.actionEventHandler = (item: any,action: any) => this.handleActionEvent(item, action);
+        item.actionEventHandler = (item: any, action: any) =>
+          this.handleActionEvent(item, action);
         if (item.list) {
           recursivelyIterateItems(item.list);
-        }
-        else if (item?.multipleLists?.length) {
+        } else if (item?.multipleLists?.length) {
           item.multipleLists.forEach((list: any) => {
             recursivelyIterateItems(list.list);
-          })
+          });
         }
-      })
-    }
+      });
+    };
     recursivelyIterateItems(this.internalItems);
   }
-  public handleActionEvent(item: any,action: any) {
+  public handleActionEvent(item: any, action: any) {
     switch (action.id) {
       case 'modal':
         if (action.viewContainerRef) {
@@ -118,7 +136,10 @@ export class DashboardsSidebar {
             viewContainerRef: action.viewContainerRef,
             positions: [
               {
-                originX: 'end',originY: 'top',overlayX: 'start',overlayY: 'top',
+                originX: 'end',
+                originY: 'top',
+                overlayX: 'start',
+                overlayY: 'top',
               },
             ],
           });
@@ -139,8 +160,22 @@ export class DashboardsSidebar {
   }
   public prepareCustomizeModalInputs() {
     this.customizeModalConfig.componentInputs = {
-      internalItems: this.internalItems.map( (item: any) => { return {visible: item.visible, title: item.title, icon: item.icon, contentOutside: true} }),
-      externalLinks: this.externalLinks.map( (item: any) => { return {visible: item.visible, title: item.title, icon: item.icon, contentOutside: true} })
+      internalItems: this.internalItems.map((item: any) => {
+        return {
+          visible: item.visible,
+          title: item.title,
+          icon: item.icon,
+          contentOutside: true,
+        };
+      }),
+      externalLinks: this.externalLinks.map((item: any) => {
+        return {
+          visible: item.visible,
+          title: item.title,
+          icon: item.icon,
+          contentOutside: true,
+        };
+      }),
     };
   }
   protected handleEmitEvent(emitOptions: any) {
@@ -148,33 +183,39 @@ export class DashboardsSidebar {
       this.overlayService.open({
         component: CreateSpaceModalComponent,
         hasBackdrop: true,
-        closeOnBackdropClick: true
-      })
+        closeOnBackdropClick: true,
+      });
     }
   }
-  public ngOnDestroy() {
-
-  }
+  public ngOnDestroy() {}
 
   private updateSpaces(): void {
-    this.httpService.getSpaces()
-    .subscribe(response => {
-      const spaceItem = this.internalItems.find(itm => itm.title==='Spaces');
+    this.httpService.getSpaces().subscribe((response) => {
+      const spaceItem = this.internalItems.find(
+        (itm) => itm.title === 'Spaces',
+      );
       if (spaceItem) {
-        const recentList = spaceItem.multipleLists.find((list: any) => list.heading === 'Recent');
-        if (recentList && Array.isArray(recentList.list) && Array.isArray(response)) {
-          response.forEach(space => {
+        const recentList = spaceItem.multipleLists.find(
+          (list: any) => list.heading === 'Recent',
+        );
+        if (
+          recentList &&
+          Array.isArray(recentList.list) &&
+          Array.isArray(response)
+        ) {
+          response.forEach((space) => {
             recentList.list.unshift({
               hoverTools: SPACES_SIDEBAR_ITEM_HOVERTOOLS,
-              icon: "projects",
+              icon: 'projects',
               title: space.name,
-              type: "link",
+              type: 'link',
               visible: true,
+              routerLink: '/app/spaces/' + space.id + '/board',
             });
-          });          
+          });
         }
       }
-    })
+    });
     this.subscribeToolsActions();
     this.cdr.detectChanges();
   }

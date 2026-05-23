@@ -2,7 +2,7 @@
     @switch (sideBarItemConfig().type) {
         @case ('link') {
             <div class="sidebar-item-container" [appTooltipDirective]="{text: sideBarItemConfig().title, position: 'right'}">
-                <a  class="sidebar-item-link">
+                <a  class="sidebar-item-link" [routerLink]="sideBarItemConfig().routerLink" [href]="sideBarItemConfig().href">
                     @if(!sideBarItemConfig().disableHoverAnimation){
                         <div class="horizontal-highlighter"></div>
                         <div class="horizontal-highlighter2"></div>

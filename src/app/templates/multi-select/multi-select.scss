@@ -268,7 +268,9 @@
 }
 .loading-indicator{
     box-sizing: border-box;
-    padding: 6px 8px;
+    position: relative;
+    height: 1rem;
+    width: 1rem;
 }
 .loading-indicator .loader{
     width: 16px;

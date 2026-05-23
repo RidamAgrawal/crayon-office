@@ -15,10 +15,11 @@ import {
 } from '../../services/overlay-service/overlay-service';
 import { TooltipDirective } from '../../directives/tooltip-directive/tooltip-directive';
 import { OptionWrapper } from '../option-wrapper/option-wrapper';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'sidebar-item',
-  imports: [CommonModule, TooltipDirective],
+  imports: [CommonModule, TooltipDirective, RouterLink],
   templateUrl: './sidebar-item.html',
   styleUrl: './sidebar-item.scss',
   host: {
