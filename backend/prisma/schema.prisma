@@ -1,10 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -20,38 +15,115 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  ownedSpaces  Space[]    @relation("SpaceOwner")
-  reported     WorkItem[] @relation("WorkItemReporter")
+  ownedSpaces  Space[]        @relation("SpaceOwner")
+  memberships  SpaceMember[]
+  reported     WorkItem[]     @relation("WorkItemReporter")
+  assigned     WorkItem[]     @relation("WorkItemAssignee")
 }
 
 model Space {
-  id        String   @id @default(uuid())
+  id        String     @id @default(uuid())
   name      String
-  key       String   @unique
-  counter   Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  key       String     @unique          // "DS" → drives "DS-1", "DS-2"
+  icon      String
+  type      SpaceType
+  template  String     @default("kanban")
+  counter   Int        @default(0)      // last issued key number
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 
   ownerId   String
-  owner     User       @relation("SpaceOwner", fields: [ownerId], references: [id])
+  owner     User          @relation("SpaceOwner", fields: [ownerId], references: [id])
+  members   SpaceMember[]
+  statuses  Status[]
   workItems WorkItem[]
-  template  String   @default("kanban")  // just the template id
+  views     View[]
+}
+
+model SpaceMember {
+  spaceId String
+  userId  String
+  role    MemberRole @default(MEMBER)
+  joinedAt DateTime @default(now())
+
+  space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId],  references: [id], onDelete: Cascade)
+
+  @@id([spaceId, userId])
+  @@index([userId])
+}
+
+model Status {
+  id       String         @id @default(uuid())
+  spaceId  String
+  name     String                                // "TO DO", "IN PROGRESS", "DONE"
+  order    Int                                   // column position
+  category StatusCategory                        // drives the green check on DONE
+
+  space    Space      @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  items    WorkItem[]
+
+  @@unique([spaceId, name])
+  @@index([spaceId, order])
 }
 
 model WorkItem {
   id          String   @id @default(uuid())
-  key         String   @unique
+  key         String   @unique                  // "DS-1"
   summary     String
   description String?
   workType    WorkType
-  status      Status   @default(OPEN)
+  priority    Priority @default(MEDIUM)
+  rank        String                            // lexorank string for drag ordering
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   spaceId    String
-  space      Space @relation(fields: [spaceId], references: [id])
+  space      Space  @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  statusId   String
+  status     Status @relation(fields: [statusId], references: [id])
   reporterId String
-  reporter   User  @relation("WorkItemReporter", fields: [reporterId], references: [id])
+  reporter   User   @relation("WorkItemReporter", fields: [reporterId], references: [id])
+  assigneeId String?
+  assignee   User?  @relation("WorkItemAssignee", fields: [assigneeId], references: [id])
+  parentId   String?
+  parent     WorkItem?  @relation("Subtasks", fields: [parentId], references: [id])
+  children   WorkItem[] @relation("Subtasks")
+
+  @@index([spaceId, statusId, rank])
+  @@index([assigneeId])
+}
+
+model View {
+  id        String   @id @default(uuid())
+  spaceId   String
+  type      ViewType                             // BOARD, LIST, CALENDAR…
+  name      String
+  config    Json                                 // filters, grouping, visible cols
+  ownerId   String?                              // null = shared
+  createdAt DateTime @default(now())
+
+  space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+
+  @@index([spaceId, type])
+}
+
+enum SpaceType {
+  JIRA
+  CONFLUENCE
+}
+
+enum MemberRole {
+  OWNER
+  ADMIN
+  MEMBER
+  VIEWER
+}
+
+enum StatusCategory {
+  TODO
+  IN_PROGRESS
+  DONE
 }
 
 enum WorkType {
@@ -61,8 +133,20 @@ enum WorkType {
   STORY
 }
 
-enum Status {
-  OPEN
-  IN_PROGRESS
-  DONE
+enum Priority {
+  LOWEST
+  LOW
+  MEDIUM
+  HIGH
+  HIGHEST
+}
+
+enum ViewType {
+  BOARD
+  LIST
+  CALENDAR
+  TIMELINE
+  SUMMARY
+  FORM
+  CODE
 }

@@ -1,0 +1,153 @@
+:host {
+  margin-bottom: 2px;
+  position: relative;
+  border-radius: 0.25rem;
+  transition:
+    background-color 0.14s ease-in-out,
+    color 0.14s ease-in-out;
+  box-shadow:
+    0px 1px 1px #1e1f2140,
+    0px 0px 1px #1e1f214f;
+  margin-top: 2px;
+  flex-direction: column;
+  cursor: pointer;
+  background-color: #e9f2fe;
+  filter: none;
+  pointer-events: none;
+  max-width: 270px;
+  -webkit-user-select: none;
+  user-select: none;
+  color: #292a2e;
+  display: flex;
+  position: relative;
+  .card-options {
+    box-sizing: border-box;
+    appearance: none;
+    border-width: medium;
+    border-style: none;
+    border-color: currentcolor;
+    border-image: initial;
+    pointer-events: auto;
+    position: absolute;
+    background-color: transparent;
+    border-radius: 3px;
+    right: 12px;
+    top: 12px;
+    visibility: initial;
+    z-index: 1;
+    &:hover {
+      .card-option-btn {
+        background-color: #0102240f;
+      }
+    }
+  }
+  .card-contents {
+    display: flex;
+    box-sizing: border-box;
+    padding-right: 9pt;
+    padding-bottom: 9pt;
+    padding-top: 9pt;
+    flex-direction: column;
+    padding-left: 9pt;
+    .card-details {
+      box-sizing: border-box;
+      appearance: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: initial;
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      position: relative;
+      pointer-events: auto;
+    }
+    .card-details:first-child {
+      margin-bottom: 0.5rem;
+      margin-right: 2rem;
+      height: 100%;
+      width: 100%;
+      line-height: 1.25rem;
+      margin: -0.25rem 0;
+      padding: 0.25rem 0;
+      border-radius: 0.25rem;
+    }
+    .card-details:nth-child(2) {
+      margin-top: 0.25rem;
+    }
+    .card-item-description {
+      .description {
+        line-height: 1.75rem;
+        padding-right: 0.25rem;
+      }
+      .edit-description-btn {
+        &:hover {
+          background-color: #0102240f;
+        }
+        img {
+          height: 16px;
+          width: 16px;
+        }
+      }
+    }
+    .card-item-details {
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      grid-template-rows: 1fr;
+      min-height: 28px;
+      grid-template-areas: "primary tertiary secondary";
+      display: grid;
+      width: 100%;
+      gap: 8px 4px;
+      .status {
+        width: fit-content;
+        grid-area: primary;
+        align-items: center;
+        img {
+          height: 1.5rem;
+          width: 1.5rem;
+        }
+      }
+      .assignee {
+        grid-area: secondary;
+      }
+    }
+  }
+  &:hover {
+    background-color: #cfe1fd;
+  }
+}
+.icon-btn {
+  padding-inline-end: 0;
+  text-align: center;
+  box-sizing: border-box;
+  color: #505258;
+  vertical-align: middle;
+  appearance: none;
+  max-width: 100%;
+  position: relative;
+  font-weight: 500;
+  column-gap: 4px;
+  padding-inline-start: 0;
+  background-color: #0000;
+  text-decoration-style: solid;
+  cursor: pointer;
+  height: 1.5rem;
+  align-items: baseline;
+  text-decoration-color: initial;
+  flex-shrink: 0;
+  text-decoration-line: none;
+  display: inline-flex;
+  width: 1.5rem;
+  justify-content: center;
+  padding-block: 2px;
+  border-width: 0;
+  transition: background 0.1s ease-out;
+  border-radius: 3px;
+  border: none;
+  .icon-content {
+    display: inline-flex;
+    line-height: 1;
+    flex-shrink: 0;
+    align-self: center;
+  }
+}

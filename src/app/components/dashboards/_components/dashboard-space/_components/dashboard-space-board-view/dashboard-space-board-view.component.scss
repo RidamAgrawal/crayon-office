@@ -220,7 +220,7 @@
     position: relative;
     flex-basis: auto;
     flex-shrink: 1;
-    flex-grow: 0;
+    flex-grow: 1;
     .columns-container {
       display: flex;
       grid-template-columns: none;
@@ -230,36 +230,6 @@
       flex-shrink: 1;
       padding-left: 4px;
       flex-grow: 1;
-      .column {
-        display: flex;
-        max-width: 282px;
-        position: relative;
-        flex-basis: auto;
-        flex-direction: column;
-        align-self: auto;
-        min-width: 282px;
-        flex-shrink: 1;
-        flex-grow: 1;
-        transition:
-        min-width 0.3s,
-        max-width 0.3s ease-in;
-        .column-content {
-          display: flex;
-          max-width: 270px;
-          flex-basis: auto;
-          background-color: #0515240f;
-          flex-direction: column;
-          margin-right: 0;
-          align-self: auto;
-          min-width: 270px;
-          flex-shrink: 1;
-          margin-left: 0;
-          box-shadow: none;
-          flex-grow: 1;
-          transition: min-width .3s, max-width .3s ease-in;
-          border-radius: 6px;
-        }
-      }
     }
   }
   .add-columns-btn-container {
@@ -375,6 +345,8 @@
         &.selected {
           background-color: #e9f2fe;
           box-shadow: inset 3px 0 0 #1868db;
+          border-top: 0.5px solid #1868db;
+          border-bottom: 0.5px solid #1868db;
           &:hover {
             background-color: #cfe1fd;
           }
@@ -518,5 +490,40 @@
   }
   100% {
     background-color: #17171708;
+  }
+}
+.icon-btn {
+  padding-inline-end: 0;
+  text-align: center;
+  box-sizing: border-box;
+  color: #505258;
+  vertical-align: middle;
+  appearance: none;
+  max-width: 100%;
+  position: relative;
+  font-weight: 500;
+  column-gap: 4px;
+  padding-inline-start: 0;
+  background-color: #0000;
+  text-decoration-style: solid;
+  cursor: pointer;
+  height: 1.5rem;
+  align-items: baseline;
+  text-decoration-color: initial;
+  flex-shrink: 0;
+  text-decoration-line: none;
+  display: inline-flex;
+  width: 1.5rem;
+  justify-content: center;
+  padding-block: 2px;
+  border-width: 0;
+  transition: background 0.1s ease-out;
+  border-radius: 3px;
+  border: none;
+  .icon-content {
+    display: inline-flex;
+    line-height: 1;
+    flex-shrink: 0;
+    align-self: center;
   }
 }

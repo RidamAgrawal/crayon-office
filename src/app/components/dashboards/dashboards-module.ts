@@ -28,6 +28,9 @@ import { WysiwygEditorComponent } from '../../templates/wysiwyg/wysiwyg.componen
 import { Wysiwyg2 } from '../../templates/wysiwyg2/wysiwyg2';
 import { ScrollBorder } from '../../directives/scroll-border/scroll-border.directive';
 import { NamePipe } from '../../pipes/name-pipe/name-pipe';
+import { DashboardSpaceResolver } from './_components/dashboard-space/_resolver/dashboard-space.resolver';
+import { SpaceStoreKey } from './_components/dashboard-space/_models';
+import { dashboardSpaceReducer } from './_components/dashboard-space/_store/dashboard-space-store.reducer';
 
 const dashboardRoutes: Routes =[
   {
@@ -50,9 +53,26 @@ const dashboardRoutes: Routes =[
         .then(c=>c.DashboardRecent),
       },
       {
-        path: 'spaces/:spaceId/:viewId',
+        path: 'spaces/:spaceId',
         loadComponent: ()=> import('./_components/dashboard-space')
         .then(c=>c.DashboardSpace),
+        providers: [provideState(SpaceStoreKey, dashboardSpaceReducer)],
+        resolve: {
+          spaceDetails: DashboardSpaceResolver,
+        },
+        children: [
+          { path: '', redirectTo: 'board', pathMatch: 'full' },
+          {
+            path: 'board',
+            loadComponent: () => import('./_components/dashboard-space/_components/dashboard-space-board-view/dashboard-space-board-view.component')
+              .then(c => c.DashboardSpaceBoardViewComponent),
+          },
+          // {
+          //   path: 'calendar',
+          //   loadComponent: () => import('./.../dashboard-space-calendar-view.component')
+          //     .then(c => c.DashboardSpaceCalendarViewComponent),
+          // },
+        ],
       }
     ]
   }

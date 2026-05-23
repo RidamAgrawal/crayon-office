@@ -1,0 +1,79 @@
+<!-- <div class="column"> -->
+<div class="column-content">
+  <div class="column-header">
+    <div class="column-header-content">
+      <div class="column-header-content-container">
+        <div class="column-header-text">
+          {{columnDetails().name}}
+          <div class="item-count">1</div>
+        </div>
+        <button class="icon-btn">
+          <span class="icon-content">
+            <img src="./assets/icons/more.svg" alt="icon" />
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <ul
+    class="column-body"
+    cdkDropList
+    [id]="columnDetails().id"
+    [cdkDropListData]="columnIssues()"
+    [cdkDropListConnectedTo]="connectedTo()"
+    (cdkDropListDropped)="cardDropped.emit($event)"
+  >
+    @for (issue of columnIssues(); track issue.id) {
+    <li class="item" cdkDrag [cdkDragData]="issue">
+      <board-view-card-template [issue]="issue"></board-view-card-template>
+    </li>
+    }
+    <li class="item">
+      @if (false) {
+      <div class="create-item">
+        <textarea
+          class="create-item-text"
+          placeholder="What needs to be done"
+        ></textarea>
+        <div class="tools">
+          <div class="tool tool1">
+            <button class="tool-btn status">
+              <span class="icon-content-container">
+                <div class="icon-content">
+                  <img src="./assets/icons/checkOutlineSquare.svg" alt="icon" />
+                  <img src="./assets/icons/arrow-down.svg" alt="icon" />
+                </div>
+              </span>
+            </button>
+            <button class="tool-btn calender">
+              <span class="icon-content-container">
+                <img src="./assets/icons/calenderAdd.svg" alt="" />
+              </span>
+            </button>
+            <button class="tool-btn assign">
+              <span class="icon-content-container">
+                <img src="./assets/icons/person.svg" alt="" />
+              </span>
+            </button>
+          </div>
+          <div class="tool tool2">
+            <button class="tool-btn create">
+              <span class="icon-content-container">
+                <img src="./assets/icons/keyboardEnter.svg" alt="" />
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      } @else {
+      <button class="create-item-btn">
+        <span class="icon-content">
+          <img src="./assets/icons/add2.svg" alt="icon" />
+        </span>
+        Create
+      </button>
+      }
+    </li>
+  </ul>
+</div>
+<!-- </div> -->

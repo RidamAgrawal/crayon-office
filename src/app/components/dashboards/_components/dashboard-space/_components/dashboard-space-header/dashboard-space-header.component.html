@@ -1,71 +1,272 @@
 <div class="space-details">
-    <div class="space-details-content">
-        <span class="text">Space</span>
-    </div>
-    <div class="space-details-content">
-        <img src="https://demo1234.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/10408">
-        <h1 class="space-name">Demo Space</h1>
-        <div class="options">
-            <button class="secondary-btn">
+  <div class="space-details-content">
+    <span class="text">Space</span>
+  </div>
+  <div class="space-details-content">
+    <img [src]="spaceDetail()?.icon" />
+    <h1 class="space-name">{{ spaceDetail()?.name }}</h1>
+    <div class="options">
+      <!-- <button class="secondary-btn">
                 <span>
                     <img src="./assets/icons/personAdd.svg" alt="icon">
                 </span>
-            </button>
-            <button class="secondary-btn">
-                <span>
-                    <img src="./assets/icons/more.svg" alt="icon">
-                </span>
-            </button>
-        </div>
-        <div class="extras">
-            <button class="secondary-btn">
-                <span>
-                    <img src="./assets/icons/link.svg" alt="icon">
-                </span>
-            </button>
-            <button class="secondary-btn">
-                <span>
-                    <img src="./assets/icons/plans.svg" alt="icon">
-                </span>
-            </button>
-            <button class="secondary-btn">
-                <span>
-                    <img src="./assets/icons/feedback.svg" alt="icon">
-                </span>
-            </button>
-            <button class="secondary-btn">
-                <span>
-                    <img src="./assets/icons/openInFull.svg" alt="icon">
-                </span>
-            </button>
-        </div>
+            </button> -->
+      <button class="secondary-btn" (click)="onOptionsClick($event)">
+        <span>
+          <img src="./assets/icons/more.svg" alt="icon" />
+        </span>
+      </button>
     </div>
+    <div class="extras">
+      <button class="secondary-btn">
+        <span>
+          <img src="./assets/icons/link.svg" alt="icon" />
+        </span>
+      </button>
+      <button class="secondary-btn">
+        <span>
+          <img src="./assets/icons/plans.svg" alt="icon" />
+        </span>
+      </button>
+      <button class="secondary-btn">
+        <span>
+          <img src="./assets/icons/feedback.svg" alt="icon" />
+        </span>
+      </button>
+      <button class="secondary-btn">
+        <span>
+          <img src="./assets/icons/openInFull.svg" alt="icon" />
+        </span>
+      </button>
+    </div>
+  </div>
 </div>
 <nav class="spaces-nav">
-    <ul class="spaces-nav-item-container">
-        <li class="spaces-nav-item">
-            <div class="spaces-nav-item-content">
-                <h2 class="spaces-view-text">
-                    <div class="spaces-view-icon">
-                        <img src="./assets/icons/dashboards.svg">
-                    </div>
-                    <span>Board</span>
-                </h2>
-                <div class="spaces-view-options">
-                    <button class="spaces-view-options-btn">
-                        <img src="./assets/icons/more.svg">
-                    </button>
-                </div>
+  <ul class="spaces-nav-item-container">
+    @for (navItem of spaceDetail()?.spaceNavs; track $index) {
+      <li class="spaces-nav-item" [id]="navItem.id">
+        <a
+          [routerLink]="[navItem.routerLink]"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLinkActive="selected"
+          class="spaces-nav-item-content"
+        >
+          <h2 class="spaces-view-text">
+            <div class="spaces-view-icon">
+              <img [src]="`./assets/icons/${navItem.icon}.svg`" />
             </div>
-        </li>
-    </ul>
-    <div class="more-views">
-        <button class="more-view-btn">
-            <span class="more-view-btn-content">
-                <span class="more-view-icon-container">
-                    <img src="./assets/icons/add2.svg">
-                </span>
-            </span>
-        </button>
-    </div>
+            <span>{{ navItem.label }}</span>
+          </h2>
+          <div class="spaces-view-options">
+            <button
+              class="spaces-view-options-btn"
+              (click)="onNavOptionsClick($event, navItem.optionLists)"
+            >
+              <img src="./assets/icons/more.svg" />
+            </button>
+          </div>
+        </a>
+      </li>
+    }
+  </ul>
+  <div class="more-views">
+    <button class="more-view-btn">
+      <span class="more-view-btn-content">
+        <span class="more-view-icon-container">
+          <img src="./assets/icons/add2.svg" />
+        </span>
+      </span>
+    </button>
+  </div>
 </nav>
+
+<ng-template #addPeopleTemplate>
+  <div class="add-people-template-body">
+    <div class="header">
+      <h2 class="modal-title">Add people to {{ spaceDetail()?.name }}</h2>
+      <button class="secondary-btn modal-close-btn">
+        <span class="icon-content">
+          <img src="./assets/icons/close.svg" alt="icon" />
+        </span>
+      </button>
+    </div>
+    <div class="status"></div>
+    <div class="body">
+      <div class="field-wrapper">
+        <label for="" class="field-label">
+          Name or emails
+          <span class="mandatory">*</span>
+        </label>
+        <text-field placeholder="e.g. john.doe@gmail.com"></text-field>
+      </div>
+      <div class="field-wrapper">
+        <label for="" class="field-label">or add with</label>
+        <ul class="btns-wrapper">
+          <li>
+            <button class="secondary-btn">
+              <span class="text-icon-container">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class=".icon"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M16.6412 6.42664L20.0279 3.11999C17.9479 1.18666 15.2413 0 12.0012 0C7.30792 0 3.25458 2.69332 1.28125 6.6133L5.16125 9.62662C6.13458 6.7333 8.82792 4.63998 12.0012 4.63998C14.2546 4.63998 15.7746 5.61331 16.6412 6.42664Z"
+                    fill="#EB4335"
+                  ></path>
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M23.52 12.2666C23.52 11.2799 23.44 10.5599 23.2667 9.81323H12V14.2665H18.6133C18.48 15.3732 17.76 17.0399 16.16 18.1599L19.9467 21.0932C22.2133 18.9999 23.52 15.9199 23.52 12.2666V12.2666V12.2666Z"
+                    fill="#4285F4"
+                  ></path>
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M5.17333 14.3732C4.92 13.6266 4.77333 12.8266 4.77333 11.9999C4.77333 11.1733 4.92 10.3733 5.16 9.6266L1.28 6.61328C0.466667 8.23994 0 10.0666 0 11.9999C0 13.9332 0.466667 15.7599 1.28 17.3866L5.17333 14.3732V14.3732Z"
+                    fill="#FBBC05"
+                  ></path>
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12.0006 24C15.2406 24 17.9606 22.9334 19.9473 21.0934L16.1606 18.1601C15.1473 18.8667 13.7873 19.3601 12.0006 19.3601C8.82728 19.3601 6.13394 17.2667 5.17394 14.3734L1.29395 17.3867C3.26728 21.3067 7.30728 24 12.0006 24V24V24Z"
+                    fill="#34A853"
+                  ></path>
+                </svg>
+                <span class="text">Google</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button class="secondary-btn">
+              <span class="text-icon-container">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 25 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="_1mouu2gc _2hwxu2gc"
+                >
+                  <g clip-path="url(#clip0)">
+                    <path
+                      d="M5.53305 15.1364C5.53305 16.5215 4.40159 17.6529 3.01653 17.6529C1.63146 17.6529 0.5 16.5215 0.5 15.1364C0.5 13.7513 1.63146 12.6199 3.01653 12.6199H5.53305V15.1364Z"
+                      fill="#E01E5A"
+                    ></path>
+                    <path
+                      d="M6.7998 15.1373C6.7998 13.7522 7.93127 12.6207 9.31633 12.6207C10.7014 12.6207 11.8329 13.7522 11.8329 15.1373V21.4383C11.8329 22.8234 10.7014 23.9548 9.31633 23.9548C7.93127 23.9548 6.7998 22.8234 6.7998 21.4383V15.1373Z"
+                      fill="#E01E5A"
+                    ></path>
+                    <path
+                      d="M9.31633 5.03305C7.93127 5.03305 6.7998 3.90159 6.7998 2.51653C6.7998 1.13146 7.93127 0 9.31633 0C10.7014 0 11.8329 1.13146 11.8329 2.51653V5.03305H9.31633Z"
+                      fill="#36C5F0"
+                    ></path>
+                    <path
+                      d="M9.3176 6.30078C10.7027 6.30078 11.8341 7.43224 11.8341 8.81731C11.8341 10.2024 10.7027 11.3338 9.3176 11.3338H3.01653C1.63146 11.3338 0.5 10.2024 0.5 8.81731C0.5 7.43224 1.63146 6.30078 3.01653 6.30078H9.3176Z"
+                      fill="#36C5F0"
+                    ></path>
+                    <path
+                      d="M19.4219 8.81731C19.4219 7.43224 20.5533 6.30078 21.9384 6.30078C23.3235 6.30078 24.4549 7.43224 24.4549 8.81731C24.4549 10.2024 23.3235 11.3338 21.9384 11.3338H19.4219V8.81731Z"
+                      fill="#2EB67D"
+                    ></path>
+                    <path
+                      d="M18.1517 8.8176C18.1517 10.2027 17.0202 11.3341 15.6352 11.3341C14.2501 11.3341 13.1187 10.2027 13.1187 8.8176V2.51653C13.1187 1.13146 14.2501 0 15.6352 0C17.0202 0 18.1517 1.13146 18.1517 2.51653V8.8176Z"
+                      fill="#2EB67D"
+                    ></path>
+                    <path
+                      d="M15.6371 18.9215C17.0222 18.9215 18.1537 20.053 18.1537 21.438C18.1537 22.8231 17.0222 23.9546 15.6371 23.9546C14.2521 23.9546 13.1206 22.8231 13.1206 21.438V18.9215H15.6371Z"
+                      fill="#ECB22E"
+                    ></path>
+                    <path
+                      d="M15.6366 17.6529C14.2516 17.6529 13.1201 16.5215 13.1201 15.1364C13.1201 13.7513 14.2516 12.6199 15.6366 12.6199H21.9377C23.3228 12.6199 24.4542 13.7513 24.4542 15.1364C24.4542 16.5215 23.3228 17.6529 21.9377 17.6529H15.6366Z"
+                      fill="#ECB22E"
+                    ></path>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0">
+                      <rect
+                        width="24"
+                        height="23.9999"
+                        fill="white"
+                        transform="translate(0.5)"
+                      ></rect>
+                    </clipPath>
+                  </defs>
+                </svg>
+                <span class="text">Slack</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button class="secondary-btn">
+              <span class="text-icon-container">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 25 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="_1mouu2gc _2hwxu2gc"
+                >
+                  <g clip-path="url(#clip0)">
+                    <path
+                      d="M0.5 0H11.9047V11.4047H0.5V0Z"
+                      fill="#F25022"
+                    ></path>
+                    <path
+                      d="M13.0952 0H24.4999V11.4047H13.0952V0Z"
+                      fill="#7FBA00"
+                    ></path>
+                    <path
+                      d="M0.5 12.5955H11.9047V24.0001H0.5V12.5955Z"
+                      fill="#00A4EF"
+                    ></path>
+                    <path
+                      d="M13.0952 12.5955H24.4999V24.0001H13.0952V12.5955Z"
+                      fill="#FFB900"
+                    ></path>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0">
+                      <rect
+                        width="24"
+                        height="23.9999"
+                        fill="white"
+                        transform="translate(0.5)"
+                      ></rect>
+                    </clipPath>
+                  </defs>
+                </svg>
+                <span class="text">Microsoft</span>
+              </span>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="field-wrapper">
+        <label for="" class="field-label">
+          Role
+          <span class="mandatory">*</span>
+        </label>
+        <app-multi-select></app-multi-select>
+      </div>
+    </div>
+    <div class="footer">
+      <button class="secondary-btn cancel-btn">
+        <span class="text">Cancel</span>
+      </button>
+      <button class="primary-btn add-btn">
+        <span class="text">Add</span>
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #spaceSettingsTemplate>
+  <div class="space-settings-template"></div>
+</ng-template>

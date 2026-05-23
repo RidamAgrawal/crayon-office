@@ -48,15 +48,20 @@
             <div class="field-wrapper select-field-wrapper">
                 <label for="type" class="field-label">
                     Status
+                    <span class="red-asterisk">*</span>
                 </label>
-                <app-multi-select></app-multi-select>
+                <!-- <app-multi-select></app-multi-select> -->
+                <button class="status-btn" (click)="onStatusClick(statusBtn)" #statusBtn [style.backgroundColor]="selectedStatus().color">
+                    <span class="text">{{selectedStatus().label}}</span>
+                    <app-icon-container>
+                        <img class="icon-content" src="./assets/icons/arrow-down.svg">
+                    </app-icon-container>
+                </button>
                 <div class="info-container font-body-small">
                     This is initial status of the work item
                 </div>
             </div>
-            <work-item-modal-text-field-wrapper 
-                [label]="'summary'"
-                formControlName="summary"
+            <work-item-modal-text-field-wrapper [label]="'summary'" formControlName="summary"
                 [textFieldValidatorFn]="summaryValidator">
             </work-item-modal-text-field-wrapper>
             <div class="section-2">
@@ -85,5 +90,14 @@
 <div class="content-footer">
     <app-checkbox class="create-another-checkbox" [checkboxConfig]="{title: 'create another'}"></app-checkbox>
     <button class="cancel-btn" (click)="closeWorkItemModal()"><span>Cancel</span></button>
-    <button class="save-btn" [disabled]="createWorkItemForm.invalid" (click)="createWorkItem()"><span>Create</span></button>
+    <button class="save-btn" [disabled]="createWorkItemForm.invalid"
+        (click)="createWorkItem()"><span>Create</span></button>
 </div>
+
+<ng-template #statusOptionTabletTemplate let-option>
+    <div class="status-option-tablet">
+        <span class="status-option-text-container" [style.backgroundColor]="option.backgroundColor">
+            <span class="text">{{option.label}}</span>
+        </span>
+    </div>
+</ng-template>

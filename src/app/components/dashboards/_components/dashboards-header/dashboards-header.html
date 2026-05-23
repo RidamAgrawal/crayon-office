@@ -62,14 +62,13 @@
 </div>
 <div class="search-bar">
   <app-dashboard-search-bar></app-dashboard-search-bar>
-  <button class="create-task-btn">
+  <button class="create-task-btn" (click)="showCreate()">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       height="16px"
       viewBox="0 -960 960 960"
       width="16px"
       fill="#fff"
-      (click)="showCreate()"
     >
       <path
         d="M427-427H180.78v-106H427v-246.22h106V-533h246.22v106H533v246.22H427V-427Z"
@@ -124,7 +123,11 @@
       [appTooltipDirective]="{text: user()?.displayName ?? 'anonymous@person.com', position: 'below'}"
     >
       <button class="avatar">
-        <span class="avatar-text"> <div class="avatar-icon"> {{ user()?.displayName ?? null | name  }} </div> </span>
+        <span class="avatar-text">
+          <div class="avatar-icon">
+            {{ user()?.displayName ?? null | name }}
+          </div>
+        </span>
       </button>
     </div>
   </div>
@@ -427,16 +430,20 @@
               <div class="accounts-details-content">
                 <div class="avatar-container">
                   @if (user()?.avatarUrl) {
-                    <img [src]="user()!.avatarUrl" alt="icons" />
+                  <img [src]="user()!.avatarUrl" alt="icons" />
                   } @else {
-                    <div class="avatar-text">
-                      {{ user()?.displayName ?? null | name }}
-                    </div>
+                  <div class="avatar-text">
+                    {{ user()?.displayName ?? null | name }}
+                  </div>
                   }
                 </div>
                 <div class="details-container">
-                  <h3 class="details-user-name">{{ user()?.displayName ?? 'Unknown' }}</h3>
-                  <p class="details-user-email">{{ user()?.email ?? 'Anonymous@person.com' }}</p>
+                  <h3 class="details-user-name">
+                    {{ user()?.displayName ?? 'Unknown' }}
+                  </h3>
+                  <p class="details-user-email">
+                    {{ user()?.email ?? 'Anonymous@person.com' }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -570,14 +577,12 @@
             <div class="item-placeholder-row-1"></div>
             <div class="item-placeholder-row-2"></div>
           </div> -->
-          <hr class="field-divider">
+          <hr class="field-divider" />
           <div class="field-wrapper select-field-wrapper">
-            <label for="type" class="field-label">
-                Status
-            </label>
+            <label for="type" class="field-label"> Status </label>
             <app-multi-select></app-multi-select>
             <div class="info-container font-body-small">
-                This is initial status of the work item
+              This is initial status of the work item
             </div>
           </div>
           <div class="section-2">
@@ -586,20 +591,20 @@
                 Work type <span class="red-asterisk">*</span>
               </label>
               <div class="text-field">
-                <input type="text" class="text-field-input">
+                <input type="text" class="text-field-input" />
               </div>
               <div class="field-feedback-container font-body-small">
                 <app-icon-container>
-                  <img src="assets/icons/feedback.svg" alt="icon">
+                  <img src="assets/icons/feedback.svg" alt="icon" />
                 </app-icon-container>
-                <span>
-                  This field is required
-                </span>
+                <span> This field is required </span>
               </div>
             </div>
             <div class="field-wrapper multi-purpose-field-wrapper">
               <label for="" class="field-label">Description</label>
-              <div class="multipurpose-field class='_1bsbhi17 _19pknek2 _n3td11zn'">
+              <div
+                class="multipurpose-field class='_1bsbhi17 _19pknek2 _n3td11zn'"
+              >
                 <wysiwyg2></wysiwyg2>
               </div>
             </div>

@@ -1,11 +1,13 @@
 import {
   Component,
   computed,
+  ElementRef,
   inject,
   OnInit,
   signal,
   TemplateRef,
   viewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { IconContainer } from '../../../icon-container/icon-container';
 import { MultiSelect } from '../../../../../../templates/multi-select/multi-select';
@@ -23,6 +25,10 @@ import { OverlayService } from '../../../../../../services/overlay-service/overl
 import { WysiwygEditorWrapperComponent } from '../wysiwyg-editor-wrapper';
 import { HttpService } from '../../../../../../services/http-service/http-service';
 import { WorkItemModalTextFieldWrapperComponent } from '../text-field-wrapper';
+import { OptionWrapper } from '../../../../../../templates/option-wrapper/option-wrapper';
+import { OptionConfigurations } from '../../../../../../templates/option-wrapper/option-wrapper.model';
+import { StatusLabels, StatusOptionsList } from './work-item-modal.constants';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-work-item-modal',
@@ -32,7 +38,6 @@ import { WorkItemModalTextFieldWrapperComponent } from '../text-field-wrapper';
   imports: [
     ReactiveFormsModule,
     IconContainer,
-    MultiSelect,
     Checkbox,
     ScrollBorder,
     MultiSelectWrapper,
@@ -45,18 +50,20 @@ export class WorkItemModalComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly overlayService = inject(OverlayService);
   private readonly httpService = inject(HttpService);
+  private readonly viewContainerRef = inject(ViewContainerRef);
 
   private readonly addWorkTypeTemplateRef =
     viewChild<TemplateRef<HTMLElement>>('addWorkType');
   private readonly editWorkTypeTemplateRef =
     viewChild<TemplateRef<HTMLElement>>('editWorkType');
+  protected readonly statusOptionTabletTemplate = viewChild<TemplateRef<any>>('statusOptionTabletTemplate');
 
   private readonly spaces = signal<{ id: string; name: string; key: string }[]>([]);
 
   createWorkItemForm = this.formBuilder.group({
     space: ['', Validators.required],
     workType: ['', Validators.required],
-    status: [''],
+    status: ['', Validators.required],
     summary: ['', Validators.required],
     description: [''],
   });
@@ -134,11 +141,22 @@ export class WorkItemModalComponent implements OnInit {
     optionHoverIndication: true,
   }));
 
+  protected readonly selectedStatus = computed(() => {
+    const id = this.statusValue();
+    return id ? StatusLabels[id] : StatusLabels['toDo'];
+  });
+
+  private readonly statusValue = toSignal(
+    this.createWorkItemForm.controls.status.valueChanges,
+    { initialValue: this.createWorkItemForm.controls.status.value },
+  );
+
   ngOnInit(): void {
     this.httpService.getSpaces().subscribe({
       next: (spaces) => this.spaces.set(spaces),
       error: (err) => console.error('Failed to load spaces:', err),
     });
+    StatusOptionsList[0].options.forEach(option => (option as any).contentTemplateRef = this.statusOptionTabletTemplate());
   }
 
   protected summaryValidator(val: string): ValidationErrors | null {
@@ -159,7 +177,7 @@ export class WorkItemModalComponent implements OnInit {
         summary: summary!,
         workType: workType!,
         description: description || undefined,
-        status: status || undefined,
+        statusId: status || undefined,
       })
       .subscribe({
         next: () => this.overlayService.close(),
@@ -169,5 +187,45 @@ export class WorkItemModalComponent implements OnInit {
 
   protected closeWorkItemModal(): void {
     this.overlayService.close();
+  }
+
+  protected onStatusClick(element: HTMLButtonElement): void {
+    this.overlayService.open({
+      component: OptionWrapper,
+      componentInputs: {
+        optionListsConfig: {
+          optionLists: StatusOptionsList,
+          handleOptionEvent: (action: any) => {
+            this.actionEventHandler(action);
+          },
+        },
+      },
+      connectedTo: new ElementRef(element),
+      positions: [
+        {
+          originX: 'start',
+          overlayX: 'start',
+          originY: 'bottom',
+          overlayY: 'top',
+          offsetY: 8,
+        }
+      ],
+      viewContainerRef: this.viewContainerRef,
+    });
+  }
+
+  private actionEventHandler(option: OptionConfigurations): void {
+    switch (option.id) {
+      case 'toDo':
+      case 'inProgress':
+      case 'done':
+        this.createWorkItemForm.controls.status.setValue(option.id);
+        this.overlayService.close();
+        break;
+      case 'createStatus':
+        break;
+      case 'editStatus':
+        break;
+    }
   }
 }
