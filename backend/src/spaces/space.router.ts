@@ -56,18 +56,34 @@ router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
         data: { spaceId: space.id, userId: req.userId!, role: 'OWNER' },
       }),
       prisma.status.create({
-        data: { spaceId: space.id, name: 'TO_DO', category: 'TODO', order: 0 },
+        data: {
+          spaceId: space.id,
+          name: 'TO_DO',
+          label: 'To do',
+          backgroundColor: '#dddee1',
+          category: 'TODO',
+          order: 0,
+        },
       }),
       prisma.status.create({
         data: {
           spaceId: space.id,
           name: 'IN_PROGRESS',
+          label: 'In progress',
+          backgroundColor: '#8fb8f6',
           category: 'IN_PROGRESS',
           order: 1,
         },
       }),
       prisma.status.create({
-        data: { spaceId: space.id, name: 'DONE', category: 'DONE', order: 2 },
+        data: {
+          spaceId: space.id,
+          name: 'DONE',
+          label: 'Done',
+          backgroundColor: '#b3df72',
+          category: 'DONE',
+          order: 2,
+        },
       }),
     ]);
 
@@ -96,7 +112,6 @@ router.get('/', requireAuth, async (req: AuthRequest, res: Response) => {
 // GET /api/spaces/:id — get a single space
 router.get('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
-    console.log(req.params.id);
     const space = await getSpaceForMember(req.params.id, req.userId!, res);
     if (!space) return;
 
@@ -208,9 +223,16 @@ router.post(
       const space = await getSpaceForMember(req.params.id, req.userId!, res);
       if (!space) return;
 
-      const { name, category } = req.body as { name: string; category: string };
-      if (!name?.trim())
-        return res.status(400).json({ error: 'name is required' });
+      const { name, label, backgroundColor, category } = req.body as {
+        name: string;
+        label: string;
+        backgroundColor: string;
+        category: string;
+      };
+      if (!name?.trim() || !label?.trim() || !backgroundColor?.trim())
+        return res
+          .status(400)
+          .json({ error: 'name, label, and backgroundColor are required' });
 
       const last = await prisma.status.findFirst({
         where: { spaceId: req.params.id },
@@ -222,6 +244,8 @@ router.post(
         data: {
           spaceId: req.params.id,
           name: name.trim(),
+          label: label.trim(),
+          backgroundColor: backgroundColor.trim(),
           category: (category ?? 'TODO') as StatusCategory,
           order: (last?.order ?? -1) + 1,
         },

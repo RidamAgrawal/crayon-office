@@ -4,6 +4,7 @@ import {
   ElementRef,
   inject,
   OnInit,
+  resource,
   signal,
   TemplateRef,
   viewChild,
@@ -26,9 +27,14 @@ import { WysiwygEditorWrapperComponent } from '../wysiwyg-editor-wrapper';
 import { HttpService } from '../../../../../../services/http-service/http-service';
 import { WorkItemModalTextFieldWrapperComponent } from '../text-field-wrapper';
 import { OptionWrapper } from '../../../../../../templates/option-wrapper/option-wrapper';
-import { OptionConfigurations } from '../../../../../../templates/option-wrapper/option-wrapper.model';
+import { OptionConfigurations, OptionsList } from '../../../../../../templates/option-wrapper/option-wrapper.model';
 import { StatusLabels, StatusOptionsList } from './work-item-modal.constants';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { rxResource, toSignal } from '@angular/core/rxjs-interop';
+
+export interface SpaceStatusOptionConfigurations extends OptionConfigurations {
+  name: string;
+  backgroundColor: string;
+}
 
 @Component({
   selector: 'app-work-item-modal',
@@ -141,15 +147,18 @@ export class WorkItemModalComponent implements OnInit {
     optionHoverIndication: true,
   }));
 
-  protected readonly selectedStatus = computed(() => {
-    const id = this.statusValue();
-    return id ? StatusLabels[id] : StatusLabels['toDo'];
+  protected readonly selectedSpace = toSignal(
+    this.createWorkItemForm.controls.space.valueChanges,
+    { initialValue: this.createWorkItemForm.controls.space.value }
+  );
+
+  protected readonly selectedSpaceStatuses = rxResource({
+    params: () => this.selectedSpace() ?? undefined,
+    stream: ({ params: spaceId }) => this.httpService.getSpaceColumns(spaceId),
+    defaultValue: [],
   });
 
-  private readonly statusValue = toSignal(
-    this.createWorkItemForm.controls.status.valueChanges,
-    { initialValue: this.createWorkItemForm.controls.status.value },
-  );
+  protected readonly selectedStatus = signal<SpaceStatusOptionConfigurations | null>(null);
 
   ngOnInit(): void {
     this.httpService.getSpaces().subscribe({
@@ -190,11 +199,12 @@ export class WorkItemModalComponent implements OnInit {
   }
 
   protected onStatusClick(element: HTMLButtonElement): void {
+    debugger
     this.overlayService.open({
       component: OptionWrapper,
       componentInputs: {
         optionListsConfig: {
-          optionLists: StatusOptionsList,
+          optionLists: this.buildStatusOptionsList(),
           handleOptionEvent: (action: any) => {
             this.actionEventHandler(action);
           },
@@ -214,18 +224,27 @@ export class WorkItemModalComponent implements OnInit {
     });
   }
 
-  private actionEventHandler(option: OptionConfigurations): void {
+  private actionEventHandler(option: SpaceStatusOptionConfigurations): void {
     switch (option.id) {
-      case 'toDo':
-      case 'inProgress':
-      case 'done':
-        this.createWorkItemForm.controls.status.setValue(option.id);
-        this.overlayService.close();
-        break;
       case 'createStatus':
         break;
       case 'editStatus':
         break;
+      default:
+        this.createWorkItemForm.controls.status.setValue(option.id ?? '');
+        this.selectedStatus.set(option);
     }
+  }
+
+  private buildStatusOptionsList(): OptionsList[] {
+    StatusOptionsList[0].options = this.selectedSpaceStatuses.value()
+      .map((status: SpaceStatusOptionConfigurations) => {
+        status.visible = true;
+        status.type = 'button';
+        status.label = status.name;
+        status.backgroundColor = '#b3df72';
+        return status;
+      });
+    return StatusOptionsList;
   }
 }

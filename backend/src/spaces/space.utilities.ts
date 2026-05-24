@@ -7,7 +7,6 @@ export async function getSpaceForMember(
   userId: string,
   res: Response,
 ): Promise<any | null> {
-  console.log('user = ' + userId);
   const space = await prisma.space.findUnique({
     where: { id },
     include: {

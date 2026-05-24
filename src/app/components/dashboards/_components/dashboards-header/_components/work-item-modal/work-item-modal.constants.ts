@@ -1,10 +1,12 @@
+import { OptionsList, OptionConfigurations } from '../../../../../../templates/option-wrapper/option-wrapper.model';
+
 export const StatusLabels: Record<string, { label: string; color: string }> = {
-    toDo: { label: 'To do', color: '#dddee1' },
-    inProgress: { label: 'In progress', color: '#8fb8f6' },
-    done: { label: 'Done', color: '#b3df72' },
+    TODO: { label: 'To do', color: '#dddee1' },
+    IN_PROGRESS: { label: 'In progress', color: '#8fb8f6' },
+    DONE: { label: 'Done', color: '#b3df72' },
 };
 
-export const StatusOptionsList = [
+export const StatusOptionsList: OptionsList[] = [
     {
         options: [
             {
@@ -13,21 +15,21 @@ export const StatusOptionsList = [
                 id: 'toDo',
                 visible: true,
                 backgroundColor: '#dddee1'
-            },
+            } as OptionConfigurations,
             {
                 type: 'button',
                 label: 'in progress',
                 id: 'inProgress',
                 visible: true,
                 backgroundColor: '#8fb8f6'
-            },
+            } as OptionConfigurations,
             {
                 type: 'button',
                 label: 'done',
                 id: 'done',
                 visible: true,
                 backgroundColor: '#b3df72'
-            }
+            } as OptionConfigurations,
         ]
     },
     {

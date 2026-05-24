@@ -45,6 +45,8 @@ export interface SpaceBoardColumn {
   category: string;
   id: string;
   name: string;
+  label: string;
+  backgroundColor: string;
   order: number;
   spaceId: string;
   issues: WorkItem[];

@@ -54,11 +54,13 @@ model SpaceMember {
 }
 
 model Status {
-  id       String         @id @default(uuid())
-  spaceId  String
-  name     String                                // "TO DO", "IN PROGRESS", "DONE"
-  order    Int                                   // column position
-  category StatusCategory                        // drives the green check on DONE
+  id              String         @id @default(uuid())
+  spaceId         String
+  name            String                                // "TO_DO", "IN_PROGRESS", "DONE" — machine key
+  label           String                                // "To do", "In progress", "Done" — display text
+  backgroundColor String                                // hex color used in board column header / chip
+  order           Int                                   // column position
+  category        StatusCategory                        // drives the green check on DONE
 
   space    Space      @relation(fields: [spaceId], references: [id], onDelete: Cascade)
   items    WorkItem[]
