@@ -12,7 +12,7 @@ export class HttpService {
   constructor(
     private http: HttpClient,
     private api: Api,
-  ) {}
+  ) { }
   public getSidebarItemConfig(): Observable<any> {
     return this.http.get(this.api.sidebarItemConfig);
   }
@@ -111,10 +111,11 @@ export class HttpService {
     return this.http.get<any[]>(`${environment.backendUrl}/api/spaces`);
   }
 
-  public createSpace(name: string, key: string): Observable<any> {
+  public createSpace(name: string, key: string, icon: string): Observable<any> {
     return this.http.post(`${environment.backendUrl}/api/spaces`, {
       name,
       key,
+      icon,
     });
   }
 
@@ -136,8 +137,8 @@ export class HttpService {
   }
 
   public getSpaceHeaderDataAndSummary(spaceId: string): Observable<any> {
-    // return this.http.get<any>(`${environment.backendUrl}/api/spaces/`+spaceId);
-    return this.http.get<any>(`./assets/data/spaceHeaderAndData.json`);
+    return this.http.get<any>(`${environment.backendUrl}/api/spaces/` + spaceId);
+    // return this.http.get<any>(`./assets/data/spaceHeaderAndData.json`);
   }
 
   public getSpaceColumns(spaceId: string): Observable<any> {

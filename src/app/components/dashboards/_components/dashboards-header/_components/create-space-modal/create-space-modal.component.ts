@@ -4,6 +4,7 @@ import { SpaceTemplate, SpaceTemplatePickerComponent } from '../space-template-p
 import { OverlayService } from '../../../../../../services/overlay-service/overlay-service';
 import { HttpService } from '../../../../../../services/http-service/http-service';
 import { TextField } from '../../../../../../templates/text-field/text-field';
+import { spaceIconUrl1 } from '../../../dashboard-space/_components/dashboard-space-board-view/dashboard-space-board-view.constants';
 
 @Component({
   selector: 'create-space-modal',
@@ -54,8 +55,9 @@ export class CreateSpaceModalComponent {
 
     this.isSubmitting.set(true);
     const { name, key } = this.spaceForm.value;
+    const icon = spaceIconUrl1 + (10400+Math.floor(Math.random()*25));
 
-    this.httpService.createSpace(name!, key!).subscribe({
+    this.httpService.createSpace(name!, key!, icon).subscribe({
       next: () => this.overlayService.close(),
       error: (err: unknown) => {
         console.error('Failed to create space:', err);

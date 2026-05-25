@@ -1,6 +1,6 @@
 <div class="content-header">
     <h1 class="header-title">
-        <span>Create</span>
+        <span>Create {{createWorkItemForm.value.workType | lowercase }}</span>
     </h1>
     <div class="header-options">
         <ul class="header-options-list">
@@ -29,12 +29,11 @@
 </div>
 <div class="content-body" appScrollBorder [formGroup]="createWorkItemForm">
     <div class="content-container-1">
+        <p class="info-indicator">
+            Required fields are marked with asterisk
+            <span class="red-asterisk">*</span>
+        </p>
         <div class="content-container-2">
-            {{createWorkItemForm.value | json}}
-            <p class="info-indicator">
-                Required fields are marked with asterisk
-                <span class="red-asterisk">*</span>
-            </p>
             <multi-select-wrapper label="Space" [optionsConfig]="spaceConfig()" [isMandatory]="true"
                 formControlName="space"></multi-select-wrapper>
             <multi-select-wrapper label="Work type" [optionsConfig]="workTypeConfig()" [isMandatory]="true"
@@ -51,16 +50,23 @@
                     <span class="red-asterisk">*</span>
                 </label>
                 <!-- <app-multi-select></app-multi-select> -->
-                <button class="status-btn" (click)="onStatusClick(statusBtn)" #statusBtn
+                <button class="status-btn" (click)="onStatusClick(statusBtn)" #statusBtn [disabled]="!selectedSpace()"
                     [style.backgroundColor]="selectedStatus()?.backgroundColor">
                     <span class="text">{{selectedStatus()?.label}}</span>
                     <app-icon-container>
                         <img class="icon-content" src="./assets/icons/arrow-down.svg">
                     </app-icon-container>
                 </button>
-                <div class="info-container font-body-small">
-                    This is initial status of the work item
+                @if(!selectedSpace()) {
+                <div class="field-feedback-container font-body-small">
+                    <span class="feedback-icon-container">
+                        <img src="assets/icons/warningRed.svg" alt="icon">
+                    </span>
+                    <span>
+                        Please select a space first
+                    </span>
                 </div>
+                }
             </div>
             <work-item-modal-text-field-wrapper [label]="'summary'" formControlName="summary"
                 [textFieldValidatorFn]="summaryValidator">
@@ -74,9 +80,9 @@
                         <input type="text" class="text-field-input">
                     </div>
                     <div class="field-feedback-container font-body-small">
-                        <app-icon-container>
-                            <img src="assets/icons/feedback.svg" alt="icon">
-                        </app-icon-container>
+                        <span class="">
+                            <img src="./assets/icons/warningRed.svg" alt="icon">
+                        </span>
                         <span>
                             This field is required
                         </span>
@@ -99,6 +105,19 @@
     <div class="status-option-tablet">
         <span class="status-option-text-container" [style.backgroundColor]="option.backgroundColor">
             <span class="text">{{option.label}}</span>
+        </span>
+    </div>
+</ng-template>
+
+<ng-template #spaceOptionTemplate let-option>
+    <div class="space-option">
+        <div class="icon-container">
+            <span class="icon-content">
+                <img [src]="option.icon" alt="icon">
+            </span>
+        </div>
+        <span class="space-option-text-container" [style.backgroundColor]="option.backgroundColor">
+            <div class="text">{{option.label}}</div>
         </span>
     </div>
 </ng-template>

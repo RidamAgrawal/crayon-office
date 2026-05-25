@@ -207,6 +207,10 @@
 }
 .more-btn-content .option-item:not(:disabled):not(.disabled):hover {
     background-color: #0515240F;
+    box-shadow: inset 4px 0 0 #1868db;
+    border-top: 0.5px solid #1868db;
+    border-bottom: 0.5px solid #1868db;
+    border-right: .5px solid #1868db;
 }
 .more-btn-content .option-item {
     text-decoration-style: solid;
@@ -228,22 +232,19 @@
     position: relative;
     color: currentColor;
     cursor: pointer;
-    min-height: 40px;
+    min-height: 2.5rem;
     outline-width: 0;
     outline-style: none;
-    background-color: var(--ds-background-neutral-subtle, #0000);
-    margin-inline-start: var(--ds-space-0, 0);
-    margin-inline-end: var(--ds-space-0, 0);
-    margin-block-start: var(--ds-space-0, 0);
-    margin-block-end: var(--ds-space-0, 0);
+    background-color: #0000;
     align-items: center;
     position: relative;
     width: 100%;
     box-sizing: border-box;
     display: flex;
-    padding-block: var(--ds-space-100, 8px);
-    padding-inline: var(--ds-space-200, 1pc);
-    border: 0;
+    padding-block: .5rem;
+    padding-inline: 1pc;
+    border-radius: 4px;
+    border: 0.5px solid transparent;
 }
 
 .more-btn-content .option-item-content {

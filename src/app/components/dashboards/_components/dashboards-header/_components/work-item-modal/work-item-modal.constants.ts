@@ -50,3 +50,9 @@ export const StatusOptionsList: OptionsList[] = [
         ]
     }
 ];
+
+export const rippleStyle = {
+    "animation-timing-function": "cubic-bezier(.5, 0, 0, 1)",
+    "animation-duration": "1.45s",
+    "animation-name": "rippleOne",
+}

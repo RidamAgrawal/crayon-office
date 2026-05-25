@@ -30,18 +30,24 @@ export class MultiSelectWrapper implements ControlValueAccessor {
 
   private onChange: ((value: string | string[] | null) => void) | null = null;
   private onTouched: (() => void) | null = null;
+  private pendingValue: string | string[] | null = null;
+  private hasPendingValue = false;
 
   constructor() {
-    // React to signal changes from the underlying MultiSelect and propagate to the form control
+    // Re-runs when the underlying MultiSelect appears, when optionsConfig changes
+    // (async-loaded options), and when selection changes.
     effect(() => {
       const instance = this.multiSelectInstance();
       if (!instance) return;
 
-      // Tap into the selectedOptions signal — re-runs whenever selection changes
+      const config = this.optionsConfig();
+      this.tryApplyPending(instance, config);
+
+      // Propagate selection changes back to the form control
       const selectedSet = instance.selectedOptions();
       const selectedArray = Array.from(selectedSet);
 
-      const value = this.optionsConfig()?.isMultiSelect
+      const value = config?.isMultiSelect
         ? selectedArray.map((o: OptionConfigurations) => o.id)
         : (selectedArray[0]?.id ?? null);
 
@@ -49,27 +55,50 @@ export class MultiSelectWrapper implements ControlValueAccessor {
     });
   }
 
-  // Called by Angular when the form control value is programmatically set (e.g. patchValue / reset)
+  // Called by Angular when the form control value is programmatically set (e.g. setValue / patchValue / reset)
   public writeValue(val: string | string[] | null): void {
+    this.pendingValue = val;
+    this.hasPendingValue = true;
     const instance = this.multiSelectInstance();
-    if (!instance) return;
+    if (instance) this.tryApplyPending(instance, this.optionsConfig());
+  }
 
-    // Clear current selection, restoring all hidden options to visible
+  private tryApplyPending(instance: MultiSelect, config: any): void {
+    if (!this.hasPendingValue) return;
+
+    const val = this.pendingValue;
+
+    // Empty/null/empty-array — clear immediately
+    if (!val || (Array.isArray(val) && val.length === 0)) {
+      this.applyValue(instance, val);
+      this.pendingValue = null;
+      this.hasPendingValue = false;
+      return;
+    }
+
+    // Non-empty value — only apply once all target options exist in the list
+    const targets = Array.isArray(val) ? val : [val];
+    const allOptions: OptionConfigurations[] = (config?.optionLists ?? [])
+      .flatMap((list: any) => list.options ?? []);
+
+    if (targets.every(t => allOptions.some(o => o.id === t))) {
+      this.applyValue(instance, val);
+      this.pendingValue = null;
+      this.hasPendingValue = false;
+    }
+  }
+
+  private applyValue(instance: MultiSelect, val: string | string[] | null): void {
     instance.clearAll();
-
     if (!val) return;
 
     const targets = Array.isArray(val) ? val : [val];
-
-    // Find and select matching options by label across all optionLists
     const allOptions: OptionConfigurations[] = (this.optionsConfig()?.optionLists ?? [])
       .flatMap((list: any) => list.options ?? []);
 
-    targets.forEach(targetLabel => {
-      const match = allOptions.find(o => o.label === targetLabel);
-      if (match) {
-        instance.selectOption(match);
-      }
+    targets.forEach(targetId => {
+      const match = allOptions.find(o => o.id === targetId);
+      if (match) instance.selectOption(match);
     });
   }
 

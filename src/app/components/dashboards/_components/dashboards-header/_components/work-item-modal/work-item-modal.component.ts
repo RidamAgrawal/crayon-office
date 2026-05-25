@@ -1,6 +1,7 @@
 import {
   Component,
   computed,
+  effect,
   ElementRef,
   inject,
   OnInit,
@@ -21,14 +22,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { MultiSelectWrapper } from '../multi-select-wrapper';
-import { JsonPipe } from '@angular/common';
+import { JsonPipe, LowerCasePipe } from '@angular/common';
 import { OverlayService } from '../../../../../../services/overlay-service/overlay-service';
 import { WysiwygEditorWrapperComponent } from '../wysiwyg-editor-wrapper';
 import { HttpService } from '../../../../../../services/http-service/http-service';
 import { WorkItemModalTextFieldWrapperComponent } from '../text-field-wrapper';
 import { OptionWrapper } from '../../../../../../templates/option-wrapper/option-wrapper';
 import { OptionConfigurations, OptionsList } from '../../../../../../templates/option-wrapper/option-wrapper.model';
-import { StatusLabels, StatusOptionsList } from './work-item-modal.constants';
+import { rippleStyle, StatusLabels, StatusOptionsList } from './work-item-modal.constants';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 
 export interface SpaceStatusOptionConfigurations extends OptionConfigurations {
@@ -47,7 +48,7 @@ export interface SpaceStatusOptionConfigurations extends OptionConfigurations {
     Checkbox,
     ScrollBorder,
     MultiSelectWrapper,
-    JsonPipe,
+    LowerCasePipe,
     WysiwygEditorWrapperComponent,
     WorkItemModalTextFieldWrapperComponent,
   ],
@@ -63,8 +64,10 @@ export class WorkItemModalComponent implements OnInit {
   private readonly editWorkTypeTemplateRef =
     viewChild<TemplateRef<HTMLElement>>('editWorkType');
   protected readonly statusOptionTabletTemplate = viewChild<TemplateRef<any>>('statusOptionTabletTemplate');
+  protected readonly spaceOptionTemplate = viewChild<TemplateRef<any>>('spaceOptionTemplate');
+  protected readonly statusBtn = viewChild<ElementRef<HTMLButtonElement>>('statusBtn');
 
-  private readonly spaces = signal<{ id: string; name: string; key: string }[]>([]);
+  private readonly spaces = signal<{ id: string; name: string; key: string, icon: string }[]>([]);
 
   createWorkItemForm = this.formBuilder.group({
     space: ['', Validators.required],
@@ -137,9 +140,10 @@ export class WorkItemModalComponent implements OnInit {
         options: this.spaces().map((s) => ({
           id: s.id,
           label: `${s.name} (${s.key})`,
-          icon: 'checkOutlineSquare',
+          icon: s.icon,
           type: 'button',
           visible: true,
+          contentTemplateRef: this.spaceOptionTemplate(),
         })),
       },
     ],
@@ -148,8 +152,7 @@ export class WorkItemModalComponent implements OnInit {
   }));
 
   protected readonly selectedSpace = toSignal(
-    this.createWorkItemForm.controls.space.valueChanges,
-    { initialValue: this.createWorkItemForm.controls.space.value }
+    this.createWorkItemForm.controls.space.valueChanges
   );
 
   protected readonly selectedSpaceStatuses = rxResource({
@@ -160,12 +163,31 @@ export class WorkItemModalComponent implements OnInit {
 
   protected readonly selectedStatus = signal<SpaceStatusOptionConfigurations | null>(null);
 
-  ngOnInit(): void {
+  protected readonly statusRippleEffects = computed(() => ({ ...rippleStyle, "box-shadow": `0 0 0 0 ${this.selectedStatus()?.backgroundColor}`, "background-color": this.selectedStatus()?.backgroundColor }));
+
+  private statusBtnRippleEffect = effect(() => {
+    const status = this.selectedStatus();
+    const btn = this.statusBtn()?.nativeElement;
+    if (!status || !btn) return;
+
+    btn.animate([
+      { boxShadow: `0 0 0 0 ${status.backgroundColor}` },
+      { boxShadow: '0 0 0 10px transparent' },
+    ],
+      { duration: 1450, easing: 'cubic-bezier(.5, 0, 0, 1)' },
+    );
+  });
+  
+  public ngOnInit(): void {
     this.httpService.getSpaces().subscribe({
-      next: (spaces) => this.spaces.set(spaces),
+      next: (spaces) => {
+        this.spaces.set(spaces);
+        if (spaces.length > 0) {
+          this.createWorkItemForm.controls.space.setValue(spaces[0].id);
+        }
+      },
       error: (err) => console.error('Failed to load spaces:', err),
     });
-    StatusOptionsList[0].options.forEach(option => (option as any).contentTemplateRef = this.statusOptionTabletTemplate());
   }
 
   protected summaryValidator(val: string): ValidationErrors | null {
@@ -218,6 +240,13 @@ export class WorkItemModalComponent implements OnInit {
           originY: 'bottom',
           overlayY: 'top',
           offsetY: 8,
+        },
+        {
+          originX: 'start',
+          overlayX: 'start',
+          originY: 'top',
+          overlayY: 'bottom',
+          offsetY: -8,
         }
       ],
       viewContainerRef: this.viewContainerRef,
@@ -233,6 +262,7 @@ export class WorkItemModalComponent implements OnInit {
       default:
         this.createWorkItemForm.controls.status.setValue(option.id ?? '');
         this.selectedStatus.set(option);
+        this.overlayService.close();
     }
   }
 
@@ -241,8 +271,7 @@ export class WorkItemModalComponent implements OnInit {
       .map((status: SpaceStatusOptionConfigurations) => {
         status.visible = true;
         status.type = 'button';
-        status.label = status.name;
-        status.backgroundColor = '#b3df72';
+        status.contentTemplateRef = this.statusOptionTabletTemplate();
         return status;
       });
     return StatusOptionsList;

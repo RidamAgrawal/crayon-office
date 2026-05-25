@@ -206,7 +206,8 @@ export class DashboardsSidebar {
           response.forEach((space) => {
             recentList.list.unshift({
               hoverTools: SPACES_SIDEBAR_ITEM_HOVERTOOLS,
-              icon: 'projects',
+              icon: '',
+              iconUrl: space.icon,
               title: space.name,
               type: 'link',
               visible: true,

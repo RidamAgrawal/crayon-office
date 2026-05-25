@@ -27,7 +27,7 @@
                 </a>
                 <div class="sidebar-item-icon-container">
                     <span class="sidebar-item-icon-box">
-                        <img [src]="'assets/icons/'+sideBarItemConfig().icon+'.svg'" alt="icon">
+                        <img [src]="sideBarItemConfig().iconUrl ? sideBarItemConfig().iconUrl : 'assets/icons/' + sideBarItemConfig().icon + '.svg'" alt="icon">
                     </span>
                 </div>
                 @if(sideBarItemConfig().defaultTools || sideBarItemConfig().hoverTools){
@@ -81,7 +81,7 @@
                 </a>
                 <div class="sidebar-item-icon-container">
                     <span class="sidebar-item-icon-box">
-                        <img [src]="'assets/icons/'+sideBarItemConfig().icon+'.svg'" alt="icon">
+                        <img [src]="sideBarItemConfig().iconUrl ? sideBarItemConfig().iconUrl : 'assets/icons/' + sideBarItemConfig().icon + '.svg'" alt="icon">
                     </span>
                 </div>
                 @if(sideBarItemConfig().hoverTools){
@@ -143,7 +143,7 @@
                                 <img [src]="'assets/icons/arrowRightSmall.svg'" alt="icon">
                             </span>
                             <span class="sidebar-item-icon-box">
-                                <img [src]="'assets/icons/'+sideBarItemConfig().icon+'.svg'" alt="icon">
+                                <img [src]="sideBarItemConfig().iconUrl ? sideBarItemConfig().iconUrl : 'assets/icons/' + sideBarItemConfig().icon + '.svg'" alt="icon">
                             </span>
                         </div>
                         <div class="sidebar-item-btn-icon2-container">
