@@ -2,7 +2,7 @@ import { Router, Response } from 'express';
 import type { SpaceType, WorkType, StatusCategory } from '@prisma/client';
 import { prisma } from '../lib/prisma';
 import { requireAuth, AuthRequest } from '../auth/auth.middleware';
-import { getSpaceForMember } from './space.utilities';
+import { defaultViewsByTemplate, getSpaceForMember } from './space.utilities';
 
 const router = Router();
 
@@ -85,6 +85,16 @@ router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
           order: 2,
         },
       }),
+      ...defaultViewsByTemplate[space.template].map((v) =>
+        prisma.view.create({
+          data: {
+            spaceId: space.id,
+            type: v.type,
+            name: v.name,
+            config: {},
+          },
+        }),
+      ),
     ]);
 
     return res.status(201).json(space);

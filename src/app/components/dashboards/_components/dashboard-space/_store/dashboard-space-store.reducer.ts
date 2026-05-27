@@ -15,8 +15,17 @@ export const dashboardSpaceInitialState: SpaceStoreState = {
         template: 'kanban',
         ownerId: '',
         members: [],
-        optionLists: [],
-        spaceNavs: [],
+        currentUser: { 
+            can: {
+                addPeople: false,
+                deleteSpace: false,
+                manageSettings: false,
+                manageStatuses: false,
+                setBackground: false,
+            },
+            role: 'VIEWER'
+        },
+        views: []
     },
     spaceBoardDetails: {
         columns: []

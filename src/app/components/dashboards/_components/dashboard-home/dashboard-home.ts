@@ -12,10 +12,11 @@ import { HttpService } from '../../../../services/http-service/http-service';
 import { AuthenticationService } from '../../../../services/authentication/authentication.service';
 import { Store } from '@ngrx/store';
 import { setUserDetails } from '../../store/dashboards-store.actions';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-home',
-  imports: [TabComponent, TabularTemplate1, TabTemplate2],
+  imports: [TabComponent, TabularTemplate1, TabTemplate2, RouterLink],
   templateUrl: './dashboard-home.html',
   styleUrl: './dashboard-home.scss',
 })

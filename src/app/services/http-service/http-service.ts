@@ -4,6 +4,7 @@ import { Api } from './api/api';
 import { Observable } from 'rxjs';
 import { UserLoginSuccessResponse } from '../../models';
 import { environment } from '../../../environments/environment';
+import { SpaceDetails } from '../../components/dashboards/_components/dashboard-space/_models';
 
 @Injectable({
   providedIn: 'root',
@@ -107,7 +108,7 @@ export class HttpService {
   }
 
   // Spaces
-  public getSpaces(): Observable<any[]> {
+  public getSpaces(): Observable<SpaceDetails[]> {
     return this.http.get<any[]>(`${environment.backendUrl}/api/spaces`);
   }
 

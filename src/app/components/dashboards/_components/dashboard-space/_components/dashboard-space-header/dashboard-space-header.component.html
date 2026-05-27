@@ -43,7 +43,7 @@
 </div>
 <nav class="spaces-nav">
   <ul class="spaces-nav-item-container">
-    @for (navItem of spaceDetail()?.spaceNavs; track $index) {
+    @for (navItem of spaceNavs(); track $index) {
       <li class="spaces-nav-item" [id]="navItem.id">
         <a
           [routerLink]="[navItem.routerLink]"

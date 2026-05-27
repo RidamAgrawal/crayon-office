@@ -48,7 +48,10 @@
             <div class="explore-tile-list">
                 @for (space of spaces(); track space.id) {
                     <div class="explore-tile-body">
-                        <div class="tile-heading"> <a href="/" class="tile-heading-container"> <span></span>
+                        <div class="tile-heading"> <a [routerLink]="`/app/spaces/${space.id}/board`" class="tile-heading-container"> 
+                                <span class="tile-title-icon-container">
+                                    <img [src]="space?.icon" alt="icon">
+                                </span>
                                 <div class="tile-title-text-container">
                                     <div class="tile-title-text1">{{ space.name }}</div>
                                     <p class="tile-title-text2">{{ space.type }}</p>
@@ -60,9 +63,9 @@
                             </div>
                             <div class="tile-detail-row row-2"> <a href="" class="row-2-text-container">
                                     <div class="row-2-text">
-                                        <p>My open work items</p>
+                                        <p>work items</p>
                                     </div>
-                                    <div class="row-label"></div>
+                                    <div class="row-label" [attr.data-content]="space.counter"></div>
                                 </a> </div>
                             <div class="tile-detail-row row-3"> <a href="" class="row-3-text-container">
                                     <div class="row-3-text">
@@ -93,22 +96,12 @@
         <div class="recommended-tile-list"> 
             @for(space of spaces(); track space.id){
                 <a href="#" class="recommended-tile-container">
-                    <div>
-                        <div class="recommended-tile">
-                            <div class="recommended-tile-icon"> <span> <img src="" alt=""> </span> </div>
-                            <div class="recommended-tile-details">
-                                <div class="recommended-tile-detail-container-1">
-                                    <h4 class="project-heading"> <span>{{space.name}}</span> </h4>
-                                    <p>{{space.type}}</p>
-                                </div>
-                                <div class="recommended-tile-detail-container-2"> <span class="manage-icon"> <svg
-                                            xmlns="http://www.w3.org/2000/svg" height="1rem" viewBox="0 -960 960 960"
-                                            width="1rem">
-                                            <path
-                                                d="M480-491.5q-56.44 0-96.2-39.76-39.76-39.76-39.76-96.2 0-56.44 39.76-96.2 39.76-39.76 96.2-39.76 56.44 0 96.2 39.76 39.76 39.76 39.76 96.2 0 56.44-39.76 96.2-39.76 39.76-96.2 39.76ZM187.27-254.92v-27.4q0-28.59 15.3-52.57 15.31-23.98 41.68-37.05 58.61-28.27 117.55-42.67Q420.73-429 480.01-429q59.27 0 118.25 14.39 58.97 14.38 117.54 42.66 26.35 13.07 41.64 37.06 15.29 23.98 15.29 52.56v27.41q0 23.64-16.54 40.18-16.55 16.55-40.19 16.55H244q-23.64 0-40.19-16.55-16.54-16.54-16.54-40.18Zm55.96.77h473.54v-28.07q0-12.39-7.04-22.8-7.04-10.4-19.42-17.13-51.44-25.16-104.08-38.02-52.65-12.87-106.25-12.87-53.96 0-106.43 12.87-52.47 12.86-103.66 38.02-12.58 6.73-19.62 17.17-7.04 10.44-7.04 22.71v28.12ZM480-547.46q33 0 56.5-23.5t23.5-56.5q0-33-23.5-56.5t-56.5-23.5q-33 0-56.5 23.5t-23.5 56.5q0 33 23.5 56.5t56.5 23.5Zm0-80Zm0 373.31Z" />
-                                        </svg> </span>
-                                    <p class="manage-info">Used by dev</p>
-                                </div>
+                    <div class="recommended-tile">
+                        <div class="recommended-tile-icon"> <span class="icon-content"> <img [src]="space.icon" alt="icon"> </span> </div>
+                        <div class="recommended-tile-details">
+                            <div class="recommended-tile-detail-container-1">
+                                <h4 class="project-heading"> <span>{{space.name}}</span> </h4>
+                                <p>{{space.type}}</p>
                             </div>
                         </div>
                     </div>

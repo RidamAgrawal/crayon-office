@@ -1,6 +1,6 @@
 <!-- <div class="card-container" cdkDrag> -->
 <div class="card-options">
-  <button class="icon-btn card-option-btn">
+  <button class="icon-btn card-option-btn" (click)="onCardOptionClick(cardOptionBtn)" #cardOptionBtn>
     <span class="icon-content">
       <img src="./assets/icons/more.svg" alt="icon" />
     </span>
@@ -8,12 +8,16 @@
 </div>
 <div class="card-contents">
   <div class="card-details card-item-description">
-    <span class="description">Mobile Dev</span>
-    <button class="icon-btn edit-description-btn">
-      <span class="icon-content">
-        <img src="./assets/icons/editSquare.svg" alt="" />
+    <div class="card-item-description-2">
+      <span class="description">{{issue()?.description}}</span>
+      <span class="edit-description-btn-container">
+        <button class="icon-btn edit-description-btn">
+          <span class="icon-content">
+            <img src="./assets/icons/editSquare.svg" alt="" />
+          </span>
+        </button>
       </span>
-    </button>
+    </div>
   </div>
   <div class="card-details card-item-details">
     <button class="icon-btn tool-btn status">

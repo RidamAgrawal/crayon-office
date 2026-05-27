@@ -13,10 +13,12 @@ export interface SpaceDetails {
   template: 'kanban' | 'scrum' | 'bugTracking';
   ownerId: string | null;
   members: SpaceMember[];
-  optionLists: OptionsList[];
-  spaceNavs: SpaceNavs[];
   // workItems: unknown[];
-  // views: unknown[];
+  views: SpaceView[];
+  currentUser: {
+    role: 'OWNER' | 'ADMIN'|'MEMBER'|'VIEWER';
+    can: SpaceCapabilities;
+  }
 }
 
 export interface SpaceMember {
@@ -52,7 +54,7 @@ export interface SpaceBoardColumn {
   issues: WorkItem[];
 }
 
-export interface SpaceNavs {
+export interface SpaceNav {
   id: string;
   label: string;
   icon: string;
@@ -68,4 +70,37 @@ export interface WorkItem {
   workType: string;
   rank: string;
   id: string;
+  key: string;
+  priority: string;
+  reporterId: string;
+  assigneeId: string | null;
+  parentId: string | null;
+  status: WorkItemStatus;
+  assignee: SpaceMember | null;
+}
+
+export interface WorkItemStatus {
+  category: string;
+  id: string;
+  name: string;
+  label: string;
+  backgroundColor: string;
+  order: number;
+  spaceId: string;
+}
+
+export interface SpaceCapabilities {
+  addPeople: boolean;
+  manageSettings: boolean;
+  deleteSpace: boolean;
+  setBackground: boolean;
+  manageStatuses: boolean;
+}
+
+export interface SpaceView {
+  id: string;
+  spaceId: string;
+  type: 'BOARD' | 'LIST' | 'CALENDAR' | 'SUMMARY' | 'FORM' | 'CODE' | 'TIMELINE';
+  name: string;
+  ownerId: string | null;
 }

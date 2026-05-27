@@ -31,6 +31,7 @@ import { OptionWrapper } from '../../../../../../templates/option-wrapper/option
 import { OptionConfigurations, OptionsList } from '../../../../../../templates/option-wrapper/option-wrapper.model';
 import { rippleStyle, StatusLabels, StatusOptionsList } from './work-item-modal.constants';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
+import { SpaceDetails } from '../../../dashboard-space/_models';
 
 export interface SpaceStatusOptionConfigurations extends OptionConfigurations {
   name: string;
@@ -67,7 +68,7 @@ export class WorkItemModalComponent implements OnInit {
   protected readonly spaceOptionTemplate = viewChild<TemplateRef<any>>('spaceOptionTemplate');
   protected readonly statusBtn = viewChild<ElementRef<HTMLButtonElement>>('statusBtn');
 
-  private readonly spaces = signal<{ id: string; name: string; key: string, icon: string }[]>([]);
+  private readonly spaces = signal<SpaceDetails[]>([]);
 
   createWorkItemForm = this.formBuilder.group({
     space: ['', Validators.required],
