@@ -197,7 +197,9 @@
           justify-content: stretch;
           flex-grow: 1;
           margin-top: 0.375rem;
-
+          &.is-hidden {
+            display: none;
+          }
           .create-item-text {
             display: flex;
             box-sizing: border-box;
@@ -322,6 +324,10 @@
           transition: background-color 0.2s ease;
           border-radius: 4px;
           border: none;
+
+          &.is-hidden {
+            display: none;
+          }
 
           .icon-content {
             display: inline-block;

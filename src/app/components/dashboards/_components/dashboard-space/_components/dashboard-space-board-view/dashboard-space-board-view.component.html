@@ -67,7 +67,7 @@
       [cdkDropListData]="columns()"
       (cdkDropListDropped)="onColumnDrop($event)"
     >
-      @for (column of columns(); track $index) {
+      @for (column of filteredColumns(); track $index) {
         <board-view-column-template
           cdkDrag
           [cdkDragData]="column"
@@ -114,20 +114,49 @@
         @if (selectedModalTemplateFilter()) {
           <div class="modal-body">
             <div class="modal-body-content">
-              <text-field
-                [placeholder]="'Search ' + selectedModalTemplateFilter()?.text"
-              ></text-field>
               <div class="filter-options-container">
-                <app-checkbox
-                  [checkboxConfig]="{ title: 'No parent' }"
-                ></app-checkbox>
+                @switch(selectedModalTemplateFilter()?.id) {
+                  @case ('assignee') {
+                    <text-field
+                      [placeholder]="'Search ' + selectedModalTemplateFilter()?.text"
+                    ></text-field>
+                    @for (opt of assigneeOptions(); track opt.id) {
+                      <app-checkbox 
+                      [checkboxConfig]="{ title: opt.label, checked: filters().assignee.has(opt.id) }"
+                      (toggle)="toggleFilter('assignee', opt.id)">
+                    </app-checkbox>
+                  }
+                }
+                @case ('workType') {
+                    <text-field
+                      [placeholder]="'Search ' + selectedModalTemplateFilter()?.text"
+                    ></text-field>
+                    @for (opt of workTypeOptions; track opt.id) {
+                      <app-checkbox 
+                      [checkboxConfig]="{ title: opt.label, checked: filters().assignee.has(opt.id) }"
+                      (toggle)="toggleFilter('assignee', opt.id)">
+                    </app-checkbox>
+                  }
+                }
+                @case ('status') {
+                  <text-field
+                    [placeholder]="'Search ' + selectedModalTemplateFilter()?.text"
+                  ></text-field>
+                  @for (opt of statusOptions(); track opt.id) {
+                      <app-checkbox 
+                        [checkboxConfig]="{ title: opt.label, checked: filters().assignee.has(opt.id) }"
+                        (toggle)="toggleFilter('assignee', opt.id)">
+                      </app-checkbox>
+                    }
+                  }
+                  @default {
+                    <div class="shimmer text-field-placeholder"></div>
+                    <div class="shimmer checkbox-placeholder"></div>
+                    <div class="shimmer checkbox-placeholder"></div>
+                    <div class="shimmer checkbox-placeholder"></div>
+                  }
+                }
               </div>
-              @if (false) {
-                <div class="shimmer text-field-placeholder"></div>
-                <div class="shimmer checkbox-placeholder"></div>
-                <div class="shimmer checkbox-placeholder"></div>
-                <div class="shimmer checkbox-placeholder"></div>
-              }
             </div>
             <div class="modal-footer">
               <div class="footer-text">showing 1 of 1</div>

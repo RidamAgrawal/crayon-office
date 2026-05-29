@@ -14,6 +14,7 @@ import { HttpService } from '../../../../../../services/http-service/http-servic
 import {
   SpaceBoardsFilters,
   SpaceBoardsModalFilterPosition,
+  WORK_TYPES,
 } from './dashboard-space-board-view.constants';
 import { Checkbox } from '../../../../../../templates/checkbox/checkbox';
 import {
@@ -23,8 +24,10 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Store } from '@ngrx/store';
 import {
+  BoardFilterState,
   SpaceBoardColumn,
   SpaceBoardDetails,
+  SpaceDetails,
   WorkItem,
 } from '../../_models';
 import {
@@ -50,6 +53,7 @@ export class DashboardSpaceBoardViewComponent {
     read: TemplateRef<HTMLElement>,
   });
 
+  private readonly spaceDetails = signal<SpaceDetails | null>(null);
   protected readonly selectedModalTemplateFilter = signal<{
     id: string;
     text: string;
@@ -60,21 +64,55 @@ export class DashboardSpaceBoardViewComponent {
   protected readonly modalTemplatefilters = SpaceBoardsFilters;
 
   protected readonly boardDetails = signal<SpaceBoardDetails | null>(null);
-  protected readonly columns = signal<any>(null);
+  protected readonly columns = signal<SpaceBoardColumn[]>([]);
   protected readonly allColumnIds = computed(() =>
     (this.columns() ?? []).map((c: SpaceBoardColumn) => c.id),
   );
+
+  protected readonly filters = signal<BoardFilterState>({
+    assignee: new Set(),
+    workType: new Set(),
+    status: new Set(),
+  });
+
+  protected readonly assigneeOptions = computed(() => {
+    const members = this.spaceDetails()?.members ?? [];
+    return [
+      { id: null, label: 'Unassigned', avatar: null },
+      ...members.map(m => ({ id: m.userId, label: m.user.displayName, avatar: m.user.avatarUrl })),
+    ];
+  });
+
+  protected readonly workTypeOptions = WORK_TYPES;
+  protected readonly statusOptions = computed(() =>
+    (this.columns() ?? []).map((c: SpaceBoardColumn) => ({ id: c.id, label: c.name }))
+  );
+
+  protected readonly filteredColumns = computed(() => {
+    const { assignee, workType, status } = this.filters();
+    return (this.columns() ?? []).map(col => ({
+      ...col,
+      issues: col.issues.filter((i: WorkItem) =>
+        (assignee.size === 0 || assignee.has(i.assigneeId)) &&
+        (workType.size === 0 || workType.has(i.workType)) &&
+        (status.size === 0 || status.has(i.statusId))
+      ),
+    }));
+  });
+
 
   public ngOnInit(): void {
     this.store
       .select(selectSpaceDetail)
       .pipe(
-        switchMap((spaceDetails) =>
-          forkJoin([
+        switchMap((spaceDetails) => {
+          this.spaceDetails.set(spaceDetails);
+
+          return forkJoin([
             this.httpService.getSpaceColumns(spaceDetails.id),
             this.httpService.getSpaceIssues(spaceDetails.id),
-          ]),
-        ),
+          ]);
+        }),
         catchError(() => EMPTY),
       )
       .subscribe(([columns, issues]: [SpaceBoardColumn[], WorkItem[]]) => {
@@ -110,4 +148,13 @@ export class DashboardSpaceBoardViewComponent {
     // same-column → moveItemInArray; cross-column → transferArrayItem
     // then compute the new lexorank from neighbors and PATCH
   }
+
+  protected toggleFilter<K extends keyof BoardFilterState>(facet: K, id: any): void {
+    this.filters.update(prev => {
+      const next = new Set(prev[facet]);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return { ...prev, [facet]: next };
+    });
+  }
+
 }

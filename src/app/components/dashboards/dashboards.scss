@@ -3,14 +3,20 @@
 }
 
 :host {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    grid-template-rows: auto auto 100%;
-    grid-template-areas: 'notification notification notification' 'header header header' 'sidebar main aside';
-    min-height: 100vh;
+  display: grid;
+  grid-template-columns: var(--sidebar-col, auto) minmax(0, 1fr) var(--aside-col, auto);
+  grid-template-rows: var(--notification-row, auto) var(--header-row, auto) 100%;
+  grid-template-areas:
+    'notification notification notification'
+    'header header header'
+    'sidebar main aside';
+  min-height: 100vh;
 }
 
+
 .page-notification {
+    height: var(--notification-row, auto);
+    overflow: hidden;
     grid-area: notification;
     position: sticky;
     border-bottom: 1px solid #cecece;
@@ -43,6 +49,8 @@
 }
 
 app-dashboards-header {
+    height: var(--header-row, auto);
+    overflow: hidden;
     grid-area: header;
     position: sticky;
     border-bottom: 1px solid #cecece;
@@ -52,7 +60,6 @@ app-dashboards-sidebar {
     grid-area: var(--sidebar-grid-area, sidebar);
     border-inline-end: 1px solid #0B120E24;
     box-shadow: var(--sidebar-box-shdow);
-    width: clamp(240px, 240px, 50vw);
     position: -webkit-sticky;
     position: sticky;
     height: calc(100vh - 48px - 42px); // height to be taken 
@@ -67,6 +74,7 @@ app-dashboards-sidebar {
     transition-behavior: allow-discrete;
     transition-duration: .3s;
     transition-property: transform, display;
+    width: var(--sidebar-col, clamp(240px, 240px, 50vw));
 }
 
 app-dashboards-sidebar.show {
@@ -79,7 +87,7 @@ app-dashboards-sidebar.show {
 
 main {
     grid-area: main;
-    height: calc(100vh - 48px - 42px);
+    height: calc(100vh - var(--notification-row, 42px) - var(--header-row, 48px));
     // Stitch-style dot grid background — dense, faded dots
     background-color: #F3F4F6;
     background-image: radial-gradient(circle, rgba(180, 184, 194, 0.45) 0.75px, transparent 0.75px);

@@ -27,18 +27,21 @@ export const PER_TAB_OPTIONS: OptionsList[] = [{
     icon: 'editSquare',
     label: 'Rename',
     type: 'button',
+    visible: true,
   },
   {
     id: 'moveLeft',
     icon: 'moveGroupLeft',
     label: 'Move to left',
     type: 'button',
+    visible: true,
   },
   {
     id: 'moveRight',
     icon: 'moveGroupRight',
     label: 'Move to right',
     type: 'button',
+    visible: true,
   },
   ],
 }];

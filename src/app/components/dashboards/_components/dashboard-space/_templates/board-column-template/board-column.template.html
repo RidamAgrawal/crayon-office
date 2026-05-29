@@ -29,11 +29,12 @@
     </li>
     }
     <li class="item">
-      @if (false) {
-      <div class="create-item">
+      @if (isCreating()) {
+      <div class="create-item" appClickOutside (clickOutside)="isCreating.set(false)">
         <textarea
           class="create-item-text"
           placeholder="What needs to be done"
+          #txtArea
         ></textarea>
         <div class="tools">
           <div class="tool tool1">
@@ -65,14 +66,14 @@
           </div>
         </div>
       </div>
-      } @else {
-      <button class="create-item-btn">
+    } @else {
+      <button class="create-item-btn" (click)="isCreating.set(true)">
         <span class="icon-content">
           <img src="./assets/icons/add2.svg" alt="icon" />
         </span>
         Create
       </button>
-      }
+    }
     </li>
   </ul>
 </div>

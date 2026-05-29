@@ -18,30 +18,15 @@
       </button>
     </div>
     <div class="extras">
-      <button class="secondary-btn">
+      <button class="secondary-btn" (click)="onExpandClick()">
         <span>
-          <img src="./assets/icons/link.svg" alt="icon" />
-        </span>
-      </button>
-      <button class="secondary-btn">
-        <span>
-          <img src="./assets/icons/plans.svg" alt="icon" />
-        </span>
-      </button>
-      <button class="secondary-btn">
-        <span>
-          <img src="./assets/icons/feedback.svg" alt="icon" />
-        </span>
-      </button>
-      <button class="secondary-btn">
-        <span>
-          <img src="./assets/icons/openInFull.svg" alt="icon" />
+          <img [src]="isTabsCollapsed() ? './assets/icons/closeFullscreen.svg' : './assets/icons/openInFull.svg'" alt="icon" />
         </span>
       </button>
     </div>
   </div>
 </div>
-<nav class="spaces-nav">
+<nav class="spaces-nav" [class.is-collapsed]="isTabsCollapsed()">
   <ul class="spaces-nav-item-container">
     @for (navItem of spaceNavs(); track $index) {
       <li class="spaces-nav-item" [id]="navItem.id">
@@ -60,7 +45,7 @@
           <div class="spaces-view-options">
             <button
               class="spaces-view-options-btn"
-              (click)="onNavOptionsClick($event, navItem.optionLists)"
+              (click)="onNavOptionsClick($event, navItem.optionsList)"
             >
               <img src="./assets/icons/more.svg" />
             </button>
@@ -70,7 +55,7 @@
     }
   </ul>
   <div class="more-views">
-    <button class="more-view-btn">
+    <button class="more-view-btn" (click)="onMoreNavClick(moreNavBtn)" #moreNavBtn>
       <span class="more-view-btn-content">
         <span class="more-view-icon-container">
           <img src="./assets/icons/add2.svg" />
@@ -269,4 +254,21 @@
 
 <ng-template #spaceSettingsTemplate>
   <div class="space-settings-template"></div>
+</ng-template>
+
+
+<ng-template #addToNavTemplate>
+  <div class="add-nav-template">
+    <div class="empty">
+      <div class="img-container">
+        <img src="	https://jira-frontend-bifrost.prod-east.frontend.public.atl-paas.net/assets/binoculars-success.8b3ddac2.svg" alt="">
+      </div>
+      <div class="text-container">
+        <h2>Nothing to add more</h2>
+      </div>
+      <div class="text-container">
+        <p>All tabs have been added to the navigation</p>
+      </div>
+    </div>
+  </div>
 </ng-template>

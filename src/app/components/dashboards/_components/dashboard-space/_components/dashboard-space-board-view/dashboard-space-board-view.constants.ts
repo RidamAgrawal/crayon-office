@@ -31,3 +31,9 @@ export const spaceIconUrl1 =
 
 export const spaceIconUrl2 =
   'https://demo1234.atlassian.net/secure/viewavatar?size=xxxlarge@2x&avatarId=10400&avatarType=project';
+
+export const WORK_TYPES = [
+  { label: 'Epic', id: 'epic'},
+  { label: 'Subtask', id: 'subtask'},
+  { label: 'Task', id: 'task'},
+]

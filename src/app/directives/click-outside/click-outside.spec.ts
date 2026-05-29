@@ -1,4 +1,4 @@
-import { ClickOutside } from './click-outside';
+import { ClickOutside } from '../click-outside';
 
 describe('ClickOutside', () => {
   it('should create an instance', () => {

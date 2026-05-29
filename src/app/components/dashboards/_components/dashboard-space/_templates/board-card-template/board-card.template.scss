@@ -61,7 +61,6 @@
     }
     .card-details:first-child {
       margin-bottom: 0.5rem;
-      margin-right: 2rem;
       height: 100%;
       width: 100%;
       line-height: 1.25rem;
@@ -79,28 +78,82 @@
         border-radius: .25rem;
         width: 100%;
         height: 100%;
-        margin-right: 2pc;
+        // margin-right: 2pc;
         margin-bottom: .5rem;
-        .description {
-          display: inline;
-          line-height: 1.75rem;
-          padding-right: 0.25rem;
+        .non-edit-description-content {
+          margin-right: 2rem;
+          .description {
+            display: inline;
+            line-height: 1.75rem;
+            padding-right: 0.25rem;
+          }
+          .edit-description-btn-container {
+            position: relative;
+            background-color: #fff;
+            .edit-description-btn {
+              display: none;    
+              position: absolute;
+              top: var(--ds-space-0, 0px);
+              left: var(--ds-space-0, 0px);
+              transform: translate(8px, -3px);
+              width: fit-content;
+              .icon-content {
+                border-radius: 3px;
+                padding: 4px;
+                &:hover {
+                  background-color: #0515240F;
+                }
+              }
+              img {
+                height: 16px;
+                width: 16px;
+              }
+            }
+          }
+          &.isHidden {
+            display: none;
+          }
         }
-        .edit-description-btn-container {
+        .edit-description-content {
+          width: 100%;
           position: relative;
-          .edit-description-btn {
-            display: none;    
+          z-index: 2;
+          ::ng-deep text-field.description {
+            border: none !important;
+            .text-field {
+              box-shadow:  inset 0 0 0 2px #4688ec !important;
+              z-index: 2;
+            }
+          }
+          .edit-description-btn-container {
+            z-index: 3;
             position: absolute;
-            top: var(--ds-space-0, 0px);
-            left: var(--ds-space-0, 0px);
-            transform: translate(3px, -3px);
-            &:hover {
-              background-color: #0102240f;
+            margin-block-start: .375rem;
+            display: flex;
+            flex-shrink: 0;
+            inset-block-start: 100%;
+            inset-inline-end: 0;
+            column-gap: .25rem;
+            background-color: #fff;
+            .edit-description-btn {
+              box-sizing: border-box;
+              background-color: #fff;
+              width: 2rem;
+              height: 2rem;
+              border-radius: .375rem;
+              box-shadow: 0px 8px 12px #1E1F2126, 0px 0px 1px #1E1F214F;
+              display: flex;
+              // line-height: 1.25rem;
+              // font-size: .87rem;
+              // align-items: center;
+              &:hover {
+                background-color: #0515240F;
+                vertical-align: middle;
+              }
             }
-            img {
-              height: 16px;
-              width: 16px;
-            }
+          }
+          &.isHidden {
+            display: none;
           }
         }
       }
@@ -131,9 +184,11 @@
     .card-contents {
       .card-details {
         .card-item-description-2 {
-          .edit-description-btn-container{
-            .edit-description-btn {
-              display: block;
+          .non-edit-description-content {
+            .edit-description-btn-container{
+              .edit-description-btn {
+                display: inline-flex;
+              }
             }
           }
         }

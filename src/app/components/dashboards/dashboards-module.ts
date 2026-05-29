@@ -9,7 +9,7 @@ import { dashboardsStoreReducer } from './store/dashboards-store.reducer';
 import { DashboardsHeader } from './_components/dashboards-header/dashboards-header';
 import { IconContainer } from './_components/icon-container/icon-container';
 import { DashboardSearchBar } from './_components/dashboard-search-bar/dashboard-search-bar';
-import { ClickOutside } from '../../directives/click-outside';
+import { ClickOutside } from '../../directives';
 import { TabComponent } from './_components/tabs/tabs';
 import { FloatingContainerDirective } from "../../directives/floating-container/floating-container";
 import { SidebarItem } from '../../templates/sidebar-item/sidebar-item';

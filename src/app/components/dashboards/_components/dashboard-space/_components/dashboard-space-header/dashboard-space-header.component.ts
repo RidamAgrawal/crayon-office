@@ -1,6 +1,7 @@
 import {
   Component,
   computed,
+  ElementRef,
   inject,
   TemplateRef,
   viewChild,
@@ -10,13 +11,14 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectSpaceDetail } from '../../_store/dashboard-space-store.selector';
-import { DashboardSpaceHeaderService } from '../../_services';
+import { DashboardSpaceHeaderService, DashboardSpaceLayoutService } from '../../_services';
 import { OptionsList } from '../../../../../../templates/option-wrapper/option-wrapper.model';
 import { OverlayService } from '../../../../../../services/overlay-service/overlay-service';
 import { MultiSelect } from '../../../../../../templates/multi-select/multi-select';
 import { TextField } from '../../../../../../templates/text-field/text-field';
 import { PER_TAB_OPTIONS, SPACE_MENU, toOption, VIEW_TYPE_UI } from '../../dashboard-space.constants';
 import { SpaceNav } from '../../_models';
+import { } from '../../_services';
 
 @Component({
   selector: 'dashboard-space-header',
@@ -28,11 +30,13 @@ export class DashboardSpaceHeader {
   private readonly store = inject(Store);
   private readonly viewContainerRef = inject(ViewContainerRef);
   private readonly overlayService = inject(OverlayService);
-  private readonly dashboardSpaceHeaderService = inject(
-    DashboardSpaceHeaderService,
-  );
+  private readonly dashboardSpaceHeaderService = inject(DashboardSpaceHeaderService);
+  private readonly dashboardSpaceLayoutService = inject(DashboardSpaceLayoutService);
 
   protected readonly addPeopleTemplate = viewChild('addPeopleTemplate', {
+    read: TemplateRef<HTMLElement>,
+  });
+  protected readonly addNavTemplate = viewChild('addToNavTemplate', {
     read: TemplateRef<HTMLElement>,
   });
 
@@ -57,10 +61,11 @@ export class DashboardSpaceHeader {
       label: v.name,
       icon: VIEW_TYPE_UI[v.type].icon,
       routerLink: VIEW_TYPE_UI[v.type].routerLink,
-      optionLists: PER_TAB_OPTIONS, // static — rename, move-left/right, etc.
+      optionsList: PER_TAB_OPTIONS, // static — rename, move-left/right, etc.
     })),
   );
 
+  protected readonly isTabsCollapsed = this.dashboardSpaceLayoutService.isExpanded;
 
   protected onOptionsClick(event: MouseEvent): void {
     if (!event.target) return;
@@ -79,6 +84,8 @@ export class DashboardSpaceHeader {
       event.target as HTMLButtonElement,
       optionsList,
     );
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   private openAddPeopleModal() {
@@ -88,5 +95,26 @@ export class DashboardSpaceHeader {
       closeOnBackdropClick: true,
       hasBackdrop: true,
     });
+  }
+
+  protected onMoreNavClick(element: HTMLButtonElement): void {
+    this.overlayService.open({
+      template: this.addNavTemplate(),
+      viewContainerRef: this.viewContainerRef,
+      connectedTo: new ElementRef(element),
+      positions: [
+        {
+          originX: 'center',
+          overlayX: 'center',
+          originY: 'bottom',
+          overlayY: 'top',
+          offsetY: 8,
+        }
+      ]
+    });
+  }
+
+  protected onExpandClick(): void {
+    this.dashboardSpaceLayoutService.toggle();
   }
 }

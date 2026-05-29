@@ -1,4 +1,3 @@
-import { User } from '../../../../../models';
 import { OptionsList } from '../../../../../templates/option-wrapper/option-wrapper.model';
 
 export interface SpaceDetails {
@@ -16,7 +15,7 @@ export interface SpaceDetails {
   // workItems: unknown[];
   views: SpaceView[];
   currentUser: {
-    role: 'OWNER' | 'ADMIN'|'MEMBER'|'VIEWER';
+    role: 'OWNER' | 'ADMIN' | 'MEMBER' | 'VIEWER';
     can: SpaceCapabilities;
   }
 }
@@ -59,7 +58,7 @@ export interface SpaceNav {
   label: string;
   icon: string;
   routerLink: string;
-  optionLists: OptionsList[];
+  optionsList: OptionsList[];
 }
 
 export interface WorkItem {
@@ -104,3 +103,9 @@ export interface SpaceView {
   name: string;
   ownerId: string | null;
 }
+
+export type BoardFilterState = {
+  assignee: Set<string | null>;
+  workType: Set<string>;
+  status: Set<string>;
+};
