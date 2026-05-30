@@ -2,6 +2,12 @@ import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/cor
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from "@angular/common";
 
+export interface CheckboxConfig {
+  title?: string;
+  icon?: string;
+  contentOutside?: boolean;
+}
+
 @Component({
   selector: 'app-checkbox',
   imports: [FormsModule, CommonModule],
@@ -19,8 +25,8 @@ import { CommonModule } from "@angular/common";
   }
 })
 export class Checkbox implements ControlValueAccessor {
-  public value: boolean = false;
-  public isDisabled: boolean = false;
+  protected value: boolean = false;
+  protected isDisabled: boolean = false;
   @Output() valChange = new EventEmitter<boolean>();
 
   private onChange = (val: boolean) => { };
@@ -43,5 +49,5 @@ export class Checkbox implements ControlValueAccessor {
     this.onChange(newValue);
     this.valChange.emit(newValue);
   }
-  @Input() public checkboxConfig: any;
+  @Input() public checkboxConfig?: CheckboxConfig;
 }

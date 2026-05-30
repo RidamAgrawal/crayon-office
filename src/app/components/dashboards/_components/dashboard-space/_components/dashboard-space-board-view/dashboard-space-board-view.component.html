@@ -38,7 +38,13 @@
           <span><img src="./assets/icons/filterList.svg" alt="icon" /></span>
         </span>
         <span>Filter</span>
+        @if(totalFilterCount(); as count) {
+          <span class="filter-count-badge">{{ count }}</span>
+        }
       </button>
+      @if (totalFilterCount() > 0) {
+        <button class="secondary-btn link-btn" (click)="clearAllFilters()">Clear filters</button>
+      }
     </div>
   </div>
   <div class="space-search-filter-row-group space-search-filter-row-group-2">
@@ -67,24 +73,52 @@
       [cdkDropListData]="columns()"
       (cdkDropListDropped)="onColumnDrop($event)"
     >
-      @for (column of filteredColumns(); track $index) {
+      @for (column of filteredColumns(); track column.id; let i = $index) {
         <board-view-column-template
           cdkDrag
           [cdkDragData]="column"
           [columnDetails]="column"
           [connectedTo]="allColumnIds()"
+          [index]="i"
+          [total]="filteredColumns().length"
           (cardDropped)="onCardDrop($event)"
+          (columnOptionsClick)="openColumnOptions($event.column, $event.trigger, i)"
         >
         </board-view-column-template>
       }
     </div>
   </div>
-  <div class="add-columns-btn-container">
-    <button class="add-columns-btn">
+  <div class="add-columns-btn-container"
+    appClickOutside 
+    (clickOutside)="isCreatingColumn.set(false); status.set('')"
+    [class.is-hidden]="canCreateColumns()">
+    <button class="add-columns-btn" [class.is-hidden]="isCreatingColumn()" (click)="isCreatingColumn.set(true)">
       <span class="icon-content">
-        <img src="./assets/icons/add2.svg" alt="icon" />
+        <img src="./assets/icons/add2.svg" alt="icon"/>
       </span>
     </button>
+    <div class="edit-description-content" [class.is-hidden]="!isCreatingColumn()">
+      <text-field 
+        class="description" 
+        [(value)]="status" 
+        (keydown.enter)="createColumn()"
+        (keydown.escape)="isCreatingColumn.set(false); status.set('')">
+      </text-field>
+      <div class="edit-description-btn-container">
+        <button class="icon-btn edit-description-btn"
+          [disabled]="status().trim().length === 0"
+          (click)="createColumn()">
+          <span class="icon-content">
+            <img src="./assets/icons/check.svg" alt="">
+          </span>
+        </button>
+        <button class="icon-btn edit-description-btn" (click)="isCreatingColumn.set(false); status.set('')">
+          <span class="icon-content">
+            <img src="./assets/icons/close.svg" alt="">
+          </span>
+        </button>
+      </div>
+    </div>
   </div>
   <div class="outer right-outer"></div>
 </div>
@@ -107,6 +141,13 @@
                 </span>
               }
             </div>
+            @if(facetCounts()[filter.id]; as n) {
+              <span class="filter-modal-nav-item-selected-count-container">
+                <span class="filter-modal-nav-item-selected-count-content">
+                  <span class="filter-modal-nav-item-selected-count-text">{{n}}</span>
+                </span>
+              </span>
+            }
           </button>
         }
       </div>
@@ -121,9 +162,24 @@
                       [placeholder]="'Search ' + selectedModalTemplateFilter()?.text"
                     ></text-field>
                     @for (opt of assigneeOptions(); track opt.id) {
-                      <app-checkbox 
-                      [checkboxConfig]="{ title: opt.label, checked: filters().assignee.has(opt.id) }"
-                      (toggle)="toggleFilter('assignee', opt.id)">
+                      <app-checkbox
+                      [ngModel]="filters().assignee.has(opt.id)"
+                      (valChange)="setFilter('assignee', opt.id, $event)">
+                      <div class="assignee-row">
+                        @if(opt.id==null) {
+                          <span class="avatar">
+                            <span class="icon-content">
+                              <img src="./assets/icons/person.svg" alt="i">
+                            </span>
+                          </span>
+                        } @else {
+                          <span class="avatar">
+                            @if (opt.avatar) { <img [src]="opt.avatar" alt="i"> }
+                            @else { {{ opt.label | name }} }
+                          </span>
+                        }
+                        {{ opt.label }}
+                      </div>
                     </app-checkbox>
                   }
                 }
@@ -132,9 +188,15 @@
                       [placeholder]="'Search ' + selectedModalTemplateFilter()?.text"
                     ></text-field>
                     @for (opt of workTypeOptions; track opt.id) {
-                      <app-checkbox 
-                      [checkboxConfig]="{ title: opt.label, checked: filters().assignee.has(opt.id) }"
-                      (toggle)="toggleFilter('assignee', opt.id)">
+                      <app-checkbox
+                      [ngModel]="filters().workType.has(opt.id)"
+                      (valChange)="setFilter('workType', opt.id, $event)">
+                        <div class="work-type-row">
+                          <div class="content">
+                            <img [src]="'./assets/icons/' + opt.icon + '.svg'" alt="i">
+                            <div class="text">{{ opt.label }}</div>
+                          </div>
+                        </div>
                     </app-checkbox>
                   }
                 }
@@ -143,9 +205,15 @@
                     [placeholder]="'Search ' + selectedModalTemplateFilter()?.text"
                   ></text-field>
                   @for (opt of statusOptions(); track opt.id) {
-                      <app-checkbox 
-                        [checkboxConfig]="{ title: opt.label, checked: filters().assignee.has(opt.id) }"
-                        (toggle)="toggleFilter('assignee', opt.id)">
+                      <app-checkbox
+                        [ngModel]="filters().status.has(opt.id)"
+                        (valChange)="setFilter('status', opt.id, $event)">
+                        <span class="status-pill-container">
+                          <span class="status-pill"
+                            [style.background-color]="opt.backgroundColor">
+                            {{ opt.label }}
+                          </span>
+                        </span>
                       </app-checkbox>
                     }
                   }
@@ -159,7 +227,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <div class="footer-text">showing 1 of 1</div>
+              <div class="footer-text">showing {{currentFacetTotals().shown}} of {{currentFacetTotals().total}}</div>
               @if (false) {
                 <div class="modal-footer-placeholder">
                   <div

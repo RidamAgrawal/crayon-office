@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { UserLoginSuccessResponse } from '../../models';
 import { environment } from '../../../environments/environment';
 import { SpaceDetails } from '../../components/dashboards/_components/dashboard-space/_models';
+import { SpaceBoardColumn } from '../../components/dashboards/_components/dashboard-space/_models/index';
 
 @Injectable({
   providedIn: 'root',
@@ -153,4 +154,19 @@ export class HttpService {
       `${environment.backendUrl}/api/spaces/` + spaceId + '/issues',
     );
   }
+
+  public createStatus(spaceId: string, body: { name: string; label: string; backgroundColor: string; category?: string }): Observable<SpaceBoardColumn> {
+    return this.http.post<SpaceBoardColumn>(
+      `${environment.backendUrl}/api/spaces/${spaceId}/statuses`,
+      body
+    );
+  }
+  
+  public updateStatus(spaceId: string, statusId: string ,body: { name?: string; label?: string; backgroundColor?: string; category?: string }): Observable<SpaceBoardColumn> {
+    return this.http.post<SpaceBoardColumn>(
+      `${environment.backendUrl}/api/spaces/${spaceId}/statuses/${statusId}`,
+      body
+    );
+  }
+
 }

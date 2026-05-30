@@ -1,5 +1,5 @@
 import { Router, Response } from 'express';
-import type { SpaceType, WorkType, StatusCategory } from '@prisma/client';
+import { type SpaceType, type WorkType, type StatusCategory, Prisma } from '@prisma/client';
 import { prisma } from '../lib/prisma';
 import { requireAuth, AuthRequest } from '../auth/auth.middleware';
 import { defaultViewsByTemplate, getSpaceForMember } from './space.utilities';
@@ -262,6 +262,7 @@ router.post(
       });
       return res.status(201).json(status);
     } catch (err) {
+      if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') return res.status(409).json({ error: 'A status with this name already exists' });
       return res.status(500).json({ error: 'Failed to create status' });
     }
   },
@@ -283,26 +284,35 @@ router.patch('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   }
 });
 
-router.patch(
-  '/:id/statuses/reorder',
-  requireAuth,
-  async (req: AuthRequest, res: Response) => {
-    try {
-    } catch (err) {
-      return res.status(500).json({ error: 'Failed to order' });
-    }
-  },
-);
+router.patch('/:id/statuses/reorder', requireAuth, async (req, res) => {
+  try {
+    const { orderedIds } = req.body as { orderedIds: string[] };
+    await prisma.$transaction(
+      orderedIds.map((id, order) =>
+        prisma.status.update({ where: { id }, data: { order } })
+      )
+    );
+    return res.status(204).end();
+  } catch {
+    return res.status(500).json({ error: 'Failed to reorder' });
+  }
+});
 
-router.patch(
-  '/:id/statuses/:statusId',
-  requireAuth,
-  async (req: AuthRequest, res: Response) => {
-    try {
-    } catch (err) {
-      return res.status(500).json({ error: 'Failed to order' });
-    }
-  },
-);
+router.patch('/:id/statuses/:statusId', requireAuth, async (req, res) => {
+  try {
+    const { label, backgroundColor, category } = req.body;
+    const updated = await prisma.status.update({
+      where: { id: req.params.statusId },
+      data: {
+        ...(label !== undefined && { label }),
+        ...(backgroundColor !== undefined && { backgroundColor }),
+        ...(category !== undefined && { category }),
+      },
+    });
+    return res.json(updated);
+  } catch (err) {
+    return res.status(500).json({ error: 'Failed to update status' });
+  }
+});
 
 export default router;

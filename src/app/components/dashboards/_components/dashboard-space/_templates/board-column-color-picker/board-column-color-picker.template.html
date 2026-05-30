@@ -1,0 +1,18 @@
+<section class="palette-section">
+    <h4>Solid colors</h4>
+    <div class="swatch-row">
+        @for (c of solid; track c) {
+        <button class="swatch" [style.background]="c" [class.selected]="c === current()"
+            (click)="pick.emit(c)"></button>
+        }
+    </div>
+</section>
+<section class="palette-section">
+    <h4>Gradients</h4>
+    <div class="swatch-row">
+        @for (c of gradient; track c) {
+        <button class="swatch" [style.background]="c" [class.selected]="c === current()"
+            (click)="pick.emit(c)"></button>
+        }
+    </div>
+</section>

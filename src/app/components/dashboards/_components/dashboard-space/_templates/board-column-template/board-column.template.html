@@ -7,7 +7,8 @@
           {{columnDetails().name}}
           <div class="item-count">1</div>
         </div>
-        <button class="icon-btn">
+        <button class="icon-btn"
+          (click)="onMoreClick($event)">
           <span class="icon-content">
             <img src="./assets/icons/more.svg" alt="icon" />
           </span>

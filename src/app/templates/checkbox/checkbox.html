@@ -8,21 +8,23 @@
             <!-- } -->
         </g>
     </svg>
-    @if(checkboxConfig.title&&!checkboxConfig.contentOutside){ 
-        <span class="checkbox-label-text inline-text"> 
-            {{checkboxConfig.title}} 
-        </span> 
-    }
-</label>
-@if(checkboxConfig.contentOutside) {
-    <div class="checkbox-label-container">
-        @if(checkboxConfig.icon){
-            <span class="checkbox-label-icon">
-                <img [src]="'assets/icons/'+checkboxConfig.icon+'.svg'" alt="icon">
+    <ng-content>
+    @if(checkboxConfig?.title && !checkboxConfig?.contentOutside){
+            <span class="checkbox-label-text inline-text">
+                {{checkboxConfig!.title}}
             </span>
         }
-        @if(checkboxConfig.title){
-            <span>{{checkboxConfig.title}}</span>
+    </ng-content>
+</label>
+@if(checkboxConfig?.contentOutside) {
+    <div class="checkbox-label-container">
+        @if(checkboxConfig!.icon){
+            <span class="checkbox-label-icon">
+                <img [src]="'assets/icons/'+checkboxConfig!.icon+'.svg'" alt="icon">
+            </span>
+        }
+        @if(checkboxConfig!.title){
+            <span>{{checkboxConfig!.title}}</span>
         }
     </div>
 }
