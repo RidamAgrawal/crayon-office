@@ -28,10 +28,10 @@ export class BoardViewColumnTemplate {
     }
   });
 
-  protected onMoreClick(e: MouseEvent): void {
+  protected onMoreClick(e: MouseEvent, columnOptionBtn: HTMLButtonElement): void {
     this.columnOptionsClick.emit({
       column: this.columnDetails(),
-      trigger: e.currentTarget as HTMLElement,
+      trigger: columnOptionBtn as HTMLElement,
     });
   }
 }

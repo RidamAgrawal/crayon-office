@@ -4,7 +4,7 @@ import { STATUS_PALETTE_SOLID, STATUS_PALETTE_GRADIENT } from "../../_components
 @Component({
   selector: 'app-color-picker',
   standalone: true,
-  templateUrl: './board-column-color-picker.template.scss',
+  templateUrl: './board-column-color-picker.template.html',
   styleUrl: './board-column-color-picker.template.scss',
 })
 export class BoardColumnColorPickerComponent {

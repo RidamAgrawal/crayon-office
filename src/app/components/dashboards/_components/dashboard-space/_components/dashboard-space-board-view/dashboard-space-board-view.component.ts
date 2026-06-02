@@ -47,6 +47,7 @@ import { ClickOutside } from '../../../../../../directives';
 import { OptionConfigurations, OptionsList } from '../../../../../../templates/option-wrapper/option-wrapper.model';
 import { OptionWrapper } from '../../../../../../templates/option-wrapper/option-wrapper';
 import { BoardColumnColorPickerComponent } from '../../_templates';
+import { AppColorPicker } from '../../../../../../templates/app-color-picker/app-color-picker.component';
 
 @Component({
   selector: 'dashboard-space-board-view',
@@ -141,18 +142,18 @@ export class DashboardSpaceBoardViewComponent {
 
   protected getColumnOptions(column: SpaceBoardColumn, index: number, total: number): OptionsList[] {
     const can = this.spaceDetails()?.currentUser.can;
-    const opts = [
-      index > 0 && { id: STATUS_OPTION_IDS.moveLeft, text: 'Move column left' },
-      index < total - 1 && { id: STATUS_OPTION_IDS.moveRight, text: 'Move column right' },
-      { id: STATUS_OPTION_IDS.setLimit, text: 'Set column limit' },
-      { id: STATUS_OPTION_IDS.setColor, text: 'Set column color' },
-    ].filter(Boolean);
 
-    const danger = total > 1 && can?.manageStatuses
-      ? [{ id: STATUS_OPTION_IDS.delete, text: 'Delete' }]
+    const opts: OptionConfigurations[] = [];
+    if (index > 0)         opts.push({ type: 'button', id: STATUS_OPTION_IDS.moveLeft,  label: 'Move column left', visible: true });
+    if (index < total - 1) opts.push({ type: 'button', id: STATUS_OPTION_IDS.moveRight, label: 'Move column right', visible: true });
+    opts.push({ type: 'button', id: STATUS_OPTION_IDS.setLimit, label: 'Set column limit', visible: true });
+    opts.push({ type: 'button', id: STATUS_OPTION_IDS.setColor, label: 'Set column color', visible: true });
+
+    const danger: OptionConfigurations[] = total > 1 && can?.manageStatuses
+      ? [{ type: 'button', id: STATUS_OPTION_IDS.delete, label: 'Delete', visible: true }]
       : [];
 
-    return [{ options: opts as OptionConfigurations[] }, { options: danger }];
+    return [{ options: opts }, { options: danger }];
   }
 
   public ngOnInit(): void {
@@ -276,18 +277,19 @@ export class DashboardSpaceBoardViewComponent {
 
   private openColorPicker(column: SpaceBoardColumn, trigger: HTMLElement): void {
     this.overlayService.open({
-      component: BoardColumnColorPickerComponent,
-      componentInputs: { current: column.backgroundColor },
-      componentOutputs: {
-        pick: (color: string) => {
-          this.updateColumnColor(column.id, color);
-          this.overlayService.close(); // assuming your overlay service supports this
-        },
-      },
+      component: AppColorPicker,
+      // componentInputs: { current: column.backgroundColor },
+      // componentOutputs: {
+      //   pick: (color: string) => {
+      //     this.updateColumnColor(column.id, color);
+      //     this.overlayService.close(); // assuming your overlay service supports this
+      //   },
+      // },
       connectedTo: new ElementRef(trigger),
       positions: SpaceBoardsModalFilterPosition,
     });
   }
+
   private updateColumnColor(statusId: string, color: string): void {
     // Optimistic
     this.columns.update(cols =>
