@@ -3,13 +3,14 @@ import { WorkItem } from '../../_models';
 import { OverlayService } from '../../../../../../services/overlay-service/overlay-service';
 import { OptionWrapper } from '../../../../../../templates/option-wrapper/option-wrapper';
 import { cardMoreOptionButton } from './board-card.constants';
-import { TextField } from '../../../../../../templates/text-field/text-field';
+import { ClickOutside } from "../../../../../../directives";
+import { BoardSpaceTextFieldWrapperTemplate } from '../board-space-text-field-wrapper-template';
 
 @Component({
   selector: 'board-view-card-template',
   templateUrl: './board-card.template.html',
   styleUrl: './board-card.template.scss',
-  imports: [TextField]
+  imports: [BoardSpaceTextFieldWrapperTemplate, ClickOutside]
 })
 export class BoardViewCardTemplate {
   private readonly overlayService = inject(OverlayService);
@@ -18,6 +19,7 @@ export class BoardViewCardTemplate {
 
   protected readonly isEditing: WritableSignal<boolean> = signal(false);
   protected readonly summary: WritableSignal<string> = signal('');
+  protected readonly draftWorkType: WritableSignal<string> = signal('epic');
 
   public ngOnInit(): void {
     this.summary.set(this.issue()?.summary ?? '');
@@ -44,8 +46,12 @@ export class BoardViewCardTemplate {
   }
 
   protected updateSummary(): void {
-    this.issue()!['summary'] = this.summary();
     this.isEditing.set(false);
     // make api call here
+  }
+
+  protected onSubmit(val: string): void {
+    this.issue()!['summary'] = val;
+    this.updateSummary();
   }
 }

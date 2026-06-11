@@ -1,5 +1,5 @@
 import { Router, Response } from 'express';
-import { type SpaceType, type WorkType, type StatusCategory, Prisma } from '@prisma/client';
+import { type SpaceType, type WorkType, type StatusCategory, Prisma, Priority } from '@prisma/client';
 import { prisma } from '../lib/prisma';
 import { requireAuth, AuthRequest } from '../auth/auth.middleware';
 import { defaultViewsByTemplate, getSpaceForMember } from './space.utilities';
@@ -192,10 +192,14 @@ router.post(
         summary,
         statusId,
         workType = 'TASK',
+        description,
+        dueDate
       } = req.body as {
         summary: string;
         statusId: string;
         workType?: string;
+        description?: string;
+        dueDate?: string | null;
       };
       if (!summary?.trim())
         return res.status(400).json({ error: 'summary is required' });
@@ -215,8 +219,16 @@ router.post(
           statusId,
           reporterId: req.userId!,
           workType: workType as WorkType,
+          description,
           rank: String(Date.now()),
+          ...(dueDate && { dueDate: new Date(dueDate) })
         },
+        include: {
+          status: true,
+          assignee: {
+            select: { id: true, displayName: true, avatarUrl: true, }
+          }
+        }
       });
       return res.status(201).json(issue);
     } catch (err) {
@@ -268,14 +280,32 @@ router.post(
   },
 );
 
-router.patch('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
+router.patch('/:id/issues/:issueId', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
-    const { statusId, rank } = req.body as { statusId?: string; rank?: string };
+    const space = await getSpaceForMember(req.params.id, req.userId!, res);
+    if (!space) return;
+
+    const { summary, statusId, rank, assigneeId, description, priority } = req.body as {
+      summary?: string; statusId?: string; rank?: string;
+      assigneeId?: string | null; description?: string; priority?: string;
+    };
+
+    // Confirm the issue belongs to this space — prevents cross-space mutation
+    const existing = await prisma.workItem.findFirst({
+      where: { id: req.params.issueId, spaceId: req.params.id },
+      select: { id: true },
+    });
+    if (!existing) return res.status(404).json({ error: 'Issue not found' });
+
     const updated = await prisma.workItem.update({
-      where: { id: req.params.id },
+      where: { id: req.params.issueId },
       data: {
-        ...(statusId && { statusId }),
-        ...(rank && { rank }),
+        ...(summary !== undefined && { summary: summary.trim() }),
+        ...(statusId !== undefined && { statusId }),
+        ...(rank !== undefined && { rank }),
+        ...(assigneeId !== undefined && { assigneeId }), // null clears it
+        ...(description !== undefined && { description }),
+        ...(priority !== undefined && { priority: priority as Priority }),
       },
     });
     return res.json(updated);
@@ -300,10 +330,17 @@ router.patch('/:id/statuses/reorder', requireAuth, async (req, res) => {
 
 router.patch('/:id/statuses/:statusId', requireAuth, async (req, res) => {
   try {
-    const { label, backgroundColor, category } = req.body;
+    const space = await getSpaceForMember(req.params.id, req.userId!, res);
+    if (!space) return;
+
+    const { name, label, backgroundColor, category } = req.body as {
+      name?: string; label?: string; backgroundColor?: string; category?: string;
+    };
+
     const updated = await prisma.status.update({
       where: { id: req.params.statusId },
       data: {
+        ...(name !== undefined && { name: name.trim() }),
         ...(label !== undefined && { label }),
         ...(backgroundColor !== undefined && { backgroundColor }),
         ...(category !== undefined && { category }),
@@ -311,7 +348,58 @@ router.patch('/:id/statuses/:statusId', requireAuth, async (req, res) => {
     });
     return res.json(updated);
   } catch (err) {
+    if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') {
+      return res.status(409).json({ error: 'A status with this name already exists' });
+    }
     return res.status(500).json({ error: 'Failed to update status' });
+  }
+});
+
+// space.router.ts — new endpoint
+router.delete('/:id/statuses/:statusId', requireAuth, async (req: AuthRequest, res: Response) => {
+  try {
+    const space = await getSpaceForMember(req.params.id, req.userId!, res);
+    if (!space) return;
+
+    const { targetStatusId } = req.body as { targetStatusId?: string };
+
+    // Verify the source belongs to this space
+    const source = await prisma.status.findFirst({
+      where: { id: req.params.statusId, spaceId: req.params.id },
+      include: { _count: { select: { items: true } } },
+    });
+    if (!source) return res.status(404).json({ error: 'Status not found' });
+
+    // Don't allow deleting the last column
+    const totalStatuses = await prisma.status.count({ where: { spaceId: req.params.id } });
+    if (totalStatuses <= 1) {
+      return res.status(400).json({ error: 'Cannot delete the only remaining status' });
+    }
+
+    // If there are items, require a valid target
+    if (source._count.items > 0) {
+      if (!targetStatusId || targetStatusId === source.id) {
+        return res.status(400).json({ error: 'targetStatusId is required to move existing items' });
+      }
+      const target = await prisma.status.findFirst({
+        where: { id: targetStatusId, spaceId: req.params.id },
+        select: { id: true },
+      });
+      if (!target) return res.status(400).json({ error: 'targetStatusId not in this space' });
+    }
+
+    await prisma.$transaction([
+      // Move items first (no-op if there are none)
+      prisma.workItem.updateMany({
+        where: { statusId: source.id },
+        data: { statusId: targetStatusId! },
+      }),
+      prisma.status.delete({ where: { id: source.id } }),
+    ]);
+
+    return res.status(204).end();
+  } catch (err) {
+    return res.status(500).json({ error: 'Failed to delete status' });
   }
 });
 

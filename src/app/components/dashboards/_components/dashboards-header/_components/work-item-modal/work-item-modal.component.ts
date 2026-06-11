@@ -204,12 +204,11 @@ export class WorkItemModalComponent implements OnInit {
     const { space, workType, summary, description, status } = this.createWorkItemForm.value;
 
     this.httpService
-      .createWorkItem({
-        spaceId: space!,
+      .createIssue(space ?? '', {
         summary: summary!,
         workType: workType!,
-        description: description || undefined,
-        statusId: status || undefined,
+        description: description || '',
+        statusId: status || '',
       })
       .subscribe({
         next: () => this.overlayService.close(),

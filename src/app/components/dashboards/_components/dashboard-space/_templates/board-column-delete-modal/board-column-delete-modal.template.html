@@ -1,0 +1,76 @@
+<div class="header">
+  <h2>
+    <span class="icon-content">
+      <img src="./assets/icons/warningRed.svg" alt="icon" />
+    </span>
+    <span class="text"> Move work from {{ source().label }} column </span>
+  </h2>
+</div>
+<div class="body">
+  @if (source().issues.length) {
+  <div class="row-1">
+    Select a new home for any work with the {{ source().label }} status,
+    including work in the backlog.
+  </div>
+  <div class="row-2">
+    <div class="title title-1">This status will be deleted:</div>
+    <div class="arrow-placeholder"></div>
+    <div class="title title-2">Move existing work items to:</div>
+  </div>
+  <div class="row-3">
+    <div class="content deleteStatus">
+      <span class="lozenge" [style.outlineColor]="source().backgroundColor">
+        <span class="lozenge-text">{{ source().label }}</span>
+      </span>
+    </div>
+    <div class="arrow-icon-container">
+      <span class="icon-content">
+        <img src="./assets/icons/arrowRightBig.svg" alt="icon" />
+      </span>
+    </div>
+    <div class="content">
+      <app-multi-select
+        [config]="selectConfig()"
+        (selected)="onSelect($event)"
+      ></app-multi-select>
+    </div>
+  </div>
+  } @else {
+  <p>This status has no work items and will be removed.</p>
+  }
+</div>
+<div class="footer">
+  <button (click)="cancel.emit()" class="secondary-btn">Cancel</button>
+  <button
+    class="primary-btn danger"
+    [disabled]="isDeleting() || (source().issues.length && !targetId())"
+    (click)="onDelete()"
+  >
+    @if (isDeleting()) {
+    <span class="loader">
+      <span class="loader-rotating-element">
+        <svg
+          class="loader-rotating-svg"
+          height="24"
+          width="24"
+          viewBox="0 0 16 16"
+          xmlns="http://www.w3.org/2000/svg"
+          role="none"
+        >
+          <circle cx="8" cy="8" r="7"></circle>
+        </svg>
+      </span>
+    </span>
+    } @else {
+        Delete
+    }
+  </button>
+</div>
+
+<ng-template #statusOptionTemplate let-option>
+  <div class="option-template-lozenge-container">
+    <span class="lozenge" [style.outlineColor]="option.outlineColor">
+      <span class="lozenge-text">{{ option.label }}</span>
+    </span>
+  </div>
+</ng-template>

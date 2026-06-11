@@ -1,18 +1,40 @@
-<section class="palette-section">
-    <h4>Solid colors</h4>
-    <div class="swatch-row">
-        @for (c of solid; track c) {
-        <button class="swatch" [style.background]="c" [class.selected]="c === current()"
-            (click)="pick.emit(c)"></button>
-        }
+<div class="content-container">
+    <div class="heading">
+        <h2>select a color</h2>
+        <button class="secondary-btn close-btn" (click)="close.emit()">
+            <span class="icon-content">
+                <img src="./assets/icons/close.svg" alt="">
+            </span>
+        </button>
     </div>
-</section>
-<section class="palette-section">
-    <h4>Gradients</h4>
-    <div class="swatch-row">
-        @for (c of gradient; track c) {
-        <button class="swatch" [style.background]="c" [class.selected]="c === current()"
-            (click)="pick.emit(c)"></button>
-        }
+    <app-tab [config]="{ headings: ['Colors'], bodyPlaceholders: [colors] }"></app-tab>
+</div>
+<div class="color-remover-btn-container">
+    <button class="secondary-btn">
+
+    </button>
+</div>
+<ng-template #colors>
+    <div class="container color-container" appScrollBorder>
+        <div class="color-select-container row-container">
+            <h3 class="row-container-header">
+                Solid colors
+            </h3>
+            <div class="row-pallete-container">
+                @for (btnColor of solid; track btnColor) {
+                    <button class="pallete" [class.selected]="current() === statusPalletes[btnColor]" [style.background]="statusPalletes[btnColor]" (click)="pick.emit(statusPalletes[btnColor])"></button>
+                }
+            </div>
+        </div>
+        <div class="gradient-select-container row-container">
+            <h3 class="row-container-header">
+                Gradients
+            </h3>
+            <div class="row-pallete-container">
+                @for (btnColor of gradient; track btnColor) {
+                    <button class="pallete" [class.selected]="current() === btnColor" [style.background]="btnColor" (click)="pick.emit(btnColor)"></button>
+                }
+            </div>
+        </div>
     </div>
-</section>
+</ng-template>

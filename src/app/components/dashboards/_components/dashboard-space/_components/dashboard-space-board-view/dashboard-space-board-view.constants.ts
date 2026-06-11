@@ -33,9 +33,9 @@ export const spaceIconUrl2 =
   'https://demo1234.atlassian.net/secure/viewavatar?size=xxxlarge@2x&avatarId=10400&avatarType=project';
 
 export const WORK_TYPES = [
-  { label: 'Epic', id: 'epic', icon: 'action'},
-  { label: 'Subtask', id: 'subtask', icon: 'action'},
-  { label: 'Task', id: 'task', icon: 'action'},
+  { label: 'Epic', id: 'epic', icon: 'action' },
+  { label: 'Subtask', id: 'subtask', icon: 'action' },
+  { label: 'Task', id: 'task', icon: 'action' },
 ];
 
 export const STATUS_PALETTE = ['#dddee1', '#8fb8f6', '#b3df72', '#f5c5a4', '#c4b5fd', '#fda4af'];
@@ -45,23 +45,10 @@ export function pickNextPaletteColor(columns: { backgroundColor: string }[] | nu
   return STATUS_PALETTE.find(c => !used.has(c)) ?? STATUS_PALETTE[(columns?.length ?? 0) % STATUS_PALETTE.length];
 }
 
-export const STATUS_PALETTE_SOLID = [
-  '#dddee1', '#f6cef8', '#cdd8fa', '#caedf6', '#caf3da', '#facbe6',
-];
-
-export const STATUS_PALETTE_GRADIENT = [
-  'linear-gradient(135deg,#dddee1,#a8aab0)',
-  'linear-gradient(135deg,#f6cef8,#b27ad7)',
-  'linear-gradient(135deg,#cdd8fa,#5d7bf2)',
-  'linear-gradient(135deg,#caedf6,#5fb8d6)',
-  'linear-gradient(135deg,#caf3da,#5dbf83)',
-  'linear-gradient(135deg,#facbe6,#e57aaa)',
-];
-
 export const STATUS_OPTION_IDS = {
-  moveLeft:  'moveColumnLeft',
+  moveLeft: 'moveColumnLeft',
   moveRight: 'moveColumnRight',
-  setLimit:  'setColumnLimit',
-  setColor:  'setColumnColor',
-  delete:    'deleteColumn',
+  setLimit: 'setColumnLimit',
+  setColor: 'setColumnColor',
+  delete: 'deleteColumn',
 } as const;

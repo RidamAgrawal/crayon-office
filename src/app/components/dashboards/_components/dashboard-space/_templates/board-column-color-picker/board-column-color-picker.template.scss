@@ -1,0 +1,453 @@
+:host {
+  box-sizing: border-box;
+  color: #292a2e;
+  background-color: #fff;
+  box-shadow:
+    0px 8px 12px #1e1f2126,
+    0px 0px 1px #1e1f214f;
+  border-radius: 0.25rem;
+  max-height: 420px;
+  width: 364px;
+}
+:host ::ng-deep app-tab {
+  .tab-header {
+    padding-inline: 1pc;
+    &::before {
+      inset-inline-start: 0px;
+    }
+  }
+  .tab-body {
+    padding-inline: 0px;
+  }
+}
+.content-container {
+  column-gap: 0.125rem;
+  row-gap: 0.125rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .heading {
+    padding: 1pc;
+    padding-bottom: 0;
+    align-items: center;
+    flex-direction: row;
+    display: flex;
+    // width: 100%;
+    justify-content: space-between;
+    flex-grow: 1;
+    h2 {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      font-weight: 653;
+      letter-spacing: normal;
+    }
+    .close-btn {
+      -webkit-user-select: none;
+      user-select: none;
+      padding: .25rem;
+      .icon-content {
+        box-sizing: border-box;
+        line-height: 1;
+        flex-shrink: 0;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.color-remover-btn-container {
+  box-sizing: border-box;
+  border-top: 1px solid #0b120e24;
+  padding: 0.375rem;
+}
+
+.container {
+  padding: 1pc;
+  appearance: none;
+  max-height: 200px;
+  display: flex;
+  flex-direction: column;
+  width: 364px;
+  gap: 1pc;
+  overflow: auto;
+  box-sizing: border-box;
+  .row-container {
+    box-sizing: border-box;
+    column-gap: 0.5rem;
+    flex-direction: column;
+    row-gap: 0.5rem;
+    display: flex;
+    h3.row-container-header,
+    .photo-header-container .row-container-head {
+      letter-spacing: normal;
+      font-weight: 653;
+      line-height: 1rem;
+      font-size: 0.75rem;
+    }
+    .row-pallete-container {
+      appearance: none;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 0.5rem;
+      .pallete {
+        box-sizing: border-box;
+        appearance: none;
+        cursor: pointer;
+        align-items: center;
+        overflow-y: hidden;
+        outline: none;
+        aspect-ratio: 1 / 1;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        border-radius: 0.25rem;
+        border: 1px solid #0b120e24;
+        &:hover:not(.selected) {
+          box-shadow:
+            0 0 0 1px #fff,
+            0 0 0 3px #7d818a;
+        }
+        &:focus-visible,
+        &.selected {
+          outline: 2px solid #4688ec;
+          outline-offset: 2px;
+        }
+      }
+    }
+  }
+  .photo-header-container {
+    display: flex;
+    box-sizing: border-box;
+    gap: 0.5rem;
+    flex-direction: column;
+    justify-content: stretch;
+    ::ng-deep text-field {
+      max-width: 100%;
+      border-radius: 3px;
+      box-sizing: border-box;
+      word-wrap: break-word;
+      flex-basis: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+      border: 1px solid #8c8f97;
+      transition:
+        background-color 0.2s ease-in-out,
+        border-color 0.2s ease-in-out;
+      .text-field input {
+        height: 28px;
+      }
+    }
+    .row-container-head {
+      color: #6b6e76;
+      font-weight: 600;
+      min-height: 16px;
+      font-size: 0.75rem;
+      line-height: 1;
+    }
+  }
+  .photos-container {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: stretch;
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    gap: 2rem;
+    min-height: calc((2 * 50px) + ((2 - 1) * 0.5rem));
+    .photo-grid {
+      display: grid;
+      box-sizing: border-box;
+      grid-template-areas: initial;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: initial;
+      gap: 0.5rem;
+      grid-auto-flow: row;
+      .photo {
+        height: 50px;
+        border-radius: 0.25rem;
+        width: 100%;
+        border: 1px solid #8c8f97;
+        position: relative;
+        img {
+          border-radius: 0.25rem;
+        }
+        .img-by {
+          display: none;
+          opacity: 0.8;
+          padding: 0.25rem;
+          padding-top: 0;
+          border-bottom-left-radius: 0.25rem;
+          border-bottom-right-radius: 0.25rem;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          height: 1pc;
+          background-color: #fff;
+          text-overflow: ellipsis;
+          text-wrap: nowrap;
+          .text {
+            font-size: 0.75rem;
+            line-height: 1rem;
+            overflow-wrap: anywhere;
+          }
+        }
+        &:hover {
+          .img-by {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+  .nxt-prv-btn-container {
+    display: flex;
+    box-sizing: border-box;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    width: 100%;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    margin: 0.5rem 0;
+    .secondary-btn {
+      padding: 0;
+      padding-inline: 9pt;
+      box-sizing: border-box;
+      text-align: center;
+      appearance: none;
+      max-width: 100%;
+      position: relative;
+      column-gap: 0.5rem;
+      height: 1.5rem;
+      align-items: center;
+      display: flex;
+      flex-shrink: 0;
+      justify-content: center;
+      width: auto;
+      padding-block: 0.125rem;
+      transition: background 0.1s ease-out;
+      .text {
+        white-space: nowrap;
+        flex-shrink: 1;
+        text-overflow: ellipsis;
+        flex-grow: 1;
+        transition: opacity 0.3s;
+      }
+      .icon-content {
+        display: inline-flex;
+        flex-shrink: 0;
+        align-items: center;
+        box-sizing: border-box;
+      }
+    }
+  }
+  .upload-container {
+    box-sizing: border-box;
+    appearance: none;
+    border-width: medium;
+    border-style: none;
+    border-color: currentcolor;
+    border-image: initial;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 12px;
+    color: #6b6e76;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    background-image:
+      linear-gradient(to right, transparent 50%, #0b120e24 50%),
+      linear-gradient(to right, transparent 50%, #0b120e24 50%),
+      linear-gradient(to bottom, transparent 50%, #0b120e24 50%),
+      linear-gradient(to bottom, transparent 50%, #0b120e24 50%);
+    background-position:
+      left top,
+      left bottom,
+      left top,
+      right top;
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    background-size:
+      16px 1px,
+      16px 1px,
+      1px 16px,
+      1px 16px;
+    width: 100%;
+    .upload-btn {
+      -webkit-box-align: baseline;
+      align-items: baseline;
+      border-width: 0px;
+      border-radius: 3px;
+      box-sizing: border-box;
+      display: inline-flex;
+      font-size: inherit;
+      font-style: normal;
+      font-family: inherit;
+      font-weight: 500;
+      max-width: 100%;
+      position: relative;
+      text-align: center;
+      text-decoration: none;
+      transition:
+        background 0.1s ease-out,
+        box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+      white-space: nowrap;
+      cursor: pointer;
+      height: 2.28571em;
+      line-height: 2.28571em;
+      padding: 0px 10px;
+      vertical-align: middle;
+      width: auto;
+      -webkit-box-pack: center;
+      justify-content: center;
+      background: transparent;
+      .text {
+        opacity: 1;
+        transition: opacity 0.3s;
+        margin: 0px 2px;
+        -webkit-box-flex: 1;
+        flex-grow: 1;
+        flex-shrink: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      &:hover {
+        text-decoration: underline;
+        text-decoration-color: #292a2e;
+      }
+    }
+  }
+}
+
+$--ds-background-accent-lime-subtlest: #efffd6;
+$--ds-background-accent-lime-subtlest-hovered: #d3f1a7;
+$--ds-background-accent-lime-subtlest-pressed: #bde97c;
+$--ds-background-accent-lime-subtler: #d3f1a7;
+$--ds-background-accent-lime-subtler-hovered: #bde97c;
+$--ds-background-accent-lime-subtler-pressed: #b3df72;
+$--ds-background-accent-lime-subtle: #94c748;
+$--ds-background-accent-lime-subtle-hovered: #b3df72;
+$--ds-background-accent-lime-subtle-pressed: #bde97c;
+$--ds-background-accent-lime-bolder: #5b7f24;
+$--ds-background-accent-lime-bolder-hovered: #4c6b1f;
+$--ds-background-accent-lime-bolder-pressed: #3f5224;
+$--ds-background-accent-red-subtlest: #ffeceb;
+$--ds-background-accent-red-subtlest-hovered: #ffd5d2;
+$--ds-background-accent-red-subtlest-pressed: #ffb8b2;
+$--ds-background-accent-red-subtler: #ffd5d2;
+$--ds-background-accent-red-subtler-hovered: #ffb8b2;
+$--ds-background-accent-red-subtler-pressed: #fd9891;
+$--ds-background-accent-red-subtle: #f87168;
+$--ds-background-accent-red-subtle-hovered: #fd9891;
+$--ds-background-accent-red-subtle-pressed: #ffb8b2;
+$--ds-background-accent-red-bolder: #c9372c;
+$--ds-background-accent-red-bolder-hovered: #ae2e24;
+$--ds-background-accent-red-bolder-pressed: #872821;
+$--ds-background-accent-orange-subtlest: #fff5db;
+$--ds-background-accent-orange-subtlest-hovered: #fce4a6;
+$--ds-background-accent-orange-subtlest-pressed: #fbd779;
+$--ds-background-accent-orange-subtler: #fce4a6;
+$--ds-background-accent-orange-subtler-hovered: #fbd779;
+$--ds-background-accent-orange-subtler-pressed: #fbc828;
+$--ds-background-accent-orange-subtle: #fca700;
+$--ds-background-accent-orange-subtle-hovered: #fbc828;
+$--ds-background-accent-orange-subtle-pressed: #fbd779;
+$--ds-background-accent-orange-bolder: #bd5b00;
+$--ds-background-accent-orange-bolder-hovered: #9e4c00;
+$--ds-background-accent-orange-bolder-pressed: #7a3b00;
+$--ds-background-accent-yellow-subtlest: #fef7c8;
+$--ds-background-accent-yellow-subtlest-hovered: #f5e989;
+$--ds-background-accent-yellow-subtlest-pressed: #efdd4e;
+$--ds-background-accent-yellow-subtler: #f5e989;
+$--ds-background-accent-yellow-subtler-hovered: #efdd4e;
+$--ds-background-accent-yellow-subtler-pressed: #eed12b;
+$--ds-background-accent-yellow-subtle: #eed12b;
+$--ds-background-accent-yellow-subtle-hovered: #ddb30e;
+$--ds-background-accent-yellow-subtle-pressed: #efdd4e;
+$--ds-background-accent-yellow-bolder: #946f00;
+$--ds-background-accent-yellow-bolder-hovered: #7f5f01;
+$--ds-background-accent-yellow-bolder-pressed: #614a05;
+$--ds-background-accent-green-subtlest: #dcfff1;
+$--ds-background-accent-green-subtlest-hovered: #baf3db;
+$--ds-background-accent-green-subtlest-pressed: #97edc9;
+$--ds-background-accent-green-subtler: #baf3db;
+$--ds-background-accent-green-subtler-hovered: #97edc9;
+$--ds-background-accent-green-subtler-pressed: #7ee2b8;
+$--ds-background-accent-green-subtle: #4bce97;
+$--ds-background-accent-green-subtle-hovered: #7ee2b8;
+$--ds-background-accent-green-subtle-pressed: #97edc9;
+$--ds-background-accent-green-bolder: #1f845a;
+$--ds-background-accent-green-bolder-hovered: #216e4e;
+$--ds-background-accent-green-bolder-pressed: #19573d;
+$--ds-background-accent-teal-subtlest: #e7f9ff;
+$--ds-background-accent-teal-subtlest-hovered: #c6edfb;
+$--ds-background-accent-teal-subtlest-pressed: #b1e4f7;
+$--ds-background-accent-teal-subtler: #c6edfb;
+$--ds-background-accent-teal-subtler-hovered: #b1e4f7;
+$--ds-background-accent-teal-subtler-pressed: #9dd9ee;
+$--ds-background-accent-teal-subtle: #6cc3e0;
+$--ds-background-accent-teal-subtle-hovered: #9dd9ee;
+$--ds-background-accent-teal-subtle-pressed: #b1e4f7;
+$--ds-background-accent-teal-bolder: #227d9b;
+$--ds-background-accent-teal-bolder-hovered: #206a83;
+$--ds-background-accent-teal-bolder-pressed: #1a5265;
+$--ds-background-accent-blue-subtlest: #e9f2fe;
+$--ds-background-accent-blue-subtlest-hovered: #cfe1fd;
+$--ds-background-accent-blue-subtlest-pressed: #adcbfb;
+$--ds-background-accent-blue-subtler: #cfe1fd;
+$--ds-background-accent-blue-subtler-hovered: #adcbfb;
+$--ds-background-accent-blue-subtler-pressed: #8fb8f6;
+$--ds-background-accent-blue-subtle: #669df1;
+$--ds-background-accent-blue-subtle-hovered: #8fb8f6;
+$--ds-background-accent-blue-subtle-pressed: #adcbfb;
+$--ds-background-accent-blue-bolder: #1868db;
+$--ds-background-accent-blue-bolder-hovered: #1558bc;
+$--ds-background-accent-blue-bolder-pressed: #144794;
+$--ds-background-accent-purple-subtlest: #f8eefe;
+$--ds-background-accent-purple-subtlest-hovered: #eed7fc;
+$--ds-background-accent-purple-subtlest-pressed: #e3bdfa;
+$--ds-background-accent-purple-subtler: #eed7fc;
+$--ds-background-accent-purple-subtler-hovered: #e3bdfa;
+$--ds-background-accent-purple-subtler-pressed: #d8a0f7;
+$--ds-background-accent-purple-subtle: #c97cf4;
+$--ds-background-accent-purple-subtle-hovered: #d8a0f7;
+$--ds-background-accent-purple-subtle-pressed: #e3bdfa;
+$--ds-background-accent-purple-bolder: #964ac0;
+$--ds-background-accent-purple-bolder-hovered: #803fa5;
+$--ds-background-accent-purple-bolder-pressed: #673286;
+$--ds-background-accent-magenta-subtlest: #ffecf8;
+$--ds-background-accent-magenta-subtlest-hovered: #fdd0ec;
+$--ds-background-accent-magenta-subtlest-pressed: #fcb6e1;
+$--ds-background-accent-magenta-subtler: #fdd0ec;
+$--ds-background-accent-magenta-subtler-hovered: #fcb6e1;
+$--ds-background-accent-magenta-subtler-pressed: #f797d2;
+$--ds-background-accent-magenta-subtle: #e774bb;
+$--ds-background-accent-magenta-subtle-hovered: #f797d2;
+$--ds-background-accent-magenta-subtle-pressed: #fcb6e1;
+$--ds-background-accent-magenta-bolder: #ae4787;
+$--ds-background-accent-magenta-bolder-hovered: #943d73;
+$--ds-background-accent-magenta-bolder-pressed: #77325b;
+$--ds-background-accent-gray-subtlest: #f0f1f2;
+$--ds-background-accent-gray-subtlest-hovered: #dddee1;
+$--ds-background-accent-gray-subtlest-pressed: #b7b9be;
+$--ds-background-accent-gray-subtler: #dddee1;
+$--ds-background-accent-gray-subtler-hovered: #b7b9be;
+$--ds-background-accent-gray-subtler-pressed: #8c8f97;
+$--ds-background-accent-gray-subtle: #8c8f97;
+$--ds-background-accent-gray-subtle-hovered: #b7b9be;
+$--ds-background-accent-gray-subtle-pressed: #dddee1;
+$--ds-background-accent-gray-bolder: #6b6e76;
+$--ds-background-accent-gray-bolder-hovered: #505258;
+$--ds-background-accent-gray-bolder-pressed: #3b3d42;

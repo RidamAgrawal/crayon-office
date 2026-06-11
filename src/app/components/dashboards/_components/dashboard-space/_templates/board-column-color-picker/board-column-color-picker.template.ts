@@ -1,15 +1,19 @@
 import { Component, input, output } from "@angular/core";
-import { STATUS_PALETTE_SOLID, STATUS_PALETTE_GRADIENT } from "../../_components/dashboard-space-board-view/dashboard-space-board-view.constants";
+import { TabComponent } from "../../../tabs/tabs";
+import { STATUS_PALETTE_GRADIENT, STATUS_PALETTE_SOLID, STATUS_PALLETTES } from "../../../../../../styles/palettes";
 
 @Component({
   selector: 'app-color-picker',
-  standalone: true,
   templateUrl: './board-column-color-picker.template.html',
   styleUrl: './board-column-color-picker.template.scss',
+  imports: [TabComponent]
 })
 export class BoardColumnColorPickerComponent {
-  readonly current = input<string>('');
-  readonly pick = output<string>();
+  public readonly current = input<string>('');
+  public readonly pick = output<string>();
+  public readonly close = output<void>();
   protected readonly solid = STATUS_PALETTE_SOLID;
   protected readonly gradient = STATUS_PALETTE_GRADIENT;
+
+  protected readonly statusPalletes: Record<string,string> = STATUS_PALLETTES;
 }

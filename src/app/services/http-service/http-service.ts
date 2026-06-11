@@ -4,7 +4,7 @@ import { Api } from './api/api';
 import { Observable } from 'rxjs';
 import { UserLoginSuccessResponse } from '../../models';
 import { environment } from '../../../environments/environment';
-import { SpaceDetails } from '../../components/dashboards/_components/dashboard-space/_models';
+import { SpaceDetails, WorkItem } from '../../components/dashboards/_components/dashboard-space/_models';
 import { SpaceBoardColumn } from '../../components/dashboards/_components/dashboard-space/_models/index';
 
 @Injectable({
@@ -121,17 +121,6 @@ export class HttpService {
     });
   }
 
-  // Work Items
-  public createWorkItem(payload: {
-    spaceId: string;
-    summary: string;
-    workType: string;
-    description?: string;
-    statusId?: string;
-  }): Observable<any> {
-    return this.http.post(`${environment.backendUrl}/api/work-items`, payload);
-  }
-
   public getWorkItems(spaceId: string): Observable<any[]> {
     return this.http.get<any[]>(
       `${environment.backendUrl}/api/work-items?spaceId=${spaceId}`,
@@ -161,11 +150,40 @@ export class HttpService {
       body
     );
   }
-  
-  public updateStatus(spaceId: string, statusId: string ,body: { name?: string; label?: string; backgroundColor?: string; category?: string }): Observable<SpaceBoardColumn> {
-    return this.http.post<SpaceBoardColumn>(
+
+  public updateStatus(spaceId: string, statusId: string, body: { name?: string; label?: string; backgroundColor?: string; category?: string }): Observable<SpaceBoardColumn> {
+    return this.http.patch<SpaceBoardColumn>(
       `${environment.backendUrl}/api/spaces/${spaceId}/statuses/${statusId}`,
       body
+    );
+  }
+
+  public updateIssue(
+    spaceId: string,
+    issueId: string,
+    body: { summary?: string; statusId?: string; rank?: string; assigneeId?: string | null; description?: string; priority?: string }
+  ): Observable<WorkItem> {
+    return this.http.patch<WorkItem>(
+      `${environment.backendUrl}/api/spaces/${spaceId}/issues/${issueId}`,
+      body
+    );
+  }
+
+  // http-service.ts
+  public createIssue(
+    spaceId: string,
+    body: { summary: string; statusId: string; description?: string; workType?: string; dueDate?: string | null }
+  ): Observable<WorkItem> {
+    return this.http.post<WorkItem>(
+      `${environment.backendUrl}/api/spaces/${spaceId}/issues`,
+      body
+    );
+  }
+
+  public deleteStatus(spaceId: string, statusId: string, targetStatusId?: string): Observable<void> {
+    return this.http.delete<void>(
+      `${environment.backendUrl}/api/spaces/${spaceId}/statuses/${statusId}`,
+      { body: { targetStatusId } }, // HttpClient supports body on DELETE
     );
   }
 

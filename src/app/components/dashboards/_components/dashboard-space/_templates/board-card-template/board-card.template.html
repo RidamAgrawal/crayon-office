@@ -1,8 +1,8 @@
 <!-- <div class="card-container" cdkDrag> -->
 <div class="card-contents">
   <div class="card-details card-item-description">
-    <div class="card-item-description-2">
-      <div class="non-edit-description-content" [class.isHidden]="isEditing()">
+    <div class="card-item-description-2" appClickOutside (clickOutside)="isEditing.set(false)">
+      <div class="non-edit-description-content" [class.is-hidden]="isEditing()">
         <span class="description">{{issue()?.summary}}</span>
         <span class="edit-description-btn-container">
           <button class="icon-btn edit-description-btn" (click)="isEditing.set(true)">
@@ -12,21 +12,7 @@
           </button>
         </span>
       </div>
-      <div class="edit-description-content" [class.isHidden]="!isEditing()">
-        <text-field class="description" [(value)]="summary"></text-field>
-        <div class="edit-description-btn-container">
-          <button class="icon-btn edit-description-btn">
-            <span class="icon-content">
-              <img src="./assets/icons/check.svg" alt="" (click)="updateSummary()">
-            </span>
-          </button>
-          <button class="icon-btn edit-description-btn" (click)="isEditing.set(false)">
-            <span class="icon-content">
-              <img src="./assets/icons/close.svg" alt="">
-            </span>
-          </button>
-        </div>
-      </div>
+      <board-space-text-field-wrapper-template [class.is-hidden]="!isEditing()" (close)="isEditing.set(false)" (setValue)="onSubmit($event)"></board-space-text-field-wrapper-template>
     </div>
   </div>
   <div class="card-details card-item-details">
