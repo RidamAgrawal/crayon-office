@@ -7,12 +7,9 @@ import { Component, ElementRef } from '@angular/core';
   styleUrl: './icon-container.scss',
   exportAs: 'elementRef',
   host: {
-    '[attr.tabindex]': '0'
-  }
+    '[attr.tabindex]': '0',
+  },
 })
 export class IconContainer {
-
-  constructor(
-    public elementRef: ElementRef
-  ) { }
+  constructor(public elementRef: ElementRef) {}
 }

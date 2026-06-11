@@ -1,1 +1,1 @@
-export { LoginModalComponent } from "./login-modal";
+export { LoginModalComponent } from './login-modal';

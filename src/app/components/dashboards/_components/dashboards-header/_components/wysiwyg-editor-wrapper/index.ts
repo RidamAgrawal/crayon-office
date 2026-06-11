@@ -1,1 +1,1 @@
-export { WysiwygEditorWrapperComponent } from "./wysiwyg-editor-wrapper.component";
+export { WysiwygEditorWrapperComponent } from './wysiwyg-editor-wrapper.component';

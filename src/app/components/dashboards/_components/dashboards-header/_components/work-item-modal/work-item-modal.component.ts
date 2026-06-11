@@ -15,12 +15,7 @@ import { IconContainer } from '../../../icon-container/icon-container';
 import { MultiSelect } from '../../../../../../templates/multi-select/multi-select';
 import { Checkbox } from '../../../../../../templates/checkbox/checkbox';
 import { ScrollBorder } from '../../../../../../directives/scroll-border/scroll-border.directive';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MultiSelectWrapper } from '../multi-select-wrapper';
 import { JsonPipe, LowerCasePipe } from '@angular/common';
 import { OverlayService } from '../../../../../../services/overlay-service/overlay-service';
@@ -28,7 +23,10 @@ import { WysiwygEditorWrapperComponent } from '../wysiwyg-editor-wrapper';
 import { HttpService } from '../../../../../../services/http-service/http-service';
 import { WorkItemModalTextFieldWrapperComponent } from '../text-field-wrapper';
 import { OptionWrapper } from '../../../../../../templates/option-wrapper/option-wrapper';
-import { OptionConfigurations, OptionsList } from '../../../../../../templates/option-wrapper/option-wrapper.model';
+import {
+  OptionConfigurations,
+  OptionsList,
+} from '../../../../../../templates/option-wrapper/option-wrapper.model';
 import { rippleStyle, StatusLabels, StatusOptionsList } from './work-item-modal.constants';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { SpaceDetails } from '../../../dashboard-space/_models';
@@ -60,11 +58,11 @@ export class WorkItemModalComponent implements OnInit {
   private readonly httpService = inject(HttpService);
   private readonly viewContainerRef = inject(ViewContainerRef);
 
-  private readonly addWorkTypeTemplateRef =
-    viewChild<TemplateRef<HTMLElement>>('addWorkType');
-  private readonly editWorkTypeTemplateRef =
-    viewChild<TemplateRef<HTMLElement>>('editWorkType');
-  protected readonly statusOptionTabletTemplate = viewChild<TemplateRef<any>>('statusOptionTabletTemplate');
+  private readonly addWorkTypeTemplateRef = viewChild<TemplateRef<HTMLElement>>('addWorkType');
+  private readonly editWorkTypeTemplateRef = viewChild<TemplateRef<HTMLElement>>('editWorkType');
+  protected readonly statusOptionTabletTemplate = viewChild<TemplateRef<any>>(
+    'statusOptionTabletTemplate',
+  );
   protected readonly spaceOptionTemplate = viewChild<TemplateRef<any>>('spaceOptionTemplate');
   protected readonly statusBtn = viewChild<ElementRef<HTMLButtonElement>>('statusBtn');
 
@@ -152,9 +150,7 @@ export class WorkItemModalComponent implements OnInit {
     optionHoverIndication: true,
   }));
 
-  protected readonly selectedSpace = toSignal(
-    this.createWorkItemForm.controls.space.valueChanges
-  );
+  protected readonly selectedSpace = toSignal(this.createWorkItemForm.controls.space.valueChanges);
 
   protected readonly selectedSpaceStatuses = rxResource({
     params: () => this.selectedSpace() ?? undefined,
@@ -164,21 +160,23 @@ export class WorkItemModalComponent implements OnInit {
 
   protected readonly selectedStatus = signal<SpaceStatusOptionConfigurations | null>(null);
 
-  protected readonly statusRippleEffects = computed(() => ({ ...rippleStyle, "box-shadow": `0 0 0 0 ${this.selectedStatus()?.backgroundColor}`, "background-color": this.selectedStatus()?.backgroundColor }));
+  protected readonly statusRippleEffects = computed(() => ({
+    ...rippleStyle,
+    'box-shadow': `0 0 0 0 ${this.selectedStatus()?.backgroundColor}`,
+    'background-color': this.selectedStatus()?.backgroundColor,
+  }));
 
   private statusBtnRippleEffect = effect(() => {
     const status = this.selectedStatus();
     const btn = this.statusBtn()?.nativeElement;
     if (!status || !btn) return;
 
-    btn.animate([
-      { boxShadow: `0 0 0 0 ${status.backgroundColor}` },
-      { boxShadow: '0 0 0 10px transparent' },
-    ],
+    btn.animate(
+      [{ boxShadow: `0 0 0 0 ${status.backgroundColor}` }, { boxShadow: '0 0 0 10px transparent' }],
       { duration: 1450, easing: 'cubic-bezier(.5, 0, 0, 1)' },
     );
   });
-  
+
   public ngOnInit(): void {
     this.httpService.getSpaces().subscribe({
       next: (spaces) => {
@@ -221,7 +219,7 @@ export class WorkItemModalComponent implements OnInit {
   }
 
   protected onStatusClick(element: HTMLButtonElement): void {
-    debugger
+    debugger;
     this.overlayService.open({
       component: OptionWrapper,
       componentInputs: {
@@ -247,7 +245,7 @@ export class WorkItemModalComponent implements OnInit {
           originY: 'top',
           overlayY: 'bottom',
           offsetY: -8,
-        }
+        },
       ],
       viewContainerRef: this.viewContainerRef,
     });
@@ -267,7 +265,8 @@ export class WorkItemModalComponent implements OnInit {
   }
 
   private buildStatusOptionsList(): OptionsList[] {
-    StatusOptionsList[0].options = this.selectedSpaceStatuses.value()
+    StatusOptionsList[0].options = this.selectedSpaceStatuses
+      .value()
       .map((status: SpaceStatusOptionConfigurations) => {
         status.visible = true;
         status.type = 'button';

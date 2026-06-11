@@ -8,9 +8,8 @@ describe('NavDropdown', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavDropdown]
-    })
-    .compileComponents();
+      imports: [NavDropdown],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NavDropdown);
     component = fixture.componentInstance;

@@ -1,857 +1,857 @@
 {
-    "internalItems": [
-        {
-            "type": "link",
-            "title": "For you",
-            "hasTools": null,
-            "icon": "foryou",
-            "visible": true
-        },
-        {
-            "type": "modal",
-            "title": "Recent",
-            "defaultTools": [
-                {
-                    "icon": "arrow-right",
-                    "alt": "open"
-                }
-            ],
-            "icon": "recent",
-            "visible": true,
-            "dragEnabled": true
-        },
-        {
-            "type": "modal",
-            "title": "Starred",
-            "defaultTools": [
-                {
-                    "icon": "arrow-right",
-                    "alt": "open"
-                }
-            ],
-            "icon": "starred",
-            "visible": true,
-            "dragEnabled": true
-        },
-        {
-            "type": "group",
-            "title": "Apps",
-            "hoverTools": [
-                {
-                    "icon": "more",
-                    "alt": "more",
-                    "type": "options",
-                    "title": "More actions",
-                    "optionLists": [
-                        {
-                            "options": [
-                                {
-                                    "type": "link",
-                                    "icon": "settings",
-                                    "label": "Manage apps",
-                                    "id": "manageApps",
-                                    "visible": true
-                                },
-                                {
-                                    "type": "link",
-                                    "icon": "settings",
-                                    "label": "App audit logs",
-                                    "id": "appAuditLogs",
-                                    "visible": true
-                                },
-                                {
-                                    "type": "link",
-                                    "icon": "settings",
-                                    "label": "View app requests",
-                                    "id": "appRequests",
-                                    "visible": true
-                                }
-                            ]
-                        },
-                        {
-                            "options": [
-                                {
-                                    "type": "button",
-                                    "icon": "hide",
-                                    "label": "Hide from sidebar",
-                                    "id": "hide",
-                                    "visible": true
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "icon": "apps",
-            "list": [
-                {
-                    "type": "link",
-                    "title": "Explore more apps",
-                    "icon": "moreApps",
-                    "visible": true
-                }
-            ],
-            "visible": true,
-            "dragEnabled": true
-        },
-        {
-            "type": "link",
-            "title": "Plans",
-            "hasTools": true,
-            "defaultTools": [
-                {
-                    "icon": "arrow-right",
-                    "alt": "open"
-                }
-            ],
-            "icon": "plans",
-            "visible": true,
-            "dragEnabled": true
-        },
-        {
-            "type": "group",
-            "title": "Spaces",
-            "hoverTools": [
-                {
-                    "icon": "add1",
-                    "alt": "add",
-                    "title": "Add spaces",
-                    "type": "emit",
-                    "emitOptions": {
-                        "id": "addSpace"
-                    }
-                },
-                {
-                    "icon": "more",
-                    "alt": "more",
-                    "type": "options",
-                    "title": "More actions",
-                    "optionLists": [
-                        {
-                            "options": [
-                                {
-                                    "type": "link",
-                                    "icon": "settings",
-                                    "label": "Manage spaces",
-                                    "id": "manageSpaces",
-                                    "visible": true
-                                }
-                            ]
-                        },
-                        {
-                            "options": [
-                                {
-                                    "type": "button",
-                                    "icon": "apps",
-                                    "label": "Change View",
-                                    "id": "changeView",
-                                    "visible": true
-                                },
-                                {
-                                    "type": "button",
-                                    "icon": "hide",
-                                    "label": "Hide from sidebar",
-                                    "id": "hide",
-                                    "visible": true
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "icon": "spaces",
-            "visible": true,
-            "dragEnabled": true,
-            "multipleLists": [
-                {
-                    "heading": "Recent",
-                    "list": [
-                        {
-                            "type": "modal",
-                            "title": "More spaces",
-                            "defaultTools": [
-                                {
-                                    "icon": "arrow-right",
-                                    "alt": "open"
-                                }
-                            ],
-                            "icon": "more2",
-                            "visible": true
-                        }
-                    ]
-                },
-                {
-                    "heading": "Recommended",
-                    "list": [
-                        {
-                            "type": "link",
-                            "title": "Create a roadmap",
-                            "hoverTools": [
-                                {
-                                    "icon": "more",
-                                    "alt": "more",
-                                    "type": "options",
-                                    "title": "More actions",
-                                    "optionLists": [
-                                        {
-                                            "options": [
-                                                {
-                                                    "type": "link",
-                                                    "label": "Not intersted",
-                                                    "id": "notInterested",
-                                                    "visible": true
-                                                },
-                                                {
-                                                    "type": "link",
-                                                    "label": "Why i am seeing this?",
-                                                    "id": "whySeeing",
-                                                    "visible": true
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "icon": "roadmap",
-                            "visible": true
-                        },
-                        {
-                            "type": "link",
-                            "title": "Browse templates",
-                            "defaultTools": [
-                                {
-                                    "icon": "arrow-right",
-                                    "alt": "open"
-                                }
-                            ],
-                            "icon": "more2",
-                            "visible": true
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "type": "group",
-            "title": "Filters",
-            "hoverTools": [
-                {
-                    "icon": "more",
-                    "alt": "more",
-                    "type": "options",
-                    "title": "More actions",
-                    "optionLists": [
-                        {
-                            "options": [
-                                {
-                                    "type": "button",
-                                    "icon": "hide",
-                                    "label": "Hide from sidebar",
-                                    "id": "hide",
-                                    "visible": true
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "icon": "filterList",
-            "visible": true,
-            "dragEnabled": true,
-            "list": [
-                {
-                    "type": "link",
-                    "title": "Search work items",
-                    "hasTools": false,
-                    "icon": "search",
-                    "visible": true
-                },
-                {
-                    "type": "group",
-                    "title": "Default Filters",
-                    "hasTools": false,
-                    "icon": "arrow-right",
-                    "list": [
-                        {
-                            "type": "link",
-                            "title": "My open work items",
-                            "hasTools": true,
-                            "icon": "filter",
-                            "hoverTools": [
-                                {
-                                    "icon": "more",
-                                    "alt": "more",
-                                    "type": "options",
-                                    "title": "More actions",
-                                    "optionLists": [
-                                        {
-                                            "options": [
-                                                {
-                                                    "type": "link",
-                                                    "icon": "starred",
-                                                    "label": "Add to starred",
-                                                    "id": "addStar",
-                                                    "visible": true
-                                                },
-                                                {
-                                                    "type": "link",
-                                                    "icon": "copy",
-                                                    "label": "Copy filter",
-                                                    "id": "copyFilter",
-                                                    "visible": true
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "visible": true
-                        },
-                        {
-                            "type": "link",
-                            "title": "Reported by me",
-                            "hasTools": true,
-                            "icon": "filter",
-                            "hoverTools": [
-                                {
-                                    "icon": "more",
-                                    "alt": "more",
-                                    "type": "options",
-                                    "title": "More actions",
-                                    "optionLists": [
-                                        {
-                                            "options": [
-                                                {
-                                                    "type": "link",
-                                                    "icon": "starred",
-                                                    "label": "Add to starred",
-                                                    "id": "addStar",
-                                                    "visible": true
-                                                },
-                                                {
-                                                    "type": "link",
-                                                    "icon": "copy",
-                                                    "label": "Copy filter",
-                                                    "id": "copyFilter",
-                                                    "visible": true
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "visible": true
-                        },
-                        {
-                            "type": "link",
-                            "title": "All work items",
-                            "hasTools": true,
-                            "icon": "filter",
-                            "hoverTools": [
-                                {
-                                    "icon": "more",
-                                    "alt": "more",
-                                    "type": "options",
-                                    "title": "More actions",
-                                    "optionLists": [
-                                        {
-                                            "options": [
-                                                {
-                                                    "type": "link",
-                                                    "icon": "starred",
-                                                    "label": "Add to starred",
-                                                    "id": "addStar",
-                                                    "visible": true
-                                                },
-                                                {
-                                                    "type": "link",
-                                                    "icon": "copy",
-                                                    "label": "Copy filter",
-                                                    "id": "copyFilter",
-                                                    "visible": true
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "visible": true
-                        },
-                        {
-                            "type": "link",
-                            "title": "Open work items",
-                            "hasTools": true,
-                            "icon": "filter",
-                            "hoverTools": [
-                                {
-                                    "icon": "more",
-                                    "alt": "more",
-                                    "type": "options",
-                                    "title": "More actions",
-                                    "optionLists": [
-                                        {
-                                            "options": [
-                                                {
-                                                    "type": "link",
-                                                    "icon": "starred",
-                                                    "label": "Add to starred",
-                                                    "id": "addStar",
-                                                    "visible": true
-                                                },
-                                                {
-                                                    "type": "link",
-                                                    "icon": "copy",
-                                                    "label": "Copy filter",
-                                                    "id": "copyFilter",
-                                                    "visible": true
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "visible": true
-                        },
-                        {
-                            "type": "link",
-                            "title": "Done work items",
-                            "hasTools": true,
-                            "icon": "filter",
-                            "hoverTools": [
-                                {
-                                    "icon": "more",
-                                    "alt": "more",
-                                    "type": "options",
-                                    "title": "More actions",
-                                    "optionLists": [
-                                        {
-                                            "options": [
-                                                {
-                                                    "type": "link",
-                                                    "icon": "starred",
-                                                    "label": "Add to starred",
-                                                    "id": "addStar",
-                                                    "visible": true
-                                                },
-                                                {
-                                                    "type": "link",
-                                                    "icon": "copy",
-                                                    "label": "Copy filter",
-                                                    "id": "copyFilter",
-                                                    "visible": true
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "visible": true
-                        },
-                        {
-                            "type": "link",
-                            "title": "Viewed recently",
-                            "hasTools": true,
-                            "icon": "filter",
-                            "hoverTools": [
-                                {
-                                    "icon": "more",
-                                    "alt": "more",
-                                    "type": "options",
-                                    "title": "More actions",
-                                    "optionLists": [
-                                        {
-                                            "options": [
-                                                {
-                                                    "type": "link",
-                                                    "icon": "starred",
-                                                    "label": "Add to starred",
-                                                    "id": "addStar",
-                                                    "visible": true
-                                                },
-                                                {
-                                                    "type": "link",
-                                                    "icon": "copy",
-                                                    "label": "Copy filter",
-                                                    "id": "copyFilter",
-                                                    "visible": true
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "visible": true
-                        },
-                        {
-                            "type": "link",
-                            "title": "Created recently",
-                            "hasTools": true,
-                            "icon": "filter",
-                            "hoverTools": [
-                                {
-                                    "icon": "more",
-                                    "alt": "more",
-                                    "type": "options",
-                                    "title": "More actions",
-                                    "optionLists": [
-                                        {
-                                            "options": [
-                                                {
-                                                    "type": "link",
-                                                    "icon": "starred",
-                                                    "label": "Add to starred",
-                                                    "id": "addStar",
-                                                    "visible": true
-                                                },
-                                                {
-                                                    "type": "link",
-                                                    "icon": "copy",
-                                                    "label": "Copy filter",
-                                                    "id": "copyFilter",
-                                                    "visible": true
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "visible": true
-                        },
-                        {
-                            "type": "link",
-                            "title": "Resolved recently",
-                            "hasTools": true,
-                            "icon": "filter",
-                            "hoverTools": [
-                                {
-                                    "icon": "more",
-                                    "alt": "more",
-                                    "type": "options",
-                                    "title": "More actions",
-                                    "optionLists": [
-                                        {
-                                            "options": [
-                                                {
-                                                    "type": "link",
-                                                    "icon": "starred",
-                                                    "label": "Add to starred",
-                                                    "id": "addStar",
-                                                    "visible": true
-                                                },
-                                                {
-                                                    "type": "link",
-                                                    "icon": "copy",
-                                                    "label": "Copy filter",
-                                                    "id": "copyFilter",
-                                                    "visible": true
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "visible": true
-                        },
-                        {
-                            "type": "link",
-                            "title": "Updated recently",
-                            "hasTools": true,
-                            "icon": "filter",
-                            "hoverTools": [
-                                {
-                                    "icon": "more",
-                                    "alt": "more",
-                                    "type": "options",
-                                    "title": "More actions",
-                                    "optionLists": [
-                                        {
-                                            "options": [
-                                                {
-                                                    "type": "link",
-                                                    "icon": "starred",
-                                                    "label": "Add to starred",
-                                                    "id": "addStar",
-                                                    "visible": true
-                                                },
-                                                {
-                                                    "type": "link",
-                                                    "icon": "copy",
-                                                    "label": "Copy filter",
-                                                    "id": "copyFilter",
-                                                    "visible": true
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "visible": true
-                        }
-                    ],
-                    "visible": true
-                },
-                {
-                    "type": "link",
-                    "title": "View all filters",
-                    "hasTools": false,
-                    "icon": "more2",
-                    "visible": true
-                }
-            ]
-        },
-        {
-            "type": "group",
-            "title": "Dashboards",
-            "hoverTools": [
-                {
-                    "icon": "add1",
-                    "alt": "add",
-                    "title": "Add dashboards"
-                },
-                {
-                    "icon": "more",
-                    "alt": "more",
-                    "type": "options",
-                    "title": "More actions",
-                    "optionLists": [
-                        {
-                            "options": [
-                                {
-                                    "type": "button",
-                                    "icon": "hide",
-                                    "label": "Hide from sidebar",
-                                    "id": "hide",
-                                    "visible": true
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "icon": "dashboards",
-            "visible": true,
-            "dragEnabled": true,
-            "multipleLists": [
-                {
-                    "heading": null,
-                    "headerInfo": "Once you visit or create dashboards, they'll show up here.",
-                    "list": [
-                        {
-                            "type": "link",
-                            "title": "View all dashboards",
-                            "icon": "more2",
-                            "visible": true
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "type": "group",
-            "title": "Operations",
-            "icon": "action",
-            "visible": true,
-            "dragEnabled": true,
-            "list": [
-                {
-                    "type": "link",
-                    "title": "Overview",
-                    "icon": "more2",
-                    "visible": true
-                },
-                {
-                    "type": "group",
-                    "title": "Alerts",
-                    "icon": "alerts",
-                    "visible": true,
-                    "list": [
-                        {
-                            "type": "group",
-                            "title": "Default Filters",
-                            "icon": "arrow-right",
-                            "visible": true,
-                            "list": [
-                                {
-                                    "type": "link",
-                                    "title": "All",
-                                    "icon": "docs",
-                                    "visible": true
-                                },
-                                {
-                                    "type": "link",
-                                    "title": "Open",
-                                    "icon": "docs",
-                                    "visible": true
-                                },
-                                {
-                                    "type": "link",
-                                    "title": "Closed",
-                                    "icon": "docs",
-                                    "visible": true
-                                },
-                                {
-                                    "type": "link",
-                                    "title": "Unacknowledged",
-                                    "icon": "docs",
-                                    "visible": true
-                                },
-                                {
-                                    "type": "link",
-                                    "title": "Not seen",
-                                    "icon": "docs",
-                                    "visible": true
-                                },
-                                {
-                                    "type": "link",
-                                    "title": "Assigned to me",
-                                    "icon": "docs",
-                                    "visible": true
-                                }
-                            ]
-                        },
-                        {
-                            "type": "modal",
-                            "title": "View all",
-                            "icon": "more2",
-                            "visible": true,
-                            "defaultTools": [
-                                {
-                                    "icon": "arrow-right",
-                                    "alt": "open"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "type": "link",
-                    "title": "On-call schedules",
-                    "icon": "call",
-                    "visible": true
-                },
-                {
-                    "type": "link",
-                    "title": "Reports",
-                    "icon": "charts",
-                    "visible": true
-                }
-            ],
-            "hoverTools": [
-                {
-                    "icon": "more",
-                    "alt": "more",
-                    "type": "options",
-                    "title": "More actions",
-                    "optionLists": [
-                        {
-                            "options": [
-                                {
-                                    "type": "link",
-                                    "icon": "settings",
-                                    "label": "General configuration",
-                                    "id": "generalConfiguration",
-                                    "visible": true
-                                }
-                            ]
-                        },
-                        {
-                            "options": [
-                                {
-                                    "type": "button",
-                                    "icon": "hide",
-                                    "label": "Hide from sidebar",
-                                    "id": "hide",
-                                    "visible": true
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-    ],
-    "externalLinks": [
-        {
-            "type": "link",
-            "title": "Confluence",
-            "icon": "confluence",
-            "defaultTools": [
-                {
-                    "icon": "newTab",
-                    "alt": "visit"
-                }
-            ],
-            "disableHoverAnimation": true,
-            "visible": true,
-            "dragEnabled": true
-        },
-        {
-            "type": "link",
-            "title": "Assets",
-            "icon": "assets",
-            "defaultTools": [
-                {
-                    "icon": "newTab",
-                    "alt": "visit"
-                }
-            ],
-            "disableHoverAnimation": true,
-            "visible": true,
-            "dragEnabled": true
-        },
-        {
-            "type": "link",
-            "title": "Teams",
-            "icon": "teams",
-            "defaultTools": [
-                {
-                    "icon": "newTab",
-                    "alt": "visit"
-                }
-            ],
-            "hoverTools": [
-                {
-                    "icon": "add1",
-                    "alt": "add",
-                    "type": "options",
-                    "title": "Create Team",
-                    "optionLists": [
-                        {
-                            "options": [
-                                {
-                                    "type": "button",
-                                    "label": "Invite people",
-                                    "id": "addPeople",
-                                    "visible": true
-                                },
-                                {
-                                    "type": "button",
-                                    "label": "Create a team",
-                                    "id": "createTeam",
-                                    "visible": true
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "disableHoverAnimation": true,
-            "visible": true,
-            "dragEnabled": true
-        }
-    ],
-    "customizeSidebar": {
-        "type": "modal",
-        "title": "Customize sidebar",
-        "icon": "customize",
-        "disableHoverAnimation": true,
-        "visible": true
+  "internalItems": [
+    {
+      "type": "link",
+      "title": "For you",
+      "hasTools": null,
+      "icon": "foryou",
+      "visible": true
     },
-    "feedback": {
-        "type": "modal",
-        "title": "Give feedback on the new navigation",
-        "icon": "feedback",
-        "disableHoverAnimation": true,
-        "visible": true
+    {
+      "type": "modal",
+      "title": "Recent",
+      "defaultTools": [
+        {
+          "icon": "arrow-right",
+          "alt": "open"
+        }
+      ],
+      "icon": "recent",
+      "visible": true,
+      "dragEnabled": true
+    },
+    {
+      "type": "modal",
+      "title": "Starred",
+      "defaultTools": [
+        {
+          "icon": "arrow-right",
+          "alt": "open"
+        }
+      ],
+      "icon": "starred",
+      "visible": true,
+      "dragEnabled": true
+    },
+    {
+      "type": "group",
+      "title": "Apps",
+      "hoverTools": [
+        {
+          "icon": "more",
+          "alt": "more",
+          "type": "options",
+          "title": "More actions",
+          "optionLists": [
+            {
+              "options": [
+                {
+                  "type": "link",
+                  "icon": "settings",
+                  "label": "Manage apps",
+                  "id": "manageApps",
+                  "visible": true
+                },
+                {
+                  "type": "link",
+                  "icon": "settings",
+                  "label": "App audit logs",
+                  "id": "appAuditLogs",
+                  "visible": true
+                },
+                {
+                  "type": "link",
+                  "icon": "settings",
+                  "label": "View app requests",
+                  "id": "appRequests",
+                  "visible": true
+                }
+              ]
+            },
+            {
+              "options": [
+                {
+                  "type": "button",
+                  "icon": "hide",
+                  "label": "Hide from sidebar",
+                  "id": "hide",
+                  "visible": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "icon": "apps",
+      "list": [
+        {
+          "type": "link",
+          "title": "Explore more apps",
+          "icon": "moreApps",
+          "visible": true
+        }
+      ],
+      "visible": true,
+      "dragEnabled": true
+    },
+    {
+      "type": "link",
+      "title": "Plans",
+      "hasTools": true,
+      "defaultTools": [
+        {
+          "icon": "arrow-right",
+          "alt": "open"
+        }
+      ],
+      "icon": "plans",
+      "visible": true,
+      "dragEnabled": true
+    },
+    {
+      "type": "group",
+      "title": "Spaces",
+      "hoverTools": [
+        {
+          "icon": "add1",
+          "alt": "add",
+          "title": "Add spaces",
+          "type": "emit",
+          "emitOptions": {
+            "id": "addSpace"
+          }
+        },
+        {
+          "icon": "more",
+          "alt": "more",
+          "type": "options",
+          "title": "More actions",
+          "optionLists": [
+            {
+              "options": [
+                {
+                  "type": "link",
+                  "icon": "settings",
+                  "label": "Manage spaces",
+                  "id": "manageSpaces",
+                  "visible": true
+                }
+              ]
+            },
+            {
+              "options": [
+                {
+                  "type": "button",
+                  "icon": "apps",
+                  "label": "Change View",
+                  "id": "changeView",
+                  "visible": true
+                },
+                {
+                  "type": "button",
+                  "icon": "hide",
+                  "label": "Hide from sidebar",
+                  "id": "hide",
+                  "visible": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "icon": "spaces",
+      "visible": true,
+      "dragEnabled": true,
+      "multipleLists": [
+        {
+          "heading": "Recent",
+          "list": [
+            {
+              "type": "modal",
+              "title": "More spaces",
+              "defaultTools": [
+                {
+                  "icon": "arrow-right",
+                  "alt": "open"
+                }
+              ],
+              "icon": "more2",
+              "visible": true
+            }
+          ]
+        },
+        {
+          "heading": "Recommended",
+          "list": [
+            {
+              "type": "link",
+              "title": "Create a roadmap",
+              "hoverTools": [
+                {
+                  "icon": "more",
+                  "alt": "more",
+                  "type": "options",
+                  "title": "More actions",
+                  "optionLists": [
+                    {
+                      "options": [
+                        {
+                          "type": "link",
+                          "label": "Not intersted",
+                          "id": "notInterested",
+                          "visible": true
+                        },
+                        {
+                          "type": "link",
+                          "label": "Why i am seeing this?",
+                          "id": "whySeeing",
+                          "visible": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "icon": "roadmap",
+              "visible": true
+            },
+            {
+              "type": "link",
+              "title": "Browse templates",
+              "defaultTools": [
+                {
+                  "icon": "arrow-right",
+                  "alt": "open"
+                }
+              ],
+              "icon": "more2",
+              "visible": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Filters",
+      "hoverTools": [
+        {
+          "icon": "more",
+          "alt": "more",
+          "type": "options",
+          "title": "More actions",
+          "optionLists": [
+            {
+              "options": [
+                {
+                  "type": "button",
+                  "icon": "hide",
+                  "label": "Hide from sidebar",
+                  "id": "hide",
+                  "visible": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "icon": "filterList",
+      "visible": true,
+      "dragEnabled": true,
+      "list": [
+        {
+          "type": "link",
+          "title": "Search work items",
+          "hasTools": false,
+          "icon": "search",
+          "visible": true
+        },
+        {
+          "type": "group",
+          "title": "Default Filters",
+          "hasTools": false,
+          "icon": "arrow-right",
+          "list": [
+            {
+              "type": "link",
+              "title": "My open work items",
+              "hasTools": true,
+              "icon": "filter",
+              "hoverTools": [
+                {
+                  "icon": "more",
+                  "alt": "more",
+                  "type": "options",
+                  "title": "More actions",
+                  "optionLists": [
+                    {
+                      "options": [
+                        {
+                          "type": "link",
+                          "icon": "starred",
+                          "label": "Add to starred",
+                          "id": "addStar",
+                          "visible": true
+                        },
+                        {
+                          "type": "link",
+                          "icon": "copy",
+                          "label": "Copy filter",
+                          "id": "copyFilter",
+                          "visible": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "visible": true
+            },
+            {
+              "type": "link",
+              "title": "Reported by me",
+              "hasTools": true,
+              "icon": "filter",
+              "hoverTools": [
+                {
+                  "icon": "more",
+                  "alt": "more",
+                  "type": "options",
+                  "title": "More actions",
+                  "optionLists": [
+                    {
+                      "options": [
+                        {
+                          "type": "link",
+                          "icon": "starred",
+                          "label": "Add to starred",
+                          "id": "addStar",
+                          "visible": true
+                        },
+                        {
+                          "type": "link",
+                          "icon": "copy",
+                          "label": "Copy filter",
+                          "id": "copyFilter",
+                          "visible": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "visible": true
+            },
+            {
+              "type": "link",
+              "title": "All work items",
+              "hasTools": true,
+              "icon": "filter",
+              "hoverTools": [
+                {
+                  "icon": "more",
+                  "alt": "more",
+                  "type": "options",
+                  "title": "More actions",
+                  "optionLists": [
+                    {
+                      "options": [
+                        {
+                          "type": "link",
+                          "icon": "starred",
+                          "label": "Add to starred",
+                          "id": "addStar",
+                          "visible": true
+                        },
+                        {
+                          "type": "link",
+                          "icon": "copy",
+                          "label": "Copy filter",
+                          "id": "copyFilter",
+                          "visible": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "visible": true
+            },
+            {
+              "type": "link",
+              "title": "Open work items",
+              "hasTools": true,
+              "icon": "filter",
+              "hoverTools": [
+                {
+                  "icon": "more",
+                  "alt": "more",
+                  "type": "options",
+                  "title": "More actions",
+                  "optionLists": [
+                    {
+                      "options": [
+                        {
+                          "type": "link",
+                          "icon": "starred",
+                          "label": "Add to starred",
+                          "id": "addStar",
+                          "visible": true
+                        },
+                        {
+                          "type": "link",
+                          "icon": "copy",
+                          "label": "Copy filter",
+                          "id": "copyFilter",
+                          "visible": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "visible": true
+            },
+            {
+              "type": "link",
+              "title": "Done work items",
+              "hasTools": true,
+              "icon": "filter",
+              "hoverTools": [
+                {
+                  "icon": "more",
+                  "alt": "more",
+                  "type": "options",
+                  "title": "More actions",
+                  "optionLists": [
+                    {
+                      "options": [
+                        {
+                          "type": "link",
+                          "icon": "starred",
+                          "label": "Add to starred",
+                          "id": "addStar",
+                          "visible": true
+                        },
+                        {
+                          "type": "link",
+                          "icon": "copy",
+                          "label": "Copy filter",
+                          "id": "copyFilter",
+                          "visible": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "visible": true
+            },
+            {
+              "type": "link",
+              "title": "Viewed recently",
+              "hasTools": true,
+              "icon": "filter",
+              "hoverTools": [
+                {
+                  "icon": "more",
+                  "alt": "more",
+                  "type": "options",
+                  "title": "More actions",
+                  "optionLists": [
+                    {
+                      "options": [
+                        {
+                          "type": "link",
+                          "icon": "starred",
+                          "label": "Add to starred",
+                          "id": "addStar",
+                          "visible": true
+                        },
+                        {
+                          "type": "link",
+                          "icon": "copy",
+                          "label": "Copy filter",
+                          "id": "copyFilter",
+                          "visible": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "visible": true
+            },
+            {
+              "type": "link",
+              "title": "Created recently",
+              "hasTools": true,
+              "icon": "filter",
+              "hoverTools": [
+                {
+                  "icon": "more",
+                  "alt": "more",
+                  "type": "options",
+                  "title": "More actions",
+                  "optionLists": [
+                    {
+                      "options": [
+                        {
+                          "type": "link",
+                          "icon": "starred",
+                          "label": "Add to starred",
+                          "id": "addStar",
+                          "visible": true
+                        },
+                        {
+                          "type": "link",
+                          "icon": "copy",
+                          "label": "Copy filter",
+                          "id": "copyFilter",
+                          "visible": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "visible": true
+            },
+            {
+              "type": "link",
+              "title": "Resolved recently",
+              "hasTools": true,
+              "icon": "filter",
+              "hoverTools": [
+                {
+                  "icon": "more",
+                  "alt": "more",
+                  "type": "options",
+                  "title": "More actions",
+                  "optionLists": [
+                    {
+                      "options": [
+                        {
+                          "type": "link",
+                          "icon": "starred",
+                          "label": "Add to starred",
+                          "id": "addStar",
+                          "visible": true
+                        },
+                        {
+                          "type": "link",
+                          "icon": "copy",
+                          "label": "Copy filter",
+                          "id": "copyFilter",
+                          "visible": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "visible": true
+            },
+            {
+              "type": "link",
+              "title": "Updated recently",
+              "hasTools": true,
+              "icon": "filter",
+              "hoverTools": [
+                {
+                  "icon": "more",
+                  "alt": "more",
+                  "type": "options",
+                  "title": "More actions",
+                  "optionLists": [
+                    {
+                      "options": [
+                        {
+                          "type": "link",
+                          "icon": "starred",
+                          "label": "Add to starred",
+                          "id": "addStar",
+                          "visible": true
+                        },
+                        {
+                          "type": "link",
+                          "icon": "copy",
+                          "label": "Copy filter",
+                          "id": "copyFilter",
+                          "visible": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "visible": true
+            }
+          ],
+          "visible": true
+        },
+        {
+          "type": "link",
+          "title": "View all filters",
+          "hasTools": false,
+          "icon": "more2",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Dashboards",
+      "hoverTools": [
+        {
+          "icon": "add1",
+          "alt": "add",
+          "title": "Add dashboards"
+        },
+        {
+          "icon": "more",
+          "alt": "more",
+          "type": "options",
+          "title": "More actions",
+          "optionLists": [
+            {
+              "options": [
+                {
+                  "type": "button",
+                  "icon": "hide",
+                  "label": "Hide from sidebar",
+                  "id": "hide",
+                  "visible": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "icon": "dashboards",
+      "visible": true,
+      "dragEnabled": true,
+      "multipleLists": [
+        {
+          "heading": null,
+          "headerInfo": "Once you visit or create dashboards, they'll show up here.",
+          "list": [
+            {
+              "type": "link",
+              "title": "View all dashboards",
+              "icon": "more2",
+              "visible": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "title": "Operations",
+      "icon": "action",
+      "visible": true,
+      "dragEnabled": true,
+      "list": [
+        {
+          "type": "link",
+          "title": "Overview",
+          "icon": "more2",
+          "visible": true
+        },
+        {
+          "type": "group",
+          "title": "Alerts",
+          "icon": "alerts",
+          "visible": true,
+          "list": [
+            {
+              "type": "group",
+              "title": "Default Filters",
+              "icon": "arrow-right",
+              "visible": true,
+              "list": [
+                {
+                  "type": "link",
+                  "title": "All",
+                  "icon": "docs",
+                  "visible": true
+                },
+                {
+                  "type": "link",
+                  "title": "Open",
+                  "icon": "docs",
+                  "visible": true
+                },
+                {
+                  "type": "link",
+                  "title": "Closed",
+                  "icon": "docs",
+                  "visible": true
+                },
+                {
+                  "type": "link",
+                  "title": "Unacknowledged",
+                  "icon": "docs",
+                  "visible": true
+                },
+                {
+                  "type": "link",
+                  "title": "Not seen",
+                  "icon": "docs",
+                  "visible": true
+                },
+                {
+                  "type": "link",
+                  "title": "Assigned to me",
+                  "icon": "docs",
+                  "visible": true
+                }
+              ]
+            },
+            {
+              "type": "modal",
+              "title": "View all",
+              "icon": "more2",
+              "visible": true,
+              "defaultTools": [
+                {
+                  "icon": "arrow-right",
+                  "alt": "open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "link",
+          "title": "On-call schedules",
+          "icon": "call",
+          "visible": true
+        },
+        {
+          "type": "link",
+          "title": "Reports",
+          "icon": "charts",
+          "visible": true
+        }
+      ],
+      "hoverTools": [
+        {
+          "icon": "more",
+          "alt": "more",
+          "type": "options",
+          "title": "More actions",
+          "optionLists": [
+            {
+              "options": [
+                {
+                  "type": "link",
+                  "icon": "settings",
+                  "label": "General configuration",
+                  "id": "generalConfiguration",
+                  "visible": true
+                }
+              ]
+            },
+            {
+              "options": [
+                {
+                  "type": "button",
+                  "icon": "hide",
+                  "label": "Hide from sidebar",
+                  "id": "hide",
+                  "visible": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
+  ],
+  "externalLinks": [
+    {
+      "type": "link",
+      "title": "Confluence",
+      "icon": "confluence",
+      "defaultTools": [
+        {
+          "icon": "newTab",
+          "alt": "visit"
+        }
+      ],
+      "disableHoverAnimation": true,
+      "visible": true,
+      "dragEnabled": true
+    },
+    {
+      "type": "link",
+      "title": "Assets",
+      "icon": "assets",
+      "defaultTools": [
+        {
+          "icon": "newTab",
+          "alt": "visit"
+        }
+      ],
+      "disableHoverAnimation": true,
+      "visible": true,
+      "dragEnabled": true
+    },
+    {
+      "type": "link",
+      "title": "Teams",
+      "icon": "teams",
+      "defaultTools": [
+        {
+          "icon": "newTab",
+          "alt": "visit"
+        }
+      ],
+      "hoverTools": [
+        {
+          "icon": "add1",
+          "alt": "add",
+          "type": "options",
+          "title": "Create Team",
+          "optionLists": [
+            {
+              "options": [
+                {
+                  "type": "button",
+                  "label": "Invite people",
+                  "id": "addPeople",
+                  "visible": true
+                },
+                {
+                  "type": "button",
+                  "label": "Create a team",
+                  "id": "createTeam",
+                  "visible": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "disableHoverAnimation": true,
+      "visible": true,
+      "dragEnabled": true
+    }
+  ],
+  "customizeSidebar": {
+    "type": "modal",
+    "title": "Customize sidebar",
+    "icon": "customize",
+    "disableHoverAnimation": true,
+    "visible": true
+  },
+  "feedback": {
+    "type": "modal",
+    "title": "Give feedback on the new navigation",
+    "icon": "feedback",
+    "disableHoverAnimation": true,
+    "visible": true
+  }
 }

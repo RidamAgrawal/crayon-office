@@ -1,1 +1,1 @@
-export * from "./editor-panel.component";
+export * from './editor-panel.component';

@@ -1,4 +1,10 @@
-import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  inject,
+  provideAppInitializer,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -21,5 +27,5 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => appInitFactory(inject(AppInitService))()),
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     provideStore(),
-  ]
+  ],
 };

@@ -1,92 +1,99 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { OverlayService } from '../../../../../../services/overlay-service/overlay-service';
 import { OptionWrapper } from '../../../../../../templates/option-wrapper/option-wrapper';
 import { OverlayRef } from '@angular/cdk/overlay';
 
 export const ITEM_OPTIONLISTS = [
-    {
-      options: [
-        {
-          type: "button",
-          icon: "settings",
-          label: "Move Item within sidebar",
-          id: "move",
-          visible: true,
-        },
-        {
-          type: "button",
-          icon: "hide",
-          label: "Hide item from sidebar",
-          id: "hide",
-          visible: true,
-        },
-        {
-          type: "button",
-          icon: "show",
-          label: "Show item in sidebar",
-          id: "show",
-          visible: false,
-        }
-      ]
+  {
+    options: [
+      {
+        type: 'button',
+        icon: 'settings',
+        label: 'Move Item within sidebar',
+        id: 'move',
+        visible: true,
+      },
+      {
+        type: 'button',
+        icon: 'hide',
+        label: 'Hide item from sidebar',
+        id: 'hide',
+        visible: true,
+      },
+      {
+        type: 'button',
+        icon: 'show',
+        label: 'Show item in sidebar',
+        id: 'show',
+        visible: false,
+      },
+    ],
   },
 ];
 export const MOVE_ITEM_OPTIONLISTS = [
   {
     options: [
-        {
-          type: "button",
-          icon: "settings",
-          label: "Move to top",
-          id: "top",
-          visible: true,
-        },
-        {
-          type: "button",
-          icon: "settings",
-          label: "Move up",
-          id: "up",
-          visible: true,
-        },
-        {
-          type: "button",
-          icon: "settings",
-          label: "Move down",
-          id: "down",
-          visible: true,
-        },
-        {
-          type: "button",
-          icon: "settings",
-          label: "Move to Bottom",
-          id: "bottom",
-          visible: true,
-        }
-      ]
-  }
-]
+      {
+        type: 'button',
+        icon: 'settings',
+        label: 'Move to top',
+        id: 'top',
+        visible: true,
+      },
+      {
+        type: 'button',
+        icon: 'settings',
+        label: 'Move up',
+        id: 'up',
+        visible: true,
+      },
+      {
+        type: 'button',
+        icon: 'settings',
+        label: 'Move down',
+        id: 'down',
+        visible: true,
+      },
+      {
+        type: 'button',
+        icon: 'settings',
+        label: 'Move to Bottom',
+        id: 'bottom',
+        visible: true,
+      },
+    ],
+  },
+];
 
 @Component({
   selector: 'app-customize-sidebar',
   standalone: false,
   templateUrl: './customize-sidebar.html',
   styleUrl: './customize-sidebar.scss',
-  providers: [OverlayService]
+  providers: [OverlayService],
 })
 export class CustomizeSidebar {
-  @Input({required: true}) externalLinks: any[]=[];
-  @Input({required: true}) internalItems: any[]=[];
+  @Input({ required: true }) externalLinks: any[] = [];
+  @Input({ required: true }) internalItems: any[] = [];
   @Output() saveChanges: EventEmitter<any> = new EventEmitter<any>();
   private moreOptionOverlayRef: OverlayRef | null = null;
   constructor(
     private changeRef: ChangeDetectorRef,
-    private overlayService: OverlayService
-  ) { }
+    private overlayService: OverlayService,
+  ) {}
 
-  public save(){
+  public save() {
     this.saveChanges.emit({
-      'externalLinks': this.externalLinks,
-      'internalItems': this.internalItems,
+      externalLinks: this.externalLinks,
+      internalItems: this.internalItems,
     });
   }
 
@@ -104,74 +111,101 @@ export class CustomizeSidebar {
         case 'show':
           this.showIteminSidebar(item, option);
           break;
-          case 'hide':
+        case 'hide':
           this.hideItemfromSidebar(item, option);
           break;
         case 'move':
-          if(option.hasOwnProperty('elementRef') && option.elementRef instanceof ElementRef){
-            this.initializeOptionListsConfigForItem(option, MOVE_ITEM_OPTIONLISTS, handleMoreOptionClick);
+          if (option.hasOwnProperty('elementRef') && option.elementRef instanceof ElementRef) {
+            this.initializeOptionListsConfigForItem(
+              option,
+              MOVE_ITEM_OPTIONLISTS,
+              handleMoreOptionClick,
+            );
             this.overlayService.open({
               component: OptionWrapper,
               componentInputs: { optionListsConfig: option.optionListsConfig },
               connectedTo: option.elementRef,
               positions: [
-                {originX: 'end', originY: 'center', overlayX: 'start', overlayY: 'center', offsetX: 10},
-                {originX: 'start', originY: 'center', overlayX: 'end', overlayY: 'center', offsetX: -10}
-              ]
+                {
+                  originX: 'end',
+                  originY: 'center',
+                  overlayX: 'start',
+                  overlayY: 'center',
+                  offsetX: 10,
+                },
+                {
+                  originX: 'start',
+                  originY: 'center',
+                  overlayX: 'end',
+                  overlayY: 'center',
+                  offsetX: -10,
+                },
+              ],
             });
           }
           break;
-          case 'top':
-          case 'up':
-          case 'down':
-          case 'bottom':
-            this.moveItemOptionsOverlay(option.id, item);
-            break;
+        case 'top':
+        case 'up':
+        case 'down':
+        case 'bottom':
+          this.moveItemOptionsOverlay(option.id, item);
+          break;
       }
       this.changeRef.detectChanges();
-    }
+    };
     this.initializeOptionListsConfigForItem(item, ITEM_OPTIONLISTS, handleMoreOptionClick);
     this.moreOptionOverlayRef = this.overlayService.open({
       component: OptionWrapper,
       componentInputs: {
-        optionListsConfig: item.optionListsConfig
+        optionListsConfig: item.optionListsConfig,
       },
       connectedTo: elementRef,
       positions: [
-        {originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', offsetY: -10}
-      ]
+        { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', offsetY: -10 },
+      ],
     });
   }
 
-  public initializeOptionListsConfigForItem(item: any, itemOptionLists: any, callback: (data: any) => void) {
-    if(!item.hasOwnProperty('optionListsConfig')) {
+  public initializeOptionListsConfigForItem(
+    item: any,
+    itemOptionLists: any,
+    callback: (data: any) => void,
+  ) {
+    if (!item.hasOwnProperty('optionListsConfig')) {
       item.optionListsConfig = {
         optionLists: structuredClone(itemOptionLists),
       };
     }
-    if(!item.optionListsConfig.hasOwnProperty('handleOptionEvent') && typeof item.optionListsConfig.handleOptionEvent != 'function') {
+    if (
+      !item.optionListsConfig.hasOwnProperty('handleOptionEvent') &&
+      typeof item.optionListsConfig.handleOptionEvent != 'function'
+    ) {
       item.optionListsConfig.handleOptionEvent = (option: any) => callback(option);
     }
   }
 
-  public hideItemfromSidebar(item: any,option: any) {
+  public hideItemfromSidebar(item: any, option: any) {
     item.visible = !item.visible;
     option.visible = false;
-    item.optionListsConfig.optionLists[0].options.find((option: any)=>option.id == 'show').visible = true;
+    item.optionListsConfig.optionLists[0].options.find(
+      (option: any) => option.id == 'show',
+    ).visible = true;
   }
-  public showIteminSidebar(item: any,option: any) {
+  public showIteminSidebar(item: any, option: any) {
     item.visible = !item.visible;
     option.visible = false;
-    item.optionListsConfig.optionLists[0].options.find((option: any)=>option.id == 'hide').visible = true;
+    item.optionListsConfig.optionLists[0].options.find(
+      (option: any) => option.id == 'hide',
+    ).visible = true;
   }
   public moveItemOptionsOverlay(position: string, item: any) {
     let containerArray = this.internalItems;
-    let currentItemIndex = containerArray.findIndex(itm => itm.title == item.title);
-    if(currentItemIndex == -1) { 
+    let currentItemIndex = containerArray.findIndex((itm) => itm.title == item.title);
+    if (currentItemIndex == -1) {
       containerArray = this.externalLinks;
-      currentItemIndex = containerArray.findIndex(itm => itm.title == item.title);
+      currentItemIndex = containerArray.findIndex((itm) => itm.title == item.title);
     }
-    if(currentItemIndex != -1) {
+    if (currentItemIndex != -1) {
       switch (position) {
         case 'up':
           moveItemInArray(containerArray, currentItemIndex, Math.max(currentItemIndex - 1, 0));
@@ -180,7 +214,11 @@ export class CustomizeSidebar {
           moveItemInArray(containerArray, currentItemIndex, 0);
           break;
         case 'down':
-          moveItemInArray(containerArray, currentItemIndex, Math.min(currentItemIndex + 1,containerArray.length - 1));
+          moveItemInArray(
+            containerArray,
+            currentItemIndex,
+            Math.min(currentItemIndex + 1, containerArray.length - 1),
+          );
           break;
         case 'bottom':
           moveItemInArray(containerArray, currentItemIndex, containerArray.length - 1);
@@ -189,7 +227,7 @@ export class CustomizeSidebar {
   }
   public ngOnDestroy() {
     this.overlayService.close();
-    if(this.moreOptionOverlayRef) {
+    if (this.moreOptionOverlayRef) {
       this.moreOptionOverlayRef.detach();
       this.moreOptionOverlayRef.dispose();
       this.moreOptionOverlayRef = null;

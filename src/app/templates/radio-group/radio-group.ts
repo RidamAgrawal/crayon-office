@@ -8,9 +8,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './radio-group.html',
   styleUrl: './radio-group.scss',
-  providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: RadioGroup, multi: true },
-  ],
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: RadioGroup, multi: true }],
 })
 export class RadioGroup implements ControlValueAccessor {
   // Inputs

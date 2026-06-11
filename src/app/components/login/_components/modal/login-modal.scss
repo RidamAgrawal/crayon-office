@@ -105,7 +105,6 @@
   }
 }
 
-
 .divider-text {
   text-align: center;
   font-size: 12px;
@@ -214,11 +213,11 @@
 
 .icon-container {
   height: 80px;
-    overflow: hidden;
-    text-align: center;
-    .mail-icon{
-      height: 100%;
-    }
+  overflow: hidden;
+  text-align: center;
+  .mail-icon {
+    height: 100%;
+  }
 }
 
 .social-btn.google-btn {
@@ -238,20 +237,20 @@
   border-radius: 4px;
   padding-block: 1rem;
   padding-inline: 1rem;
-  background-color: #FFF5DB;
+  background-color: #fff5db;
   word-break: break-word;
   display: flex;
   row-gap: 1pc;
   column-gap: 1pc;
   align-items: stretch;
-  .error-icon-container{
+  .error-icon-container {
     display: flex;
     margin-block: -2px;
     box-sizing: border-box;
-    svg{
+    svg {
       height: 24px;
       width: 24px;
-      color: #E06C00;
+      color: #e06c00;
       line-height: 1;
       flex-shrink: 0;
       overflow: hidden;
@@ -259,9 +258,9 @@
       pointer-events: none;
     }
   }
-  .error-message-container{
+  .error-message-container {
     box-sizing: border-box;
-    a{
+    a {
       color: #1869db;
     }
   }

@@ -16,9 +16,14 @@ import { OptionsList } from '../../../../../../templates/option-wrapper/option-w
 import { OverlayService } from '../../../../../../services/overlay-service/overlay-service';
 import { MultiSelect } from '../../../../../../templates/multi-select/multi-select';
 import { TextField } from '../../../../../../templates/text-field/text-field';
-import { PER_TAB_OPTIONS, SPACE_MENU, toOption, VIEW_TYPE_UI } from '../../dashboard-space.constants';
+import {
+  PER_TAB_OPTIONS,
+  SPACE_MENU,
+  toOption,
+  VIEW_TYPE_UI,
+} from '../../dashboard-space.constants';
 import { SpaceNav } from '../../_models';
-import { } from '../../_services';
+import {} from '../../_services';
 
 @Component({
   selector: 'dashboard-space-header',
@@ -40,23 +45,21 @@ export class DashboardSpaceHeader {
     read: TemplateRef<HTMLElement>,
   });
 
-  protected readonly spaceDetail = toSignal(
-    this.store.select(selectSpaceDetail),
-  );
+  protected readonly spaceDetail = toSignal(this.store.select(selectSpaceDetail));
 
   protected readonly optionLists = computed<OptionsList[]>(() => {
     const can = this.spaceDetail()?.currentUser.can;
     if (!can) return [];
-    const visible = SPACE_MENU.filter(item => !item.requires || can[item.requires]);
+    const visible = SPACE_MENU.filter((item) => !item.requires || can[item.requires]);
     // Group "delete" in its own list to get the divider you have in the mock
     return [
-      { options: visible.filter(i => i.id !== 'deleteSpace').map(toOption) },
-      { options: visible.filter(i => i.id === 'deleteSpace').map(toOption) },
+      { options: visible.filter((i) => i.id !== 'deleteSpace').map(toOption) },
+      { options: visible.filter((i) => i.id === 'deleteSpace').map(toOption) },
     ];
   });
 
   protected readonly spaceNavs = computed<SpaceNav[]>(() =>
-    (this.spaceDetail()?.views ?? []).map(v => ({
+    (this.spaceDetail()?.views ?? []).map((v) => ({
       id: v.id,
       label: v.name,
       icon: VIEW_TYPE_UI[v.type].icon,
@@ -75,10 +78,7 @@ export class DashboardSpaceHeader {
     );
   }
 
-  protected onNavOptionsClick(
-    event: MouseEvent,
-    optionsList: OptionsList[],
-  ): void {
+  protected onNavOptionsClick(event: MouseEvent, optionsList: OptionsList[]): void {
     if (!event.target) return;
     this.dashboardSpaceHeaderService.handleMoreOptionsClick(
       event.target as HTMLButtonElement,
@@ -109,8 +109,8 @@ export class DashboardSpaceHeader {
           originY: 'bottom',
           overlayY: 'top',
           offsetY: 8,
-        }
-      ]
+        },
+      ],
     });
   }
 

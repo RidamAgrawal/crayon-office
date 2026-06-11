@@ -58,10 +58,7 @@ export function horizontalRuleNodeView(
       display: flex; align-items: center; justify-content: center;
     `;
     btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none">${svgInner}</svg>`;
-    btn.addEventListener(
-      'mouseenter',
-      () => (btn.style.background = '#F1F2F4'),
-    );
+    btn.addEventListener('mouseenter', () => (btn.style.background = '#F1F2F4'));
     btn.addEventListener('mouseleave', () => (btn.style.background = 'none'));
     return btn;
   };

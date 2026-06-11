@@ -48,7 +48,7 @@
       justify-content: flex-start;
       top: 0;
       border-radius: 6px;
-      margin: .25rem;
+      margin: 0.25rem;
       &:hover {
         background-color: #0515240f;
       }
@@ -163,7 +163,7 @@
         }
 
         &::after {
-          content: "";
+          content: '';
           right: 0;
           will-change: opacity;
           bottom: 0;
@@ -376,7 +376,7 @@
       }
     }
     &.is-loading {
-      opacity: .55;
+      opacity: 0.55;
       pointer-events: none;
       transition: opacity 0.2s;
       .column-body .item .create-item-btn {

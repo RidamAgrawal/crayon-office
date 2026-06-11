@@ -70,9 +70,7 @@
       width="16px"
       fill="#fff"
     >
-      <path
-        d="M427-427H180.78v-106H427v-246.22h106V-533h246.22v106H533v246.22H427V-427Z"
-      />
+      <path d="M427-427H180.78v-106H427v-246.22h106V-533h246.22v106H533v246.22H427V-427Z" />
     </svg>
   </button>
 </div>
@@ -95,13 +93,7 @@
       [appTooltipDirective]="{text: 'Help', position: 'below'}"
       (click)="toggleAside()"
     >
-      <img
-        height="20px"
-        width="20px"
-        class="icon-content"
-        src="assets/icons/how.svg"
-        alt="FAQs"
-      />
+      <img height="20px" width="20px" class="icon-content" src="assets/icons/how.svg" alt="FAQs" />
     </app-icon-container>
     <app-icon-container
       #settings="elementRef"
@@ -124,9 +116,7 @@
     >
       <button class="avatar">
         <span class="avatar-text">
-          <div class="avatar-icon">
-            {{ user()?.displayName ?? null | name }}
-          </div>
+          <div class="avatar-icon">{{ user()?.displayName ?? null | name }}</div>
         </span>
       </button>
     </div>
@@ -281,9 +271,7 @@
         </div>
       </div>
       <span class="info-highlight"></span>
-      <app-tab
-        [config]="{headings:['Recent','Viewed'],bodyPlaceholders:[]}"
-      ></app-tab>
+      <app-tab [config]="{headings:['Recent','Viewed'],bodyPlaceholders:[]}"></app-tab>
       <div class="notification-placeholder">
         <div class="tab-panel-shimmer"></div>
         <div class="tab-row-placeholder">
@@ -340,12 +328,8 @@
                       </span>
                     </span>
                     <div class="settings-section-item-details-container">
-                      <span class="settings-section-item-detail-1"
-                        >General Settings</span
-                      >
-                      <span class="settings-section-item-detail-2"
-                        >manage time location</span
-                      >
+                      <span class="settings-section-item-detail-1">General Settings</span>
+                      <span class="settings-section-item-detail-2">manage time location</span>
                     </div>
                   </span>
                 </span>
@@ -355,9 +339,7 @@
           <div class="settings-section">
             <div class="settings-section-heading">
               <div class="settings-section-heading-text-container">
-                <h2 class="settings-section-heading-text">
-                  Jira Admin Settings
-                </h2>
+                <h2 class="settings-section-heading-text">Jira Admin Settings</h2>
               </div>
             </div>
             <ul class="settings-section-items">
@@ -371,12 +353,8 @@
                       </span>
                     </span>
                     <div class="settings-section-item-details-container">
-                      <span class="settings-section-item-detail-1"
-                        >General Settings</span
-                      >
-                      <span class="settings-section-item-detail-2"
-                        >manage time location</span
-                      >
+                      <span class="settings-section-item-detail-1">General Settings</span>
+                      <span class="settings-section-item-detail-2">manage time location</span>
                     </div>
                   </span>
                 </span>
@@ -386,9 +364,7 @@
           <div class="settings-section">
             <div class="settings-section-heading">
               <div class="settings-section-heading-text-container">
-                <h2 class="settings-section-heading-text">
-                  Atlassian admin settings
-                </h2>
+                <h2 class="settings-section-heading-text">Atlassian admin settings</h2>
               </div>
             </div>
             <ul class="settings-section-items">
@@ -402,12 +378,8 @@
                       </span>
                     </span>
                     <div class="settings-section-item-details-container">
-                      <span class="settings-section-item-detail-1"
-                        >General Settings</span
-                      >
-                      <span class="settings-section-item-detail-2"
-                        >manage time location</span
-                      >
+                      <span class="settings-section-item-detail-1">General Settings</span>
+                      <span class="settings-section-item-detail-2">manage time location</span>
                     </div>
                   </span>
                 </span>
@@ -432,18 +404,12 @@
                   @if (user()?.avatarUrl) {
                   <img [src]="user()!.avatarUrl" alt="icons" />
                   } @else {
-                  <div class="avatar-text">
-                    {{ user()?.displayName ?? null | name }}
-                  </div>
+                  <div class="avatar-text">{{ user()?.displayName ?? null | name }}</div>
                   }
                 </div>
                 <div class="details-container">
-                  <h3 class="details-user-name">
-                    {{ user()?.displayName ?? 'Unknown' }}
-                  </h3>
-                  <p class="details-user-email">
-                    {{ user()?.email ?? 'Anonymous@person.com' }}
-                  </p>
+                  <h3 class="details-user-name">{{ user()?.displayName ?? 'Unknown' }}</h3>
+                  <p class="details-user-email">{{ user()?.email ?? 'Anonymous@person.com' }}</p>
                 </div>
               </div>
             </div>
@@ -516,38 +482,22 @@
         <ul class="header-options-list">
           <li class="header-option-item">
             <app-icon-container>
-              <img
-                class="icon-content"
-                [src]="'assets/icons/add1.svg'"
-                alt="add"
-              />
+              <img class="icon-content" [src]="'assets/icons/add1.svg'" alt="add" />
             </app-icon-container>
           </li>
           <li class="header-option-item">
             <app-icon-container>
-              <img
-                class="icon-content"
-                [src]="'assets/icons/newTab.svg'"
-                alt="new"
-              />
+              <img class="icon-content" [src]="'assets/icons/newTab.svg'" alt="new" />
             </app-icon-container>
           </li>
           <li class="header-option-item">
             <app-icon-container>
-              <img
-                class="icon-content"
-                [src]="'assets/icons/more.svg'"
-                alt="more"
-              />
+              <img class="icon-content" [src]="'assets/icons/more.svg'" alt="more" />
             </app-icon-container>
           </li>
           <li class="header-option-item">
             <app-icon-container>
-              <img
-                class="icon-content"
-                [src]="'assets/icons/close.svg'"
-                alt="close"
-              />
+              <img class="icon-content" [src]="'assets/icons/close.svg'" alt="close" />
             </app-icon-container>
           </li>
         </ul>
@@ -561,9 +511,7 @@
             <span class="red-asterisk">*</span>
           </p>
           <div class="field-wrapper">
-            <label for="" class="field-label">
-              Space <span class="red-asterisk">*</span>
-            </label>
+            <label for="" class="field-label"> Space <span class="red-asterisk">*</span> </label>
             <app-multi-select></app-multi-select>
           </div>
           <div class="field-wrapper">
@@ -602,9 +550,7 @@
             </div>
             <div class="field-wrapper multi-purpose-field-wrapper">
               <label for="" class="field-label">Description</label>
-              <div
-                class="multipurpose-field class='_1bsbhi17 _19pknek2 _n3td11zn'"
-              >
+              <div class="multipurpose-field class='_1bsbhi17 _19pknek2 _n3td11zn'">
                 <wysiwyg2></wysiwyg2>
               </div>
             </div>

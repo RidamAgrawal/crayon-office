@@ -1,10 +1,4 @@
-import {
-  Component,
-  inject,
-  OnInit,
-  signal,
-  WritableSignal,
-} from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { TabComponent } from '../tabs/tabs';
 import { TabularTemplate1 } from '../../../../templates/tabular-template-1/tabular-template-1';
 import { TabTemplate2 } from '../../../../templates/tab-template-2/tab-template-2';
@@ -34,7 +28,5 @@ export class DashboardHome implements OnInit {
     });
   }
 
-  public fetchUserApps(): void {
-    
-  }
+  public fetchUserApps(): void {}
 }

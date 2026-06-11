@@ -1,7 +1,4 @@
-import {
-  CdkVirtualScrollViewport,
-  ScrollingModule,
-} from '@angular/cdk/scrolling';
+import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import {
   Component,
@@ -20,13 +17,7 @@ import { EditorCommandsService } from '../../services';
 
 @Component({
   selector: 'app-emoji-picker',
-  imports: [
-    CommonModule,
-    CdkVirtualScrollViewport,
-    ScrollingModule,
-    TextField,
-    UnicodeToEmojiPipe,
-  ],
+  imports: [CommonModule, CdkVirtualScrollViewport, ScrollingModule, TextField, UnicodeToEmojiPipe],
   templateUrl: './emoji-picker.html',
   styleUrl: './emoji-picker.scss',
 })
@@ -47,7 +38,9 @@ export class EmojiPicker {
     let rowIndex = 0;
     let searchString = this.searchEmoji().toLowerCase();
     for (let category of Object.entries(this.emojiContent())) {
-      const filteredEmojis = category[1].filter((emoji: EmojiStructure) => emoji.name.toLowerCase().includes(searchString));
+      const filteredEmojis = category[1].filter((emoji: EmojiStructure) =>
+        emoji.name.toLowerCase().includes(searchString),
+      );
       if (filteredEmojis.length == 0) continue;
       headingIndices.set(category[0], rowIndex);
       rows.push({ type: 'heading', name: category[0] });
@@ -66,17 +59,19 @@ export class EmojiPicker {
 
   ngOnInit(): void {
     this.httpService.getEmoji().subscribe((res) => {
-      const categorizedEmojis: Record<string, EmojiStructure[]> = this.categoryNames.reduce((acc, category) => {
-        acc[category] = [];
-        return acc;
-      }, {} as Record<string, EmojiStructure[]>);
-      this.emojiContent.set(res.reduce(
-        (acc: Record<string, EmojiStructure[]>, emoji: EmojiStructure) => {
-          acc[emoji.category].push(emoji);
+      const categorizedEmojis: Record<string, EmojiStructure[]> = this.categoryNames.reduce(
+        (acc, category) => {
+          acc[category] = [];
           return acc;
         },
-        categorizedEmojis,
-      ));
+        {} as Record<string, EmojiStructure[]>,
+      );
+      this.emojiContent.set(
+        res.reduce((acc: Record<string, EmojiStructure[]>, emoji: EmojiStructure) => {
+          acc[emoji.category].push(emoji);
+          return acc;
+        }, categorizedEmojis),
+      );
     });
   }
 

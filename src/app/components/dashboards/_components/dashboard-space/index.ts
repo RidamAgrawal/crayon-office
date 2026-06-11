@@ -1,1 +1,1 @@
-export { DashboardSpace } from "./dashboard-space.component";
+export { DashboardSpace } from './dashboard-space.component';

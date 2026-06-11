@@ -17,7 +17,7 @@ export interface SpaceDetails {
   currentUser: {
     role: 'OWNER' | 'ADMIN' | 'MEMBER' | 'VIEWER';
     can: SpaceCapabilities;
-  }
+  };
 }
 
 export interface SpaceMember {

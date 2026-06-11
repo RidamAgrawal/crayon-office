@@ -1,7 +1,7 @@
-import { User } from "../../../models";
+import { User } from '../../../models';
 
 export const DashboardsStoreKey = 'DashboardsStore';
 
 export interface DashboardsState {
-    userDetail: User | null;
+  userDetail: User | null;
 }

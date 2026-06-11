@@ -1,150 +1,208 @@
 <div class="emoji-picker-container">
-    <div class="emoji-picker-header">
-        <div class="emoji-categories">
-            <div role="presentation" class="emoji-category-icon-container">
-                <button class="emoji-category-icon-btn secondary-btn" (click)="scrollToCategory('Smileys & Emotion')">
-                    <span class="emoji-category-icon-content" [class.selected]="selectedCategoryIndex() === 0">
-                        <img src="./assets/icons/emoji2.svg" alt="">
-                    </span>
-                </button>
-            </div>
-            <div role="presentation" class="emoji-category-icon-container">
-                <button class="emoji-category-icon-btn secondary-btn" (click)="scrollToCategory('Animals & Nature')">
-                    <span class="emoji-category-icon-content" [class.selected]="selectedCategoryIndex() === 1">
-                        <img src="./assets/icons/tree.svg" alt="">
-                    </span>
-                </button>
-            </div>
-            <div role="presentation" class="emoji-category-icon-container">
-                <button class="emoji-category-icon-btn secondary-btn" (click)="scrollToCategory('Food & Drink')">
-                    <span class="emoji-category-icon-content" [class.selected]="selectedCategoryIndex() === 2">
-                        <img src="./assets/icons/food.svg" alt="">
-                    </span>
-                </button>
-            </div>
-            <div role="presentation" class="emoji-category-icon-container">
-                <button class="emoji-category-icon-btn secondary-btn" (click)="scrollToCategory('Activities')">
-                    <span class="emoji-category-icon-content" [class.selected]="selectedCategoryIndex() === 3">
-                        <img src="./assets/icons/sport.svg" alt="">
-                    </span>
-                </button>
-            </div>
-            <div role="presentation" class="emoji-category-icon-container">
-                <button class="emoji-category-icon-btn secondary-btn" (click)="scrollToCategory('Travels & Places')">
-                    <span class="emoji-category-icon-content" [class.selected]="selectedCategoryIndex() === 4">
-                        <img src="./assets/icons/Travels & Places.svg" alt="">
-                    </span>
-                </button>
-            </div>
-            <div role="presentation" class="emoji-category-icon-container">
-                <button class="emoji-category-icon-btn secondary-btn" (click)="scrollToCategory('Objects')">
-                    <span class="emoji-category-icon-content" [class.selected]="selectedCategoryIndex() === 5">
-                        <img src="./assets/icons/tech.svg" alt="">
-                    </span>
-                </button>
-            </div>
-            <div role="presentation" class="emoji-category-icon-container">
-                <button class="emoji-category-icon-btn secondary-btn" (click)="scrollToCategory('Symbols')">
-                    <span class="emoji-category-icon-content" [class.selected]="selectedCategoryIndex() === 6">
-                        <img src="./assets/icons/heart.svg" alt="">
-                    </span>
-                </button>
-            </div>
-            <div role="presentation" class="emoji-category-icon-container">
-                <button class="emoji-category-icon-btn secondary-btn" (click)="scrollToCategory('Flags')">
-                    <span class="emoji-category-icon-content" [class.selected]="selectedCategoryIndex() === 7">
-                        <img src="./assets/icons/flag.svg" alt="">
-                    </span>
-                </button>
-            </div>
-            <div role="presentation" class="emoji-category-icon-container">
-                <button class="emoji-category-icon-btn secondary-btn" (click)="scrollToCategory('Component')">
-                    <span class="emoji-category-icon-content" [class.selected]="selectedCategoryIndex() === 8">
-                        <img src="./assets/icons/checkCircle.svg" alt="">
-                    </span>
-                </button>
-            </div>
-            <div role="presentation" class="emoji-category-icon-container">
-                <button class="emoji-category-icon-btn secondary-btn" (click)="scrollToCategory('People & Body')">
-                    <span class="emoji-category-icon-content" [class.selected]="selectedCategoryIndex() === 9">
-                        <img src="./assets/icons/add2.svg" alt="">
-                    </span>
-                </button>
-            </div>
-        </div>
+  <div class="emoji-picker-header">
+    <div class="emoji-categories">
+      <div role="presentation" class="emoji-category-icon-container">
+        <button
+          class="emoji-category-icon-btn secondary-btn"
+          (click)="scrollToCategory('Smileys & Emotion')"
+        >
+          <span
+            class="emoji-category-icon-content"
+            [class.selected]="selectedCategoryIndex() === 0"
+          >
+            <img src="./assets/icons/emoji2.svg" alt="" />
+          </span>
+        </button>
+      </div>
+      <div role="presentation" class="emoji-category-icon-container">
+        <button
+          class="emoji-category-icon-btn secondary-btn"
+          (click)="scrollToCategory('Animals & Nature')"
+        >
+          <span
+            class="emoji-category-icon-content"
+            [class.selected]="selectedCategoryIndex() === 1"
+          >
+            <img src="./assets/icons/tree.svg" alt="" />
+          </span>
+        </button>
+      </div>
+      <div role="presentation" class="emoji-category-icon-container">
+        <button
+          class="emoji-category-icon-btn secondary-btn"
+          (click)="scrollToCategory('Food & Drink')"
+        >
+          <span
+            class="emoji-category-icon-content"
+            [class.selected]="selectedCategoryIndex() === 2"
+          >
+            <img src="./assets/icons/food.svg" alt="" />
+          </span>
+        </button>
+      </div>
+      <div role="presentation" class="emoji-category-icon-container">
+        <button
+          class="emoji-category-icon-btn secondary-btn"
+          (click)="scrollToCategory('Activities')"
+        >
+          <span
+            class="emoji-category-icon-content"
+            [class.selected]="selectedCategoryIndex() === 3"
+          >
+            <img src="./assets/icons/sport.svg" alt="" />
+          </span>
+        </button>
+      </div>
+      <div role="presentation" class="emoji-category-icon-container">
+        <button
+          class="emoji-category-icon-btn secondary-btn"
+          (click)="scrollToCategory('Travels & Places')"
+        >
+          <span
+            class="emoji-category-icon-content"
+            [class.selected]="selectedCategoryIndex() === 4"
+          >
+            <img src="./assets/icons/Travels & Places.svg" alt="" />
+          </span>
+        </button>
+      </div>
+      <div role="presentation" class="emoji-category-icon-container">
+        <button class="emoji-category-icon-btn secondary-btn" (click)="scrollToCategory('Objects')">
+          <span
+            class="emoji-category-icon-content"
+            [class.selected]="selectedCategoryIndex() === 5"
+          >
+            <img src="./assets/icons/tech.svg" alt="" />
+          </span>
+        </button>
+      </div>
+      <div role="presentation" class="emoji-category-icon-container">
+        <button class="emoji-category-icon-btn secondary-btn" (click)="scrollToCategory('Symbols')">
+          <span
+            class="emoji-category-icon-content"
+            [class.selected]="selectedCategoryIndex() === 6"
+          >
+            <img src="./assets/icons/heart.svg" alt="" />
+          </span>
+        </button>
+      </div>
+      <div role="presentation" class="emoji-category-icon-container">
+        <button class="emoji-category-icon-btn secondary-btn" (click)="scrollToCategory('Flags')">
+          <span
+            class="emoji-category-icon-content"
+            [class.selected]="selectedCategoryIndex() === 7"
+          >
+            <img src="./assets/icons/flag.svg" alt="" />
+          </span>
+        </button>
+      </div>
+      <div role="presentation" class="emoji-category-icon-container">
+        <button
+          class="emoji-category-icon-btn secondary-btn"
+          (click)="scrollToCategory('Component')"
+        >
+          <span
+            class="emoji-category-icon-content"
+            [class.selected]="selectedCategoryIndex() === 8"
+          >
+            <img src="./assets/icons/checkCircle.svg" alt="" />
+          </span>
+        </button>
+      </div>
+      <div role="presentation" class="emoji-category-icon-container">
+        <button
+          class="emoji-category-icon-btn secondary-btn"
+          (click)="scrollToCategory('People & Body')"
+        >
+          <span
+            class="emoji-category-icon-content"
+            [class.selected]="selectedCategoryIndex() === 9"
+          >
+            <img src="./assets/icons/add2.svg" alt="" />
+          </span>
+        </button>
+      </div>
     </div>
-    <div class="emoji-picker-body">
-        <div class="emoji-search-container">
-            <div class="emoji-search-and-tone-container">
-                <div class="emoji-search">
-                    <text-field [(value)]="searchEmoji"></text-field>
-                </div>
-                <div [class]="isEmojiTonePickerOpen() ? 'emoji-tone-picker open' : 'emoji-tone-picker'"
-                    (mouseleave)="isEmojiTonePickerOpen.set(false)">
-                    <div class="emoji-tones">
-                        @for (skinVariation of raisedHandEmoji.skin_variations_emoji; track skinVariation.unified) {
-                        <label for=""
-                            (click)="currentEmojiTone.set(skinVariation.unified); isEmojiTonePickerOpen.set(false)">
-                            <input type="radio">
-                            <span class="">
-                                {{ raisedHandEmoji | unicodeToEmoji:skinVariation.unified }}
-                            </span>
-                        </label>
-                        }
-                    </div>
-                    <button class="emoji-tone-selector secondary-btn"
-                        (click)="isEmojiTonePickerOpen.set(!isEmojiTonePickerOpen())">
-                        <span>
-                            {{ raisedHandEmoji | unicodeToEmoji:currentEmojiTone() }}
-                        </span>
-                    </button>
-                </div>
-            </div>
-            <div class="add-your-emoji-btn-container">
-                <button class="add-your-emoji-btn secondary-btn">
-                    <span class="add-icon-container">
-                        <img src="./assets/icons/add2.svg" alt="icon">
-                    </span>
-                    <span class="add-your-emoji-btn-text">
-                        Add your own emoji
-                    </span>
-                </button>
-            </div>
+  </div>
+  <div class="emoji-picker-body">
+    <div class="emoji-search-container">
+      <div class="emoji-search-and-tone-container">
+        <div class="emoji-search">
+          <text-field [(value)]="searchEmoji"></text-field>
         </div>
-        <div class="emoji-list-scroll-container">
-            <cdk-virtual-scroll-viewport itemSize="40" class="emoji-list-viewport"
-                (scrolledIndexChange)="onEmojiScroll()">
-                <div *cdkVirtualFor="let emojiRow of emojiRows(); let idx = index" class="emoji-list-scroll-row"
-                    role="row">
-                    @if (emojiRow.type === 'heading') {
-                    <div class="emoji-category-heading" [attr.tabindex]="idx">{{ emojiRow.name }}</div>
-                    } @else {
-                    @for (emoji of emojiRow.emojis; track emoji.unified) {
-                    <span class="emoji-wrapper" role="grid-cell" (mouseenter)="lastPickedEmoji.set(emoji)"
-                        (click)="insertEmoji(emoji.unified)">
-                        <span class="emoji-content">
-                            {{ emoji | unicodeToEmoji:currentEmojiTone() }}
-                        </span>
-                    </span>
-                    }
-                    }
-                </div>
-            </cdk-virtual-scroll-viewport>
+        <div
+          [class]="isEmojiTonePickerOpen() ? 'emoji-tone-picker open' : 'emoji-tone-picker'"
+          (mouseleave)="isEmojiTonePickerOpen.set(false)"
+        >
+          <div class="emoji-tones">
+            @for (skinVariation of raisedHandEmoji.skin_variations_emoji; track
+            skinVariation.unified) {
+            <label
+              for=""
+              (click)="currentEmojiTone.set(skinVariation.unified); isEmojiTonePickerOpen.set(false)"
+            >
+              <input type="radio" />
+              <span class=""> {{ raisedHandEmoji | unicodeToEmoji:skinVariation.unified }} </span>
+            </label>
+            }
+          </div>
+          <button
+            class="emoji-tone-selector secondary-btn"
+            (click)="isEmojiTonePickerOpen.set(!isEmojiTonePickerOpen())"
+          >
+            <span> {{ raisedHandEmoji | unicodeToEmoji:currentEmojiTone() }} </span>
+          </button>
         </div>
+      </div>
+      <div class="add-your-emoji-btn-container">
+        <button class="add-your-emoji-btn secondary-btn">
+          <span class="add-icon-container">
+            <img src="./assets/icons/add2.svg" alt="icon" />
+          </span>
+          <span class="add-your-emoji-btn-text"> Add your own emoji </span>
+        </button>
+      </div>
     </div>
-    @if (lastPickedEmoji()) {
-    <div class="emoji-picker-footer">
-        <div class="emoji-picker-footer-content">
-            <span class="last-picked-emoji-icon-container">
-                <span class="last-picked-emoji-icon">
-                    {{ lastPickedEmoji()! | unicodeToEmoji:currentEmojiTone() }}
-                </span>
-            </span>
-            <div class="last-picked-emoji-icon-details">
-                <span class="last-picked-emoji-name">{{ lastPickedEmoji()!.name }}</span>
-                <span class="last-picked-emoji-short-name">{{ lastPickedEmoji()!.short_names }}</span>
-            </div>
+    <div class="emoji-list-scroll-container">
+      <cdk-virtual-scroll-viewport
+        itemSize="40"
+        class="emoji-list-viewport"
+        (scrolledIndexChange)="onEmojiScroll()"
+      >
+        <div
+          *cdkVirtualFor="let emojiRow of emojiRows(); let idx = index"
+          class="emoji-list-scroll-row"
+          role="row"
+        >
+          @if (emojiRow.type === 'heading') {
+          <div class="emoji-category-heading" [attr.tabindex]="idx">{{ emojiRow.name }}</div>
+          } @else { @for (emoji of emojiRow.emojis; track emoji.unified) {
+          <span
+            class="emoji-wrapper"
+            role="grid-cell"
+            (mouseenter)="lastPickedEmoji.set(emoji)"
+            (click)="insertEmoji(emoji.unified)"
+          >
+            <span class="emoji-content"> {{ emoji | unicodeToEmoji:currentEmojiTone() }} </span>
+          </span>
+          } }
         </div>
+      </cdk-virtual-scroll-viewport>
     </div>
-    }
+  </div>
+  @if (lastPickedEmoji()) {
+  <div class="emoji-picker-footer">
+    <div class="emoji-picker-footer-content">
+      <span class="last-picked-emoji-icon-container">
+        <span class="last-picked-emoji-icon">
+          {{ lastPickedEmoji()! | unicodeToEmoji:currentEmojiTone() }}
+        </span>
+      </span>
+      <div class="last-picked-emoji-icon-details">
+        <span class="last-picked-emoji-name">{{ lastPickedEmoji()!.name }}</span>
+        <span class="last-picked-emoji-short-name">{{ lastPickedEmoji()!.short_names }}</span>
+      </div>
+    </div>
+  </div>
+  }
 </div>

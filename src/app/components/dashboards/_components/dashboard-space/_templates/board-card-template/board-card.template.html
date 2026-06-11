@@ -12,7 +12,11 @@
           </button>
         </span>
       </div>
-      <board-space-text-field-wrapper-template [class.is-hidden]="!isEditing()" (close)="isEditing.set(false)" (setValue)="onSubmit($event)"></board-space-text-field-wrapper-template>
+      <board-space-text-field-wrapper-template
+        [class.is-hidden]="!isEditing()"
+        (close)="isEditing.set(false)"
+        (setValue)="onSubmit($event)"
+      ></board-space-text-field-wrapper-template>
     </div>
   </div>
   <div class="card-details card-item-details">
@@ -33,7 +37,11 @@
   </div>
 </div>
 <div class="card-options">
-  <button class="icon-btn card-option-btn" (click)="onCardOptionClick(cardOptionBtn)" #cardOptionBtn>
+  <button
+    class="icon-btn card-option-btn"
+    (click)="onCardOptionClick(cardOptionBtn)"
+    #cardOptionBtn
+  >
     <span class="icon-content">
       <img src="./assets/icons/more.svg" alt="icon" />
     </span>

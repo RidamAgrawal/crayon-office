@@ -14,7 +14,7 @@ declare module 'google-one-tap' {
 
   function googleOneTap(
     options: GoogleOneTapOptions,
-    callback: (response: CredentialResponse) => void
+    callback: (response: CredentialResponse) => void,
   ): void;
 
   export default googleOneTap;

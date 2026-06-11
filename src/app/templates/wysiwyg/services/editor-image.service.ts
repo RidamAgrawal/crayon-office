@@ -105,9 +105,7 @@ export class WysiwygEditorImageService {
     // 1. MIME type check
     const mimeOk =
       file.type.startsWith('image/') &&
-      WysiwygEditorImageService.VALID_IMAGE_MIME_PREFIXES.some(
-        (prefix) => file.type === prefix,
-      );
+      WysiwygEditorImageService.VALID_IMAGE_MIME_PREFIXES.some((prefix) => file.type === prefix);
 
     // 2. Extension check
     const ext = file.name.split('.').pop()?.toLowerCase() ?? '';
@@ -179,7 +177,7 @@ export class WysiwygEditorImageService {
 
       this.closeStream = () => {
         stream.getTracks().forEach((track) => track.stop());
-      }
+      };
 
       await new Promise((resolve) => {
         videoElement.onloadedmetadata = () => {

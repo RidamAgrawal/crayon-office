@@ -9,10 +9,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import {
-  AppOverlayConfig,
-  OverlayService,
-} from '../../services/overlay-service/overlay-service';
+import { AppOverlayConfig, OverlayService } from '../../services/overlay-service/overlay-service';
 import { TooltipDirective } from '../../directives/tooltip-directive/tooltip-directive';
 import { OptionWrapper } from '../option-wrapper/option-wrapper';
 import { RouterLink } from '@angular/router';
@@ -41,7 +38,7 @@ export class SidebarItem {
   constructor(
     private viewContainerRef: ViewContainerRef,
     private elementRef: ElementRef,
-    private overlayService: OverlayService
+    private overlayService: OverlayService,
   ) {}
 
   public openModal() {

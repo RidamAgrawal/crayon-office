@@ -17,9 +17,7 @@ export class DashboardSpace {
 
   public ngOnInit(): void {
     this.activatedRoute.data.subscribe((data) => {
-      this.store.dispatch(
-        setSpaceDetails(data as { spaceDetails: SpaceDetails }),
-      );
+      this.store.dispatch(setSpaceDetails(data as { spaceDetails: SpaceDetails }));
     });
   }
 }

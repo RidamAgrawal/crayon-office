@@ -11,11 +11,7 @@ import { EditorView, ViewMutationRecord } from 'prosemirror-view';
 
 const MIN_TABLE_WIDTH = 240;
 
-export function tableNodeView(
-  node: Node,
-  view: EditorView,
-  getPos: () => number | undefined,
-) {
+export function tableNodeView(node: Node, view: EditorView, getPos: () => number | undefined) {
   const nodeType = node.type;
 
   // ═══════════════════════════════════════════════════════════════
@@ -45,8 +41,7 @@ export function tableNodeView(
   const resizerItem = document.createElement('div');
   resizerItem.className = 'resizer-item display-handle';
   resizerItem.setAttribute('data-vc-nvs', 'true');
-  resizerItem.style.cssText =
-    'position: relative; user-select: auto; box-sizing: border-box;';
+  resizerItem.style.cssText = 'position: relative; user-select: auto; box-sizing: border-box;';
   resizerContainer.appendChild(resizerItem);
 
   // span.resizer-hover-zone
@@ -71,10 +66,7 @@ export function tableNodeView(
 
   const stickyScrollbarTopSentinel = document.createElement('div');
   stickyScrollbarTopSentinel.className = 'pm-table-sticky-scrollbar-sentinel-top';
-  stickyScrollbarTopSentinel.setAttribute(
-    'data-testid',
-    'sticky-scrollbar-sentinel-top',
-  );
+  stickyScrollbarTopSentinel.setAttribute('data-testid', 'sticky-scrollbar-sentinel-top');
   pmTableContainer.appendChild(stickyScrollbarTopSentinel);
 
   // ── Row controls placeholder ────────────────────────────────
@@ -122,10 +114,7 @@ export function tableNodeView(
   const colControlsWrapper = document.createElement('div');
   colControlsWrapper.className = 'pm-table-col-controls-wrapper';
   colControlsWrapper.contentEditable = 'false';
-  colControlsWrapper.setAttribute(
-    'data-testid',
-    'table-floating-column-controls-wrapper',
-  );
+  colControlsWrapper.setAttribute('data-testid', 'table-floating-column-controls-wrapper');
   colControlsWrapper.style.cssText = `
     position: absolute;
     top: 0;
@@ -140,10 +129,7 @@ export function tableNodeView(
 
   const colControlsInner = document.createElement('div');
   colControlsInner.className = 'pm-table-col-controls__inner';
-  colControlsInner.setAttribute(
-    'data-testid',
-    'table-floating-column-controls',
-  );
+  colControlsInner.setAttribute('data-testid', 'table-floating-column-controls');
 
   colControlsDrag.appendChild(colControlsInner);
   colControlsWrapper.appendChild(colControlsDrag);
@@ -167,12 +153,8 @@ export function tableNodeView(
   pmTableContainer.appendChild(stickyBottomSentinel);
 
   const stickyScrollbarBottomSentinel = document.createElement('div');
-  stickyScrollbarBottomSentinel.className =
-    'pm-table-sticky-scrollbar-sentinel-bottom';
-  stickyScrollbarBottomSentinel.setAttribute(
-    'data-testid',
-    'sticky-scrollbar-sentinel-bottom',
-  );
+  stickyScrollbarBottomSentinel.className = 'pm-table-sticky-scrollbar-sentinel-bottom';
+  stickyScrollbarBottomSentinel.setAttribute('data-testid', 'sticky-scrollbar-sentinel-bottom');
   pmTableContainer.appendChild(stickyScrollbarBottomSentinel);
 
   // ── Border elements ─────────────────────────────────────────
@@ -221,10 +203,7 @@ export function tableNodeView(
   `;
 
   const resizeTooltipContainer = document.createElement('div');
-  resizeTooltipContainer.setAttribute(
-    'data-testid',
-    'resizer-handle-right-tooltip--container',
-  );
+  resizeTooltipContainer.setAttribute('data-testid', 'resizer-handle-right-tooltip--container');
   resizeTooltipContainer.setAttribute('role', 'presentation');
 
   const resizeHandleThumb = document.createElement('button');
@@ -282,10 +261,7 @@ export function tableNodeView(
       if (pos == null) return;
       const tableNode = view.state.doc.nodeAt(pos);
       if (!tableNode) return;
-      const finalWidth = Math.max(
-        MIN_TABLE_WIDTH,
-        Math.round(startWidth + ev.clientX - startX),
-      );
+      const finalWidth = Math.max(MIN_TABLE_WIDTH, Math.round(startWidth + ev.clientX - startX));
       if (tableNode.attrs['width'] === finalWidth) return;
       view.dispatch(
         view.state.tr.setNodeMarkup(pos, undefined, {
@@ -346,9 +322,7 @@ export function tableNodeView(
       if (
         mutation.target === table &&
         mutation.type === 'childList' &&
-        Array.from(mutation.addedNodes).some(
-          (n) => (n as HTMLElement).tagName === 'COLGROUP',
-        )
+        Array.from(mutation.addedNodes).some((n) => (n as HTMLElement).tagName === 'COLGROUP')
       ) {
         return true;
       }
@@ -367,10 +341,7 @@ export function tableNodeView(
 // Toolbar builder
 // ═══════════════════════════════════════════════════════════════════
 
-function buildTableToolbar(
-  view: EditorView,
-  getPos: () => number | undefined,
-): HTMLElement {
+function buildTableToolbar(view: EditorView, getPos: () => number | undefined): HTMLElement {
   const toolbar = document.createElement('div');
   toolbar.className = '__pm-table-toolbar';
   toolbar.contentEditable = 'false';
@@ -391,11 +362,7 @@ function buildTableToolbar(
     white-space: nowrap;
   `;
 
-  const makeBtn = (
-    label: string,
-    onMouseDown: (e: MouseEvent) => void,
-    extraStyle = '',
-  ) => {
+  const makeBtn = (label: string, onMouseDown: (e: MouseEvent) => void, extraStyle = '') => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.textContent = label;

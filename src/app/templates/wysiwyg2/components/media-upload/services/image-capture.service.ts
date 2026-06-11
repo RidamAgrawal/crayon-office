@@ -117,9 +117,7 @@ export class ImageCaptureService {
     // 1. MIME type check
     const mimeOk =
       file.type.startsWith('image/') &&
-      ImageCaptureService.VALID_IMAGE_MIME_PREFIXES.some(
-        (prefix) => file.type === prefix,
-      );
+      ImageCaptureService.VALID_IMAGE_MIME_PREFIXES.some((prefix) => file.type === prefix);
 
     // 2. Extension check
     const ext = file.name.split('.').pop()?.toLowerCase() ?? '';

@@ -4,15 +4,14 @@ import { Component, input } from '@angular/core';
   selector: 'app-listing',
   imports: [],
   templateUrl: './listing.html',
-  styleUrl: './listing.scss'
+  styleUrl: './listing.scss',
 })
 export class Listing {
   protected readonly listingConfig = input<any>({
     heading: 'today',
     items: [
       {
-        title:
-          'Version Information grid shows incorrect S.No when case is created as Follow Up',
+        title: 'Version Information grid shows incorrect S.No when case is created as Follow Up',
         type: 'suggestion',
         itemName: 'Crayon-Item-123',
         itemType: 'task',
@@ -21,8 +20,7 @@ export class Listing {
         icon: './assets/icons/search.svg',
       },
       {
-        title:
-          'Version Information grid shows incorrect S.No when case is created as Follow Up',
+        title: 'Version Information grid shows incorrect S.No when case is created as Follow Up',
         type: 'ordinary',
         itemName: 'PVCM-125149',
         projectName: 'PV Case Management',

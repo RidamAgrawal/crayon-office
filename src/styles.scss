@@ -3,7 +3,7 @@
 // components according to the Material 3 design spec.
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
-@use "@angular/material" as mat;
+@use '@angular/material' as mat;
 
 html {
   @include mat.theme(
@@ -36,15 +36,14 @@ body {
 }
 
 /* You can add global styles to this file, and also import other style files */
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 body,
 * {
   margin: 0px;
   padding: 0px;
   font-family:
-    "Inter", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+    'Inter', Roboto, Oxygen, Ubuntu, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   outline-offset: 2px;
   outline-color: #1868db;
 }
@@ -56,7 +55,7 @@ body {
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
 .font-body-small {
@@ -228,7 +227,7 @@ body {
 .ProseMirror .selectedCell::after {
   z-index: 2;
   position: absolute;
-  content: "";
+  content: '';
   left: 0;
   right: 0;
   top: 0;

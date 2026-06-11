@@ -8,9 +8,8 @@ describe('FeedbackSidebar', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FeedbackSidebar]
-    })
-    .compileComponents();
+      imports: [FeedbackSidebar],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FeedbackSidebar);
     component = fixture.componentInstance;

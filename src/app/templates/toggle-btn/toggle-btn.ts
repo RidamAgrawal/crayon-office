@@ -10,11 +10,11 @@ import { Component, HostListener, Input, signal, WritableSignal } from '@angular
     '[style.--toggle-background]': 'this._value() ? "#5B7F24" : "#292A2E"',
     '[style.--toggle-background-hover]': 'this._value() ? "#4C6B1F" : "#3B3D42"',
     '[style.--toggle-translate]': 'this._value() ? "translateX(1rem)" : "translateX(0rem)"',
-  }
+  },
 })
 export class ToggleBtn {
   public _value: WritableSignal<boolean> = signal(false);
-  @Input() set value(val: boolean){
+  @Input() set value(val: boolean) {
     this._value.set(val);
   }
   get value(): boolean {
@@ -22,6 +22,6 @@ export class ToggleBtn {
   }
   @HostListener('click')
   public toggle() {
-    this._value.update((val: boolean)=>!val);
+    this._value.update((val: boolean) => !val);
   }
 }

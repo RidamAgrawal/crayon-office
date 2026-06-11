@@ -26,9 +26,12 @@ export class Wysiwyg2 implements AfterViewInit, OnDestroy {
   public value = input<string>(); // initial HTML
   public readonly valueChange = output<string>();
 
-
   ngAfterViewInit() {
-    this.editorViewService.createView(this.value() ?? "", this.editorRef()!.nativeElement, this.valueChange);
+    this.editorViewService.createView(
+      this.value() ?? '',
+      this.editorRef()!.nativeElement,
+      this.valueChange,
+    );
   }
 
   ngOnDestroy() {

@@ -1,16 +1,7 @@
-import {
-  Component,
-  ElementRef,
-  inject,
-  Injector,
-  ViewContainerRef,
-} from '@angular/core';
+import { Component, ElementRef, inject, Injector, ViewContainerRef } from '@angular/core';
 import { OverlayService } from '../../../../services/overlay-service/overlay-service';
 import { OptionWrapper } from '../../../option-wrapper/option-wrapper';
-import {
-  FLOAT_BOTTOM_POSITION,
-  FLOAT_TOP_POSITION,
-} from '../../../wysiwyg/wysiwyg.models';
+import { FLOAT_BOTTOM_POSITION, FLOAT_TOP_POSITION } from '../../../wysiwyg/wysiwyg.models';
 import { WysiwygEditorImage2Service } from '../../services/editor-image.service';
 import { EditorCommandsService } from '../../services/editor-commands.service';
 import { OptionsList } from '../../../option-wrapper/option-wrapper.model';
@@ -179,9 +170,7 @@ export class Toolbar {
       positions: [FLOAT_BOTTOM_POSITION, FLOAT_TOP_POSITION],
       componentInputs: { colorPallettes: this.colorPallettes },
       injector: this.injector,
-      providers: [
-        { provide: EditorCommandsService, useValue: this.editorCommandService },
-      ],
+      providers: [{ provide: EditorCommandsService, useValue: this.editorCommandService }],
     });
   }
 
@@ -192,9 +181,7 @@ export class Toolbar {
       connectedTo: new ElementRef(element),
       positions: [FLOAT_BOTTOM_POSITION, FLOAT_TOP_POSITION],
       injector: this.injector,
-      providers: [
-        { provide: EditorCommandsService, useValue: this.editorCommandService },
-      ],
+      providers: [{ provide: EditorCommandsService, useValue: this.editorCommandService }],
     });
   }
 
@@ -209,9 +196,7 @@ export class Toolbar {
     };
   }
   protected onInsertUrlImage() {
-    this.editorCommandService.insertImage(
-      this.editorImageService.imgPreviewLink(),
-    );
+    this.editorCommandService.insertImage(this.editorImageService.imgPreviewLink());
   }
 
   protected onCodeSnippetClick() {
@@ -234,9 +219,7 @@ export class Toolbar {
       connectedTo: new ElementRef(element),
       positions: [FLOAT_BOTTOM_POSITION, FLOAT_TOP_POSITION],
       injector: this.injector,
-      providers: [
-        { provide: EditorCommandsService, useValue: this.editorCommandService },
-      ],
+      providers: [{ provide: EditorCommandsService, useValue: this.editorCommandService }],
     });
   }
 
@@ -249,9 +232,7 @@ export class Toolbar {
       componentInputs: {
         extraElementOptions: this.extraElementOptions[0].options,
       },
-      providers: [
-        { provide: EditorCommandsService, useValue: this.editorCommandService },
-      ],
+      providers: [{ provide: EditorCommandsService, useValue: this.editorCommandService }],
     });
   }
 

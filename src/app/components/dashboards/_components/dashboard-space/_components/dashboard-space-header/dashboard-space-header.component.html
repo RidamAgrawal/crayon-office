@@ -20,7 +20,14 @@
     <div class="extras">
       <button class="secondary-btn" (click)="onExpandClick()">
         <span>
-          <img [src]="isTabsCollapsed() ? './assets/icons/closeFullscreen.svg' : './assets/icons/openInFull.svg'" alt="icon" />
+          <img
+            [src]="
+              isTabsCollapsed()
+                ? './assets/icons/closeFullscreen.svg'
+                : './assets/icons/openInFull.svg'
+            "
+            alt="icon"
+          />
         </span>
       </button>
     </div>
@@ -199,18 +206,9 @@
                   class="_1mouu2gc _2hwxu2gc"
                 >
                   <g clip-path="url(#clip0)">
-                    <path
-                      d="M0.5 0H11.9047V11.4047H0.5V0Z"
-                      fill="#F25022"
-                    ></path>
-                    <path
-                      d="M13.0952 0H24.4999V11.4047H13.0952V0Z"
-                      fill="#7FBA00"
-                    ></path>
-                    <path
-                      d="M0.5 12.5955H11.9047V24.0001H0.5V12.5955Z"
-                      fill="#00A4EF"
-                    ></path>
+                    <path d="M0.5 0H11.9047V11.4047H0.5V0Z" fill="#F25022"></path>
+                    <path d="M13.0952 0H24.4999V11.4047H13.0952V0Z" fill="#7FBA00"></path>
+                    <path d="M0.5 12.5955H11.9047V24.0001H0.5V12.5955Z" fill="#00A4EF"></path>
                     <path
                       d="M13.0952 12.5955H24.4999V24.0001H13.0952V12.5955Z"
                       fill="#FFB900"
@@ -256,12 +254,14 @@
   <div class="space-settings-template"></div>
 </ng-template>
 
-
 <ng-template #addToNavTemplate>
   <div class="add-nav-template">
     <div class="empty">
       <div class="img-container">
-        <img src="	https://jira-frontend-bifrost.prod-east.frontend.public.atl-paas.net/assets/binoculars-success.8b3ddac2.svg" alt="">
+        <img
+          src="	https://jira-frontend-bifrost.prod-east.frontend.public.atl-paas.net/assets/binoculars-success.8b3ddac2.svg"
+          alt=""
+        />
       </div>
       <div class="text-container">
         <h2>Nothing to add more</h2>

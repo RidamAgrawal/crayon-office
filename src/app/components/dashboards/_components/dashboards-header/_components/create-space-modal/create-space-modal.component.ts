@@ -55,7 +55,7 @@ export class CreateSpaceModalComponent {
 
     this.isSubmitting.set(true);
     const { name, key } = this.spaceForm.value;
-    const icon = spaceIconUrl1 + (10400+Math.floor(Math.random()*25));
+    const icon = spaceIconUrl1 + (10400 + Math.floor(Math.random() * 25));
 
     this.httpService.createSpace(name!, key!, icon).subscribe({
       next: () => this.overlayService.close(),

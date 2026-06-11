@@ -8,9 +8,8 @@ describe('JiraTab', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [JiraTab]
-    })
-    .compileComponents();
+      imports: [JiraTab],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(JiraTab);
     component = fixture.componentInstance;

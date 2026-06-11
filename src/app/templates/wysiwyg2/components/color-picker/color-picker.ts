@@ -5,7 +5,7 @@ import { EditorCommandsService } from '../../services';
   selector: 'app-color-picker',
   imports: [],
   templateUrl: './color-picker.html',
-  styleUrl: './color-picker.scss'
+  styleUrl: './color-picker.scss',
 })
 export class ColorPicker {
   private editorCommandService = inject(EditorCommandsService);

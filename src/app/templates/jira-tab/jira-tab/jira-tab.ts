@@ -36,9 +36,10 @@ export enum LAST_UPDATED {
   styleUrl: './jira-tab.scss',
 })
 export class JiraTab {
-  public lastUpdatedOptions = Object.entries(LAST_UPDATED).map(
-    ([key, value]) => ({ label: value, value: key }),
-  );
+  public lastUpdatedOptions = Object.entries(LAST_UPDATED).map(([key, value]) => ({
+    label: value,
+    value: key,
+  }));
   public projects = ['TMP-JSW-JiraSampleProject'];
   public assignee = ['User'];
   public reporter = ['Reported by Me'];
@@ -59,8 +60,7 @@ export class JiraTab {
   constructor(private formBuilder: FormBuilder) {}
   ngOnInit() {
     this.filterFormGroup = this.formBuilder.group({
-      lastUpdated:
-        this.formBuilder.control<keyof typeof LAST_UPDATED>('anyTime'),
+      lastUpdated: this.formBuilder.control<keyof typeof LAST_UPDATED>('anyTime'),
       project: this.formBuilder.array(
         this.projects.map((option: string) =>
           this.formBuilder.group({

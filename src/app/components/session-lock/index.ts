@@ -1,1 +1,1 @@
-export { SessionLockComponent } from "./session-lock.component";
+export { SessionLockComponent } from './session-lock.component';

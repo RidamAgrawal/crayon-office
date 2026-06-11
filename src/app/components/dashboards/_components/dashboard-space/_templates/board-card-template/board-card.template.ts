@@ -3,14 +3,14 @@ import { WorkItem } from '../../_models';
 import { OverlayService } from '../../../../../../services/overlay-service/overlay-service';
 import { OptionWrapper } from '../../../../../../templates/option-wrapper/option-wrapper';
 import { cardMoreOptionButton } from './board-card.constants';
-import { ClickOutside } from "../../../../../../directives";
+import { ClickOutside } from '../../../../../../directives';
 import { BoardSpaceTextFieldWrapperTemplate } from '../board-space-text-field-wrapper-template';
 
 @Component({
   selector: 'board-view-card-template',
   templateUrl: './board-card.template.html',
   styleUrl: './board-card.template.scss',
-  imports: [BoardSpaceTextFieldWrapperTemplate, ClickOutside]
+  imports: [BoardSpaceTextFieldWrapperTemplate, ClickOutside],
 })
 export class BoardViewCardTemplate {
   private readonly overlayService = inject(OverlayService);
@@ -31,7 +31,7 @@ export class BoardViewCardTemplate {
       connectedTo: new ElementRef(cardOptionBtnElement),
       closeOnBackdropClick: true,
       componentInputs: {
-        optionListsConfig: cardMoreOptionButton
+        optionListsConfig: cardMoreOptionButton,
       },
       positions: [
         {
@@ -40,8 +40,8 @@ export class BoardViewCardTemplate {
           overlayY: 'top',
           originY: 'top',
           offsetX: 8,
-        }
-      ]
+        },
+      ],
     });
   }
 

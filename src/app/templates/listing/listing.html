@@ -1,44 +1,68 @@
 <div class="item-list">
-    <div class="list-header">
-        <h3> <span>today</span> </h3>
-    </div>
-    <ul class="list-body"> 
-        @for (item of listingConfig().items; track $index) { @if(item.type === 'ordinary'){ <li
-            class="list-item"> <a class="list-item-link" href="/">
-                <div> <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                        fill="#ff0000">
-                        <path
-                            d="M480-200q66 0 113-47t47-113v-160q0-66-47-113t-113-47q-66 0-113 47t-47 113v160q0 66 47 113t113 47Zm-80-120h160v-80H400v80Zm0-160h160v-80H400v80Zm80 40Zm0 320q-65 0-120.5-32T272-240H160v-80h84q-3-20-3.5-40t-.5-40h-80v-80h80q0-20 .5-40t3.5-40h-84v-80h112q14-23 31.5-43t40.5-35l-64-66 56-56 86 86q28-9 57-9t57 9l88-86 56 56-66 66q23 15 41.5 34.5T688-640h112v80h-84q3 20 3.5 40t.5 40h80v80h-80q0 20-.5 40t-3.5 40h84v80H688q-32 56-87.5 88T480-120Z" />
-                    </svg> </div> <span class="list-item-title">
-                    <h4 class="list-item-text1">
-                        <div class="list-item-text2"> {{item.title}} </div>
-                    </h4> <small class="list-item-details"> <span>{{item.itemName}}</span> <span>•</span>
-                        <span>{{item.projectName}}</span> </small>
-                </span>
-                <div class="list-item-status">{{item.status}}</div>
-                <div class="list-item-avatars">
-                    <ul class="avatar-groups"> @for (avatar of item.avatars; track $index) { <li
-                            class="avatar avatar-{{$index + 1}}">{{avatar}}</li> } </ul>
-                </div>
-            </a> </li> } @else if(item.type === 'suggestion') { <li class="list-item-container">
-            <div class="list-item-container-2">
-                <div class="list-item-container-3">
-                    <div class="list-item-container-4">
-                        <div class="list-item-icon-container"> <span class="list-item-icon-content"> <img
-                                    src="./assets/icons/search.svg" alt="icon"> </span> </div>
-                        <div class="list-item-details-container">
-                            <div class="list-item-details-title">
-                                <div class="list-item-details-title-text"> {{item.title}} </div>
-                            </div>
-                            <div class="list-item-sub-details"> {{item.itemName}} <span
-                                    class="sub-details-delimeter">•</span> TASK <span
-                                    class="sub-details-delimeter">•</span> {{item.projectName}} </div>
-                        </div>
-                        <div class="list-item-other-details">
-                            <div class="list-item-other-details-text"> {{item.lastViewed}} </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="list-header">
+    <h3><span>today</span></h3>
+  </div>
+  <ul class="list-body">
+    @for (item of listingConfig().items; track $index) { @if(item.type === 'ordinary'){
+    <li class="list-item">
+      <a class="list-item-link" href="/">
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#ff0000"
+          >
+            <path
+              d="M480-200q66 0 113-47t47-113v-160q0-66-47-113t-113-47q-66 0-113 47t-47 113v160q0 66 47 113t113 47Zm-80-120h160v-80H400v80Zm0-160h160v-80H400v80Zm80 40Zm0 320q-65 0-120.5-32T272-240H160v-80h84q-3-20-3.5-40t-.5-40h-80v-80h80q0-20 .5-40t3.5-40h-84v-80h112q14-23 31.5-43t40.5-35l-64-66 56-56 86 86q28-9 57-9t57 9l88-86 56 56-66 66q23 15 41.5 34.5T688-640h112v80h-84q3 20 3.5 40t.5 40h80v80h-80q0 20-.5 40t-3.5 40h84v80H688q-32 56-87.5 88T480-120Z"
+            />
+          </svg>
+        </div>
+        <span class="list-item-title">
+          <h4 class="list-item-text1">
+            <div class="list-item-text2">{{item.title}}</div>
+          </h4>
+          <small class="list-item-details">
+            <span>{{item.itemName}}</span> <span>•</span> <span>{{item.projectName}}</span>
+          </small>
+        </span>
+        <div class="list-item-status">{{item.status}}</div>
+        <div class="list-item-avatars">
+          <ul class="avatar-groups">
+            @for (avatar of item.avatars; track $index) {
+            <li class="avatar avatar-{{$index + 1}}">{{avatar}}</li>
+            }
+          </ul>
+        </div>
+      </a>
+    </li>
+    } @else if(item.type === 'suggestion') {
+    <li class="list-item-container">
+      <div class="list-item-container-2">
+        <div class="list-item-container-3">
+          <div class="list-item-container-4">
+            <div class="list-item-icon-container">
+              <span class="list-item-icon-content">
+                <img src="./assets/icons/search.svg" alt="icon" />
+              </span>
             </div>
-        </li> } } </ul>
+            <div class="list-item-details-container">
+              <div class="list-item-details-title">
+                <div class="list-item-details-title-text">{{item.title}}</div>
+              </div>
+              <div class="list-item-sub-details">
+                {{item.itemName}} <span class="sub-details-delimeter">•</span> TASK
+                <span class="sub-details-delimeter">•</span> {{item.projectName}}
+              </div>
+            </div>
+            <div class="list-item-other-details">
+              <div class="list-item-other-details-text">{{item.lastViewed}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    } }
+  </ul>
 </div>

@@ -1,4 +1,14 @@
-import { Component, computed, effect, ElementRef, inject, input, output, signal, viewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  ElementRef,
+  inject,
+  input,
+  output,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { BoardViewCardTemplate } from '../board-card-template';
 import { SpaceBoardColumn, WorkItem } from '../../_models';
@@ -6,14 +16,22 @@ import { ClickOutside } from '../../../../../../directives';
 import { BoardSpaceTextFieldWrapperTemplate } from '../board-space-text-field-wrapper-template';
 import { OverlayService } from '../../../../../../services/overlay-service/overlay-service';
 import { OptionWrapper } from '../../../../../../templates/option-wrapper/option-wrapper';
-import { OptionsList, OptionConfigurations } from '../../../../../../templates/option-wrapper/option-wrapper.model';
+import {
+  OptionsList,
+  OptionConfigurations,
+} from '../../../../../../templates/option-wrapper/option-wrapper.model';
 import { WORK_TYPES } from '../../_components/dashboard-space-board-view/dashboard-space-board-view.constants';
 
 @Component({
   selector: 'board-view-column-template',
   templateUrl: './board-column.template.html',
   styleUrl: './board-column.template.scss',
-  imports: [BoardViewCardTemplate, DragDropModule, ClickOutside, BoardSpaceTextFieldWrapperTemplate],
+  imports: [
+    BoardViewCardTemplate,
+    DragDropModule,
+    ClickOutside,
+    BoardSpaceTextFieldWrapperTemplate,
+  ],
 })
 export class BoardViewColumnTemplate {
   private readonly overlayService = inject(OverlayService);
@@ -80,15 +98,17 @@ export class BoardViewColumnTemplate {
   }
 
   protected openWorkTypePicker(trigger: HTMLElement): void {
-    const optionLists: OptionsList[] = [{
-      options: WORK_TYPES.map(wt => ({
-        type: 'button' as const,
-        id: wt.id.toUpperCase(),  // matches the WorkType enum: TASK/BUG/EPIC/STORY
-        label: wt.label,
-        icon: wt.icon,
-        visible: true,
-      })),
-    }];
+    const optionLists: OptionsList[] = [
+      {
+        options: WORK_TYPES.map((wt) => ({
+          type: 'button' as const,
+          id: wt.id.toUpperCase(), // matches the WorkType enum: TASK/BUG/EPIC/STORY
+          label: wt.label,
+          icon: wt.icon,
+          visible: true,
+        })),
+      },
+    ];
     this.overlayService.open({
       component: OptionWrapper,
       componentInputs: {
@@ -101,7 +121,9 @@ export class BoardViewColumnTemplate {
         },
       },
       connectedTo: new ElementRef(trigger),
-      positions: [{ originX: 'start', overlayX: 'start', originY: 'bottom', overlayY: 'top', offsetY: 4 }],
+      positions: [
+        { originX: 'start', overlayX: 'start', originY: 'bottom', overlayY: 'top', offsetY: 4 },
+      ],
     });
   }
 

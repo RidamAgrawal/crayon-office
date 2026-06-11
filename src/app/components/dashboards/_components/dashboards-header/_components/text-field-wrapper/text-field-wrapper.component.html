@@ -1,11 +1,12 @@
 <label class="field-label" [for]="label()">
-    {{label()}}
-    @if(isMandatory()) {
+  {{ label() }}
+  @if (isMandatory()) {
     <span class="red-asterisk">*</span>
-    }
+  }
 </label>
 <text-field
-    [value]="val()"
-    (valueChange)="onInputChange($event)"
-    [placeholder]="placeholder() ?? ''"
-    [validatorFn]="textFieldValidatorFn()"></text-field>
+  [value]="val()"
+  (valueChange)="onInputChange($event)"
+  [placeholder]="placeholder() ?? ''"
+  [validatorFn]="textFieldValidatorFn()"
+></text-field>

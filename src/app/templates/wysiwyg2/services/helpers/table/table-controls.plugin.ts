@@ -31,7 +31,7 @@ interface TableInfo {
 
 interface TableDomInfo {
   wrapperEl: HTMLElement; // .tableView-content-wrap (nodeView dom)
-  tableEl: HTMLElement;   // <table>
+  tableEl: HTMLElement; // <table>
 }
 
 interface TableHoverState {
@@ -122,10 +122,7 @@ function findIndexForPoint<
   return null;
 }
 
-function getTableGridMetrics(
-  tableNode: Node,
-  tableEl: HTMLElement,
-): TableGridMetrics {
+function getTableGridMetrics(tableNode: Node, tableEl: HTMLElement): TableGridMetrics {
   const tableRect = tableEl.getBoundingClientRect();
   const tbody = tableEl.querySelector('tbody') ?? tableEl;
   const rows = Array.from(tbody.querySelectorAll(':scope > tr'));
@@ -178,11 +175,7 @@ function getTableGridMetrics(
   return { tableRect, rowMetrics, colMetrics };
 }
 
-function getSelectedMarkerState(
-  state: EditorState,
-  tableNode: Node,
-  tablePos: number,
-) {
+function getSelectedMarkerState(state: EditorState, tableNode: Node, tablePos: number) {
   const selection = state.selection;
   if (!(selection instanceof CellSelection)) {
     return { rowIndex: null, colIndex: null };
@@ -211,16 +204,8 @@ function getHoverStateFromTableEvent(
   if (!tableEl.contains(target)) {
     return createEmptyHoverState();
   }
-  const rowIndex = findIndexForPoint(
-    gridMetrics.rowMetrics,
-    event.clientY,
-    'y',
-  );
-  const colIndex = findIndexForPoint(
-    gridMetrics.colMetrics,
-    event.clientX,
-    'x',
-  );
+  const rowIndex = findIndexForPoint(gridMetrics.rowMetrics, event.clientY, 'y');
+  const colIndex = findIndexForPoint(gridMetrics.colMetrics, event.clientX, 'x');
 
   if (rowIndex === null || colIndex === null) return createEmptyHoverState();
 
@@ -255,27 +240,21 @@ function getHoverStateFromTableEvent(
 // DOM discovery helpers (find containers inside the node-view)
 // ═══════════════════════════════════════════════════════════════════
 
-function getTableDomInfo(
-  view: EditorView,
-  tablePos: number,
-): TableDomInfo | null {
+function getTableDomInfo(view: EditorView, tablePos: number): TableDomInfo | null {
   const tableDOM = view.nodeDOM(tablePos) as HTMLElement | null;
   if (!tableDOM) return null;
 
   // New hierarchy: nodeDOM is .tableView-content-wrap
-  const tableEl = tableDOM.querySelector(
-    '.pm-table-wrapper > table',
-  ) as HTMLElement | null;
+  const tableEl = tableDOM.querySelector('.pm-table-wrapper > table') as HTMLElement | null;
   if (tableEl) {
     return { wrapperEl: tableDOM, tableEl };
   }
 
   // Fallback: old flat structure
   if (tableDOM.tagName === 'TABLE') {
-    const wrapperEl =
-      tableDOM.parentElement?.classList.contains('tableWrapper')
-        ? (tableDOM.parentElement as HTMLElement)
-        : tableDOM;
+    const wrapperEl = tableDOM.parentElement?.classList.contains('tableWrapper')
+      ? (tableDOM.parentElement as HTMLElement)
+      : tableDOM;
     return { wrapperEl, tableEl: tableDOM };
   }
 
@@ -307,11 +286,7 @@ function applyRowHeights(tableNode: Node, tableEl: HTMLElement) {
 
   rows.forEach((rowEl, index) => {
     const height = tableNode.child(index)?.attrs['height'];
-    if (
-      typeof height === 'number' &&
-      Number.isFinite(height) &&
-      height > 0
-    ) {
+    if (typeof height === 'number' && Number.isFinite(height) && height > 0) {
       (rowEl as HTMLElement).style.height = `${height}px`;
     } else {
       (rowEl as HTMLElement).style.removeProperty('height');
@@ -364,9 +339,7 @@ function resolveRowSelection(
   if (rowIndex < 0 || rowIndex >= map.height) return null;
 
   const firstCellPos = tablePos + map.positionAt(rowIndex, 0, tableNode);
-  const lastCellPos =
-    tablePos +
-    map.positionAt(rowIndex, Math.max(map.width - 1, 0), tableNode);
+  const lastCellPos = tablePos + map.positionAt(rowIndex, Math.max(map.width - 1, 0), tableNode);
 
   return CellSelection.rowSelection(
     view.state.doc.resolve(firstCellPos),
@@ -384,9 +357,7 @@ function resolveColSelection(
   if (colIndex < 0 || colIndex >= map.width) return null;
 
   const firstCellPos = tablePos + map.positionAt(0, colIndex, tableNode);
-  const lastCellPos =
-    tablePos +
-    map.positionAt(Math.max(map.height - 1, 0), colIndex, tableNode);
+  const lastCellPos = tablePos + map.positionAt(Math.max(map.height - 1, 0), colIndex, tableNode);
 
   return CellSelection.colSelection(
     view.state.doc.resolve(firstCellPos),
@@ -394,12 +365,7 @@ function resolveColSelection(
   );
 }
 
-function selectRow(
-  view: EditorView,
-  tableNode: Node,
-  tablePos: number,
-  rowIndex: number,
-) {
+function selectRow(view: EditorView, tableNode: Node, tablePos: number, rowIndex: number) {
   const selection = resolveRowSelection(view, tableNode, tablePos, rowIndex);
   if (!selection) return false;
 
@@ -408,12 +374,7 @@ function selectRow(
   return true;
 }
 
-function selectColumn(
-  view: EditorView,
-  tableNode: Node,
-  tablePos: number,
-  colIndex: number,
-) {
+function selectColumn(view: EditorView, tableNode: Node, tablePos: number, colIndex: number) {
   const selection = resolveColSelection(view, tableNode, tablePos, colIndex);
   if (!selection) return false;
 
@@ -446,12 +407,7 @@ function runColumnCommand(
   view.focus();
 }
 
-function clearRow(
-  view: EditorView,
-  tableNode: Node,
-  tablePos: number,
-  rowIndex: number,
-) {
+function clearRow(view: EditorView, tableNode: Node, tablePos: number, rowIndex: number) {
   if (!selectRow(view, tableNode, tablePos, rowIndex)) return;
 
   let rowPos = tablePos + 1;
@@ -479,9 +435,7 @@ function clearRow(
 // Context menu helpers
 // ═══════════════════════════════════════════════════════════════════
 
-function buildColorPicker(
-  onPick: (color: string | null) => void,
-): HTMLElement {
+function buildColorPicker(onPick: (color: string | null) => void): HTMLElement {
   const colors = [
     null,
     '#DEEBFF',
@@ -682,9 +636,7 @@ function populateRowControls(
     rowControlsWrapper.style.top = `${tableRect.top - containerRect.top}px`;
   }
 
-  const rowHeights = gridMetrics.rowMetrics
-    .map((m) => `${m.height || 40}px`)
-    .join(' ');
+  const rowHeights = gridMetrics.rowMetrics.map((m) => `${m.height || 40}px`).join(' ');
 
   container.style.cssText = `
     display: grid;
@@ -722,11 +674,7 @@ function populateRowControls(
   const targetRow = visibleRowIndex ?? 0;
   const isEmphasized = emphasizedRowIndex === targetRow;
   const appearance =
-    visibleRowIndex != null
-      ? isEmphasized
-        ? 'selected'
-        : 'default'
-      : 'placeholder';
+    visibleRowIndex != null ? (isEmphasized ? 'selected' : 'default') : 'placeholder';
 
   const handleSlot = document.createElement('div');
   handleSlot.setAttribute(
@@ -754,10 +702,7 @@ function populateRowControls(
   const clickableZone = document.createElement('button');
   clickableZone.type = 'button';
   clickableZone.className = 'pm-table-drag-handle-button-clickable-zone';
-  clickableZone.setAttribute(
-    'data-testid',
-    'table-drag-handle-clickable-zone-button',
-  );
+  clickableZone.setAttribute('data-testid', 'table-drag-handle-clickable-zone-button');
   clickableZone.setAttribute('aria-label', 'Activate drag handle zone');
   clickableZone.style.cssText = `
     height: calc(100% - 16px); width: var(--ds-space-200, 16px);
@@ -785,9 +730,7 @@ function populateRowControls(
 
   const iconSpan = document.createElement('span');
   iconSpan.style.pointerEvents = 'none';
-  iconSpan.appendChild(
-    buildPillSvg(isEmphasized ? '#0c66e4' : '#dfe1e6'),
-  );
+  iconSpan.appendChild(buildPillSvg(isEmphasized ? '#0c66e4' : '#dfe1e6'));
   handleBtn.appendChild(iconSpan);
   handleSlot.appendChild(handleBtn);
 
@@ -804,14 +747,12 @@ function populateRowControls(
       {
         label: 'Add row above',
         shortcut: 'Ctrl+Alt+Up',
-        onClick: () =>
-          runRowCommand(view, tableNode, tablePos, visibleRowIndex, addRowBefore),
+        onClick: () => runRowCommand(view, tableNode, tablePos, visibleRowIndex, addRowBefore),
       },
       {
         label: 'Add row below',
         shortcut: 'Ctrl+Alt+Down',
-        onClick: () =>
-          runRowCommand(view, tableNode, tablePos, visibleRowIndex, addRowAfter),
+        onClick: () => runRowCommand(view, tableNode, tablePos, visibleRowIndex, addRowAfter),
       },
       { separator: true, label: '', onClick: () => {} },
       {
@@ -821,8 +762,7 @@ function populateRowControls(
       {
         label: 'Delete row',
         danger: true,
-        onClick: () =>
-          runRowCommand(view, tableNode, tablePos, visibleRowIndex, deleteRow),
+        onClick: () => runRowCommand(view, tableNode, tablePos, visibleRowIndex, deleteRow),
       },
       { separator: true, label: '', onClick: () => {} },
       {
@@ -835,9 +775,7 @@ function populateRowControls(
             if (selectRow(view, tableNode, tablePos, visibleRowIndex)) {
               setCellAttr('background', color ?? '')(view.state, view.dispatch);
             }
-            document
-              .querySelectorAll('.__pm-table-menu')
-              .forEach((el) => el.remove());
+            document.querySelectorAll('.__pm-table-menu').forEach((el) => el.remove());
             colorPicker = null;
           });
           button.appendChild(colorPicker);
@@ -879,9 +817,7 @@ function populateColControls(
 
   // Position the column controls wrapper above the table
   const tableRect = tableEl.getBoundingClientRect();
-  const wrapperEl = container.closest(
-    '.pm-table-col-controls-wrapper',
-  ) as HTMLElement | null;
+  const wrapperEl = container.closest('.pm-table-col-controls-wrapper') as HTMLElement | null;
   if (wrapperEl) {
     const pmTableWrapper = wrapperEl.parentElement;
     if (pmTableWrapper) {
@@ -892,9 +828,7 @@ function populateColControls(
     }
   }
 
-  const colWidths = gridMetrics.colMetrics
-    .map((m) => `${m.width || 100}px`)
-    .join(' ');
+  const colWidths = gridMetrics.colMetrics.map((m) => `${m.width || 100}px`).join(' ');
 
   container.style.cssText = `
     display: grid;
@@ -935,11 +869,7 @@ function populateColControls(
   const targetCol = visibleColIndex ?? 0;
   const isEmphasized = emphasizedColIndex === targetCol;
   const appearance =
-    visibleColIndex != null
-      ? isEmphasized
-        ? 'selected'
-        : 'default'
-      : 'placeholder';
+    visibleColIndex != null ? (isEmphasized ? 'selected' : 'default') : 'placeholder';
 
   const handleSlot = document.createElement('div');
   handleSlot.contentEditable = 'false';
@@ -967,10 +897,7 @@ function populateColControls(
   const clickableZone = document.createElement('button');
   clickableZone.type = 'button';
   clickableZone.className = 'pm-table-drag-handle-button-clickable-zone';
-  clickableZone.setAttribute(
-    'data-testid',
-    'table-drag-handle-clickable-zone-button',
-  );
+  clickableZone.setAttribute('data-testid', 'table-drag-handle-clickable-zone-button');
   clickableZone.setAttribute('aria-label', 'Activate drag handle zone');
   clickableZone.style.cssText = `
     height: var(--ds-space-200, 16px);
@@ -999,9 +926,7 @@ function populateColControls(
 
   const iconSpan = document.createElement('span');
   iconSpan.style.pointerEvents = 'none';
-  iconSpan.appendChild(
-    buildPillSvg(isEmphasized ? '#0c66e4' : '#dfe1e6'),
-  );
+  iconSpan.appendChild(buildPillSvg(isEmphasized ? '#0c66e4' : '#dfe1e6'));
   handleBtn.appendChild(iconSpan);
   handleSlot.appendChild(handleBtn);
 
@@ -1018,37 +943,17 @@ function populateColControls(
       {
         label: 'Insert column left',
         onClick: () =>
-          runColumnCommand(
-            view,
-            tableNode,
-            tablePos,
-            visibleColIndex,
-            addColumnBefore,
-          ),
+          runColumnCommand(view, tableNode, tablePos, visibleColIndex, addColumnBefore),
       },
       {
         label: 'Insert column right',
-        onClick: () =>
-          runColumnCommand(
-            view,
-            tableNode,
-            tablePos,
-            visibleColIndex,
-            addColumnAfter,
-          ),
+        onClick: () => runColumnCommand(view, tableNode, tablePos, visibleColIndex, addColumnAfter),
       },
       { separator: true, label: '', onClick: () => {} },
       {
         label: 'Delete column',
         danger: true,
-        onClick: () =>
-          runColumnCommand(
-            view,
-            tableNode,
-            tablePos,
-            visibleColIndex,
-            deleteColumn,
-          ),
+        onClick: () => runColumnCommand(view, tableNode, tablePos, visibleColIndex, deleteColumn),
       },
       { separator: true, label: '', onClick: () => {} },
       {
@@ -1061,9 +966,7 @@ function populateColControls(
             if (selectColumn(view, tableNode, tablePos, visibleColIndex)) {
               setCellAttr('background', color ?? '')(view.state, view.dispatch);
             }
-            document
-              .querySelectorAll('.__pm-table-menu')
-              .forEach((el) => el.remove());
+            document.querySelectorAll('.__pm-table-menu').forEach((el) => el.remove());
             colorPicker = null;
           });
           button.appendChild(colorPicker);
@@ -1294,9 +1197,7 @@ export function tableControlsPlugin(): Plugin {
         currentTableEl = null;
         currentGridMetrics = null;
 
-        document
-          .querySelectorAll('.__pm-table-menu')
-          .forEach((el) => el.remove());
+        document.querySelectorAll('.__pm-table-menu').forEach((el) => el.remove());
       };
 
       const startRowResize = (
@@ -1325,10 +1226,7 @@ export function tableControlsPlugin(): Plugin {
         let currentHeight = startHeight;
 
         const onMove = (moveEvent: MouseEvent) => {
-          currentHeight = Math.max(
-            32,
-            startHeight + moveEvent.clientY - startY,
-          );
+          currentHeight = Math.max(32, startHeight + moveEvent.clientY - startY);
           rowEl.style.height = `${Math.round(currentHeight)}px`;
         };
 
@@ -1336,13 +1234,7 @@ export function tableControlsPlugin(): Plugin {
           isRowResizing = false;
           document.removeEventListener('mousemove', onMove);
           document.removeEventListener('mouseup', onUp);
-          setPersistedRowHeight(
-            view,
-            tableNode,
-            tablePos,
-            rowIndex,
-            currentHeight,
-          );
+          setPersistedRowHeight(view, tableNode, tablePos, rowIndex, currentHeight);
         };
 
         document.addEventListener('mousemove', onMove);
@@ -1364,17 +1256,10 @@ export function tableControlsPlugin(): Plugin {
         applyTableWidth(tableInfo.node, tableDomInfo.tableEl);
         applyRowHeights(tableInfo.node, tableDomInfo.tableEl);
 
-        const gridMetrics = getTableGridMetrics(
-          tableInfo.node,
-          tableDomInfo.tableEl,
-        );
+        const gridMetrics = getTableGridMetrics(tableInfo.node, tableDomInfo.tableEl);
         currentGridMetrics = gridMetrics;
 
-        const selectedMarkers = getSelectedMarkerState(
-          view.state,
-          tableInfo.node,
-          tableInfo.pos,
-        );
+        const selectedMarkers = getSelectedMarkerState(view.state, tableInfo.node, tableInfo.pos);
 
         // ── Find containers inside the node-view DOM ──────────
         const rowControlsEl = currentWrapperEl.querySelector(
@@ -1467,9 +1352,7 @@ export function tableControlsPlugin(): Plugin {
         }
 
         // Check if over a row marker (drag handle)
-        const rowMarker = target.closest(
-          '[data-table-row-marker]',
-        ) as HTMLElement | null;
+        const rowMarker = target.closest('[data-table-row-marker]') as HTMLElement | null;
         if (rowMarker) {
           updateHoverState({
             ...createEmptyHoverState(),
@@ -1480,9 +1363,7 @@ export function tableControlsPlugin(): Plugin {
         }
 
         // Check if over a column marker (drag handle)
-        const colMarker = target.closest(
-          '[data-table-col-marker]',
-        ) as HTMLElement | null;
+        const colMarker = target.closest('[data-table-col-marker]') as HTMLElement | null;
         if (colMarker) {
           updateHoverState({
             ...createEmptyHoverState(),
@@ -1493,22 +1374,12 @@ export function tableControlsPlugin(): Plugin {
         }
 
         // If not over the active table, clear hover
-        if (
-          !currentTableEl ||
-          !currentGridMetrics ||
-          !currentTableEl.contains(target)
-        ) {
+        if (!currentTableEl || !currentGridMetrics || !currentTableEl.contains(target)) {
           clearHoverState();
           return;
         }
 
-        updateHoverState(
-          getHoverStateFromTableEvent(
-            event,
-            currentTableEl,
-            currentGridMetrics,
-          ),
-        );
+        updateHoverState(getHoverStateFromTableEvent(event, currentTableEl, currentGridMetrics));
       };
 
       const handleExternalLayout = () => {
@@ -1533,11 +1404,7 @@ export function tableControlsPlugin(): Plugin {
           editorContainer.removeEventListener('mouseleave', clearHoverState);
           window.removeEventListener('resize', handleExternalLayout);
           window.removeEventListener('scroll', handleExternalLayout, true);
-          editorContainer.removeEventListener(
-            'scroll',
-            handleExternalLayout,
-            true,
-          );
+          editorContainer.removeEventListener('scroll', handleExternalLayout, true);
         },
       };
     },

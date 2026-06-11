@@ -1,1 +1,1 @@
-export { BoardColumnColorPickerComponent } from "./board-column-color-picker.template";
+export { BoardColumnColorPickerComponent } from './board-column-color-picker.template';

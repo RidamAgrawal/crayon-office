@@ -1,6 +1,6 @@
 import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CommonModule } from "@angular/common";
+import { CommonModule } from '@angular/common';
 
 export interface CheckboxConfig {
   title?: string;
@@ -17,22 +17,22 @@ export interface CheckboxConfig {
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => Checkbox),
-      multi: true
-    }
+      multi: true,
+    },
   ],
   host: {
-    '[style.--disabled]':  'isDisabled ? "0.5" : "1"',
-  }
+    '[style.--disabled]': 'isDisabled ? "0.5" : "1"',
+  },
 })
 export class Checkbox implements ControlValueAccessor {
   protected value: boolean = false;
   protected isDisabled: boolean = false;
   @Output() valChange = new EventEmitter<boolean>();
 
-  private onChange = (val: boolean) => { };
-  private onTouched = () => { };
+  private onChange = (val: boolean) => {};
+  private onTouched = () => {};
   writeValue(val: boolean): void {
-    this.value = val
+    this.value = val;
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;

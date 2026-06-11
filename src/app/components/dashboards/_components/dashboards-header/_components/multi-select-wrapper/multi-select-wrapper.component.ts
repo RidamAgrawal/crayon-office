@@ -78,10 +78,11 @@ export class MultiSelectWrapper implements ControlValueAccessor {
 
     // Non-empty value — only apply once all target options exist in the list
     const targets = Array.isArray(val) ? val : [val];
-    const allOptions: OptionConfigurations[] = (config?.optionLists ?? [])
-      .flatMap((list: any) => list.options ?? []);
+    const allOptions: OptionConfigurations[] = (config?.optionLists ?? []).flatMap(
+      (list: any) => list.options ?? [],
+    );
 
-    if (targets.every(t => allOptions.some(o => o.id === t))) {
+    if (targets.every((t) => allOptions.some((o) => o.id === t))) {
       this.applyValue(instance, val);
       this.pendingValue = null;
       this.hasPendingValue = false;
@@ -93,11 +94,12 @@ export class MultiSelectWrapper implements ControlValueAccessor {
     if (!val) return;
 
     const targets = Array.isArray(val) ? val : [val];
-    const allOptions: OptionConfigurations[] = (this.optionsConfig()?.optionLists ?? [])
-      .flatMap((list: any) => list.options ?? []);
+    const allOptions: OptionConfigurations[] = (this.optionsConfig()?.optionLists ?? []).flatMap(
+      (list: any) => list.options ?? [],
+    );
 
-    targets.forEach(targetId => {
-      const match = allOptions.find(o => o.id === targetId);
+    targets.forEach((targetId) => {
+      const match = allOptions.find((o) => o.id === targetId);
       if (match) instance.selectOption(match);
     });
   }

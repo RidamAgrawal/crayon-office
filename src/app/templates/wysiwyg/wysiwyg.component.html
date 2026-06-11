@@ -1,378 +1,434 @@
 <div class="wysiwyg-container">
-    <div class="wysiwyg-container-2">
-        <div class="wysiwyg-container-3">
-            <div class="wysiwyg-container-4">
-                <div class="wysiwyg-field-placeholder"></div>
-                <div class="wysiwyg-field-content">
-                    <div class="wysiwyg-tool-bar">
-                        <div class="wysiwyg-tool-bar-container">
-                            <div class="wysiwyg-tool-bar-container-2">
-                                <div class="wysiwyg-tool-bar-container-3">
-                                    <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-1">
-                                        <div class="dropdown">
-                                            <div class="dropdown-logo">
-                                                <button class="dropdown-logo-button">
-                                                    <span class="icon-content">
-                                                        <img src="assets/icons/foryou.svg" alt="icon">
-                                                    </span>
-                                                </button>
-                                            </div>
-                                            <div class="dropdown-icon">
-                                                <button class="dropdown-icon-button">
-                                                    <img src="assets/icons/arrow-down.svg" alt="icon">
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="long-btn">
-                                            <div class="long-btn-content">
-                                                <button class="long-btn-button">
-                                                    <span class="long-btn-icon">
-                                                        <img src="assets/icons/spaces.svg" alt="icon">
-                                                    </span>
-                                                    Improve description
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-2">
-                                        <div class="tool-bar-item-container">
-                                            <div class="wysiwyg-tool-bar-item-normal">
-                                                <button class="wysiwyg-tool-bar-item-normal-button"
-                                                    (click)="onTextFormatClick(textFormatButton)" #textFormatButton>
-                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
-                                                        <img src="assets/icons/formatText.svg" alt="icon">
-                                                    </span>
-                                                </button>
-                                            </div>
-                                            <div class="dropdown">
-                                                <div class="dropdown-logo">
-                                                    <button class="dropdown-logo-button">
-                                                        <span class="icon-content">
-                                                            <img src="assets/icons/textBold.svg" alt="icon">
-                                                        </span>
-                                                    </button>
-                                                </div>
-                                                <div class="dropdown-icon">
-                                                    <button class="dropdown-icon-button"
-                                                        (click)="onTextStylesClick(textStylesButton)" #textStylesButton>
-                                                        <img src="assets/icons/arrow-down.svg" alt="icon">
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="dropdown">
-                                                <div class="dropdown-logo">
-                                                    <button class="dropdown-logo-button">
-                                                        <span class="icon-content">
-                                                            <img src="assets/icons/bulletedList.svg" alt="icon">
-                                                        </span>
-                                                    </button>
-                                                </div>
-                                                <div class="dropdown-icon">
-                                                    <button class="dropdown-icon-button"
-                                                        (click)="onListClick(listButton)" #listButton>
-                                                        <img src="assets/icons/arrow-down.svg" alt="icon">
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="wysiwyg-tool-bar-item-normal">
-                                                <button class="wysiwyg-tool-bar-item-normal-button"
-                                                    (click)="showColorPicker(colorPickerButton)" #colorPickerButton>
-                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
-                                                        <img src="assets/icons/textColor.svg" alt="icon">
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-3">
-                                        <div class="tool-bar-item-container">
-                                            <div class="wysiwyg-tool-bar-item-normal">
-                                                <button class="wysiwyg-tool-bar-item-normal-button"
-                                                    (click)="showMultiMediaUpload(multiMediaUploadButton)"
-                                                    #multiMediaUploadButton>
-                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
-                                                        <img src="assets/icons/img.svg" alt="icon">
-                                                    </span>
-                                                </button>
-                                            </div>
-                                            <div class="wysiwyg-tool-bar-item-normal">
-                                                <button class="wysiwyg-tool-bar-item-normal-button">
-                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
-                                                        <img src="assets/icons/codeSnippet.svg" alt="icon">
-                                                    </span>
-                                                </button>
-                                            </div>
-                                            <div class="wysiwyg-tool-bar-item-normal">
-                                                <button class="wysiwyg-tool-bar-item-normal-button">
-                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
-                                                        <img src="assets/icons/add1.svg" alt="icon">
-                                                    </span>
-                                                </button>
-                                            </div>
-                                            <div class="wysiwyg-tool-bar-item-normal">
-                                                <button class="wysiwyg-tool-bar-item-normal-button">
-                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
-                                                        <img src="assets/icons/filter.svg" alt="icon">
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-4">
-                                        <div class="tool-bar-item-container">
-                                            <div class="wysiwyg-tool-bar-item-normal">
-                                                <button class="wysiwyg-tool-bar-item-normal-button">
-                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
-                                                        <img src="assets/icons/projects.svg" alt="icon">
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-5">
-                                        <div class="tool-bar-item-container">
-                                            <div class="wysiwyg-tool-bar-item-normal">
-                                                <button class="wysiwyg-tool-bar-item-normal-button">
-                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
-                                                        <img src="assets/icons/roadmap.svg" alt="icon">
-                                                    </span>
-                                                </button>
-                                            </div>
-                                            <div class="wysiwyg-tool-bar-item-normal">
-                                                <button class="wysiwyg-tool-bar-item-normal-button">
-                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
-                                                        <img src="assets/icons/settings.svg" alt="icon">
-                                                    </span>
-                                                </button>
-                                            </div>
-                                            <div class="wysiwyg-tool-bar-item-normal">
-                                                <button class="wysiwyg-tool-bar-item-normal-button">
-                                                    <span class="wysiwyg-tool-bar-item-normal-icon">
-                                                        <img src="assets/icons/teams.svg" alt="icon">
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+  <div class="wysiwyg-container-2">
+    <div class="wysiwyg-container-3">
+      <div class="wysiwyg-container-4">
+        <div class="wysiwyg-field-placeholder"></div>
+        <div class="wysiwyg-field-content">
+          <div class="wysiwyg-tool-bar">
+            <div class="wysiwyg-tool-bar-container">
+              <div class="wysiwyg-tool-bar-container-2">
+                <div class="wysiwyg-tool-bar-container-3">
+                  <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-1">
+                    <div class="dropdown">
+                      <div class="dropdown-logo">
+                        <button class="dropdown-logo-button">
+                          <span class="icon-content">
+                            <img src="assets/icons/foryou.svg" alt="icon" />
+                          </span>
+                        </button>
+                      </div>
+                      <div class="dropdown-icon">
+                        <button class="dropdown-icon-button">
+                          <img src="assets/icons/arrow-down.svg" alt="icon" />
+                        </button>
+                      </div>
                     </div>
-                    <div class="wysiwyg-editor-container">
-                        <div class="wysiwyg-editor-content-area">
-                            <div></div>
-                            <div class="wysiwyg-editor-content-area-line">
-                                <span></span>
-                                <div class="wysiwyg-editor-content-parent">
-
-                                </div>
-                                <input type="text" class="wysiwyg-media-picker-file-input" type="file">
-                            </div>
-                            <div #editor class="wysiwyg-editor-content-playground"
-                                placeholder="Enter description, you can add images, links, tables, and more"
-                                contenteditable="true" (input)="onEditorInput()" (keydown)="onEditorKeydown($event)">
-                            </div>
-                            <div></div>
-                        </div>
+                    <div class="long-btn">
+                      <div class="long-btn-content">
+                        <button class="long-btn-button">
+                          <span class="long-btn-icon">
+                            <img src="assets/icons/spaces.svg" alt="icon" />
+                          </span>
+                          Improve description
+                        </button>
+                      </div>
                     </div>
+                  </div>
+                  <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-2">
+                    <div class="tool-bar-item-container">
+                      <div class="wysiwyg-tool-bar-item-normal">
+                        <button
+                          class="wysiwyg-tool-bar-item-normal-button"
+                          (click)="onTextFormatClick(textFormatButton)"
+                          #textFormatButton
+                        >
+                          <span class="wysiwyg-tool-bar-item-normal-icon">
+                            <img src="assets/icons/formatText.svg" alt="icon" />
+                          </span>
+                        </button>
+                      </div>
+                      <div class="dropdown">
+                        <div class="dropdown-logo">
+                          <button class="dropdown-logo-button">
+                            <span class="icon-content">
+                              <img src="assets/icons/textBold.svg" alt="icon" />
+                            </span>
+                          </button>
+                        </div>
+                        <div class="dropdown-icon">
+                          <button
+                            class="dropdown-icon-button"
+                            (click)="onTextStylesClick(textStylesButton)"
+                            #textStylesButton
+                          >
+                            <img src="assets/icons/arrow-down.svg" alt="icon" />
+                          </button>
+                        </div>
+                      </div>
+                      <div class="dropdown">
+                        <div class="dropdown-logo">
+                          <button class="dropdown-logo-button">
+                            <span class="icon-content">
+                              <img src="assets/icons/bulletedList.svg" alt="icon" />
+                            </span>
+                          </button>
+                        </div>
+                        <div class="dropdown-icon">
+                          <button
+                            class="dropdown-icon-button"
+                            (click)="onListClick(listButton)"
+                            #listButton
+                          >
+                            <img src="assets/icons/arrow-down.svg" alt="icon" />
+                          </button>
+                        </div>
+                      </div>
+                      <div class="wysiwyg-tool-bar-item-normal">
+                        <button
+                          class="wysiwyg-tool-bar-item-normal-button"
+                          (click)="showColorPicker(colorPickerButton)"
+                          #colorPickerButton
+                        >
+                          <span class="wysiwyg-tool-bar-item-normal-icon">
+                            <img src="assets/icons/textColor.svg" alt="icon" />
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-3">
+                    <div class="tool-bar-item-container">
+                      <div class="wysiwyg-tool-bar-item-normal">
+                        <button
+                          class="wysiwyg-tool-bar-item-normal-button"
+                          (click)="showMultiMediaUpload(multiMediaUploadButton)"
+                          #multiMediaUploadButton
+                        >
+                          <span class="wysiwyg-tool-bar-item-normal-icon">
+                            <img src="assets/icons/img.svg" alt="icon" />
+                          </span>
+                        </button>
+                      </div>
+                      <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button">
+                          <span class="wysiwyg-tool-bar-item-normal-icon">
+                            <img src="assets/icons/codeSnippet.svg" alt="icon" />
+                          </span>
+                        </button>
+                      </div>
+                      <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button">
+                          <span class="wysiwyg-tool-bar-item-normal-icon">
+                            <img src="assets/icons/add1.svg" alt="icon" />
+                          </span>
+                        </button>
+                      </div>
+                      <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button">
+                          <span class="wysiwyg-tool-bar-item-normal-icon">
+                            <img src="assets/icons/filter.svg" alt="icon" />
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-4">
+                    <div class="tool-bar-item-container">
+                      <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button">
+                          <span class="wysiwyg-tool-bar-item-normal-icon">
+                            <img src="assets/icons/projects.svg" alt="icon" />
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wysiwyg-tool-bar-item wysiwyg-tool-bar-item-5">
+                    <div class="tool-bar-item-container">
+                      <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button">
+                          <span class="wysiwyg-tool-bar-item-normal-icon">
+                            <img src="assets/icons/roadmap.svg" alt="icon" />
+                          </span>
+                        </button>
+                      </div>
+                      <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button">
+                          <span class="wysiwyg-tool-bar-item-normal-icon">
+                            <img src="assets/icons/settings.svg" alt="icon" />
+                          </span>
+                        </button>
+                      </div>
+                      <div class="wysiwyg-tool-bar-item-normal">
+                        <button class="wysiwyg-tool-bar-item-normal-button">
+                          <span class="wysiwyg-tool-bar-item-normal-icon">
+                            <img src="assets/icons/teams.svg" alt="icon" />
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
+          <div class="wysiwyg-editor-container">
+            <div class="wysiwyg-editor-content-area">
+              <div></div>
+              <div class="wysiwyg-editor-content-area-line">
+                <span></span>
+                <div class="wysiwyg-editor-content-parent"></div>
+                <input type="text" class="wysiwyg-media-picker-file-input" type="file" />
+              </div>
+              <div
+                #editor
+                class="wysiwyg-editor-content-playground"
+                placeholder="Enter description, you can add images, links, tables, and more"
+                contenteditable="true"
+                (input)="onEditorInput()"
+                (keydown)="onEditorKeydown($event)"
+              ></div>
+              <div></div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <ng-template #colorPickerTemplate>
-    <div class="color-picker-container">
-        <div class="color-picker-container-2">
-            <div class="color-picker-container-3">
-                <div class="color-picker-content">
-                    <div class="color-pallettes">
-                        <h6>Text color</h6>
-                        <div class="color-pallette-grid">
-                            @for(palletteRow of colorPallettes; track $index){
-                            <div class="color-pallette-row">
-                                @for(palletteCell of palletteRow.options;track $index){
-                                <div [attr.class]="['color-pallette-cell '+ palletteCell.colorClass]">
-                                    <span class="color-pallette-cell-color">
-                                        <button class="color-pallette-cell-button"
-                                            [style.backgroundColor]="'#'+palletteCell.colorHexCode"
-                                            (click)="onColorSelect(palletteCell.colorHexCode)">
-                                            <!-- <span class="color-pallete-selected-icon-container">
+  <div class="color-picker-container">
+    <div class="color-picker-container-2">
+      <div class="color-picker-container-3">
+        <div class="color-picker-content">
+          <div class="color-pallettes">
+            <h6>Text color</h6>
+            <div class="color-pallette-grid">
+              @for (palletteRow of colorPallettes; track $index) {
+                <div class="color-pallette-row">
+                  @for (palletteCell of palletteRow.options; track $index) {
+                    <div [attr.class]="['color-pallette-cell ' + palletteCell.colorClass]">
+                      <span class="color-pallette-cell-color">
+                        <button
+                          class="color-pallette-cell-button"
+                          [style.backgroundColor]="'#' + palletteCell.colorHexCode"
+                          (click)="onColorSelect(palletteCell.colorHexCode)"
+                        >
+                          <!-- <span class="color-pallete-selected-icon-container">
                                                     <img class="color-pallete-selected-icon" src="assets/icons/arrowDown.svg" alt="icon">
                                                 </span> -->
-                                        </button>
-                                    </span>
-                                </div>
-                                }
-                            </div>
-                            }
-                        </div>
+                        </button>
+                      </span>
                     </div>
-                    <div class="remove-color-btn"></div>
+                  }
                 </div>
+              }
             </div>
+          </div>
+          <div class="remove-color-btn"></div>
         </div>
+      </div>
     </div>
+  </div>
 </ng-template>
 
 <ng-template #uploadMultiMediaTemplate>
-    <div class="upload-multi-media-container">
-        <app-tab [config]="{headings: ['File','Link'], bodyPlaceholders: [uploadFile, uploadLink]}"></app-tab>
-    </div>
+  <div class="upload-multi-media-container">
+    <app-tab
+      [config]="{ headings: ['File', 'Link'], bodyPlaceholders: [uploadFile, uploadLink] }"
+    ></app-tab>
+  </div>
 </ng-template>
 
 <ng-template #uploadFile>
-    <div class="upload-file-container">
-        <div class="upload-file-container-2">
-            <button class="secondary-btn" (click)="onUploadFileClick()">
-                <span class="upload-file-icon-container">
-                    <span class="upload-file-icon-content">
-                        <img src="assets/icons/upload.svg" alt="icon">
-                    </span>
+  <div class="upload-file-container">
+    <div class="upload-file-container-2">
+      <button class="secondary-btn" (click)="onUploadFileClick()">
+        <span class="upload-file-icon-container">
+          <span class="upload-file-icon-content">
+            <img src="assets/icons/upload.svg" alt="icon" />
+          </span>
+        </span>
+        <span class="upload-file-icon-text">Upload</span>
+      </button>
+      <video
+        autoplay
+        playsinline
+        muted
+        #videoElement
+        [class.video-hidden]="!editorImageService.isCameraOpen()"
+      ></video>
+      @if (editorImageService.isCameraPermissionDenied()) {
+        <div class="preview-loader-feedback">
+          <div class="preview-loader-feedback-container">
+            <div class="preview-loader-feedback-container-2">
+              <div class="preview-loader-feedback-icon">
+                <span class="preview-loader-feedback-icon-container">
+                  <img src="./assets/icons/warningRed.svg" alt="icon" />
                 </span>
-                <span class="upload-file-icon-text">Upload</span>
-            </button>
-            <video autoplay playsinline muted #videoElement
-                [class.video-hidden]="!editorImageService.isCameraOpen()"></video>
-            @if (editorImageService.isCameraPermissionDenied()) {
-                <div class="preview-loader-feedback">
-                    <div class="preview-loader-feedback-container">
-                        <div class="preview-loader-feedback-container-2">
-                            <div class="preview-loader-feedback-icon">
-                                <span class="preview-loader-feedback-icon-container">
-                                    <img src="./assets/icons/warningRed.svg" alt="icon">
-                                </span>
-                            </div>
-                            <div class="preview-loader-feedback-text">
-                                <div class="preview-loader-feedback-text-container">
-                                    Unfortunately, we can’t access the device camera. Please allow camera permission to use it.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              </div>
+              <div class="preview-loader-feedback-text">
+                <div class="preview-loader-feedback-text-container">
+                  Unfortunately, we can’t access the device camera. Please allow camera permission
+                  to use it.
                 </div>
-            }
-            <div class="upload-file-capture-cancel-btn">
-                <div class="upload-file-capture-cancel-btn-container" [class.upload-file-capture-cancel-show]="editorImageService.isCameraOpen()">
-                    @if (editorImageService.isCameraOpen()){
-                        <button class="secondary-btn" (click)="onCaptureCancelClick()">
-                            <span class="upload-file-icon-text">Cancel</span>
-                        </button>
-                    }
-                    <button 
-                        [attr.class]="(editorImageService.isCameraOpen()) 
-                        ? 'primary-btn upload-file-capture-btn'
-                        : 'secondary-btn upload-file-capture-btn'" 
-                        (click)="onCaptureClick(videoElement)"
-                        [disabled]="editorImageService.isCameraLoading()">
-                        @if(editorImageService.isCameraLoading()){
-                            <span class="loader">
-                                <span class="loader-rotating-element">
-                                    <svg class="loader-rotating-svg" height="24" width="24" viewBox="0 0 16 16"
-                                        xmlns="http://www.w3.org/2000/svg" role="none">
-                                        <circle cx="8" cy="8" r="7"></circle>
-                                    </svg>
-                                </span>
-                            </span>
-                        } @else {
-                            @if(!editorImageService.isCameraOpen()){
-                                <span class="upload-file-icon-container">
-                                    <span class="upload-file-icon-content">
-                                        <img src="assets/icons/capture.svg" alt="icon">
-                                    </span>
-                                </span>
-                            }
-                            <span class="upload-file-icon-text">{{(editorImageService.isCameraOpen())?'Capture':'Open Camera'}}</span>
-                        }
-                    </button>
-                </div>
+              </div>
             </div>
+          </div>
         </div>
+      }
+      <div class="upload-file-capture-cancel-btn">
+        <div
+          class="upload-file-capture-cancel-btn-container"
+          [class.upload-file-capture-cancel-show]="editorImageService.isCameraOpen()"
+        >
+          @if (editorImageService.isCameraOpen()) {
+            <button class="secondary-btn" (click)="onCaptureCancelClick()">
+              <span class="upload-file-icon-text">Cancel</span>
+            </button>
+          }
+          <button
+            [attr.class]="
+              editorImageService.isCameraOpen()
+                ? 'primary-btn upload-file-capture-btn'
+                : 'secondary-btn upload-file-capture-btn'
+            "
+            (click)="onCaptureClick(videoElement)"
+            [disabled]="editorImageService.isCameraLoading()"
+          >
+            @if (editorImageService.isCameraLoading()) {
+              <span class="loader">
+                <span class="loader-rotating-element">
+                  <svg
+                    class="loader-rotating-svg"
+                    height="24"
+                    width="24"
+                    viewBox="0 0 16 16"
+                    xmlns="http://www.w3.org/2000/svg"
+                    role="none"
+                  >
+                    <circle cx="8" cy="8" r="7"></circle>
+                  </svg>
+                </span>
+              </span>
+            } @else {
+              @if (!editorImageService.isCameraOpen()) {
+                <span class="upload-file-icon-container">
+                  <span class="upload-file-icon-content">
+                    <img src="assets/icons/capture.svg" alt="icon" />
+                  </span>
+                </span>
+              }
+              <span class="upload-file-icon-text">{{
+                editorImageService.isCameraOpen() ? 'Capture' : 'Open Camera'
+              }}</span>
+            }
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
 </ng-template>
 
 <ng-template #uploadLink>
-    <div class="upload-link-container">
-        <div class="upload-link-container-2">
-            <div class="upload-link-container-3">
-                <div class="text-field-and-load-preview">
-                    <div class="field-and-preview-container">
-                        <text-field [(value)]="imgPreviewLink"
-                            [validatorFn]="editorImageService.validateUrl"
-                            [placeholder]="'Paste link to upload'"></text-field>
-                        @if (!editorImageService.loadImageCalled()) {
-                        <div class="load-preview-container">
-                            <button class="load-preview-button secondary-btn" (click)="onPreviewBtnClick()"
-                                [disabled]="editorImageService.isLoading()||editorImageService.invalidImageLink()">
-                                @if (editorImageService.isLoading()){
-                                <span class="loader">
-                                    <span class="loader-rotating-element">
-                                        <svg class="loader-rotating-svg" height="24" width="24" viewBox="0 0 16 16"
-                                            xmlns="http://www.w3.org/2000/svg" role="none">
-                                            <circle cx="8" cy="8" r="7"></circle>
-                                        </svg>
-                                    </span>
-                                </span>
-                                } @else {
-                                <span class="load-preview-icon-container">
-                                    <span class="load-preview-icon-content">
-                                        <img src="assets/icons/preview.svg" alt="icon">
-                                    </span>
-                                </span>
-                                <span class="load-preview-text">Load Preview</span>
-                                }
-                            </button>
-                        </div>
-                        }
-                    </div>
-                </div>
-                @if (editorImageService.loadImageCalled()) {
-                @if(editorImageService.invalidImageLink()){
-                <div class="preview-loader-feedback">
-                    <div class="preview-loader-feedback-container">
-                        <div class="preview-loader-feedback-container-2">
-                            <div class="preview-loader-feedback-icon">
-                                <span class="preview-loader-feedback-icon-container">
-                                    <img src="./assets/icons/warningRed.svg" alt="icon">
-                                </span>
-                            </div>
-                            <div class="preview-loader-feedback-text">
-                                <div class="preview-loader-feedback-text-container">
-                                    Unfortunately, we can’t add this image link. Download the image, then drag and drop
-                                    onto the page.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                } @else {
-                <div class="img-loader-wrapper">
-                    <div class="img-loader-wrapper-2">
-                        <div class="img-loader-wrapper-3">
-                            <div class="img-loader-wrapper-4">
-                                <img [src]="imgPreviewLink()" alt="preview">
-                            </div>
-                            <div class="img-loader-blanket"></div>
-                            <div class="img-loader-progress-bar">
-                                <div class="progress"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                }
-                }
-                <div class="upload-link-save-cancel-btn">
-                    <div class="upload-link-save-cancel-btn-container">
-                        <button class="cancel-button secondary-btn" (click)="closeOverlay()">
-                            <span>Cancel</span>
-                        </button>
-                        <button class="insert-button primary-btn" (click)="onInsertUrlImage()"
-                            [disabled]="!editorImageService.isPreviewImage()">
-                            <span>Insert</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+  <div class="upload-link-container">
+    <div class="upload-link-container-2">
+      <div class="upload-link-container-3">
+        <div class="text-field-and-load-preview">
+          <div class="field-and-preview-container">
+            <text-field
+              [(value)]="imgPreviewLink"
+              [validatorFn]="editorImageService.validateUrl"
+              [placeholder]="'Paste link to upload'"
+            ></text-field>
+            @if (!editorImageService.loadImageCalled()) {
+              <div class="load-preview-container">
+                <button
+                  class="load-preview-button secondary-btn"
+                  (click)="onPreviewBtnClick()"
+                  [disabled]="
+                    editorImageService.isLoading() || editorImageService.invalidImageLink()
+                  "
+                >
+                  @if (editorImageService.isLoading()) {
+                    <span class="loader">
+                      <span class="loader-rotating-element">
+                        <svg
+                          class="loader-rotating-svg"
+                          height="24"
+                          width="24"
+                          viewBox="0 0 16 16"
+                          xmlns="http://www.w3.org/2000/svg"
+                          role="none"
+                        >
+                          <circle cx="8" cy="8" r="7"></circle>
+                        </svg>
+                      </span>
+                    </span>
+                  } @else {
+                    <span class="load-preview-icon-container">
+                      <span class="load-preview-icon-content">
+                        <img src="assets/icons/preview.svg" alt="icon" />
+                      </span>
+                    </span>
+                    <span class="load-preview-text">Load Preview</span>
+                  }
+                </button>
+              </div>
+            }
+          </div>
         </div>
+        @if (editorImageService.loadImageCalled()) {
+          @if (editorImageService.invalidImageLink()) {
+            <div class="preview-loader-feedback">
+              <div class="preview-loader-feedback-container">
+                <div class="preview-loader-feedback-container-2">
+                  <div class="preview-loader-feedback-icon">
+                    <span class="preview-loader-feedback-icon-container">
+                      <img src="./assets/icons/warningRed.svg" alt="icon" />
+                    </span>
+                  </div>
+                  <div class="preview-loader-feedback-text">
+                    <div class="preview-loader-feedback-text-container">
+                      Unfortunately, we can’t add this image link. Download the image, then drag and
+                      drop onto the page.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          } @else {
+            <div class="img-loader-wrapper">
+              <div class="img-loader-wrapper-2">
+                <div class="img-loader-wrapper-3">
+                  <div class="img-loader-wrapper-4">
+                    <img [src]="imgPreviewLink()" alt="preview" />
+                  </div>
+                  <div class="img-loader-blanket"></div>
+                  <div class="img-loader-progress-bar">
+                    <div class="progress"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        }
+        <div class="upload-link-save-cancel-btn">
+          <div class="upload-link-save-cancel-btn-container">
+            <button class="cancel-button secondary-btn" (click)="closeOverlay()">
+              <span>Cancel</span>
+            </button>
+            <button
+              class="insert-button primary-btn"
+              (click)="onInsertUrlImage()"
+              [disabled]="!editorImageService.isPreviewImage()"
+            >
+              <span>Insert</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </ng-template>

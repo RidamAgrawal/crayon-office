@@ -1,16 +1,6 @@
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
-import {
-  Component,
-  Directive,
-  ElementRef,
-  Input,
-  OnInit,
-  Renderer2,
-} from '@angular/core';
-import {
-  OptionConfigurations,
-  OptionListsConfig,
-} from './option-wrapper.model';
+import { Component, Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { OptionConfigurations, OptionListsConfig } from './option-wrapper.model';
 
 @Directive({
   selector: '[insertElement]',
@@ -22,14 +12,11 @@ export class InsertElementDirective implements OnInit {
   constructor(
     private hostEl: ElementRef,
     private renderer: Renderer2,
-  ) { }
+  ) {}
 
   ngOnInit() {
     if (this.contentElementRef?.nativeElement) {
-      this.renderer.appendChild(
-        this.hostEl.nativeElement,
-        this.contentElementRef.nativeElement,
-      );
+      this.renderer.appendChild(this.hostEl.nativeElement, this.contentElementRef.nativeElement);
     }
   }
 }
@@ -50,10 +37,7 @@ export class InsertElementDirective implements OnInit {
 })
 export class OptionWrapper {
   @Input() optionListsConfig!: OptionListsConfig;
-  public handleOptionEvent(
-    action: OptionConfigurations,
-    optionElRef: HTMLElement,
-  ) {
+  public handleOptionEvent(action: OptionConfigurations, optionElRef: HTMLElement) {
     action.elementRef = new ElementRef(optionElRef);
     this.optionListsConfig.handleOptionEvent?.(action);
   }

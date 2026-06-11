@@ -12,10 +12,7 @@ import { OptionWrapper } from '../../../../../templates/option-wrapper/option-wr
 export class DashboardSpaceHeaderService {
   private readonly overlayService = inject(OverlayService);
 
-  public handleMoreOptionsClick(
-    element: HTMLButtonElement,
-    optionLists: OptionsList[],
-  ): void {
+  public handleMoreOptionsClick(element: HTMLButtonElement, optionLists: OptionsList[]): void {
     this.overlayService.open({
       component: OptionWrapper,
       componentInputs: {

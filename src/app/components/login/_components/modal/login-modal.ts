@@ -48,8 +48,7 @@ export class LoginModalComponent implements AfterViewInit {
 
   protected readonly email: WritableSignal<string> = signal<string>('');
   protected readonly password: WritableSignal<string> = signal<string>('');
-  protected readonly recoveryEmail: WritableSignal<string> =
-    signal<string>('asa');
+  protected readonly recoveryEmail: WritableSignal<string> = signal<string>('asa');
   protected readonly isLoginDisabled: Signal<boolean> = computed(
     () =>
       !(
@@ -76,9 +75,7 @@ export class LoginModalComponent implements AfterViewInit {
       .pipe(
         switchMap((queryParams) => {
           const code = queryParams['code'];
-          return code
-            ? this.httpService.githubLogin(queryParams['code'])
-            : EMPTY;
+          return code ? this.httpService.githubLogin(queryParams['code']) : EMPTY;
         }),
       )
       .subscribe((res) => {

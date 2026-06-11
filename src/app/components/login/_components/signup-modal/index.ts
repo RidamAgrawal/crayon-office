@@ -1,1 +1,1 @@
-export { SignupModal } from "./signup-modal.component";
+export { SignupModal } from './signup-modal.component';

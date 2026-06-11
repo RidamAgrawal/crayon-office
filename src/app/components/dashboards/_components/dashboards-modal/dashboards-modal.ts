@@ -5,7 +5,7 @@ import { Subject, Observable, merge } from 'rxjs';
   selector: 'app-dashboards-modal',
   imports: [],
   templateUrl: './dashboards-modal.html',
-  styleUrl: './dashboards-modal.scss'
+  styleUrl: './dashboards-modal.scss',
 })
 export class DashboardsModal {
   @Input() modalConfig: any;
@@ -13,9 +13,7 @@ export class DashboardsModal {
   private componentOutputs$ = new Subject<any>();
   private componentRef: any;
 
-  constructor(
-    private vcr: ViewContainerRef
-  ) { }
+  constructor(private vcr: ViewContainerRef) {}
 
   ngOnInit() {
     if (this.modalConfig.isComponent && this.modalConfig.componentRef) {
@@ -27,8 +25,7 @@ export class DashboardsModal {
 
       // Subscribe to outputs
       this.bindComponentOutputs();
-    }
-    else if (this.modalConfig.isTemplate && this.modalConfig.templateRef) {
+    } else if (this.modalConfig.isTemplate && this.modalConfig.templateRef) {
       const templateRef = this.vcr.createEmbeddedView(this.modalConfig.templateRef);
       this.body.nativeElement.appendChild(templateRef.rootNodes[0]);
     }
@@ -54,18 +51,18 @@ export class DashboardsModal {
       // Check if property is an EventEmitter (has subscribe method)
       if (property && typeof property.subscribe === 'function') {
         outputStreams.push(
-          new Observable(observer => {
+          new Observable((observer) => {
             property.subscribe((data: any) => {
               observer.next({ eventName: key, data });
             });
-          })
+          }),
         );
       }
     }
 
     // Merge all output streams
     if (outputStreams.length > 0) {
-      merge(...outputStreams).subscribe(output => {
+      merge(...outputStreams).subscribe((output) => {
         this.componentOutputs$.next(output);
       });
     }

@@ -1,4 +1,12 @@
-import { Component, effect, Input, signal, TemplateRef, ViewChild, WritableSignal } from '@angular/core';
+import {
+  Component,
+  effect,
+  Input,
+  signal,
+  TemplateRef,
+  ViewChild,
+  WritableSignal,
+} from '@angular/core';
 import { TabsConfig } from '../../components/dashboards/_components/tabs/tabs';
 import { TemplateDirective } from '../../directives/template/template-directive';
 import { TemplateService } from '../../services/template-service/template-service';
@@ -28,12 +36,11 @@ export class TabTemplate2 {
         if (typeof selectedTemplate == 'string') {
           const placeholderComponent = this.templateService.templates[selectedTemplate];
           this.tabsDirective.viewContainerRef.createComponent(placeholderComponent);
-        }
-        else {
+        } else {
           this.tabsDirective.viewContainerRef.createEmbeddedView(selectedTemplate);
         }
       }
-    })
+    });
   }
 
   public isTemplateRef(element: any) {

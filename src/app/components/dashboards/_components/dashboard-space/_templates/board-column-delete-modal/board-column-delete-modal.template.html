@@ -9,8 +9,8 @@
 <div class="body">
   @if (source().issues.length) {
   <div class="row-1">
-    Select a new home for any work with the {{ source().label }} status,
-    including work in the backlog.
+    Select a new home for any work with the {{ source().label }} status, including work in the
+    backlog.
   </div>
   <div class="row-2">
     <div class="title title-1">This status will be deleted:</div>
@@ -29,10 +29,7 @@
       </span>
     </div>
     <div class="content">
-      <app-multi-select
-        [config]="selectConfig()"
-        (selected)="onSelect($event)"
-      ></app-multi-select>
+      <app-multi-select [config]="selectConfig()" (selected)="onSelect($event)"></app-multi-select>
     </div>
   </div>
   } @else {
@@ -61,9 +58,7 @@
         </svg>
       </span>
     </span>
-    } @else {
-        Delete
-    }
+    } @else { Delete }
   </button>
 </div>
 

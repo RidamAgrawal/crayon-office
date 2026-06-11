@@ -65,9 +65,7 @@ export class SignupModal implements AfterViewInit {
   protected readonly validatePassword = validatePassword;
 
   protected readonly errorMessage: WritableSignal<string> = signal<string>('');
-  protected readonly errorStatus: WritableSignal<number | null> = signal<
-    number | null
-  >(0);
+  protected readonly errorStatus: WritableSignal<number | null> = signal<number | null>(0);
 
   protected onSignup(): void {
     if (this.isSignupDisabled()) return;
@@ -145,27 +143,23 @@ export class SignupModal implements AfterViewInit {
 
   protected onOtpKeydown(event: KeyboardEvent, index: number): void {
     if (event.key === 'Backspace' && !this.otpDigits()[index] && index > 0) {
-      const prev = (
-        event.target as HTMLElement
-      ).parentElement?.querySelectorAll('input')[index - 1];
+      const prev = (event.target as HTMLElement).parentElement?.querySelectorAll('input')[
+        index - 1
+      ];
       prev?.focus();
     }
   }
 
   protected onOtpPaste(event: ClipboardEvent): void {
     event.preventDefault();
-    const pasted = (event.clipboardData?.getData('text') || '')
-      .replace(/\D/g, '')
-      .slice(0, 6);
+    const pasted = (event.clipboardData?.getData('text') || '').replace(/\D/g, '').slice(0, 6);
     if (!pasted) return;
     const digits = [...this.otpDigits()];
     for (let i = 0; i < 6; i++) {
       digits[i] = pasted[i] || '';
     }
     this.otpDigits.set(digits);
-    const inputs = (event.target as HTMLElement)
-      .closest('.otp-inputs')
-      ?.querySelectorAll('input');
+    const inputs = (event.target as HTMLElement).closest('.otp-inputs')?.querySelectorAll('input');
     const focusIdx = Math.min(pasted.length, 5);
     (inputs?.[focusIdx] as HTMLInputElement)?.focus();
   }

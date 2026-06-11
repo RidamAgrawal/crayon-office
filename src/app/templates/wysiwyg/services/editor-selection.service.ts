@@ -106,8 +106,7 @@ export class EditorSelectionService {
       newRange.insertNode(fragment);
       newRange.collapse(false);
       this.saveSelection();
-    }
-    else {
+    } else {
       range.deleteContents();
       const fragment = range.createContextualFragment(html);
       range.insertNode(fragment);
@@ -135,10 +134,7 @@ export class EditorSelectionService {
   findBlockElement(node: Node): HTMLElement | null {
     let current: Node | null = node;
     while (current && current !== this.editorEl) {
-      if (
-        current instanceof HTMLElement &&
-        /^(P|H[1-6]|DIV|LI)$/.test(current.tagName)
-      ) {
+      if (current instanceof HTMLElement && /^(P|H[1-6]|DIV|LI)$/.test(current.tagName)) {
         return current;
       }
       current = current.parentNode;
@@ -152,10 +148,7 @@ export class EditorSelectionService {
   findAncestor(node: Node, tag: string): HTMLElement | null {
     let current: Node | null = node;
     while (current && current !== this.editorEl) {
-      if (
-        current instanceof HTMLElement &&
-        current.tagName === tag.toUpperCase()
-      ) {
+      if (current instanceof HTMLElement && current.tagName === tag.toUpperCase()) {
         return current;
       }
       current = current.parentNode;
@@ -167,11 +160,7 @@ export class EditorSelectionService {
    * Walk up from `node` looking for a `<span>` whose inline style property
    * matches the given value.  Used for color toggle detection.
    */
-  findAncestorWithStyle(
-    node: Node,
-    styleProp: string,
-    styleValue: string,
-  ): HTMLElement | null {
+  findAncestorWithStyle(node: Node, styleProp: string, styleValue: string): HTMLElement | null {
     let current: Node | null = node;
     while (current && current !== this.editorEl) {
       if (current instanceof HTMLElement && current.tagName === 'SPAN') {
@@ -213,15 +202,13 @@ export class EditorSelectionService {
    * `<strong>` blocks).
    */
   normalizeInline() {
-    this.editorEl
-      ?.querySelectorAll('strong, em, u, s, code, sub, sup')
-      .forEach((el) => {
-        const next = el.nextSibling;
-        if (next instanceof HTMLElement && next.tagName === el.tagName) {
-          el.innerHTML += next.innerHTML;
-          next.remove();
-        }
-      });
+    this.editorEl?.querySelectorAll('strong, em, u, s, code, sub, sup').forEach((el) => {
+      const next = el.nextSibling;
+      if (next instanceof HTMLElement && next.tagName === el.tagName) {
+        el.innerHTML += next.innerHTML;
+        next.remove();
+      }
+    });
   }
 
   // ────────────────────────── private ────────────────────────────────────

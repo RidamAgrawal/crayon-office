@@ -1,10 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OptionConfigurations } from '../../../../../../templates/option-wrapper/option-wrapper.model';
 
 @Component({
@@ -23,9 +18,10 @@ export class FeedbackSidebar {
   @Output() sendFeedback: EventEmitter<any> = new EventEmitter<any>();
   public ngOnInit() {
     this.feedbackFormGroup = this.formBuilder.group({
-      feedbackType: this.formBuilder.control<
-        'question' | 'comment' | 'bug' | 'improvement' | null
-      >(null, [Validators.required]),
+      feedbackType: this.formBuilder.control<'question' | 'comment' | 'bug' | 'improvement' | null>(
+        null,
+        [Validators.required],
+      ),
       feedbackText: this.formBuilder.control<string | null>(null, [
         Validators.required,
         Validators.minLength(4),

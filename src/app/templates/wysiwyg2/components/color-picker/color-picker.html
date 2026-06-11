@@ -1,31 +1,33 @@
 <div class="color-picker-container">
-    <div class="color-picker-container-2">
-        <div class="color-picker-container-3">
-            <div class="color-picker-content">
-                <div class="color-pallettes">
-                    <h6>Text color</h6>
-                    <div class="color-pallette-grid">
-                        @for(palletteRow of colorPallettes(); track $index){
-                        <div class="color-pallette-row">
-                            @for(palletteCell of palletteRow.options;track $index){
-                            <div [attr.class]="['color-pallette-cell '+ palletteCell.colorClass]">
-                                <span class="color-pallette-cell-color">
-                                    <button class="color-pallette-cell-button"
-                                        [style.backgroundColor]="'#'+palletteCell.colorHexCode"
-                                        (click)="onColorSelect(palletteCell.colorHexCode)">
-                                        <!-- <span class="color-pallete-selected-icon-container">
+  <div class="color-picker-container-2">
+    <div class="color-picker-container-3">
+      <div class="color-picker-content">
+        <div class="color-pallettes">
+          <h6>Text color</h6>
+          <div class="color-pallette-grid">
+            @for(palletteRow of colorPallettes(); track $index){
+            <div class="color-pallette-row">
+              @for(palletteCell of palletteRow.options;track $index){
+              <div [attr.class]="['color-pallette-cell '+ palletteCell.colorClass]">
+                <span class="color-pallette-cell-color">
+                  <button
+                    class="color-pallette-cell-button"
+                    [style.backgroundColor]="'#'+palletteCell.colorHexCode"
+                    (click)="onColorSelect(palletteCell.colorHexCode)"
+                  >
+                    <!-- <span class="color-pallete-selected-icon-container">
                                                     <img class="color-pallete-selected-icon" src="assets/icons/arrowDown.svg" alt="icon">
                                                 </span> -->
-                                    </button>
-                                </span>
-                            </div>
-                            }
-                        </div>
-                        }
-                    </div>
-                </div>
-                <div class="remove-color-btn"></div>
+                  </button>
+                </span>
+              </div>
+              }
             </div>
+            }
+          </div>
         </div>
+        <div class="remove-color-btn"></div>
+      </div>
     </div>
+  </div>
 </div>

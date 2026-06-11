@@ -24,9 +24,7 @@ export class BoardColumnDeleteModalTemplate {
   readonly source = input.required<SpaceBoardColumn>();
   readonly candidates = input.required<SpaceBoardColumn[]>(); // remaining columns, source excluded
 
-  protected readonly statusOptionTemplate = viewChild<TemplateRef<any>>(
-    'statusOptionTemplate',
-  );
+  protected readonly statusOptionTemplate = viewChild<TemplateRef<any>>('statusOptionTemplate');
 
   readonly confirm = output<string | null>(); // targetStatusId or null when empty
   readonly cancel = output<void>();

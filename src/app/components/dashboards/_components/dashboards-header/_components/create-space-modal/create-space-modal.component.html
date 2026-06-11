@@ -1,33 +1,37 @@
 @if (step() === 1) {
-<space-template-picker (templateSelected)="onTemplateSelected($event)" (closeRequested)="close()">
-</space-template-picker>
+  <space-template-picker (templateSelected)="onTemplateSelected($event)" (closeRequested)="close()">
+  </space-template-picker>
 } @else {
-<div class="space-details">
+  <div class="space-details">
     <div class="space-details-layout">
-        <!-- Left: Form -->
-        <div class="space-details-form-panel">
-            <button class="back-link" (click)="goBack()">
-                <img src="./assets/icons/arrow-left.svg" alt="back">
-                <span>Back to templates</span>
-            </button>
+      <!-- Left: Form -->
+      <div class="space-details-form-panel">
+        <button class="back-link" (click)="goBack()">
+          <img src="./assets/icons/arrow-left.svg" alt="back" />
+          <span>Back to templates</span>
+        </button>
 
-            <div class="space-details-form-content">
-                <h1 class="form-heading">Name your space</h1>
-                <p class="form-subtext">Required fields are marked with asterisk <span class="red-asterisk">*</span>
-                </p>
+        <div class="space-details-form-content">
+          <h1 class="form-heading">Name your space</h1>
+          <p class="form-subtext">
+            Required fields are marked with asterisk <span class="red-asterisk">*</span>
+          </p>
 
-                <form class="form-body" [formGroup]="spaceForm" (ngSubmit)="submit()">
-                    <div class="field-wrapper">
-                        <label class="field-label" for="name">
-                            Name <span class="red-asterisk">*</span>
-                        </label>
-                        <!-- <input id="name" type="text" class="text-field-input" formControlName="name"
+          <form class="form-body" [formGroup]="spaceForm" (ngSubmit)="submit()">
+            <div class="field-wrapper">
+              <label class="field-label" for="name">
+                Name <span class="red-asterisk">*</span>
+              </label>
+              <!-- <input id="name" type="text" class="text-field-input" formControlName="name"
                             (input)="onNameInput()" placeholder="Try a team name, project goal, milestone..."> -->
-                        <text-field [placeholder]="'Try a team name, project goal, milestone'" formControlName="name">
-                        </text-field>
-                    </div>
+              <text-field
+                [placeholder]="'Try a team name, project goal, milestone'"
+                formControlName="name"
+              >
+              </text-field>
+            </div>
 
-                    <!-- <div class="field-wrapper">
+            <!-- <div class="field-wrapper">
                         <label class="field-label">
                             How your space is managed
                         </label>
@@ -37,7 +41,7 @@
                         </div>
                     </div> -->
 
-                    <!-- <div class="field-wrapper">
+            <!-- <div class="field-wrapper">
                         <label class="field-label">
                             Access <span class="red-asterisk">*</span>
                         </label>
@@ -47,67 +51,73 @@
                         </div>
                     </div> -->
 
-                    <div class="field-wrapper">
-                        <label class="field-label" for="key">
-                            Key <span class="red-asterisk">*</span>
-                            <img class="info-icon" src="./assets/icons/info.svg" alt="info">
-                        </label>
-                        <text-field formControlName="key">
-                        </text-field>
-                    </div>
-
-                    <div class="template-section">
-                        <div class="template-section-header">
-                            <span class="field-label">Template</span>
-                            <button type="button" class="see-details-link">See details</button>
-                        </div>
-                        <div class="template-card-preview">
-                            <div class="template-card-illustration">
-                                <img [src]="selectedTemplate()?.illustration" alt="icon">
-                            </div>
-                            <div class="template-card-info">
-                                <span class="template-card-name">{{ selectedTemplate()?.name }}</span>
-                                <span class="template-card-desc">{{ selectedTemplate()?.description }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+            <div class="field-wrapper">
+              <label class="field-label" for="key">
+                Key <span class="red-asterisk">*</span>
+                <img class="info-icon" src="./assets/icons/info.svg" alt="info" />
+              </label>
+              <text-field formControlName="key"> </text-field>
             </div>
 
-            <div class="form-footer">
-                <span class="step-indicator">Step 1 of 2</span>
-                <button class="next-btn primary-btn" [disabled]="spaceForm.invalid || isSubmitting()"
-                    (click)="submit()">
-                    {{ isSubmitting() ? 'Creating...' : 'Next' }}
-                </button>
+            <div class="template-section">
+              <div class="template-section-header">
+                <span class="field-label">Template</span>
+                <button type="button" class="see-details-link">See details</button>
+              </div>
+              <div class="template-card-preview">
+                <div class="template-card-illustration">
+                  <img [src]="selectedTemplate()?.illustration" alt="icon" />
+                </div>
+                <div class="template-card-info">
+                  <span class="template-card-name">{{ selectedTemplate()?.name }}</span>
+                  <span class="template-card-desc">{{ selectedTemplate()?.description }}</span>
+                </div>
+              </div>
             </div>
+          </form>
         </div>
 
-        <!-- Right: Preview -->
-        <div class="space-details-preview-panel">
-            <div class="preview-container">
-                <div class="preview-label">Team-managed space</div>
-                <h3 class="preview-title">{{ spaceForm.get('name')?.value || 'My space' }}</h3>
-                <div class="preview-tabs">
-                    <span class="preview-tab">List</span>
-                    <span class="preview-tab active">Board</span>
-                </div>
-                <div class="preview-board">
-                    @for (status of selectedTemplate()?.defaults?.statuses ?? ['TO DO', 'IN PROGRESS', 'DONE']; track
-                    status) {
-                    <div class="preview-column">
-                        <div class="preview-column-header">{{ status }}</div>
-                        @if ($first) {
-                        <div class="preview-card">
-                            <span class="preview-card-type">Task</span>
-                            <span class="preview-card-key">{{ spaceForm.get('key')?.value || 'KEY' }}-1</span>
-                        </div>
-                        }
-                    </div>
-                    }
-                </div>
-            </div>
+        <div class="form-footer">
+          <span class="step-indicator">Step 1 of 2</span>
+          <button
+            class="next-btn primary-btn"
+            [disabled]="spaceForm.invalid || isSubmitting()"
+            (click)="submit()"
+          >
+            {{ isSubmitting() ? 'Creating...' : 'Next' }}
+          </button>
         </div>
+      </div>
+
+      <!-- Right: Preview -->
+      <div class="space-details-preview-panel">
+        <div class="preview-container">
+          <div class="preview-label">Team-managed space</div>
+          <h3 class="preview-title">{{ spaceForm.get('name')?.value || 'My space' }}</h3>
+          <div class="preview-tabs">
+            <span class="preview-tab">List</span>
+            <span class="preview-tab active">Board</span>
+          </div>
+          <div class="preview-board">
+            @for (
+              status of selectedTemplate()?.defaults?.statuses ?? ['TO DO', 'IN PROGRESS', 'DONE'];
+              track status
+            ) {
+              <div class="preview-column">
+                <div class="preview-column-header">{{ status }}</div>
+                @if ($first) {
+                  <div class="preview-card">
+                    <span class="preview-card-type">Task</span>
+                    <span class="preview-card-key"
+                      >{{ spaceForm.get('key')?.value || 'KEY' }}-1</span
+                    >
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 }

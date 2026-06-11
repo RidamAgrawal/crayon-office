@@ -8,9 +8,8 @@ describe('EmojiPicker', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EmojiPicker]
-    })
-    .compileComponents();
+      imports: [EmojiPicker],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EmojiPicker);
     component = fixture.componentInstance;

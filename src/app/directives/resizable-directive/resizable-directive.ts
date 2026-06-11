@@ -1,10 +1,9 @@
 import { Directive, ElementRef, Input, NgZone, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[appResizableDirective]'
+  selector: '[appResizableDirective]',
 })
 export class ResizableDirective {
-
   @Input() config: any;
 
   private isResizing = false;
@@ -18,13 +17,19 @@ export class ResizableDirective {
   constructor(
     private el: ElementRef<HTMLElement>,
     private renderer: Renderer2,
-    private ngZone: NgZone
-  ) { }
+    private ngZone: NgZone,
+  ) {}
 
   public ngOnInit() {
-    if (!this.config || (!this.config.resizableTop && !this.config.resizableBottom && !this.config.resizableLeft && !this.config.resizableRight)) {
+    if (
+      !this.config ||
+      (!this.config.resizableTop &&
+        !this.config.resizableBottom &&
+        !this.config.resizableLeft &&
+        !this.config.resizableRight)
+    ) {
       console.warn('did not passed resize direction directive render nothing.');
-      return; 
+      return;
     }
     this.renderer.setStyle(this.el.nativeElement, 'position', 'relative');
 
@@ -77,7 +82,10 @@ export class ResizableDirective {
 
     if (direction === 'horizontal') {
       const dx = event.clientX - this.startX;
-      const newWidth = Math.min(this.config.maxWidth, Math.max(this.config.minWidth, this.startWidth + dx));
+      const newWidth = Math.min(
+        this.config.maxWidth,
+        Math.max(this.config.minWidth, this.startWidth + dx),
+      );
       this.renderer.setStyle(this.el.nativeElement, 'width', `${newWidth}px`);
     } else {
       const dy = event.clientY - this.startY;
@@ -88,13 +96,19 @@ export class ResizableDirective {
 
   private onPointerUp() {
     this.isResizing = false;
-    if (this.unsubscribeMove) { this.unsubscribeMove(); this.unsubscribeMove = null; }
-    if (this.unsubscribeUp) { this.unsubscribeUp(); this.unsubscribeUp = null; }
+    if (this.unsubscribeMove) {
+      this.unsubscribeMove();
+      this.unsubscribeMove = null;
+    }
+    if (this.unsubscribeUp) {
+      this.unsubscribeUp();
+      this.unsubscribeUp = null;
+    }
   }
 
   public renderResizeHandles(handleOrientation: 'bottom' | 'left' | 'top' | 'right') {
     const handleContainer = this.renderer.createElement('div');
-    this.renderer.addClass(handleContainer, 'slider-container-'+handleOrientation);
+    this.renderer.addClass(handleContainer, 'slider-container-' + handleOrientation);
     this.renderer.addClass(handleContainer, 'slider-container');
 
     this.renderer.setStyle(handleContainer, 'position', 'absolute');
@@ -103,13 +117,14 @@ export class ResizableDirective {
     this.renderer.setStyle(handleContainer, 'z-index', '2');
 
     this.renderer.listen(handleContainer, 'pointerdown', (event: PointerEvent) => {
-      if(handleOrientation == 'left' || handleOrientation == 'right') this.startResize(event, 'horizontal');
+      if (handleOrientation == 'left' || handleOrientation == 'right')
+        this.startResize(event, 'horizontal');
       else this.startResize(event, 'vertical');
     });
 
     const handle = this.renderer.createElement('div');
     this.renderer.addClass(handle, 'slider');
-    this.renderer.addClass(handle, 'slider-'+handleOrientation);
+    this.renderer.addClass(handle, 'slider-' + handleOrientation);
     this.renderer.setStyle(handle, 'transition-delay', '0ms');
     this.renderer.setStyle(handle, 'transition-duration', '0.1s');
     this.renderer.setStyle(handle, 'transition-property', 'color');
@@ -120,7 +135,7 @@ export class ResizableDirective {
     this.renderer.setStyle(handle, 'padding-block', '0px');
 
     const handleIndicator = this.renderer.createElement('span');
-    this.renderer.addClass(handleIndicator, 'handle-indicator-'+handleOrientation);
+    this.renderer.addClass(handleIndicator, 'handle-indicator-' + handleOrientation);
     this.renderer.setStyle(handleIndicator, 'background-color', 'currentColor');
     this.renderer.setStyle(handleIndicator, 'position', 'absolute');
     this.renderer.setStyle(handleIndicator, 'display', 'block');
@@ -153,8 +168,8 @@ export class ResizableDirective {
         this.renderer.setStyle(handleIndicator, 'inset-block-start', '0.5rem');
         this.renderer.setStyle(handle, 'height', '1rem');
         this.renderer.setStyle(handleIndicator, 'height', '3px');
-        this.renderer.setStyle(handleIndicator, 'width', elRefWidth+'px');
-        this.renderer.setStyle(handle, 'width', elRefWidth+'px');
+        this.renderer.setStyle(handleIndicator, 'width', elRefWidth + 'px');
+        this.renderer.setStyle(handle, 'width', elRefWidth + 'px');
         this.renderer.setStyle(handle, 'cursor', 'ns-resize');
         break;
       case 'bottom':
@@ -163,8 +178,8 @@ export class ResizableDirective {
         this.renderer.setStyle(handleIndicator, 'inset-block-end', '0.5rem');
         this.renderer.setStyle(handle, 'height', '1rem');
         this.renderer.setStyle(handleIndicator, 'height', '3px');
-        this.renderer.setStyle(handleIndicator, 'width', elRefWidth+'px');
-        this.renderer.setStyle(handle, 'width', elRefWidth+'px');
+        this.renderer.setStyle(handleIndicator, 'width', elRefWidth + 'px');
+        this.renderer.setStyle(handle, 'width', elRefWidth + 'px');
         this.renderer.setStyle(handle, 'cursor', 'ns-resize');
         break;
     }

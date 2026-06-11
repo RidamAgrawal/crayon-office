@@ -21,11 +21,7 @@ import {
   WORK_TYPES,
 } from './dashboard-space-board-view.constants';
 import { Checkbox } from '../../../../../../templates/checkbox/checkbox';
-import {
-  CdkDragDrop,
-  DragDropModule,
-  moveItemInArray,
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Store } from '@ngrx/store';
 import {
   BoardFilterState,
@@ -176,12 +172,9 @@ export class DashboardSpaceBoardViewComponent {
       this.spaceDetails()?.currentUser.role === 'OWNER',
   );
   protected readonly isCreatingColumn: WritableSignal<boolean> = signal(false);
-  protected readonly isColumnCreationInProgress: WritableSignal<boolean> =
-    signal(false);
+  protected readonly isColumnCreationInProgress: WritableSignal<boolean> = signal(false);
 
-  protected readonly pendingColumnIds: WritableSignal<Set<string>> = signal<
-    Set<string>
-  >(new Set());
+  protected readonly pendingColumnIds: WritableSignal<Set<string>> = signal<Set<string>>(new Set());
 
   protected getColumnOptions(
     column: SpaceBoardColumn,
@@ -281,10 +274,7 @@ export class DashboardSpaceBoardViewComponent {
     // then compute the new lexorank from neighbors and PATCH
   }
 
-  protected toggleFilter<K extends keyof BoardFilterState>(
-    facet: K,
-    id: any,
-  ): void {
+  protected toggleFilter<K extends keyof BoardFilterState>(facet: K, id: any): void {
     this.filters.update((prev) => {
       const next = new Set(prev[facet]);
       next.has(id) ? next.delete(id) : next.add(id);
@@ -292,11 +282,7 @@ export class DashboardSpaceBoardViewComponent {
     });
   }
 
-  protected setFilter<K extends keyof BoardFilterState>(
-    facet: K,
-    id: any,
-    on: boolean,
-  ): void {
+  protected setFilter<K extends keyof BoardFilterState>(facet: K, id: any, on: boolean): void {
     this.filters.update((prev) => {
       const next = new Set(prev[facet]);
       on ? next.add(id) : next.delete(id);
@@ -344,16 +330,8 @@ export class DashboardSpaceBoardViewComponent {
       });
   }
 
-  protected openColumnOptions(
-    column: SpaceBoardColumn,
-    trigger: HTMLElement,
-    index: number,
-  ): void {
-    const optionLists = this.getColumnOptions(
-      column,
-      index,
-      this.filteredColumns().length,
-    );
+  protected openColumnOptions(column: SpaceBoardColumn, trigger: HTMLElement, index: number): void {
+    const optionLists = this.getColumnOptions(column, index, this.filteredColumns().length);
     this.overlayService.open({
       component: OptionWrapper,
       componentInputs: {
@@ -368,11 +346,7 @@ export class DashboardSpaceBoardViewComponent {
     });
   }
 
-  private handleColumnOption(
-    id: string,
-    column: SpaceBoardColumn,
-    trigger: HTMLElement,
-  ): void {
+  private handleColumnOption(id: string, column: SpaceBoardColumn, trigger: HTMLElement): void {
     switch (id) {
       // case STATUS_OPTION_IDS.moveLeft: return this.moveColumn(column.id, -1);
       // case STATUS_OPTION_IDS.moveRight: return this.moveColumn(column.id, +1);
@@ -385,10 +359,7 @@ export class DashboardSpaceBoardViewComponent {
     }
   }
 
-  private openColorPicker(
-    column: SpaceBoardColumn,
-    trigger: HTMLElement,
-  ): void {
+  private openColorPicker(column: SpaceBoardColumn, trigger: HTMLElement): void {
     this.overlayService.open({
       component: BoardColumnColorPickerComponent,
       componentInputs: { current: column.backgroundColor },
@@ -409,9 +380,7 @@ export class DashboardSpaceBoardViewComponent {
   private updateColumnColor(statusId: string, color: string): void {
     // Optimistic
     this.columns.update((cols) =>
-      cols.map((c) =>
-        c.id === statusId ? { ...c, backgroundColor: color } : c,
-      ),
+      cols.map((c) => (c.id === statusId ? { ...c, backgroundColor: color } : c)),
     );
 
     this.httpService
@@ -433,9 +402,7 @@ export class DashboardSpaceBoardViewComponent {
 
     // Optimistic — immutable update so signals fire
     this.columns.update((cols) =>
-      cols.map((c) =>
-        c.id === e.columnId ? { ...c, name, label: e.label } : c,
-      ),
+      cols.map((c) => (c.id === e.columnId ? { ...c, name, label: e.label } : c)),
     );
 
     this.httpService
@@ -524,10 +491,7 @@ export class DashboardSpaceBoardViewComponent {
     });
   }
 
-  private deleteColumn(
-    column: SpaceBoardColumn,
-    targetStatusId: string | null,
-  ): void {
+  private deleteColumn(column: SpaceBoardColumn, targetStatusId: string | null): void {
     const prev = this.columns();
 
     // Optimistic: drop the column; move its issues into target if specified
@@ -554,11 +518,7 @@ export class DashboardSpaceBoardViewComponent {
     if (targetStatusId) this.setPending(targetStatusId, true);
 
     this.httpService
-      .deleteStatus(
-        this.spaceDetails()!.id,
-        column.id,
-        targetStatusId ?? undefined,
-      )
+      .deleteStatus(this.spaceDetails()!.id, column.id, targetStatusId ?? undefined)
       .pipe(
         catchError(() => {
           this.columns.set(prev);
@@ -570,7 +530,7 @@ export class DashboardSpaceBoardViewComponent {
         }),
       )
       .subscribe((res) => {
-        this.filters.update(f => {
+        this.filters.update((f) => {
           const next = new Set(f.status);
           next.delete(column.id);
           return { ...f, status: next };

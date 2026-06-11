@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-dashboard-recent',
   imports: [],
   templateUrl: './dashboard-recent.html',
-  styleUrl: './dashboard-recent.scss'
+  styleUrl: './dashboard-recent.scss',
 })
-export class DashboardRecent {
-
-}
+export class DashboardRecent {}

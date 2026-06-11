@@ -10,9 +10,8 @@ import {
   AfterViewInit,
 } from '@angular/core';
 
-
 @Directive({
-  selector: '[appFloatingContainer]'
+  selector: '[appFloatingContainer]',
 })
 export class FloatingContainerDirective implements AfterViewInit, OnDestroy {
   @Input('appFloatingContainer') templateRef!: TemplateRef<any>;
@@ -24,7 +23,7 @@ export class FloatingContainerDirective implements AfterViewInit, OnDestroy {
   constructor(
     private host: ElementRef,
     private renderer: Renderer2,
-    private viewContainer: ViewContainerRef
+    private viewContainer: ViewContainerRef,
   ) {}
 
   ngAfterViewInit() {
@@ -47,7 +46,7 @@ export class FloatingContainerDirective implements AfterViewInit, OnDestroy {
 
     // Render the template inside the container
     this.viewRef = this.viewContainer.createEmbeddedView(this.templateRef);
-    this.viewRef.rootNodes.forEach(node => this.containerEl?.appendChild(node));
+    this.viewRef.rootNodes.forEach((node) => this.containerEl?.appendChild(node));
 
     // Observe host size changes to update position dynamically
     this.resizeObserver = new ResizeObserver(() => this.updatePosition());

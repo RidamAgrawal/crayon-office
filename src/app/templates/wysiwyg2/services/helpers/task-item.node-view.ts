@@ -1,11 +1,7 @@
 import { Node } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 
-export function taskItemNodeView(
-  node: Node,
-  view: EditorView,
-  getPos: () => number | undefined,
-) {
+export function taskItemNodeView(node: Node, view: EditorView, getPos: () => number | undefined) {
   // Outer container
   const outer = document.createElement('div');
   outer.classList.add('taskItemView-content-wrap');
@@ -77,10 +73,7 @@ export function taskItemNodeView(
   checkboxWrap.appendChild(iconWrap);
 
   // unchecked icon
-  const uncheckedSvg = document.createElementNS(
-    'http://www.w3.org/2000/svg',
-    'svg',
-  );
+  const uncheckedSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   uncheckedSvg.setAttribute('viewBox', '0 0 16 16');
   uncheckedSvg.setAttribute('width', '16');
   uncheckedSvg.setAttribute('height', '16');
@@ -104,10 +97,7 @@ export function taskItemNodeView(
           `;
 
   // checked icon
-  const checkedSvg = document.createElementNS(
-    'http://www.w3.org/2000/svg',
-    'svg',
-  );
+  const checkedSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   checkedSvg.setAttribute('viewBox', '0 0 16 16');
   checkedSvg.setAttribute('width', '16');
   checkedSvg.setAttribute('height', '16');
@@ -151,8 +141,7 @@ export function taskItemNodeView(
             white-space: nowrap;
             max-width: calc(100% - 50px);
           `;
-  placeholder.textContent =
-    "Type your action, then '@' if you want to notify someone about it.";
+  placeholder.textContent = "Type your action, then '@' if you want to notify someone about it.";
   placeholder.contentEditable = 'false';
   placeholder.className = 'placeholder-node-view';
   main.appendChild(placeholder);

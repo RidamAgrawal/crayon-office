@@ -1,5 +1,11 @@
 import { Router, Response } from 'express';
-import { type SpaceType, type WorkType, type StatusCategory, Prisma, Priority } from '@prisma/client';
+import {
+  type SpaceType,
+  type WorkType,
+  type StatusCategory,
+  Prisma,
+  Priority,
+} from '@prisma/client';
 import { prisma } from '../lib/prisma';
 import { requireAuth, AuthRequest } from '../auth/auth.middleware';
 import { defaultViewsByTemplate, getSpaceForMember } from './space.utilities';
@@ -27,16 +33,12 @@ router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
 
     // Key must be 2-6 uppercase alphanumeric characters
     if (!/^[A-Z0-9]{2,6}$/.test(key)) {
-      return res
-        .status(400)
-        .json({ error: 'key must be 2-6 uppercase alphanumeric characters' });
+      return res.status(400).json({ error: 'key must be 2-6 uppercase alphanumeric characters' });
     }
 
     const existing = await prisma.space.findUnique({ where: { key } });
     if (existing) {
-      return res
-        .status(409)
-        .json({ error: 'A space with this key already exists' });
+      return res.status(409).json({ error: 'A space with this key already exists' });
     }
 
     const [space] = await prisma.$transaction([
@@ -132,153 +134,135 @@ router.get('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   }
 });
 
-router.get(
-  '/:id/statuses',
-  requireAuth,
-  async (req: AuthRequest, res: Response) => {
-    try {
-      const space = await getSpaceForMember(req.params.id, req.userId!, res);
-      if (!space) return;
-      const statuses = await prisma.status.findMany({
-        where: { spaceId: req.params.id },
-        orderBy: { order: 'asc' },
-      });
-      return res.json(statuses);
-    } catch (err) {
-      return res.status(500).json({ error: 'Failed to get statuses' });
-    }
-  },
-);
+router.get('/:id/statuses', requireAuth, async (req: AuthRequest, res: Response) => {
+  try {
+    const space = await getSpaceForMember(req.params.id, req.userId!, res);
+    if (!space) return;
+    const statuses = await prisma.status.findMany({
+      where: { spaceId: req.params.id },
+      orderBy: { order: 'asc' },
+    });
+    return res.json(statuses);
+  } catch (err) {
+    return res.status(500).json({ error: 'Failed to get statuses' });
+  }
+});
 
-router.get(
-  '/:id/issues',
-  requireAuth,
-  async (req: AuthRequest, res: Response) => {
-    try {
-      const space = await getSpaceForMember(req.params.id, req.userId!, res);
-      if (!space) return;
+router.get('/:id/issues', requireAuth, async (req: AuthRequest, res: Response) => {
+  try {
+    const space = await getSpaceForMember(req.params.id, req.userId!, res);
+    if (!space) return;
 
-      const { status, assignee } = req.query as Record<string, string>;
-      const where: any = { spaceId: req.params.id };
-      if (status) where.statusId = status;
-      if (assignee) where.assigneeId = assignee;
+    const { status, assignee } = req.query as Record<string, string>;
+    const where: any = { spaceId: req.params.id };
+    if (status) where.statusId = status;
+    if (assignee) where.assigneeId = assignee;
 
-      const issues = await prisma.workItem.findMany({
-        where,
-        orderBy: { rank: 'asc' }, // lexorank → cards stay in drag order
-        include: {
-          status: true,
-          assignee: {
-            select: { id: true, displayName: true, avatarUrl: true },
-          },
+    const issues = await prisma.workItem.findMany({
+      where,
+      orderBy: { rank: 'asc' }, // lexorank → cards stay in drag order
+      include: {
+        status: true,
+        assignee: {
+          select: { id: true, displayName: true, avatarUrl: true },
         },
-      });
-      return res.json(issues);
-    } catch (err) {
-      return res.status(500).json({ error: 'Failed to get issues' });
-    }
-  },
-);
+      },
+    });
+    return res.json(issues);
+  } catch (err) {
+    return res.status(500).json({ error: 'Failed to get issues' });
+  }
+});
 
-router.post(
-  '/:id/issues',
-  requireAuth,
-  async (req: AuthRequest, res: Response) => {
-    try {
-      const space = await getSpaceForMember(req.params.id, req.userId!, res);
-      if (!space) return;
+router.post('/:id/issues', requireAuth, async (req: AuthRequest, res: Response) => {
+  try {
+    const space = await getSpaceForMember(req.params.id, req.userId!, res);
+    if (!space) return;
 
-      const {
-        summary,
+    const {
+      summary,
+      statusId,
+      workType = 'TASK',
+      description,
+      dueDate,
+    } = req.body as {
+      summary: string;
+      statusId: string;
+      workType?: string;
+      description?: string;
+      dueDate?: string | null;
+    };
+    if (!summary?.trim()) return res.status(400).json({ error: 'summary is required' });
+
+    // Atomically bump counter to generate DS-1, DS-2 …
+    const updated = await prisma.space.update({
+      where: { id: req.params.id },
+      data: { counter: { increment: 1 } },
+      select: { key: true, counter: true },
+    });
+
+    const issue = await prisma.workItem.create({
+      data: {
+        key: `${updated.key}-${updated.counter}`,
+        summary: summary.trim(),
+        spaceId: req.params.id,
         statusId,
-        workType = 'TASK',
+        reporterId: req.userId!,
+        workType: workType as WorkType,
         description,
-        dueDate
-      } = req.body as {
-        summary: string;
-        statusId: string;
-        workType?: string;
-        description?: string;
-        dueDate?: string | null;
-      };
-      if (!summary?.trim())
-        return res.status(400).json({ error: 'summary is required' });
-
-      // Atomically bump counter to generate DS-1, DS-2 …
-      const updated = await prisma.space.update({
-        where: { id: req.params.id },
-        data: { counter: { increment: 1 } },
-        select: { key: true, counter: true },
-      });
-
-      const issue = await prisma.workItem.create({
-        data: {
-          key: `${updated.key}-${updated.counter}`,
-          summary: summary.trim(),
-          spaceId: req.params.id,
-          statusId,
-          reporterId: req.userId!,
-          workType: workType as WorkType,
-          description,
-          rank: String(Date.now()),
-          ...(dueDate && { dueDate: new Date(dueDate) })
+        rank: String(Date.now()),
+        ...(dueDate && { dueDate: new Date(dueDate) }),
+      },
+      include: {
+        status: true,
+        assignee: {
+          select: { id: true, displayName: true, avatarUrl: true },
         },
-        include: {
-          status: true,
-          assignee: {
-            select: { id: true, displayName: true, avatarUrl: true, }
-          }
-        }
-      });
-      return res.status(201).json(issue);
-    } catch (err) {
-      return res.status(500).json({ error: 'Failed to create issue' });
-    }
-  },
-);
+      },
+    });
+    return res.status(201).json(issue);
+  } catch (err) {
+    return res.status(500).json({ error: 'Failed to create issue' });
+  }
+});
 
-router.post(
-  '/:id/statuses',
-  requireAuth,
-  async (req: AuthRequest, res: Response) => {
-    try {
-      const space = await getSpaceForMember(req.params.id, req.userId!, res);
-      if (!space) return;
+router.post('/:id/statuses', requireAuth, async (req: AuthRequest, res: Response) => {
+  try {
+    const space = await getSpaceForMember(req.params.id, req.userId!, res);
+    if (!space) return;
 
-      const { name, label, backgroundColor, category } = req.body as {
-        name: string;
-        label: string;
-        backgroundColor: string;
-        category: string;
-      };
-      if (!name?.trim() || !label?.trim() || !backgroundColor?.trim())
-        return res
-          .status(400)
-          .json({ error: 'name, label, and backgroundColor are required' });
+    const { name, label, backgroundColor, category } = req.body as {
+      name: string;
+      label: string;
+      backgroundColor: string;
+      category: string;
+    };
+    if (!name?.trim() || !label?.trim() || !backgroundColor?.trim())
+      return res.status(400).json({ error: 'name, label, and backgroundColor are required' });
 
-      const last = await prisma.status.findFirst({
-        where: { spaceId: req.params.id },
-        orderBy: { order: 'desc' },
-        select: { order: true },
-      });
+    const last = await prisma.status.findFirst({
+      where: { spaceId: req.params.id },
+      orderBy: { order: 'desc' },
+      select: { order: true },
+    });
 
-      const status = await prisma.status.create({
-        data: {
-          spaceId: req.params.id,
-          name: name.trim(),
-          label: label.trim(),
-          backgroundColor: backgroundColor.trim(),
-          category: (category ?? 'TODO') as StatusCategory,
-          order: (last?.order ?? -1) + 1,
-        },
-      });
-      return res.status(201).json(status);
-    } catch (err) {
-      if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') return res.status(409).json({ error: 'A status with this name already exists' });
-      return res.status(500).json({ error: 'Failed to create status' });
-    }
-  },
-);
+    const status = await prisma.status.create({
+      data: {
+        spaceId: req.params.id,
+        name: name.trim(),
+        label: label.trim(),
+        backgroundColor: backgroundColor.trim(),
+        category: (category ?? 'TODO') as StatusCategory,
+        order: (last?.order ?? -1) + 1,
+      },
+    });
+    return res.status(201).json(status);
+  } catch (err) {
+    if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002')
+      return res.status(409).json({ error: 'A status with this name already exists' });
+    return res.status(500).json({ error: 'Failed to create status' });
+  }
+});
 
 router.patch('/:id/issues/:issueId', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
@@ -286,8 +270,12 @@ router.patch('/:id/issues/:issueId', requireAuth, async (req: AuthRequest, res: 
     if (!space) return;
 
     const { summary, statusId, rank, assigneeId, description, priority } = req.body as {
-      summary?: string; statusId?: string; rank?: string;
-      assigneeId?: string | null; description?: string; priority?: string;
+      summary?: string;
+      statusId?: string;
+      rank?: string;
+      assigneeId?: string | null;
+      description?: string;
+      priority?: string;
     };
 
     // Confirm the issue belongs to this space — prevents cross-space mutation
@@ -318,9 +306,7 @@ router.patch('/:id/statuses/reorder', requireAuth, async (req, res) => {
   try {
     const { orderedIds } = req.body as { orderedIds: string[] };
     await prisma.$transaction(
-      orderedIds.map((id, order) =>
-        prisma.status.update({ where: { id }, data: { order } })
-      )
+      orderedIds.map((id, order) => prisma.status.update({ where: { id }, data: { order } })),
     );
     return res.status(204).end();
   } catch {
@@ -334,7 +320,10 @@ router.patch('/:id/statuses/:statusId', requireAuth, async (req, res) => {
     if (!space) return;
 
     const { name, label, backgroundColor, category } = req.body as {
-      name?: string; label?: string; backgroundColor?: string; category?: string;
+      name?: string;
+      label?: string;
+      backgroundColor?: string;
+      category?: string;
     };
 
     const updated = await prisma.status.update({

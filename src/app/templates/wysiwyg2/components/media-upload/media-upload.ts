@@ -55,9 +55,7 @@ export class MediaUpload {
   }
 
   protected onInsertUrlImage() {
-    this.editorCommandService.insertImage(
-      this.imagePreviewService.imgPreviewLink(),
-    );
+    this.editorCommandService.insertImage(this.imagePreviewService.imgPreviewLink());
     this.imagePreviewService.resetUploadImageLinkState();
     this.overlayService.close();
   }

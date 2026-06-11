@@ -24,7 +24,7 @@ export class SessionLockComponent {
     const name = this.user?.displayName ?? '';
     return name
       .split(' ')
-      .map(p => p[0])
+      .map((p) => p[0])
       .join('')
       .toUpperCase()
       .slice(0, 2);

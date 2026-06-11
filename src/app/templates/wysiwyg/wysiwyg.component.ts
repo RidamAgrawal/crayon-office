@@ -42,10 +42,9 @@ export class WysiwygEditorComponent implements AfterViewInit, OnDestroy {
   private readonly colorPickerTemplate = viewChild('colorPickerTemplate', {
     read: TemplateRef,
   });
-  private readonly uploadMultiMediaTemplate = viewChild(
-    'uploadMultiMediaTemplate',
-    { read: TemplateRef },
-  );
+  private readonly uploadMultiMediaTemplate = viewChild('uploadMultiMediaTemplate', {
+    read: TemplateRef,
+  });
 
   protected readonly imgPreviewLink = signal<string>('');
 
@@ -68,12 +67,7 @@ export class WysiwygEditorComponent implements AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.httpService.getWysiwygEditorConfig().subscribe((res) => {
-      const {
-        textFormatOptions,
-        textStyleOptions,
-        listsOptions,
-        colorPickerOptions,
-      } = res;
+      const { textFormatOptions, textStyleOptions, listsOptions, colorPickerOptions } = res;
       this.colorPallettes = colorPickerOptions;
       this.textFormatOptions = textFormatOptions;
       this.textStyleOptions = textStyleOptions;
@@ -135,9 +129,7 @@ export class WysiwygEditorComponent implements AfterViewInit, OnDestroy {
     newP.innerHTML = '<br>';
 
     // Find the current block element the cursor lives in
-    const currentBlock = this.editorSelectionService.findBlockElement(
-      range.startContainer,
-    );
+    const currentBlock = this.editorSelectionService.findBlockElement(range.startContainer);
 
     if (currentBlock && editorEl.contains(currentBlock)) {
       // If the cursor is in the middle of a block, move trailing content
@@ -148,10 +140,7 @@ export class WysiwygEditorComponent implements AfterViewInit, OnDestroy {
       const trailingContent = trailingRange.extractContents();
 
       // Only use trailing content if it has real content
-      if (
-        trailingContent.textContent?.trim() ||
-        trailingContent.querySelector('*')
-      ) {
+      if (trailingContent.textContent?.trim() || trailingContent.querySelector('*')) {
         newP.innerHTML = '';
         newP.appendChild(trailingContent);
       }
@@ -267,15 +256,12 @@ export class WysiwygEditorComponent implements AfterViewInit, OnDestroy {
       template: ref!(),
       viewContainerRef: this.viewContainerRef,
       connectedTo: new ElementRef(elementRef),
-      positions: [
-        FLOAT_TOP_POSITION,
-        FLOAT_BOTTOM_POSITION,
-      ],
+      positions: [FLOAT_TOP_POSITION, FLOAT_BOTTOM_POSITION],
       beforeCloseCallback: () => {
         this.closeOverlay();
-      }
+      },
     });
-    
+
     overlayRef._outsidePointerEvents.subscribe((mouseEvent: MouseEvent) => {
       console.log(mouseEvent);
       this.closeOverlay();
@@ -289,9 +275,7 @@ export class WysiwygEditorComponent implements AfterViewInit, OnDestroy {
     if (!ctx) return;
 
     const { selection, range } = ctx;
-    const block = this.editorSelectionService.findBlockElement(
-      range.startContainer,
-    );
+    const block = this.editorSelectionService.findBlockElement(range.startContainer);
     const newBlock = document.createElement(tag);
 
     if (!block) {
@@ -321,14 +305,8 @@ export class WysiwygEditorComponent implements AfterViewInit, OnDestroy {
     const { selection, range } = ctx;
     if (range.collapsed) return;
 
-    const startAncestor = this.editorSelectionService.findAncestor(
-      range.startContainer,
-      tag,
-    );
-    const endAncestor = this.editorSelectionService.findAncestor(
-      range.endContainer,
-      tag,
-    );
+    const startAncestor = this.editorSelectionService.findAncestor(range.startContainer, tag);
+    const endAncestor = this.editorSelectionService.findAncestor(range.endContainer, tag);
 
     // Fully inside same formatting → UNWRAP
     if (startAncestor && startAncestor === endAncestor) {
@@ -370,9 +348,7 @@ export class WysiwygEditorComponent implements AfterViewInit, OnDestroy {
     if (!ctx) return;
 
     const { selection, range } = ctx;
-    const block = this.editorSelectionService.findBlockElement(
-      range.startContainer,
-    );
+    const block = this.editorSelectionService.findBlockElement(range.startContainer);
     const newListBlock = document.createElement(tag);
     const listItem = document.createElement('li');
 
@@ -457,11 +433,7 @@ export class WysiwygEditorComponent implements AfterViewInit, OnDestroy {
    * Before:  <span style="color:#f00">AAA [BBB] CCC</span>
    * After:   <span style="color:#f00">AAA </span>BBB<span style="color:#f00"> CCC</span>
    */
-  private splitColoredElement(
-    ancestor: HTMLElement,
-    range: Range,
-    selection: Selection,
-  ) {
+  private splitColoredElement(ancestor: HTMLElement, range: Range, selection: Selection) {
     const parent = ancestor.parentNode;
     if (!parent) return;
 
@@ -480,8 +452,7 @@ export class WysiwygEditorComponent implements AfterViewInit, OnDestroy {
 
     // 3. Whatever remains inside `ancestor` is the "before" content.
     //    Remove the ancestor entirely if it's now empty.
-    const hasBeforeContent =
-      ancestor.textContent?.trim() || ancestor.querySelector('*');
+    const hasBeforeContent = ancestor.textContent?.trim() || ancestor.querySelector('*');
     if (!hasBeforeContent) {
       parent.removeChild(ancestor);
     }
@@ -490,8 +461,7 @@ export class WysiwygEditorComponent implements AfterViewInit, OnDestroy {
     parent.insertBefore(selectedContent, insertionRef);
 
     // 5. Insert an "after" coloured span if there was trailing content
-    const hasAfterContent =
-      afterContent.textContent?.trim() || afterContent.querySelector('*');
+    const hasAfterContent = afterContent.textContent?.trim() || afterContent.querySelector('*');
     if (hasAfterContent) {
       const afterSpan = ancestor.cloneNode(false) as HTMLElement;
       afterSpan.appendChild(afterContent);
@@ -519,10 +489,7 @@ export class WysiwygEditorComponent implements AfterViewInit, OnDestroy {
     // Restore cursor to end of the paragraph
     const newRange = document.createRange();
     if (p.lastChild) {
-      newRange.setStart(
-        p.lastChild,
-        Math.min(cursorOffset, p.lastChild.textContent?.length ?? 0),
-      );
+      newRange.setStart(p.lastChild, Math.min(cursorOffset, p.lastChild.textContent?.length ?? 0));
       newRange.collapse(true);
     } else {
       newRange.setStart(p, 0);
@@ -604,18 +571,19 @@ export class WysiwygEditorComponent implements AfterViewInit, OnDestroy {
   }
 
   protected onCaptureClick(videoElement: HTMLVideoElement) {
-    this.editorImageService.onCaptureClick(videoElement)
-    .then((dataUrl) => {
-      if (!dataUrl) return;
-      const imgHtml = `<img src="${dataUrl}" alt="${dataUrl}" style="max-width:100%;height:auto;" />`;
-      this.editorSelectionService.insertHTML(imgHtml);
-      this.emitValue();
-      this.closeOverlay();
-    })
-    .catch((err) => {
-      console.error('[WYSIWYG] Failed to capture image:', err);
-      alert('Failed to capture the image. Please try again.');
-    })
+    this.editorImageService
+      .onCaptureClick(videoElement)
+      .then((dataUrl) => {
+        if (!dataUrl) return;
+        const imgHtml = `<img src="${dataUrl}" alt="${dataUrl}" style="max-width:100%;height:auto;" />`;
+        this.editorSelectionService.insertHTML(imgHtml);
+        this.emitValue();
+        this.closeOverlay();
+      })
+      .catch((err) => {
+        console.error('[WYSIWYG] Failed to capture image:', err);
+        alert('Failed to capture the image. Please try again.');
+      });
   }
 
   protected onCaptureCancelClick() {

@@ -1,7 +1,7 @@
 <label for="" class="field-label">
-    {{ label() }}
-    @if(isMandatory()) {
+  {{ label() }}
+  @if (isMandatory()) {
     <span class="red-asterisk">*</span>
-    }
+  }
 </label>
 <app-multi-select [config]="optionsConfig()" (focusOut)="markAsTouched()"></app-multi-select>

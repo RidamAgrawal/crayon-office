@@ -235,8 +235,7 @@ export function mediaSingleNodeView(
         tooltip.style.display = 'none';
 
         // Restore handle colors
-        const { thumb, track } =
-          dir === 'left' ? leftHandle : rightHandle;
+        const { thumb, track } = dir === 'left' ? leftHandle : rightHandle;
         thumb.style.background = 'transparent';
         track.style.background = 'transparent';
 
@@ -361,8 +360,7 @@ function buildImageToolbar(
 
   const sep = () => {
     const d = document.createElement('div');
-    d.style.cssText =
-      'width:1px; height:20px; background:#DFE1E6; margin:0 4px; flex-shrink:0;';
+    d.style.cssText = 'width:1px; height:20px; background:#DFE1E6; margin:0 4px; flex-shrink:0;';
     return d;
   };
 
@@ -404,11 +402,7 @@ function buildImageToolbar(
     return btn;
   };
 
-  const makeTextBtn = (
-    label: string,
-    onClick: () => void,
-    danger = false,
-  ): HTMLButtonElement => {
+  const makeTextBtn = (label: string, onClick: () => void, danger = false): HTMLButtonElement => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.textContent = label;
@@ -493,7 +487,9 @@ function buildImageToolbar(
     `<path d="M6.5 9.5l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
      <path d="M8.414 11.414l-1.243 1.243a3 3 0 0 1-4.242-4.243L4.172 7.17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
      <path d="M7.586 4.586l1.242-1.243a3 3 0 0 1 4.243 4.243L11.828 8.83" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`,
-    () => { /* future: link dialog */ },
+    () => {
+      /* future: link dialog */
+    },
   );
 
   // ── Edit alt text button + inline popover ─────────────────────
@@ -573,8 +569,14 @@ function buildImageToolbar(
       commit();
     });
     input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') { e.preventDefault(); commit(); }
-      if (e.key === 'Escape') { popup.remove(); altEditing = false; }
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        commit();
+      }
+      if (e.key === 'Escape') {
+        popup.remove();
+        altEditing = false;
+      }
       e.stopPropagation();
     });
 

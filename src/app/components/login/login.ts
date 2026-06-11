@@ -17,7 +17,12 @@ export class Login implements OnInit {
 
   ngOnInit() {
     const mode = this.route.snapshot.data[0];
-    const component = mode === 'login' ? LoginModalComponent : mode === 'signup' ? SignupModal : ResetPasswordComponent;
+    const component =
+      mode === 'login'
+        ? LoginModalComponent
+        : mode === 'signup'
+          ? SignupModal
+          : ResetPasswordComponent;
 
     this.overlayService.open({
       component,

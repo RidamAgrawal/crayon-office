@@ -35,15 +35,17 @@ export class IdleService {
         fromEvent(document, 'touchstart'),
       ).pipe(debounceTime(ACTIVITY_DEBOUNCE_MS));
 
-      this.subscription = activity$.pipe(
-        switchMap(() => {
-          this.touchActivity();
-          return timer(IDLE_TIMEOUT_MS);
-        }),
-      ).subscribe(() => {
-        this._isIdle = true;
-        this.zone.run(() => this.idleSubject.next());
-      });
+      this.subscription = activity$
+        .pipe(
+          switchMap(() => {
+            this.touchActivity();
+            return timer(IDLE_TIMEOUT_MS);
+          }),
+        )
+        .subscribe(() => {
+          this._isIdle = true;
+          this.zone.run(() => this.idleSubject.next());
+        });
 
       // Also kick off the initial timer (no activity needed to start counting)
       this.subscription.add(

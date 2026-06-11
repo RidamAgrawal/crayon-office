@@ -8,20 +8,20 @@ A feature-rich **Jira-inspired project management tool** built with **Angular 20
 
 ## ✨ Features
 
-| Feature | Status |
-|---|---|
-| 🔐 User account creation & landing page | ✅ |
-| 📊 Dashboard with sidebar navigation | ✅ |
-| 🏠 Dashboard Home & Recent views | ✅ |
-| 📝 Rich-text WYSIWYG editor (ProseMirror) | ✅ |
-| 🎨 Color picker for text styling | ✅ |
-| 😄 Emoji picker with search & skin tones | ✅ |
-| 📷 Image upload, link preview & camera capture | ✅ |
-| 📋 Task lists, bullet/ordered lists, code blocks | ✅ |
-| 🔍 Dashboard search bar | ✅ |
-| 🧩 Drag-and-drop support (CDK) | ✅ |
-| 🎫 Full ticket management workflow | 🚧 |
-| 👥 Team collaboration features | 🚧 |
+| Feature                                          | Status |
+| ------------------------------------------------ | ------ |
+| 🔐 User account creation & landing page          | ✅     |
+| 📊 Dashboard with sidebar navigation             | ✅     |
+| 🏠 Dashboard Home & Recent views                 | ✅     |
+| 📝 Rich-text WYSIWYG editor (ProseMirror)        | ✅     |
+| 🎨 Color picker for text styling                 | ✅     |
+| 😄 Emoji picker with search & skin tones         | ✅     |
+| 📷 Image upload, link preview & camera capture   | ✅     |
+| 📋 Task lists, bullet/ordered lists, code blocks | ✅     |
+| 🔍 Dashboard search bar                          | ✅     |
+| 🧩 Drag-and-drop support (CDK)                   | ✅     |
+| 🎫 Full ticket management workflow               | 🚧     |
+| 👥 Team collaboration features                   | 🚧     |
 
 ---
 

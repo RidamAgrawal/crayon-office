@@ -19,7 +19,7 @@ export class WorkItemModalTextFieldWrapperComponent implements ControlValueAcces
   public label = input.required<string>();
   public isMandatory = input<boolean>();
   public placeholder = input<string>();
-  public textFieldValidatorFn = input<(val:string) => ValidationErrors | null>();
+  public textFieldValidatorFn = input<(val: string) => ValidationErrors | null>();
 
   public val = model<string>('');
 

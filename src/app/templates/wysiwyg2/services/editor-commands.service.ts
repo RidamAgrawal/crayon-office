@@ -3,7 +3,19 @@ import { lift, setBlockType, toggleMark, wrapIn } from 'prosemirror-commands';
 import { redo, undo } from 'prosemirror-history';
 import { liftListItem, wrapInList } from 'prosemirror-schema-list';
 import { EditorViewService } from './';
-import { addRowBefore, addRowAfter, deleteRow, addColumnBefore, addColumnAfter, deleteColumn, deleteTable, toggleHeaderRow, setCellAttr, mergeCells, splitCell } from 'prosemirror-tables';
+import {
+  addRowBefore,
+  addRowAfter,
+  deleteRow,
+  addColumnBefore,
+  addColumnAfter,
+  deleteColumn,
+  deleteTable,
+  toggleHeaderRow,
+  setCellAttr,
+  mergeCells,
+  splitCell,
+} from 'prosemirror-tables';
 
 @Injectable({
   providedIn: 'any',
@@ -15,66 +27,39 @@ export class EditorCommandsService {
   private readonly view = this.editorViewService.view;
 
   public toggleBold() {
-    toggleMark(this.schema().marks['strong'])(
-      this.view().state,
-      this.view().dispatch,
-    );
+    toggleMark(this.schema().marks['strong'])(this.view().state, this.view().dispatch);
   }
 
   public toggleItalic() {
-    toggleMark(this.schema().marks['em'])(
-      this.view().state,
-      this.view().dispatch,
-    );
+    toggleMark(this.schema().marks['em'])(this.view().state, this.view().dispatch);
   }
 
   public toggleUnderline() {
-    toggleMark(this.schema().marks['u'])(
-      this.view().state,
-      this.view().dispatch,
-    );
+    toggleMark(this.schema().marks['u'])(this.view().state, this.view().dispatch);
   }
 
   public toggleOverline() {
-    toggleMark(this.schema().marks['o'])(
-      this.view().state,
-      this.view().dispatch,
-    );
+    toggleMark(this.schema().marks['o'])(this.view().state, this.view().dispatch);
   }
 
   public toggleUnderlineSquiggle() {
-    toggleMark(this.schema().marks['us'])(
-      this.view().state,
-      this.view().dispatch,
-    );
+    toggleMark(this.schema().marks['us'])(this.view().state, this.view().dispatch);
   }
 
   public toggleStrikethrough() {
-    toggleMark(this.schema().marks['s'])(
-      this.view().state,
-      this.view().dispatch,
-    );
+    toggleMark(this.schema().marks['s'])(this.view().state, this.view().dispatch);
   }
 
   public toggleSubscript() {
-    toggleMark(this.schema().marks['sub'])(
-      this.view().state,
-      this.view().dispatch,
-    );
+    toggleMark(this.schema().marks['sub'])(this.view().state, this.view().dispatch);
   }
 
   public toggleSuperscript() {
-    toggleMark(this.schema().marks['sup'])(
-      this.view().state,
-      this.view().dispatch,
-    );
+    toggleMark(this.schema().marks['sup'])(this.view().state, this.view().dispatch);
   }
 
   public toggleCode() {
-    toggleMark(this.schema().marks['code'])(
-      this.view().state,
-      this.view().dispatch,
-    );
+    toggleMark(this.schema().marks['code'])(this.view().state, this.view().dispatch);
   }
 
   public setHeading(level: number) {
@@ -85,10 +70,7 @@ export class EditorCommandsService {
   }
 
   public setParagraph() {
-    setBlockType(this.schema().nodes['paragraph'])(
-      this.view().state,
-      this.view().dispatch,
-    );
+    setBlockType(this.schema().nodes['paragraph'])(this.view().state, this.view().dispatch);
   }
 
   public toggleBulletList() {
@@ -141,9 +123,9 @@ export class EditorCommandsService {
     const { $from } = state.selection;
 
     // Check if already inside an expand at any depth
-    const insideExpand = Array.from({ length: $from.depth }, (_, i) =>
-      $from.node(i + 1),
-    ).some((n) => n.type === expandType);
+    const insideExpand = Array.from({ length: $from.depth }, (_, i) => $from.node(i + 1)).some(
+      (n) => n.type === expandType,
+    );
 
     if (insideExpand) {
       // Lift out of the expand
@@ -162,9 +144,9 @@ export class EditorCommandsService {
 
     // If already inside a panel, lift out
     const { $from } = state.selection;
-    const insidePanel = Array.from({ length: $from.depth }, (_, i) =>
-      $from.node(i + 1),
-    ).some((n) => n.type === panelNodeType);
+    const insidePanel = Array.from({ length: $from.depth }, (_, i) => $from.node(i + 1)).some(
+      (n) => n.type === panelNodeType,
+    );
 
     if (insidePanel) {
       lift(state, dispatch);

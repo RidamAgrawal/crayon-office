@@ -2,11 +2,7 @@ import { Node } from 'prosemirror-model';
 import { CellSelection } from 'prosemirror-tables';
 import { EditorView } from 'prosemirror-view';
 
-export function tableCellNodeView(
-  node: Node,
-  view: EditorView,
-  getPos: () => number | undefined,
-) {
+export function tableCellNodeView(node: Node, view: EditorView, getPos: () => number | undefined) {
   return buildCellNodeView(node, view, getPos, 'td');
 }
 export function tableHeaderNodeView(
@@ -28,9 +24,7 @@ function buildCellNodeView(
 
   const cell = document.createElement(tag);
   // Add Confluence-style class names
-  cell.className = isHeader
-    ? 'pm-table-header-content-wrap'
-    : 'pm-table-cell-content-wrap';
+  cell.className = isHeader ? 'pm-table-header-content-wrap' : 'pm-table-cell-content-wrap';
   cell.style.cssText = `
     border: 1px solid #DFE1E6;
     padding: 8px;
@@ -304,8 +298,7 @@ function buildCellNodeView(
     update(updatedNode: Node) {
       if (updatedNode.type !== nodeType) return false;
       const bg = updatedNode.attrs['background'];
-      cell.style.backgroundColor =
-        bg || (isHeader ? '#F1F2F4' : 'transparent');
+      cell.style.backgroundColor = bg || (isHeader ? '#F1F2F4' : 'transparent');
       return true;
     },
   };

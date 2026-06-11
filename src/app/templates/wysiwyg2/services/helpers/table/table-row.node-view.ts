@@ -1,11 +1,7 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView, ViewMutationRecord } from 'prosemirror-view';
 
-export function tableRowNodeView(
-  node: PMNode,
-  view: EditorView,
-  getPos: () => number | undefined,
-) {
+export function tableRowNodeView(node: PMNode, view: EditorView, getPos: () => number | undefined) {
   const nodeType = node.type;
   let currentHeight: number = node.attrs['height'] || 0;
 

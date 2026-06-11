@@ -103,9 +103,7 @@ export class WysiwygEditorImage2Service {
     // 1. MIME type check
     const mimeOk =
       file.type.startsWith('image/') &&
-      WysiwygEditorImage2Service.VALID_IMAGE_MIME_PREFIXES.some(
-        (prefix) => file.type === prefix,
-      );
+      WysiwygEditorImage2Service.VALID_IMAGE_MIME_PREFIXES.some((prefix) => file.type === prefix);
 
     // 2. Extension check
     const ext = file.name.split('.').pop()?.toLowerCase() ?? '';
@@ -114,7 +112,7 @@ export class WysiwygEditorImage2Service {
     if (!mimeOk && !extOk) {
       return {
         valid: false,
-        error: `Unsupported file type "${file.type || ext}". Allowed: ${[...WysiwygEditorImage2Service.VALID_IMAGE_EXTENSIONS].join(', ')}.`, 
+        error: `Unsupported file type "${file.type || ext}". Allowed: ${[...WysiwygEditorImage2Service.VALID_IMAGE_EXTENSIONS].join(', ')}.`,
       };
     }
 
@@ -177,7 +175,7 @@ export class WysiwygEditorImage2Service {
 
       this.closeStream = () => {
         stream.getTracks().forEach((track) => track.stop());
-      }
+      };
 
       await new Promise((resolve) => {
         videoElement.onloadedmetadata = () => {

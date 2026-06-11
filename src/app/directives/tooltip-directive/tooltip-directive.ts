@@ -1,4 +1,12 @@
-import { Directive, ElementRef, HostListener, Input, Optional, Self, SkipSelf } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostListener,
+  Input,
+  Optional,
+  Self,
+  SkipSelf,
+} from '@angular/core';
 import { MatTooltip } from '@angular/material/tooltip';
 export interface AppTooltipConfig {
   text?: string;
@@ -23,7 +31,7 @@ export interface AppTooltipConfig {
   ],
 })
 export class TooltipDirective {
-  @Input('appTooltipDirective') 
+  @Input('appTooltipDirective')
   set tooltipConfig(value: AppTooltipConfig | string | null) {
     if (!value) {
       this.matTooltip.disabled = true;
@@ -60,7 +68,7 @@ export class TooltipDirective {
   constructor(
     private elementRef: ElementRef<HTMLElement>,
     private matTooltip: MatTooltip,
-    @Optional() @SkipSelf() private parentTooltip?: TooltipDirective
+    @Optional() @SkipSelf() private parentTooltip?: TooltipDirective,
   ) {}
 
   ngAfterViewInit() {
@@ -69,13 +77,13 @@ export class TooltipDirective {
 
   private syncDisabledState() {
     const nativeEl = this.elementRef.nativeElement as HTMLButtonElement;
-    if(nativeEl.hasOwnProperty('disabled')) {
+    if (nativeEl.hasOwnProperty('disabled')) {
       this.matTooltip.disabled = nativeEl.disabled;
     }
   }
 
   hideFromChild() {
-    if(this.parentTooltipDisabledByChild) return;
+    if (this.parentTooltipDisabledByChild) return;
     if (!this.matTooltip.disabled) {
       this.parentTooltipDisabledByChild = true;
       queueMicrotask(() => {

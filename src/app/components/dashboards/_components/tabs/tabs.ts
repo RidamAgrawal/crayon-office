@@ -2,8 +2,8 @@
 // import { Component, ContentChildren, Input, QueryList, signal, TemplateRef, WritableSignal } from '@angular/core';
 
 export interface TabsConfig {
-  headings: Array<string | TemplateRef<any>>,
-  bodyPlaceholders: Array<string | TemplateRef<any>>
+  headings: Array<string | TemplateRef<any>>;
+  bodyPlaceholders: Array<string | TemplateRef<any>>;
 }
 
 // @Component({
@@ -24,7 +24,15 @@ export interface TabsConfig {
 //   }
 // }
 
-import { Component, effect, Input, signal, TemplateRef, ViewChild, WritableSignal } from '@angular/core';
+import {
+  Component,
+  effect,
+  Input,
+  signal,
+  TemplateRef,
+  ViewChild,
+  WritableSignal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TemplateDirective } from '../../../../directives/template/template-directive';
 import { TemplateService } from '../../../../services/template-service/template-service';
@@ -36,13 +44,13 @@ import { TemplateService } from '../../../../services/template-service/template-
   selector: 'app-tab',
   imports: [CommonModule, TemplateDirective],
   templateUrl: 'tabs.html',
-  styleUrl: 'tabs.scss'
+  styleUrl: 'tabs.scss',
 })
 export class TabComponent {
   @Input() config!: TabsConfig;
   currentTemplate: WritableSignal<number> = signal(0);
   @ViewChild(TemplateDirective, { static: true }) tabsDirective!: TemplateDirective;
-  
+
   constructor(private templateService: TemplateService) {
     effect(() => {
       const templateIndex = this.currentTemplate();
@@ -52,12 +60,11 @@ export class TabComponent {
         if (typeof selectedTemplate == 'string') {
           const placeholderComponent = this.templateService.templates[selectedTemplate];
           this.tabsDirective.viewContainerRef.createComponent(placeholderComponent);
-        }
-        else {
+        } else {
           this.tabsDirective.viewContainerRef.createEmbeddedView(selectedTemplate);
         }
       }
-    })
+    });
   }
 
   public isTemplateRef(element: any) {

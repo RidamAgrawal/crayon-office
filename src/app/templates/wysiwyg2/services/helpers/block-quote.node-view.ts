@@ -1,11 +1,7 @@
 import { Node } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 
-export function blockquoteNodeView(
-  node: Node,
-  view: EditorView,
-  getPos: () => number | undefined,
-) {
+export function blockquoteNodeView(node: Node, view: EditorView, getPos: () => number | undefined) {
   const nodeType = node.type;
 
   // ── Outer wrapper ──────────────────────────────────────────

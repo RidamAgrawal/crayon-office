@@ -16,12 +16,7 @@ import { gapCursor } from 'prosemirror-gapcursor';
 import { history, redo, undo } from 'prosemirror-history';
 import { inputRules } from 'prosemirror-inputrules';
 import { keymap } from 'prosemirror-keymap';
-import {
-  Schema,
-  DOMParser as ProseMirrorDOMParser,
-  DOMSerializer,
-  Node,
-} from 'prosemirror-model';
+import { Schema, DOMParser as ProseMirrorDOMParser, DOMSerializer, Node } from 'prosemirror-model';
 import { schema } from 'prosemirror-schema-basic';
 import { splitListItem } from 'prosemirror-schema-list';
 import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
@@ -35,10 +30,7 @@ import {
 } from 'prosemirror-tables';
 import 'prosemirror-tables/style/tables.css';
 import { EditorExpandTitleComponent } from '../components/editor-expand-title/editor-expand-title.component';
-import {
-  EditorPanelComponent,
-  PanelType,
-} from '../components/editor-panel/editor-panel.component';
+import { EditorPanelComponent, PanelType } from '../components/editor-panel/editor-panel.component';
 import { taskItemNodeView } from './helpers/task-item.node-view';
 import { codeBlockNodeView } from './helpers/code-block.node-view';
 import { expandNodeView } from './helpers/expand.node-view';
@@ -48,17 +40,11 @@ import { panelNodeView } from './helpers/panel.node-view';
 import { tableControlsPlugin } from './helpers/table/table-controls.plugin';
 import { tableNodeView } from './helpers/table/table.node-view';
 import { tableRowNodeView } from './helpers/table/table-row.node-view';
-import {
-  tableCellNodeView,
-  tableHeaderNodeView,
-} from './helpers/table/table-cell.node-view';
+import { tableCellNodeView, tableHeaderNodeView } from './helpers/table/table-cell.node-view';
 import { mediaSingleNodeView } from './helpers/media-single.node-view';
 
 export interface MountFn {
-  <T>(
-    component: Type<T>,
-    inputs: Partial<T>,
-  ): { element: HTMLElement; ref: ComponentRef<T> };
+  <T>(component: Type<T>, inputs: Partial<T>): { element: HTMLElement; ref: ComponentRef<T> };
 }
 
 @Injectable({
@@ -74,7 +60,11 @@ export class EditorViewService {
   // Track component refs for cleanup
   private componentRefs: ComponentRef<any>[] = [];
 
-  public createView(value: string, node: HTMLElement | null, valueChange: OutputEmitterRef<string>) {
+  public createView(
+    value: string,
+    node: HTMLElement | null,
+    valueChange: OutputEmitterRef<string>,
+  ) {
     if (!node) {
       console.warn('editor element not passed');
       return;
@@ -90,34 +80,23 @@ export class EditorViewService {
           const newState = this.view().state.apply(tr);
           this.view()?.updateState(newState);
 
-          const html = DOMSerializer.fromSchema(schema).serializeFragment(
-            newState.doc.content,
-          );
+          const html = DOMSerializer.fromSchema(schema).serializeFragment(newState.doc.content);
           valueChange.emit(html.textContent ?? '');
         },
         nodeViews: {
-          task_item: (node, view, getPos) =>
-            taskItemNodeView(node, view, getPos),
-          code_block: (node, view, getPos) =>
-            codeBlockNodeView(node, view, getPos),
+          task_item: (node, view, getPos) => taskItemNodeView(node, view, getPos),
+          code_block: (node, view, getPos) => codeBlockNodeView(node, view, getPos),
           expand: (node, view, getPos) =>
             expandNodeView(this.mountComponent.bind(this), node, view, getPos),
           panel: (node, view, getPos) =>
             panelNodeView(this.mountComponent.bind(this), node, view, getPos),
-          blockquote: (node, view, getPos) =>
-            blockquoteNodeView(node, view, getPos),
-          horizontal_rule: (node, view, getPos) =>
-            horizontalRuleNodeView(node, view, getPos),
-          table: (node, view, getPos) =>
-            tableNodeView(node, view, getPos),
-          table_row: (node, view, getPos) =>
-            tableRowNodeView(node, view, getPos),
-          table_cell: (node, view, getPos) =>
-            tableCellNodeView(node, view, getPos),
-          table_header: (node, view, getPos) =>
-            tableHeaderNodeView(node, view, getPos),
-          media_single: (node, view, getPos) =>
-            mediaSingleNodeView(node, view, getPos),
+          blockquote: (node, view, getPos) => blockquoteNodeView(node, view, getPos),
+          horizontal_rule: (node, view, getPos) => horizontalRuleNodeView(node, view, getPos),
+          table: (node, view, getPos) => tableNodeView(node, view, getPos),
+          table_row: (node, view, getPos) => tableRowNodeView(node, view, getPos),
+          table_cell: (node, view, getPos) => tableCellNodeView(node, view, getPos),
+          table_header: (node, view, getPos) => tableHeaderNodeView(node, view, getPos),
+          media_single: (node, view, getPos) => mediaSingleNodeView(node, view, getPos),
         },
       }),
     );
@@ -139,10 +118,7 @@ export class EditorViewService {
           }),
         },
       ],
-      toDOM: (node: any) => [
-        'img',
-        { src: node.attrs['src'], alt: node.attrs['alt'] || '' },
-      ],
+      toDOM: (node: any) => ['img', { src: node.attrs['src'], alt: node.attrs['alt'] || '' }],
     });
 
     // Add ordered_list, bullet_list, list_item nodes (Jira/Atlassian-style HTML)
@@ -158,8 +134,7 @@ export class EditorViewService {
               order: (el as HTMLElement).hasAttribute('start')
                 ? +(el as HTMLElement).getAttribute('start')!
                 : 1,
-              indentLevel:
-                +(el as HTMLElement).getAttribute('data-indent-level')! || 1,
+              indentLevel: +(el as HTMLElement).getAttribute('data-indent-level')! || 1,
             }),
           },
         ],
@@ -187,8 +162,7 @@ export class EditorViewService {
           {
             tag: 'ul',
             getAttrs: (el: any) => ({
-              indentLevel:
-                +(el as HTMLElement).getAttribute('data-indent-level')! || 1,
+              indentLevel: +(el as HTMLElement).getAttribute('data-indent-level')! || 1,
             }),
           },
         ],
@@ -239,12 +213,7 @@ export class EditorViewService {
         group: 'block',
         content: 'task_item+',
         parseDOM: [{ tag: 'div[data-node-type="taskList"]' }],
-        toDOM: () =>
-          [
-            'div',
-            { 'data-node-type': 'taskList', class: 'task-list' },
-            0,
-          ] as any,
+        toDOM: () => ['div', { 'data-node-type': 'taskList', class: 'task-list' }, 0] as any,
       },
       task_item: {
         content: 'paragraph block*',
@@ -349,8 +318,7 @@ export class EditorViewService {
     nodes = nodes.append({
       panel: {
         group: 'block',
-        content:
-          '(paragraph | heading | code_block | bullet_list | ordered_list | task_list)+',
+        content: '(paragraph | heading | code_block | bullet_list | ordered_list | task_list)+',
         defining: true,
         attrs: {
           panelType: { default: 'info' },
@@ -380,8 +348,7 @@ export class EditorViewService {
     nodes = nodes.append({
       blockquote: {
         group: 'block',
-        content:
-          'paragraph | bullet_list | ordered_list | task_list | code_block',
+        content: 'paragraph | bullet_list | ordered_list | task_list | code_block',
         defining: true,
         parseDOM: [{ tag: 'blockquote' }],
         toDOM: () => [
@@ -426,9 +393,7 @@ export class EditorViewService {
             getAttrs: (el: HTMLElement) => ({
               src: el.querySelector('img')?.getAttribute('src') || '',
               alt: el.querySelector('img')?.getAttribute('alt') || '',
-              width: el.getAttribute('data-width')
-                ? Number(el.getAttribute('data-width'))
-                : null,
+              width: el.getAttribute('data-width') ? Number(el.getAttribute('data-width')) : null,
               layout: el.getAttribute('data-layout') || 'center',
             }),
           },
@@ -437,17 +402,13 @@ export class EditorViewService {
           'div',
           {
             'data-node-type': 'mediaSingle',
-            'data-width':
-              node.attrs['width'] != null ? String(node.attrs['width']) : '',
+            'data-width': node.attrs['width'] != null ? String(node.attrs['width']) : '',
             'data-layout': node.attrs['layout'] || 'center',
             'data-prosemirror-content-type': 'node',
             'data-prosemirror-node-name': 'media_single',
             'data-prosemirror-node-block': 'true',
           },
-          [
-            'img',
-            { src: node.attrs['src'], alt: node.attrs['alt'] || '' },
-          ],
+          ['img', { src: node.attrs['src'], alt: node.attrs['alt'] || '' }],
         ],
       },
     });
@@ -470,8 +431,7 @@ export class EditorViewService {
             },
           },
         ],
-        toDOM: () =>
-          ['span', { style: 'text-decoration: overline' }, 0] as const,
+        toDOM: () => ['span', { style: 'text-decoration: overline' }, 0] as const,
       },
       us: {
         parseDOM: [
@@ -502,10 +462,7 @@ export class EditorViewService {
             getAttrs: (el: any) => ({ color: (el as HTMLElement).style.color }),
           },
         ],
-        toDOM: (mark: any) => [
-          'span',
-          { style: `color: ${mark.attrs['color']}` },
-        ],
+        toDOM: (mark: any) => ['span', { style: `color: ${mark.attrs['color']}` }],
       },
     });
     nodes = nodes.append({
@@ -523,9 +480,7 @@ export class EditorViewService {
           default: null,
           getFromDOM: (el) => el.style.backgroundColor || null,
           setDOMAttr: (val, attrs) => {
-            if (val)
-              attrs['style'] =
-                (attrs['style'] || '') + `background-color: ${val};`;
+            if (val) attrs['style'] = (attrs['style'] || '') + `background-color: ${val};`;
           },
         },
         rowspan: { default: 1 },
@@ -618,11 +573,7 @@ export class EditorViewService {
         const attrs: Record<string, string> = {};
         const height = node.attrs['height'];
 
-        if (
-          typeof height === 'number' &&
-          Number.isFinite(height) &&
-          height > 0
-        ) {
+        if (typeof height === 'number' && Number.isFinite(height) && height > 0) {
           attrs['data-row-height'] = String(height);
           attrs['style'] = `height: ${height}px;`;
         }
@@ -732,10 +683,7 @@ export class EditorViewService {
       color: #172B4D; display: flex; align-items: center; gap: 4px;
     `;
       btn.textContent = label;
-      btn.addEventListener(
-        'mouseenter',
-        () => (btn.style.background = '#F1F2F4'),
-      );
+      btn.addEventListener('mouseenter', () => (btn.style.background = '#F1F2F4'));
       btn.addEventListener('mouseleave', () => (btn.style.background = 'none'));
       btn.addEventListener('mousedown', (e) => {
         e.preventDefault();

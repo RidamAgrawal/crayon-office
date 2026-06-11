@@ -7,15 +7,15 @@ import { CustomizeSidebar } from '../../components/dashboards/_components/dashbo
 import { FeedbackSidebar } from '../../components/dashboards/_components/dashboards-sidebar/_components/feedback-sidebar/feedback-sidebar';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TemplateService {
-  public templates: {[x: string]: any} ={
-    'recent': DashboardRecent,
+  public templates: { [x: string]: any } = {
+    recent: DashboardRecent,
     'search-bar': DashboardSearchBar,
-    'list': Listing,
+    list: Listing,
     'jira-tab': JiraTab,
     'customize-sidebar': CustomizeSidebar,
     'feedback-sidebar': FeedbackSidebar,
-  }
+  };
 }

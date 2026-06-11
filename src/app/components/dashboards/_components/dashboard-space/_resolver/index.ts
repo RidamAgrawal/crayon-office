@@ -1,1 +1,1 @@
-export { DashboardSpaceResolver } from "./dashboard-space.resolver";
+export { DashboardSpaceResolver } from './dashboard-space.resolver';

@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './tabular-template-1.html',
   styleUrl: './tabular-template-1.scss',
 })
-export class TabularTemplate1 {
-
-}
+export class TabularTemplate1 {}

@@ -15,6 +15,6 @@ export class NavDropdown {
   @HostListener('mouseenter')
   @HostListener('mouseleave')
   showToggle() {
-    this.showPlaceholder.update(show => !show);
+    this.showPlaceholder.update((show) => !show);
   }
 }

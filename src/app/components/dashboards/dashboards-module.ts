@@ -11,7 +11,7 @@ import { IconContainer } from './_components/icon-container/icon-container';
 import { DashboardSearchBar } from './_components/dashboard-search-bar/dashboard-search-bar';
 import { ClickOutside } from '../../directives';
 import { TabComponent } from './_components/tabs/tabs';
-import { FloatingContainerDirective } from "../../directives/floating-container/floating-container";
+import { FloatingContainerDirective } from '../../directives/floating-container/floating-container';
 import { SidebarItem } from '../../templates/sidebar-item/sidebar-item';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Checkbox } from '../../templates/checkbox/checkbox';
@@ -19,11 +19,11 @@ import { DashboardsSidebar } from './_components/dashboards-sidebar/dashboards-s
 import { CustomizeSidebar } from './_components/dashboards-sidebar/_components/customize-sidebar/customize-sidebar';
 import { FeedbackSidebar } from './_components/dashboards-sidebar/_components/feedback-sidebar/feedback-sidebar';
 import { MultiSelect } from '../../templates/multi-select/multi-select';
-import { ResizableDirective } from "../../directives/resizable-directive/resizable-directive";
+import { ResizableDirective } from '../../directives/resizable-directive/resizable-directive';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MenuLinkItem } from '../../templates/menu-link-item/menu-link-item';
 import { ToggleBtn } from '../../templates/toggle-btn/toggle-btn';
-import { TooltipDirective } from "../../directives/tooltip-directive/tooltip-directive";
+import { TooltipDirective } from '../../directives/tooltip-directive/tooltip-directive';
 import { WysiwygEditorComponent } from '../../templates/wysiwyg/wysiwyg.component';
 import { Wysiwyg2 } from '../../templates/wysiwyg2/wysiwyg2';
 import { ScrollBorder } from '../../directives/scroll-border/scroll-border.directive';
@@ -32,30 +32,29 @@ import { DashboardSpaceResolver } from './_components/dashboard-space/_resolver/
 import { SpaceStoreKey } from './_components/dashboard-space/_models';
 import { dashboardSpaceReducer } from './_components/dashboard-space/_store/dashboard-space-store.reducer';
 
-const dashboardRoutes: Routes =[
+const dashboardRoutes: Routes = [
   {
-    path:'',
+    path: '',
     component: Dashboards,
     children: [
       {
         path: '',
         pathMatch: 'prefix',
-        redirectTo: 'home'
+        redirectTo: 'home',
       },
       {
         path: 'home',
-        loadComponent: ()=> import('./_components/dashboard-home/dashboard-home')
-        .then(c=>c.DashboardHome),
+        loadComponent: () =>
+          import('./_components/dashboard-home/dashboard-home').then((c) => c.DashboardHome),
       },
       {
         path: 'recent',
-        loadComponent: ()=> import('./_components/dashboard-recent/dashboard-recent')
-        .then(c=>c.DashboardRecent),
+        loadComponent: () =>
+          import('./_components/dashboard-recent/dashboard-recent').then((c) => c.DashboardRecent),
       },
       {
         path: 'spaces/:spaceId',
-        loadComponent: ()=> import('./_components/dashboard-space')
-        .then(c=>c.DashboardSpace),
+        loadComponent: () => import('./_components/dashboard-space').then((c) => c.DashboardSpace),
         providers: [provideState(SpaceStoreKey, dashboardSpaceReducer)],
         resolve: {
           spaceDetails: DashboardSpaceResolver,
@@ -64,8 +63,10 @@ const dashboardRoutes: Routes =[
           { path: '', redirectTo: 'board', pathMatch: 'full' },
           {
             path: 'board',
-            loadComponent: () => import('./_components/dashboard-space/_components/dashboard-space-board-view/dashboard-space-board-view.component')
-              .then(c => c.DashboardSpaceBoardViewComponent),
+            loadComponent: () =>
+              import('./_components/dashboard-space/_components/dashboard-space-board-view/dashboard-space-board-view.component').then(
+                (c) => c.DashboardSpaceBoardViewComponent,
+              ),
           },
           // {
           //   path: 'calendar',
@@ -73,13 +74,20 @@ const dashboardRoutes: Routes =[
           //     .then(c => c.DashboardSpaceCalendarViewComponent),
           // },
         ],
-      }
-    ]
-  }
-]
+      },
+    ],
+  },
+];
 
 @NgModule({
-  declarations: [Dashboards,DashboardsHeader,DashboardsSidebar,CustomizeSidebar,FeedbackSidebar,DashboardSearchBar],
+  declarations: [
+    Dashboards,
+    DashboardsHeader,
+    DashboardsSidebar,
+    CustomizeSidebar,
+    FeedbackSidebar,
+    DashboardSearchBar,
+  ],
   imports: [
     CommonModule,
     RouterOutlet,
@@ -103,11 +111,11 @@ const dashboardRoutes: Routes =[
     Wysiwyg2,
     ScrollBorder,
     IconContainer,
-    NamePipe
-],
-  providers:[
+    NamePipe,
+  ],
+  providers: [
     provideRouter(dashboardRoutes),
     provideState(DashboardsStoreKey, dashboardsStoreReducer),
-  ]
+  ],
 })
-export class DashboardsModule { }
+export class DashboardsModule {}

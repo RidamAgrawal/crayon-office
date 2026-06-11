@@ -27,12 +27,9 @@ import { User } from '../../../../models';
 })
 export class DashboardsHeader {
   private readonly store = inject(Store);
-  @Output() public sidebarIconHover: EventEmitter<boolean> =
-    new EventEmitter<boolean>();
-  @Output() public sidebarIconClick: EventEmitter<boolean> =
-    new EventEmitter<boolean>();
-  @Output() public helpIconClick: EventEmitter<boolean> =
-    new EventEmitter<boolean>();
+  @Output() public sidebarIconHover: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() public sidebarIconClick: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() public helpIconClick: EventEmitter<boolean> = new EventEmitter<boolean>();
   public isSidebar: boolean = false;
   public menuItems = {
     'section-1': [
@@ -98,7 +95,7 @@ export class DashboardsHeader {
   constructor(
     private viewContainerRef: ViewContainerRef,
     private overlayService: OverlayService,
-  ) { }
+  ) {}
   public showSidebar() {
     this.sidebarIconClick.emit(!this.isSidebar);
     this.isSidebar = !this.isSidebar;
@@ -111,11 +108,7 @@ export class DashboardsHeader {
       setTimeout(() => this.sidebarIconHover.emit(isHovered), 300);
     }
   }
-  public show(
-    elementRef: ElementRef | HTMLElement,
-    templateRef: TemplateRef<any>,
-    position: any,
-  ) {
+  public show(elementRef: ElementRef | HTMLElement, templateRef: TemplateRef<any>, position: any) {
     if (elementRef instanceof HTMLElement) {
       elementRef = new ElementRef(elementRef);
     }
@@ -134,14 +127,13 @@ export class DashboardsHeader {
     this.overlayService.open({
       component: WorkItemModalComponent,
       viewContainerRef: this.viewContainerRef,
-      hasBackdrop: true
+      hasBackdrop: true,
     });
   }
 
   public ngOnInit(): void {
-    this.store.select(selectUserDetail)
-      .subscribe((user) => {
-        this.user.set(user);
-      });
+    this.store.select(selectUserDetail).subscribe((user) => {
+      this.user.set(user);
+    });
   }
 }

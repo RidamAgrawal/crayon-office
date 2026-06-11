@@ -1,1 +1,1 @@
-export { WorkItemModalComponent } from "./work-item-modal.component";
+export { WorkItemModalComponent } from './work-item-modal.component';

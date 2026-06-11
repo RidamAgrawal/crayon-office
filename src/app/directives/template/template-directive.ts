@@ -1,12 +1,8 @@
 import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[appTemplateDirective]'
+  selector: '[appTemplateDirective]',
 })
 export class TemplateDirective {
-
-  constructor(
-    public viewContainerRef: ViewContainerRef
-  ) { }
-
+  constructor(public viewContainerRef: ViewContainerRef) {}
 }

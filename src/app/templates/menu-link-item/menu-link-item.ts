@@ -1,11 +1,11 @@
 import { Component, Input, signal, WritableSignal } from '@angular/core';
-import { CommonModule } from "@angular/common";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-menu-link-item',
   imports: [CommonModule],
   templateUrl: './menu-link-item.html',
-  styleUrl: './menu-link-item.scss'
+  styleUrl: './menu-link-item.scss',
 })
 export class MenuLinkItem {
   @Input({ required: true }) menuItemConfig: any;

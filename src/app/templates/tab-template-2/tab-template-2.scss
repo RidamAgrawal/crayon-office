@@ -1,61 +1,59 @@
 :host {
-    display: flex;
-    box-sizing: border-box;
-    gap: 8px;
-    flex-direction: column;
-    justify-content: stretch;
+  display: flex;
+  box-sizing: border-box;
+  gap: 8px;
+  flex-direction: column;
+  justify-content: stretch;
 }
 .explore-container-title {
-    box-sizing: border-box;
-    appearance: none;
-    border: none;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
+  box-sizing: border-box;
+  appearance: none;
+  border: none;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
 }
 .explore-container-nav {
-    box-sizing: border-box;
-    row-gap: 1rem;
-    column-gap: 1rem;
-    flex-direction: row;
-    align-items: center;
-    display: flex;
-
+  box-sizing: border-box;
+  row-gap: 1rem;
+  column-gap: 1rem;
+  flex-direction: row;
+  align-items: center;
+  display: flex;
 }
 .explore-container-nav .radiogroup {
-    box-sizing: border-box;
-    row-gap: .25rem;
-    column-gap: .25rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
+  box-sizing: border-box;
+  row-gap: 0.25rem;
+  column-gap: 0.25rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .radiogroup-btn {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    height: 1.625rem;
-    padding: 0 .75rem;
-    box-sizing: border-box;
-    cursor: pointer;
-    color: #505258;
-    background-color: #0000;
-    border-radius: 3px;
-    border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  height: 1.625rem;
+  padding: 0 0.75rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: #505258;
+  background-color: #0000;
+  border-radius: 3px;
+  border: none;
 }
 .radiogroup-btn:hover {
-    background-color: #0515240F;
+  background-color: #0515240f;
 }
 .radiogroup-btn.selected {
-    border: 1px solid #1868DB;
-    background-color: #E9F2FE;
-    color: #1868DB;
-    cursor: default;
+  border: 1px solid #1868db;
+  background-color: #e9f2fe;
+  color: #1868db;
+  cursor: default;
 }
 .radiogroup-btn.selected:hover {
-    background-color: #CFE1FD;
+  background-color: #cfe1fd;
 }
-.explore-container-nav > a:hover{
-    text-decoration: none;
+.explore-container-nav > a:hover {
+  text-decoration: none;
 }

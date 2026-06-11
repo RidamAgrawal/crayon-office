@@ -1,38 +1,55 @@
 <!-- <div class="column"> -->
-<div class="column-content"
- [style.background]="columnDetails().backgroundColor"
- [class.is-loading]="isLoading()">
+<div
+  class="column-content"
+  [style.background]="columnDetails().backgroundColor"
+  [class.is-loading]="isLoading()"
+>
   <div class="column-header">
     <div class="column-header-content">
-      <div class="column-header-content-container" appClickOutside (clickOutside)="isColumnNameEditing.set(false)">
-        <div class="column-header-text" [class.is-hidden]="isColumnNameEditing()" (click)="isColumnNameEditing.set(true)">
-          {{ columnDetails().label }}
-          @if (columnDetails().issues.length) { 
-            <div class="item-count">{{ columnDetails().issues.length }}</div>
+      <div
+        class="column-header-content-container"
+        appClickOutside
+        (clickOutside)="isColumnNameEditing.set(false)"
+      >
+        <div
+          class="column-header-text"
+          [class.is-hidden]="isColumnNameEditing()"
+          (click)="isColumnNameEditing.set(true)"
+        >
+          {{ columnDetails().label }} @if (columnDetails().issues.length) {
+          <div class="item-count">{{ columnDetails().issues.length }}</div>
           }
         </div>
-        <board-space-text-field-wrapper-template [class.is-hidden]="!isColumnNameEditing()" (close)="isColumnNameEditing.set(false)" (setValue)="onColumnNameEdited($event)"></board-space-text-field-wrapper-template>
-        <button class="icon-btn" [class.is-hidden]="isColumnNameEditing()"
-          (click)="onMoreClick($event, option)" #option>
+        <board-space-text-field-wrapper-template
+          [class.is-hidden]="!isColumnNameEditing()"
+          (close)="isColumnNameEditing.set(false)"
+          (setValue)="onColumnNameEdited($event)"
+        ></board-space-text-field-wrapper-template>
+        <button
+          class="icon-btn"
+          [class.is-hidden]="isColumnNameEditing()"
+          (click)="onMoreClick($event, option)"
+          #option
+        >
           <span class="icon-content">
             <img src="./assets/icons/more.svg" alt="icon" />
           </span>
         </button>
         @if(isLoading()) {
-          <span class="loader">
-            <span class="loader-rotating-element">
-              <svg
-                class="loader-rotating-svg"
-                height="24"
-                width="24"
-                viewBox="0 0 16 16"
-                xmlns="http://www.w3.org/2000/svg"
-                role="none"
-              >
-                <circle cx="8" cy="8" r="7"></circle>
-              </svg>
-            </span>
+        <span class="loader">
+          <span class="loader-rotating-element">
+            <svg
+              class="loader-rotating-svg"
+              height="24"
+              width="24"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+              role="none"
+            >
+              <circle cx="8" cy="8" r="7"></circle>
+            </svg>
           </span>
+        </span>
         }
       </div>
     </div>
@@ -92,14 +109,14 @@
           </div>
         </div>
       </div>
-    } @else {
+      } @else {
       <button class="create-item-btn" (click)="isCreating.set(true)">
         <span class="icon-content">
           <img src="./assets/icons/add2.svg" alt="icon" />
         </span>
         Create
       </button>
-    }
+      }
     </li>
   </ul>
 </div>

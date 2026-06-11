@@ -16,19 +16,22 @@
     </div>
 </div> -->
 <div class="tab-header">
-    @for(tabHeader of config.headings;track $index){
-        <div class="tab-heading" [ngClass]="{active: $index == currentTemplate()}" (click)="currentTemplate.set($index)">
-            @if(typeof tabHeader == 'string'){
-                <span  class="tab-header-text">{{tabHeader}}</span>
-            }
-            @else if(isTemplateRef(tabHeader)){
-                <span class="tab-header-text">
-                    <ng-container [ngTemplateOutlet]="tabHeader"></ng-container>
-                </span>
-            }
-        </div>
+  @for(tabHeader of config.headings;track $index){
+  <div
+    class="tab-heading"
+    [ngClass]="{active: $index == currentTemplate()}"
+    (click)="currentTemplate.set($index)"
+  >
+    @if(typeof tabHeader == 'string'){
+    <span class="tab-header-text">{{tabHeader}}</span>
+    } @else if(isTemplateRef(tabHeader)){
+    <span class="tab-header-text">
+      <ng-container [ngTemplateOutlet]="tabHeader"></ng-container>
+    </span>
     }
+  </div>
+  }
 </div>
 <div class="tab-body">
-    <ng-container appTemplateDirective></ng-container>
+  <ng-container appTemplateDirective></ng-container>
 </div>

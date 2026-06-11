@@ -10,10 +10,29 @@ export interface SpaceCapabilities {
   manageStatuses: boolean;
 }
 
-export const defaultViewsByTemplate: Record<string, Array<{ type: 'BOARD' | 'LIST' | 'CALENDAR' | 'SUMMARY' | 'TIMELINE' | 'FORM' | 'CODE'; name: string }>> = {
-  kanban: [{ type: 'BOARD', name: 'Board' }, { type: 'LIST', name: 'List' }, { type: 'CALENDAR', name: 'Calendar' }, { type: 'SUMMARY', name: 'Summary' }],
-  scrum: [{ type: 'BOARD', name: 'Board' }, { type: 'LIST', name: 'List' }, { type: 'TIMELINE', name: 'Timeline' }, { type: 'SUMMARY', name: 'Summary' }],
-  bugTracking: [{ type: 'LIST', name: 'List' }, { type: 'SUMMARY', name: 'Summary' }],
+export const defaultViewsByTemplate: Record<
+  string,
+  Array<{
+    type: 'BOARD' | 'LIST' | 'CALENDAR' | 'SUMMARY' | 'TIMELINE' | 'FORM' | 'CODE';
+    name: string;
+  }>
+> = {
+  kanban: [
+    { type: 'BOARD', name: 'Board' },
+    { type: 'LIST', name: 'List' },
+    { type: 'CALENDAR', name: 'Calendar' },
+    { type: 'SUMMARY', name: 'Summary' },
+  ],
+  scrum: [
+    { type: 'BOARD', name: 'Board' },
+    { type: 'LIST', name: 'List' },
+    { type: 'TIMELINE', name: 'Timeline' },
+    { type: 'SUMMARY', name: 'Summary' },
+  ],
+  bugTracking: [
+    { type: 'LIST', name: 'List' },
+    { type: 'SUMMARY', name: 'Summary' },
+  ],
 };
 
 // A small helper — returns the space or sends 403/404 and returns null

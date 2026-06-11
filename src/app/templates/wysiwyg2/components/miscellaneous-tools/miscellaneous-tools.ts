@@ -17,7 +17,6 @@ export class MiscellaneousTools {
   private overlayService = inject(OverlayService);
   private editorCommandService = inject(EditorCommandsService);
 
-
   ngOnInit() {
     this.originElementRef = (this.overlayService as any).overlayRef?._positionStrategy._origin;
   }
@@ -80,7 +79,7 @@ export class MiscellaneousTools {
   private setHeading(level: number) {
     this.editorCommandService.setHeading(level);
   }
-  
+
   private onEmojiClick() {
     if (!this.originElementRef) return;
     this.overlayService.open({

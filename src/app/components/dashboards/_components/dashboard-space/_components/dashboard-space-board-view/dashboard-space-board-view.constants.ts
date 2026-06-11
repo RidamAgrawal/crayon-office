@@ -41,8 +41,11 @@ export const WORK_TYPES = [
 export const STATUS_PALETTE = ['#dddee1', '#8fb8f6', '#b3df72', '#f5c5a4', '#c4b5fd', '#fda4af'];
 
 export function pickNextPaletteColor(columns: { backgroundColor: string }[] | null): string {
-  const used = new Set((columns ?? []).map(c => c.backgroundColor));
-  return STATUS_PALETTE.find(c => !used.has(c)) ?? STATUS_PALETTE[(columns?.length ?? 0) % STATUS_PALETTE.length];
+  const used = new Set((columns ?? []).map((c) => c.backgroundColor));
+  return (
+    STATUS_PALETTE.find((c) => !used.has(c)) ??
+    STATUS_PALETTE[(columns?.length ?? 0) % STATUS_PALETTE.length]
+  );
 }
 
 export const STATUS_OPTION_IDS = {

@@ -21,7 +21,7 @@
               <div class="avatar-icon-container">
                 <span class="avatar-icon-content">
                   <span class="avatar-icon">
-                    {{ "R" }}
+                    {{ 'R' }}
                   </span>
                 </span>
               </div>
@@ -43,9 +43,7 @@
         }
       </button>
       @if (totalFilterCount() > 0) {
-        <button class="secondary-btn link-btn" (click)="clearAllFilters()">
-          Clear filters
-        </button>
+        <button class="secondary-btn link-btn" (click)="clearAllFilters()">Clear filters</button>
       }
     </div>
   </div>
@@ -85,9 +83,7 @@
           [total]="filteredColumns().length"
           [isLoading]="pendingColumnIds().has(column.id)"
           (cardDropped)="onCardDrop($event)"
-          (columnOptionsClick)="
-            openColumnOptions($event.column, $event.trigger, i)
-          "
+          (columnOptionsClick)="openColumnOptions($event.column, $event.trigger, i)"
           (columnRenamed)="onColumnRenamed($event)"
           (issueCreate)="onIssueCreate($event)"
         >
@@ -159,9 +155,7 @@
             @if (facetCounts()[filter.id]; as n) {
               <span class="filter-modal-nav-item-selected-count-container">
                 <span class="filter-modal-nav-item-selected-count-content">
-                  <span class="filter-modal-nav-item-selected-count-text">{{
-                    n
-                  }}</span>
+                  <span class="filter-modal-nav-item-selected-count-text">{{ n }}</span>
                 </span>
               </span>
             }
@@ -174,11 +168,9 @@
             <div class="modal-body-content">
               <div class="filter-options-container">
                 @switch (selectedModalTemplateFilter()?.id) {
-                  @case ("assignee") {
+                  @case ('assignee') {
                     <text-field
-                      [placeholder]="
-                        'Search ' + selectedModalTemplateFilter()?.text
-                      "
+                      [placeholder]="'Search ' + selectedModalTemplateFilter()?.text"
                     ></text-field>
                     @for (opt of assigneeOptions(); track opt.id) {
                       <app-checkbox
@@ -206,11 +198,9 @@
                       </app-checkbox>
                     }
                   }
-                  @case ("workType") {
+                  @case ('workType') {
                     <text-field
-                      [placeholder]="
-                        'Search ' + selectedModalTemplateFilter()?.text
-                      "
+                      [placeholder]="'Search ' + selectedModalTemplateFilter()?.text"
                     ></text-field>
                     @for (opt of workTypeOptions; track opt.id) {
                       <app-checkbox
@@ -219,21 +209,16 @@
                       >
                         <div class="work-type-row">
                           <div class="content">
-                            <img
-                              [src]="'./assets/icons/' + opt.icon + '.svg'"
-                              alt="i"
-                            />
+                            <img [src]="'./assets/icons/' + opt.icon + '.svg'" alt="i" />
                             <div class="text">{{ opt.label }}</div>
                           </div>
                         </div>
                       </app-checkbox>
                     }
                   }
-                  @case ("status") {
+                  @case ('status') {
                     <text-field
-                      [placeholder]="
-                        'Search ' + selectedModalTemplateFilter()?.text
-                      "
+                      [placeholder]="'Search ' + selectedModalTemplateFilter()?.text"
                     ></text-field>
                     @for (opt of statusOptions(); track opt.id) {
                       <app-checkbox
@@ -241,10 +226,7 @@
                         (valChange)="setFilter('status', opt.id, $event)"
                       >
                         <span class="status-pill-container">
-                          <span
-                            class="status-pill"
-                            [style.background-color]="opt.backgroundColor"
-                          >
+                          <span class="status-pill" [style.background-color]="opt.backgroundColor">
                             {{ opt.label }}
                           </span>
                         </span>
@@ -267,20 +249,14 @@
               </div>
               @if (false) {
                 <div class="modal-footer-placeholder">
-                  <div
-                    class="shimmer modal-footer-shimmer modal-footer-shimmer-1"
-                  ></div>
-                  <div
-                    class="shimmer modal-footer-shimmer modal-footer-shimmer-2"
-                  ></div>
+                  <div class="shimmer modal-footer-shimmer modal-footer-shimmer-1"></div>
+                  <div class="shimmer modal-footer-shimmer modal-footer-shimmer-2"></div>
                 </div>
               }
             </div>
           </div>
         } @else {
-          <div class="empty-modal-body">
-            Select a field to start creating a filter.
-          </div>
+          <div class="empty-modal-body">Select a field to start creating a filter.</div>
         }
       </div>
     </div>

@@ -1,567 +1,567 @@
 {
-    "textFormatOptions": [
+  "textFormatOptions": [
+    {
+      "options": [
         {
-            "options": [
-                {
-                    "icon": "formatText",
-                    "id": "p",
-                    "label": "Normal Text",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "formatH1",
-                    "id": "h1",
-                    "label": "Heading H1",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "formatH2",
-                    "id": "h2",
-                    "label": "Heading H2",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "formatH3",
-                    "id": "h3",
-                    "label": "Heading H3",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "formatH4",
-                    "id": "h4",
-                    "label": "Heading H4",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "formatH5",
-                    "id": "h5",
-                    "label": "Heading H5",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "formatH6",
-                    "id": "h6",
-                    "label": "Heading H6",
-                    "type": "button",
-                    "visible": true
-                }
-            ]
-        }
-    ],
-    "textStyleOptions": [
-        {
-            "options": [
-                {
-                    "icon": "formatText",
-                    "id": "p",
-                    "label": "Normal Text",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "textBold",
-                    "id": "strong",
-                    "label": "Bold",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "textItalic",
-                    "id": "em",
-                    "label": "Italic",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "textUnderline",
-                    "id": "u",
-                    "label": "Underline",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "textUnderlineSquiggle",
-                    "id": "us",
-                    "label": "Underline Squiggle",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "textStrikethrough",
-                    "id": "s",
-                    "label": "Strikethrough",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "textOverline",
-                    "id": "o",
-                    "label": "Overline",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "codeSnippet",
-                    "id": "code",
-                    "label": "Code",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "textSubscript",
-                    "id": "sub",
-                    "label": "Subscript",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "textSuperscript",
-                    "id": "sup",
-                    "label": "Superscript",
-                    "type": "button",
-                    "visible": true
-                }
-            ]
-        }
-    ],
-    "listsOptions": [
-        {
-            "options": [
-                {
-                    "icon": "bulletedList",
-                    "id": "ul",
-                    "label": "Bulleted List",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "numberedList",
-                    "id": "ol",
-                    "label": "Numbered List",
-                    "type": "button",
-                    "visible": true
-                },
-                {
-                    "icon": "checkList",
-                    "id": "taskList",
-                    "label": "Check List",
-                    "type": "button",
-                    "visible": true
-                }
-            ]
-        }
-    ],
-    "colorPickerOptions": [
-        {
-            "options": [
-                {
-                    "colorName": "Default",
-                    "colorClass": "default-pallette",
-                    "colorHexCode": "292A2E"
-                },
-                {
-                    "colorName": "Bold blue",
-                    "colorClass": "boldBlue-pallette",
-                    "colorHexCode": "1558BC"
-                },
-                {
-                    "colorName": "Bold teal",
-                    "colorClass": "boldTeal-pallette",
-                    "colorHexCode": "206A83"
-                },
-                {
-                    "colorName": "Bold green",
-                    "colorClass": "boldGreen",
-                    "colorHexCode": "216E4E"
-                },
-                {
-                    "colorName": "Bold orange",
-                    "colorClass": "boldOrange",
-                    "colorHexCode": "E06C00"
-                },
-                {
-                    "colorName": "Bold red",
-                    "colorClass": "boldRed",
-                    "colorHexCode": "AE2E24"
-                },
-                {
-                    "colorName": "Bold purple",
-                    "colorClass": "boldPurple",
-                    "colorHexCode": "803FA5"
-                }
-            ]
+          "icon": "formatText",
+          "id": "p",
+          "label": "Normal Text",
+          "type": "button",
+          "visible": true
         },
         {
-            "options": [
-                {
-                    "colorName": "Gray",
-                    "colorClass": "gray-pallette",
-                    "colorHexCode": "7D818A"
-                },
-                {
-                    "colorName": "Blue",
-                    "colorClass": "blue-pallette",
-                    "colorHexCode": "357DE8"
-                },
-                {
-                    "colorName": "Teal",
-                    "colorClass": "teal-pallette",
-                    "colorHexCode": "2898BD"
-                },
-                {
-                    "colorName": "Green",
-                    "colorClass": "green-pallette",
-                    "colorHexCode": "22A06B"
-                },
-                {
-                    "colorName": "Yellow",
-                    "colorClass": "yellow-pallette",
-                    "colorHexCode": "FCA700"
-                },
-                {
-                    "colorName": "Red",
-                    "colorClass": "red-pallette",
-                    "colorHexCode": "C9372C"
-                },
-                {
-                    "colorName": "Purple",
-                    "colorClass": "purple-pallette",
-                    "colorHexCode": "AF59E1"
-                }
-            ]
+          "icon": "formatH1",
+          "id": "h1",
+          "label": "Heading H1",
+          "type": "button",
+          "visible": true
         },
         {
-            "options": [
-                {
-                    "colorName": "White",
-                    "colorClass": "white-pallette",
-                    "colorHexCode": "FFFFFF"
-                },
-                {
-                    "colorName": "Subtle blue",
-                    "colorClass": "subtleBlue-pallette",
-                    "colorHexCode": "CFE1FD"
-                },
-                {
-                    "colorName": "Subtle teal",
-                    "colorClass": "subtleTeal-pallette",
-                    "colorHexCode": "C6EDFB"
-                },
-                {
-                    "colorName": "Subtle green",
-                    "colorClass": "subtleGreen-pallette",
-                    "colorHexCode": "BAF3DB"
-                },
-                {
-                    "colorName": "Subtle yellow",
-                    "colorClass": "subtleYellow-pallette",
-                    "colorHexCode": "F5E989"
-                },
-                {
-                    "colorName": "Subtle red",
-                    "colorClass": "subtleRed-pallette",
-                    "colorHexCode": "FFD5D2"
-                },
-                {
-                    "colorName": "Subtle purple",
-                    "colorClass": "subtlePurple-pallette",
-                    "colorHexCode": "EED7FC"
-                }
-            ]
-        }
-    ],
-    "extraElementOptions": [
+          "icon": "formatH2",
+          "id": "h2",
+          "label": "Heading H2",
+          "type": "button",
+          "visible": true
+        },
         {
-            "options": [
-                {
-                    "id": "actionItem",
-                    "icon": "taskList",
-                    "label": "Action Item",
-                    "type": "button",
-                    "description": "Create and assign action items",
-                    "tooltip": "Create and assign action items",
-                    "visible": true,
-                    "shortcut": "[]",
-                    "onclick": "onActionItemClick()"
-                },
-                {
-                    "id": "multiMediaPanel",
-                    "icon": "imagePanel",
-                    "label": "Image, video, or file",
-                    "type": "button",
-                    "description": "Add images and other files to your description",
-                    "tooltip": "Add images and other files to your description",
-                    "visible": true,
-                    "shortcut": null,
-                    "onclick": "onUploadFileClick()"
-                },
-                {
-                    "id": "mention",
-                    "icon": "mentionPanel",
-                    "label": "Mention",
-                    "type": "button",
-                    "description": "Mention someone to send them a notification",
-                    "tooltip": "Mention someone to send them a notification",
-                    "visible": true,
-                    "shortcut": "@"
-                },
-                {
-                    "id": "emoji",
-                    "icon": "emojiPanel",
-                    "label": "Emoji",
-                    "type": "button",
-                    "description": "Use emojis to express ideas 🎉 and emotions 😄",
-                    "tooltip": "Use emojis to express ideas 🎉 and emotions 😄",
-                    "visible": true,
-                    "shortcut":":",
-                    "onclick":"onEmojiClick()"
-                },
-                {
-                    "id": "expandPanel",
-                    "icon": "expandPanel",
-                    "label": "Expand",
-                    "type": "button",
-                    "description": "Insert an expandable section",
-                    "tooltip": "Insert an expandable section",
-                    "visible": true,
-                    "shortcut":null,
-                    "onclick":"onExpandClick()"
-                },
-                {
-                    "id": "table",
-                    "icon": "tablePanel",
-                    "label": "Insert Table",
-                    "type": "button",
-                    "description": "Insert a table",
-                    "tooltip": "Insert a table",
-                    "visible": true,
-                    "shortcut": "Shift+Alt+T",
-                    "onclick":"onTableClick(3,3)"
-                },
-                {
-                    "id": "codeSnippet",
-                    "icon": "codeSnippetPanel",
-                    "label": "Code snippet",
-                    "type": "button",
-                    "description": "Insert code snippets to share code with your team",
-                    "tooltip": "Insert code snippets to share code with your team",
-                    "visible": true,
-                    "shortcut": "```",
-                    "onclick": "onCodeSnippetClick()"
-                },
-                {
-                    "id": "status",
-                    "icon": "statusPanel",
-                    "label": "Status",
-                    "type": "button",
-                    "description": "Add a custom status label",
-                    "tooltip": "Add a custom status label",
-                    "visible": true,
-                    "shortcut":null
-                },
-                {
-                    "id": "infoPanel",
-                    "icon": "infoPanel",
-                    "label": "Info Panel",
-                    "type": "button",
-                    "description": "Highlight information in a colored panel",
-                    "tooltip": "Highlight information in a colored panel",
-                    "visible": true,
-                    "shortcut":null,
-                    "onclick":"onPanelClick('info')"
-                },
-                {
-                    "id": "date",
-                    "icon": "date",
-                    "label": "Date",
-                    "type": "button",
-                    "description": "Add a date using calender",
-                    "tooltip": "Add a date using calender",
-                    "visible": true,
-                    "shortcut":"//"
-                },
-                {
-                    "id": "decision",
-                    "icon": "decision",
-                    "label": "Decision",
-                    "type": "button",
-                    "description": "Capture decisions so they're easy to track",
-                    "tooltip": "Capture decisions so they're easy to track",
-                    "visible": true,
-                    "shortcut":"<>",
-                    "onclick":"onPanelClick('decision')"
-                },
-                {
-                    "id": "notePanel",
-                    "icon": "notePanel",
-                    "label": "Note Panel",
-                    "type": "button",
-                    "description": "Highlight information in a colored panel",
-                    "tooltip": "Highlight information in a colored panel",
-                    "visible": true,
-                    "shortcut":null,
-                    "onclick":"onPanelClick('note')"
-                },
-                {
-                    "id": "successPanel",
-                    "icon": "successPanel",
-                    "label": "Success Panel",
-                    "type": "button",
-                    "description": "Add tips in a colored panel",
-                    "tooltip": "Add tips in a colored panel",
-                    "visible": true,
-                    "shortcut":null,
-                    "onclick":"onPanelClick('success')"
-                },
-                {
-                    "id": "warningPanel",
-                    "icon": "warningPanel",
-                    "label": "Warning Panel",
-                    "type": "button",
-                    "description": "Add a note of caution in a colored panel",
-                    "tooltip": "Add a note of caution in a colored panel",
-                    "visible": true,
-                    "shortcut":null,
-                    "onclick":"onPanelClick('warning')"
-                },
-                {
-                    "id": "errorPanel",
-                    "icon": "errorPanel",
-                    "label": "Error Panel",
-                    "type": "button",
-                    "description": "Call out errors in a colored panel",
-                    "tooltip": "Call out errors in a colored panel",
-                    "visible": true,
-                    "shortcut":null,
-                    "onclick":"onPanelClick('error')"
-                },
-                {
-                    "id": "bulletedList",
-                    "icon": "unorderedList",
-                    "label": "Bulleted List",
-                    "type": "button",
-                    "description": "Create an unordered list",
-                    "tooltip": "Create an unordered list",
-                    "visible": true,
-                    "shortcut":"Ctrl+Shift+8",
-                    "onclick": "onBulletedListClick()"
-                },
-                {
-                    "id": "numberedList",
-                    "icon": "orderedList",
-                    "label": "Numbered List",
-                    "type": "button",
-                    "description": "Create an ordered list",
-                    "tooltip": "Create an ordered list",
-                    "visible": true,
-                    "shortcut":"Ctrl+Shift+7",
-                    "onclick": "onOrderedListClick()"
-                },
-                {
-                    "id": "link",
-                    "icon": "linkPanel",
-                    "label": "Link",
-                    "type": "button",
-                    "description": "Insert a link",
-                    "tooltip": "Insert a link",
-                    "visible": true,
-                    "shortcut":"Ctrl+K"
-                },
-                {
-                    "id": "dividerPanel",
-                    "icon": "dividerPanel",
-                    "label": "Divider",
-                    "type": "button",
-                    "description": "Separate content using horizontal line",
-                    "tooltip": "Separate content using horizontal line",
-                    "visible": true,
-                    "shortcut":"---",
-                    "onclick": "onHorizontalRuleClick()"
-                },
-                {
-                    "id": "quote",
-                    "icon": "quotation",
-                    "label": "Quote",
-                    "type": "button",
-                    "description": "Insert a quote or citation",
-                    "tooltip": "Insert a quote or citation",
-                    "visible": true,
-                    "shortcut":">",
-                    "onclick": "onBlockquoteClick()"
-                },
-                {
-                    "id": "headingH1",
-                    "icon": "headingH1",
-                    "label": "Heading 1",
-                    "type": "button",
-                    "description": "Use this for top level headings",
-                    "tooltip": "Use this for top level headings",
-                    "visible": true,
-                    "shortcut":"#",
-                    "onclick": "setHeading(1)"
-                },
-                {
-                    "id": "headingH2",
-                    "icon": "headingH2",
-                    "label": "Heading 2",
-                    "type": "button",
-                    "description": "Use this for key sections",
-                    "tooltip": "Use this for key sections",
-                    "visible": true,
-                    "shortcut":"##",
-                    "onclick": "setHeading(2)"
-                },
-                {
-                    "id": "headingH3",
-                    "icon": "headingH3",
-                    "label": "Heading 3",
-                    "type": "button",
-                    "description": "Use this for subsections and group headings",
-                    "tooltip": "Use this for subsections and group headings",
-                    "visible": true,
-                    "shortcut":"###",
-                    "onclick": "setHeading(3)"
-                },
-                {
-                    "id": "headingH4",
-                    "icon": "headingH4",
-                    "label": "Heading 4",
-                    "type": "button",
-                    "description": "Use this for deep headings",
-                    "tooltip": "Use this for deep headings",
-                    "visible": true,
-                    "shortcut":"####",
-                    "onclick": "setHeading(4)"
-                },
-                {
-                    "id": "headingH5",
-                    "icon": "headingH5",
-                    "label": "Heading 5",
-                    "type": "button",
-                    "description": "Use this for grouping list items",
-                    "tooltip": "Use this for grouping list items",
-                    "visible": true,
-                    "shortcut":"#####",
-                    "onclick": "setHeading(5)"
-                },
-                {
-                    "id": "headingH6",
-                    "icon": "headingH6",
-                    "label": "Heading 6",
-                    "type": "button",
-                    "description": "Use this for low level headings",
-                    "tooltip": "Use this for low level headings",
-                    "visible": true,
-                    "shortcut":"######",
-                    "onclick": "setHeading(6)"
-                }
-            ]
+          "icon": "formatH3",
+          "id": "h3",
+          "label": "Heading H3",
+          "type": "button",
+          "visible": true
+        },
+        {
+          "icon": "formatH4",
+          "id": "h4",
+          "label": "Heading H4",
+          "type": "button",
+          "visible": true
+        },
+        {
+          "icon": "formatH5",
+          "id": "h5",
+          "label": "Heading H5",
+          "type": "button",
+          "visible": true
+        },
+        {
+          "icon": "formatH6",
+          "id": "h6",
+          "label": "Heading H6",
+          "type": "button",
+          "visible": true
         }
-    ]
+      ]
+    }
+  ],
+  "textStyleOptions": [
+    {
+      "options": [
+        {
+          "icon": "formatText",
+          "id": "p",
+          "label": "Normal Text",
+          "type": "button",
+          "visible": true
+        },
+        {
+          "icon": "textBold",
+          "id": "strong",
+          "label": "Bold",
+          "type": "button",
+          "visible": true
+        },
+        {
+          "icon": "textItalic",
+          "id": "em",
+          "label": "Italic",
+          "type": "button",
+          "visible": true
+        },
+        {
+          "icon": "textUnderline",
+          "id": "u",
+          "label": "Underline",
+          "type": "button",
+          "visible": true
+        },
+        {
+          "icon": "textUnderlineSquiggle",
+          "id": "us",
+          "label": "Underline Squiggle",
+          "type": "button",
+          "visible": true
+        },
+        {
+          "icon": "textStrikethrough",
+          "id": "s",
+          "label": "Strikethrough",
+          "type": "button",
+          "visible": true
+        },
+        {
+          "icon": "textOverline",
+          "id": "o",
+          "label": "Overline",
+          "type": "button",
+          "visible": true
+        },
+        {
+          "icon": "codeSnippet",
+          "id": "code",
+          "label": "Code",
+          "type": "button",
+          "visible": true
+        },
+        {
+          "icon": "textSubscript",
+          "id": "sub",
+          "label": "Subscript",
+          "type": "button",
+          "visible": true
+        },
+        {
+          "icon": "textSuperscript",
+          "id": "sup",
+          "label": "Superscript",
+          "type": "button",
+          "visible": true
+        }
+      ]
+    }
+  ],
+  "listsOptions": [
+    {
+      "options": [
+        {
+          "icon": "bulletedList",
+          "id": "ul",
+          "label": "Bulleted List",
+          "type": "button",
+          "visible": true
+        },
+        {
+          "icon": "numberedList",
+          "id": "ol",
+          "label": "Numbered List",
+          "type": "button",
+          "visible": true
+        },
+        {
+          "icon": "checkList",
+          "id": "taskList",
+          "label": "Check List",
+          "type": "button",
+          "visible": true
+        }
+      ]
+    }
+  ],
+  "colorPickerOptions": [
+    {
+      "options": [
+        {
+          "colorName": "Default",
+          "colorClass": "default-pallette",
+          "colorHexCode": "292A2E"
+        },
+        {
+          "colorName": "Bold blue",
+          "colorClass": "boldBlue-pallette",
+          "colorHexCode": "1558BC"
+        },
+        {
+          "colorName": "Bold teal",
+          "colorClass": "boldTeal-pallette",
+          "colorHexCode": "206A83"
+        },
+        {
+          "colorName": "Bold green",
+          "colorClass": "boldGreen",
+          "colorHexCode": "216E4E"
+        },
+        {
+          "colorName": "Bold orange",
+          "colorClass": "boldOrange",
+          "colorHexCode": "E06C00"
+        },
+        {
+          "colorName": "Bold red",
+          "colorClass": "boldRed",
+          "colorHexCode": "AE2E24"
+        },
+        {
+          "colorName": "Bold purple",
+          "colorClass": "boldPurple",
+          "colorHexCode": "803FA5"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "colorName": "Gray",
+          "colorClass": "gray-pallette",
+          "colorHexCode": "7D818A"
+        },
+        {
+          "colorName": "Blue",
+          "colorClass": "blue-pallette",
+          "colorHexCode": "357DE8"
+        },
+        {
+          "colorName": "Teal",
+          "colorClass": "teal-pallette",
+          "colorHexCode": "2898BD"
+        },
+        {
+          "colorName": "Green",
+          "colorClass": "green-pallette",
+          "colorHexCode": "22A06B"
+        },
+        {
+          "colorName": "Yellow",
+          "colorClass": "yellow-pallette",
+          "colorHexCode": "FCA700"
+        },
+        {
+          "colorName": "Red",
+          "colorClass": "red-pallette",
+          "colorHexCode": "C9372C"
+        },
+        {
+          "colorName": "Purple",
+          "colorClass": "purple-pallette",
+          "colorHexCode": "AF59E1"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "colorName": "White",
+          "colorClass": "white-pallette",
+          "colorHexCode": "FFFFFF"
+        },
+        {
+          "colorName": "Subtle blue",
+          "colorClass": "subtleBlue-pallette",
+          "colorHexCode": "CFE1FD"
+        },
+        {
+          "colorName": "Subtle teal",
+          "colorClass": "subtleTeal-pallette",
+          "colorHexCode": "C6EDFB"
+        },
+        {
+          "colorName": "Subtle green",
+          "colorClass": "subtleGreen-pallette",
+          "colorHexCode": "BAF3DB"
+        },
+        {
+          "colorName": "Subtle yellow",
+          "colorClass": "subtleYellow-pallette",
+          "colorHexCode": "F5E989"
+        },
+        {
+          "colorName": "Subtle red",
+          "colorClass": "subtleRed-pallette",
+          "colorHexCode": "FFD5D2"
+        },
+        {
+          "colorName": "Subtle purple",
+          "colorClass": "subtlePurple-pallette",
+          "colorHexCode": "EED7FC"
+        }
+      ]
+    }
+  ],
+  "extraElementOptions": [
+    {
+      "options": [
+        {
+          "id": "actionItem",
+          "icon": "taskList",
+          "label": "Action Item",
+          "type": "button",
+          "description": "Create and assign action items",
+          "tooltip": "Create and assign action items",
+          "visible": true,
+          "shortcut": "[]",
+          "onclick": "onActionItemClick()"
+        },
+        {
+          "id": "multiMediaPanel",
+          "icon": "imagePanel",
+          "label": "Image, video, or file",
+          "type": "button",
+          "description": "Add images and other files to your description",
+          "tooltip": "Add images and other files to your description",
+          "visible": true,
+          "shortcut": null,
+          "onclick": "onUploadFileClick()"
+        },
+        {
+          "id": "mention",
+          "icon": "mentionPanel",
+          "label": "Mention",
+          "type": "button",
+          "description": "Mention someone to send them a notification",
+          "tooltip": "Mention someone to send them a notification",
+          "visible": true,
+          "shortcut": "@"
+        },
+        {
+          "id": "emoji",
+          "icon": "emojiPanel",
+          "label": "Emoji",
+          "type": "button",
+          "description": "Use emojis to express ideas 🎉 and emotions 😄",
+          "tooltip": "Use emojis to express ideas 🎉 and emotions 😄",
+          "visible": true,
+          "shortcut": ":",
+          "onclick": "onEmojiClick()"
+        },
+        {
+          "id": "expandPanel",
+          "icon": "expandPanel",
+          "label": "Expand",
+          "type": "button",
+          "description": "Insert an expandable section",
+          "tooltip": "Insert an expandable section",
+          "visible": true,
+          "shortcut": null,
+          "onclick": "onExpandClick()"
+        },
+        {
+          "id": "table",
+          "icon": "tablePanel",
+          "label": "Insert Table",
+          "type": "button",
+          "description": "Insert a table",
+          "tooltip": "Insert a table",
+          "visible": true,
+          "shortcut": "Shift+Alt+T",
+          "onclick": "onTableClick(3,3)"
+        },
+        {
+          "id": "codeSnippet",
+          "icon": "codeSnippetPanel",
+          "label": "Code snippet",
+          "type": "button",
+          "description": "Insert code snippets to share code with your team",
+          "tooltip": "Insert code snippets to share code with your team",
+          "visible": true,
+          "shortcut": "```",
+          "onclick": "onCodeSnippetClick()"
+        },
+        {
+          "id": "status",
+          "icon": "statusPanel",
+          "label": "Status",
+          "type": "button",
+          "description": "Add a custom status label",
+          "tooltip": "Add a custom status label",
+          "visible": true,
+          "shortcut": null
+        },
+        {
+          "id": "infoPanel",
+          "icon": "infoPanel",
+          "label": "Info Panel",
+          "type": "button",
+          "description": "Highlight information in a colored panel",
+          "tooltip": "Highlight information in a colored panel",
+          "visible": true,
+          "shortcut": null,
+          "onclick": "onPanelClick('info')"
+        },
+        {
+          "id": "date",
+          "icon": "date",
+          "label": "Date",
+          "type": "button",
+          "description": "Add a date using calender",
+          "tooltip": "Add a date using calender",
+          "visible": true,
+          "shortcut": "//"
+        },
+        {
+          "id": "decision",
+          "icon": "decision",
+          "label": "Decision",
+          "type": "button",
+          "description": "Capture decisions so they're easy to track",
+          "tooltip": "Capture decisions so they're easy to track",
+          "visible": true,
+          "shortcut": "<>",
+          "onclick": "onPanelClick('decision')"
+        },
+        {
+          "id": "notePanel",
+          "icon": "notePanel",
+          "label": "Note Panel",
+          "type": "button",
+          "description": "Highlight information in a colored panel",
+          "tooltip": "Highlight information in a colored panel",
+          "visible": true,
+          "shortcut": null,
+          "onclick": "onPanelClick('note')"
+        },
+        {
+          "id": "successPanel",
+          "icon": "successPanel",
+          "label": "Success Panel",
+          "type": "button",
+          "description": "Add tips in a colored panel",
+          "tooltip": "Add tips in a colored panel",
+          "visible": true,
+          "shortcut": null,
+          "onclick": "onPanelClick('success')"
+        },
+        {
+          "id": "warningPanel",
+          "icon": "warningPanel",
+          "label": "Warning Panel",
+          "type": "button",
+          "description": "Add a note of caution in a colored panel",
+          "tooltip": "Add a note of caution in a colored panel",
+          "visible": true,
+          "shortcut": null,
+          "onclick": "onPanelClick('warning')"
+        },
+        {
+          "id": "errorPanel",
+          "icon": "errorPanel",
+          "label": "Error Panel",
+          "type": "button",
+          "description": "Call out errors in a colored panel",
+          "tooltip": "Call out errors in a colored panel",
+          "visible": true,
+          "shortcut": null,
+          "onclick": "onPanelClick('error')"
+        },
+        {
+          "id": "bulletedList",
+          "icon": "unorderedList",
+          "label": "Bulleted List",
+          "type": "button",
+          "description": "Create an unordered list",
+          "tooltip": "Create an unordered list",
+          "visible": true,
+          "shortcut": "Ctrl+Shift+8",
+          "onclick": "onBulletedListClick()"
+        },
+        {
+          "id": "numberedList",
+          "icon": "orderedList",
+          "label": "Numbered List",
+          "type": "button",
+          "description": "Create an ordered list",
+          "tooltip": "Create an ordered list",
+          "visible": true,
+          "shortcut": "Ctrl+Shift+7",
+          "onclick": "onOrderedListClick()"
+        },
+        {
+          "id": "link",
+          "icon": "linkPanel",
+          "label": "Link",
+          "type": "button",
+          "description": "Insert a link",
+          "tooltip": "Insert a link",
+          "visible": true,
+          "shortcut": "Ctrl+K"
+        },
+        {
+          "id": "dividerPanel",
+          "icon": "dividerPanel",
+          "label": "Divider",
+          "type": "button",
+          "description": "Separate content using horizontal line",
+          "tooltip": "Separate content using horizontal line",
+          "visible": true,
+          "shortcut": "---",
+          "onclick": "onHorizontalRuleClick()"
+        },
+        {
+          "id": "quote",
+          "icon": "quotation",
+          "label": "Quote",
+          "type": "button",
+          "description": "Insert a quote or citation",
+          "tooltip": "Insert a quote or citation",
+          "visible": true,
+          "shortcut": ">",
+          "onclick": "onBlockquoteClick()"
+        },
+        {
+          "id": "headingH1",
+          "icon": "headingH1",
+          "label": "Heading 1",
+          "type": "button",
+          "description": "Use this for top level headings",
+          "tooltip": "Use this for top level headings",
+          "visible": true,
+          "shortcut": "#",
+          "onclick": "setHeading(1)"
+        },
+        {
+          "id": "headingH2",
+          "icon": "headingH2",
+          "label": "Heading 2",
+          "type": "button",
+          "description": "Use this for key sections",
+          "tooltip": "Use this for key sections",
+          "visible": true,
+          "shortcut": "##",
+          "onclick": "setHeading(2)"
+        },
+        {
+          "id": "headingH3",
+          "icon": "headingH3",
+          "label": "Heading 3",
+          "type": "button",
+          "description": "Use this for subsections and group headings",
+          "tooltip": "Use this for subsections and group headings",
+          "visible": true,
+          "shortcut": "###",
+          "onclick": "setHeading(3)"
+        },
+        {
+          "id": "headingH4",
+          "icon": "headingH4",
+          "label": "Heading 4",
+          "type": "button",
+          "description": "Use this for deep headings",
+          "tooltip": "Use this for deep headings",
+          "visible": true,
+          "shortcut": "####",
+          "onclick": "setHeading(4)"
+        },
+        {
+          "id": "headingH5",
+          "icon": "headingH5",
+          "label": "Heading 5",
+          "type": "button",
+          "description": "Use this for grouping list items",
+          "tooltip": "Use this for grouping list items",
+          "visible": true,
+          "shortcut": "#####",
+          "onclick": "setHeading(5)"
+        },
+        {
+          "id": "headingH6",
+          "icon": "headingH6",
+          "label": "Heading 6",
+          "type": "button",
+          "description": "Use this for low level headings",
+          "tooltip": "Use this for low level headings",
+          "visible": true,
+          "shortcut": "######",
+          "onclick": "setHeading(6)"
+        }
+      ]
+    }
+  ]
 }

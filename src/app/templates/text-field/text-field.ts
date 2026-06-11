@@ -1,5 +1,13 @@
 import { Component, forwardRef, input, Input, model, signal } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+  Validator,
+} from '@angular/forms';
 
 @Component({
   selector: 'text-field',
@@ -17,7 +25,7 @@ import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_V
       useExisting: forwardRef(() => TextField),
       multi: true,
     },
-  ]
+  ],
 })
 export class TextField implements ControlValueAccessor, Validator {
   public readonly value = model<string>('');

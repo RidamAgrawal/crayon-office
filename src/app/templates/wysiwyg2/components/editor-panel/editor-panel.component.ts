@@ -7,13 +7,7 @@ import {
   viewChild,
 } from '@angular/core';
 
-export type PanelType =
-  | 'info'
-  | 'note'
-  | 'success'
-  | 'warning'
-  | 'error'
-  | 'decision';
+export type PanelType = 'info' | 'note' | 'success' | 'warning' | 'error' | 'decision';
 
 export const PANEL_CONFIG: Record<
   PanelType,

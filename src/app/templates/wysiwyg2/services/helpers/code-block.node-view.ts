@@ -1,11 +1,7 @@
 import { Node } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 
-export function codeBlockNodeView(
-  node: Node,
-  view: EditorView,
-  getPos: () => number | undefined,
-) {
+export function codeBlockNodeView(node: Node, view: EditorView, getPos: () => number | undefined) {
   let currentCode = node.textContent;
 
   // ── Outer wrapper ──────────────────────────────────────────
@@ -168,11 +164,7 @@ export function codeBlockNodeView(
     const end = pos + 1 + view.state.doc.nodeAt(pos)!.content.size;
 
     view.dispatch(
-      view.state.tr.replaceWith(
-        start,
-        end,
-        currentCode ? view.state.schema.text(currentCode) : [],
-      ),
+      view.state.tr.replaceWith(start, end, currentCode ? view.state.schema.text(currentCode) : []),
     );
   });
 
@@ -182,10 +174,7 @@ export function codeBlockNodeView(
       e.preventDefault();
       const start = textarea.selectionStart;
       const end = textarea.selectionEnd;
-      textarea.value =
-        textarea.value.substring(0, start) +
-        '    ' +
-        textarea.value.substring(end);
+      textarea.value = textarea.value.substring(0, start) + '    ' + textarea.value.substring(end);
       textarea.selectionStart = textarea.selectionEnd = start + 4;
       textarea.dispatchEvent(new Event('input'));
     }
@@ -237,11 +226,7 @@ export function codeBlockNodeView(
   };
 }
 
-function codeBlockToolbar(
-  view: EditorView,
-  node: Node,
-  getPos: () => number | undefined,
-) {
+function codeBlockToolbar(view: EditorView, node: Node, getPos: () => number | undefined) {
   const toolbar = document.createElement('div');
   toolbar.className = 'code-block-toolbar';
   toolbar.contentEditable = 'false';

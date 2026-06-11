@@ -1,121 +1,151 @@
 <div class="home-wrapper">
-    <div class="home-padded-wrapper">
-        <div class="home-contents">
-            <div class="home-contents-padder">
-                <div class="home-contents-2">
-                    <div class="home-contents-3">
-                        <div class="home-contents-4">
-                            <div class="home-page-title-container">
-                                <div class="home-page-title-content">
-                                    <div class="title-text-container">
-                                        <h1 class="title-text">Home</h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="explore-container"> <app-tab-template-2
-                                    [config]="{headings:['Recommended','Recent'],bodyPlaceholders:[recommendedTabBody,recentsTabBody],sectionHeadings:['Recommended Spaces','Recent Spaces']}"></app-tab-template-2>
-                            </div>
-                            <div class="home-heading"></div>
-                            <div class="home-items"></div>
-                            <div class="home-tabs"> <app-tab
-                                    [config]="{headings:['Worked on','Viewed','Assigned To me','Starred','Boards'],bodyPlaceholders:['list','list','list','list',boardsTabBody]}"></app-tab>
-                            </div>
-                        </div>
-                    </div>
+  <div class="home-padded-wrapper">
+    <div class="home-contents">
+      <div class="home-contents-padder">
+        <div class="home-contents-2">
+          <div class="home-contents-3">
+            <div class="home-contents-4">
+              <div class="home-page-title-container">
+                <div class="home-page-title-content">
+                  <div class="title-text-container">
+                    <h1 class="title-text">Home</h1>
+                  </div>
                 </div>
+              </div>
+              <div class="explore-container">
+                <app-tab-template-2
+                  [config]="{headings:['Recommended','Recent'],bodyPlaceholders:[recommendedTabBody,recentsTabBody],sectionHeadings:['Recommended Spaces','Recent Spaces']}"
+                ></app-tab-template-2>
+              </div>
+              <div class="home-heading"></div>
+              <div class="home-items"></div>
+              <div class="home-tabs">
+                <app-tab
+                  [config]="{headings:['Worked on','Viewed','Assigned To me','Starred','Boards'],bodyPlaceholders:['list','list','list','list',boardsTabBody]}"
+                ></app-tab>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-    <aside></aside>
-</div> 
+  </div>
+  <aside></aside>
+</div>
 <ng-template #boardsTabBody>
-    <div class="search-container">
-        <div class="search-input-container">
-            <div class="search-control">
-                <div class="search-control-contents">
-                    <div class="search-icon-container"> <span class="search-icon"> <img src="assets/icons/search.svg"
-                                alt="icon"> </span> </div> <input type="text" class="control">
-                    <div class="clear-icon-container"> <button class="clear-icon-btn"> <span class="clear-icon"> <img
-                                    src="assets/icons/close.svg" alt="icon"> </span> </button> </div>
-                </div>
-            </div>
+  <div class="search-container">
+    <div class="search-input-container">
+      <div class="search-control">
+        <div class="search-control-contents">
+          <div class="search-icon-container">
+            <span class="search-icon"> <img src="assets/icons/search.svg" alt="icon" /> </span>
+          </div>
+          <input type="text" class="control" />
+          <div class="clear-icon-container">
+            <button class="clear-icon-btn">
+              <span class="clear-icon"> <img src="assets/icons/close.svg" alt="icon" /> </span>
+            </button>
+          </div>
         </div>
-    </div> <app-tabular-template-1></app-tabular-template-1>
-</ng-template> 
+      </div>
+    </div>
+  </div>
+  <app-tabular-template-1></app-tabular-template-1>
+</ng-template>
 <ng-template #recommendedTabBody>
-    <div class="explore-tiles-list-container">
-        @if (spaces().length) {
-            <div class="explore-tile-list">
-                @for (space of spaces(); track space.id) {
-                    <div class="explore-tile-body">
-                        <div class="tile-heading"> <a [routerLink]="`/app/spaces/${space.id}/board`" class="tile-heading-container"> 
-                                <span class="tile-title-icon-container">
-                                    <img [src]="space?.icon" alt="icon">
-                                </span>
-                                <div class="tile-title-text-container">
-                                    <div class="tile-title-text1">{{ space.name }}</div>
-                                    <p class="tile-title-text2">{{ space.type }}</p>
-                                </div>
-                            </a> </div>
-                        <div class="tile-details">
-                            <div class="tile-detail-row row-1">
-                                <p class="row-1-text">Quick links</p>
-                            </div>
-                            <div class="tile-detail-row row-2"> <a href="" class="row-2-text-container">
-                                    <div class="row-2-text">
-                                        <p>work items</p>
-                                    </div>
-                                    <div class="row-label" [attr.data-content]="space.counter"></div>
-                                </a> </div>
-                            <div class="tile-detail-row row-3"> <a href="" class="row-3-text-container">
-                                    <div class="row-3-text">
-                                        <p>Done work items</p>
-                                    </div>
-                                </a> </div>
-                        </div>
-                        <div class="tile-dropdown"> <button class="tile-dropdown-btn"> <span class="tile-dropdown-text">
-                                    <p>boards</p>
-                                </span> <span class="tile-dropdown-icon-container"> <span class="tile-dropdown-icon"> <svg
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 6" fill="none">
-                                            <path d="M9.19922 1.18176L5.19922 4.81813L1.19922 1.18176" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                        </svg> </span> </span> </button> </div>
-                    </div>
-                }
+  <div class="explore-tiles-list-container">
+    @if (spaces().length) {
+    <div class="explore-tile-list">
+      @for (space of spaces(); track space.id) {
+      <div class="explore-tile-body">
+        <div class="tile-heading">
+          <a [routerLink]="`/app/spaces/${space.id}/board`" class="tile-heading-container">
+            <span class="tile-title-icon-container">
+              <img [src]="space?.icon" alt="icon" />
+            </span>
+            <div class="tile-title-text-container">
+              <div class="tile-title-text1">{{ space.name }}</div>
+              <p class="tile-title-text2">{{ space.type }}</p>
             </div>
-        } @else {
-            <div class="no-spaces-container">
-                <h3 class="no-spaces-found">No spaces found</h3>
-                <p class="no-spaces-message">Get started by creating a new space or visiting the crayon office</p>
-            </div>
-        }
-    </div>
-</ng-template> 
-<ng-template #recentsTabBody>
-    <div class="recommended-tile-list-container">
-        <div class="recommended-tile-list"> 
-            @for(space of spaces(); track space.id){
-                <a href="#" class="recommended-tile-container">
-                    <div class="recommended-tile">
-                        <div class="recommended-tile-icon"> <span class="icon-content"> <img [src]="space.icon" alt="icon"> </span> </div>
-                        <div class="recommended-tile-details">
-                            <div class="recommended-tile-detail-container-1">
-                                <h4 class="project-heading"> <span>{{space.name}}</span> </h4>
-                                <p>{{space.type}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            } @empty {
-                <div class="no-recents-container">
-                    <h3 class="no-recents-found">No recents found</h3>
-                    <p class="no-recents-message">You have no recently viewed spaces</p>
-                    <div class="view-space-btn">
-                        <a href="/" class="primary-btn">View all spaces</a>
-                    </div>
-                </div>
-            }
-
+          </a>
         </div>
+        <div class="tile-details">
+          <div class="tile-detail-row row-1">
+            <p class="row-1-text">Quick links</p>
+          </div>
+          <div class="tile-detail-row row-2">
+            <a href="" class="row-2-text-container">
+              <div class="row-2-text">
+                <p>work items</p>
+              </div>
+              <div class="row-label" [attr.data-content]="space.counter"></div>
+            </a>
+          </div>
+          <div class="tile-detail-row row-3">
+            <a href="" class="row-3-text-container">
+              <div class="row-3-text">
+                <p>Done work items</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="tile-dropdown">
+          <button class="tile-dropdown-btn">
+            <span class="tile-dropdown-text">
+              <p>boards</p>
+            </span>
+            <span class="tile-dropdown-icon-container">
+              <span class="tile-dropdown-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 6" fill="none">
+                  <path
+                    d="M9.19922 1.18176L5.19922 4.81813L1.19922 1.18176"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+      }
     </div>
+    } @else {
+    <div class="no-spaces-container">
+      <h3 class="no-spaces-found">No spaces found</h3>
+      <p class="no-spaces-message">
+        Get started by creating a new space or visiting the crayon office
+      </p>
+    </div>
+    }
+  </div>
+</ng-template>
+<ng-template #recentsTabBody>
+  <div class="recommended-tile-list-container">
+    <div class="recommended-tile-list">
+      @for(space of spaces(); track space.id){
+      <a href="#" class="recommended-tile-container">
+        <div class="recommended-tile">
+          <div class="recommended-tile-icon">
+            <span class="icon-content"> <img [src]="space.icon" alt="icon" /> </span>
+          </div>
+          <div class="recommended-tile-details">
+            <div class="recommended-tile-detail-container-1">
+              <h4 class="project-heading"><span>{{space.name}}</span></h4>
+              <p>{{space.type}}</p>
+            </div>
+          </div>
+        </div>
+      </a>
+      } @empty {
+      <div class="no-recents-container">
+        <h3 class="no-recents-found">No recents found</h3>
+        <p class="no-recents-message">You have no recently viewed spaces</p>
+        <div class="view-space-btn">
+          <a href="/" class="primary-btn">View all spaces</a>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
 </ng-template>

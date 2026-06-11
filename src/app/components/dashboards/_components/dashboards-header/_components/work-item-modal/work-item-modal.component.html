@@ -1,123 +1,137 @@
 <div class="content-header">
-    <h1 class="header-title">
-        <span>Create {{createWorkItemForm.value.workType | lowercase }}</span>
-    </h1>
-    <div class="header-options">
-        <ul class="header-options-list">
-            <li class="header-option-item">
-                <app-icon-container>
-                    <img class="icon-content" [src]="'assets/icons/add1.svg'" alt="add" />
-                </app-icon-container>
-            </li>
-            <li class="header-option-item">
-                <app-icon-container>
-                    <img class="icon-content" [src]="'assets/icons/newTab.svg'" alt="new" />
-                </app-icon-container>
-            </li>
-            <li class="header-option-item">
-                <app-icon-container>
-                    <img class="icon-content" [src]="'assets/icons/more.svg'" alt="more" />
-                </app-icon-container>
-            </li>
-            <li class="header-option-item">
-                <app-icon-container (click)="closeWorkItemModal()">
-                    <img class="icon-content" [src]="'assets/icons/close.svg'" alt="close" />
-                </app-icon-container>
-            </li>
-        </ul>
-    </div>
+  <h1 class="header-title">
+    <span>Create {{ createWorkItemForm.value.workType | lowercase }}</span>
+  </h1>
+  <div class="header-options">
+    <ul class="header-options-list">
+      <li class="header-option-item">
+        <app-icon-container>
+          <img class="icon-content" [src]="'assets/icons/add1.svg'" alt="add" />
+        </app-icon-container>
+      </li>
+      <li class="header-option-item">
+        <app-icon-container>
+          <img class="icon-content" [src]="'assets/icons/newTab.svg'" alt="new" />
+        </app-icon-container>
+      </li>
+      <li class="header-option-item">
+        <app-icon-container>
+          <img class="icon-content" [src]="'assets/icons/more.svg'" alt="more" />
+        </app-icon-container>
+      </li>
+      <li class="header-option-item">
+        <app-icon-container (click)="closeWorkItemModal()">
+          <img class="icon-content" [src]="'assets/icons/close.svg'" alt="close" />
+        </app-icon-container>
+      </li>
+    </ul>
+  </div>
 </div>
 <div class="content-body" appScrollBorder [formGroup]="createWorkItemForm">
-    <div class="content-container-1">
-        <p class="info-indicator">
-            Required fields are marked with asterisk
-            <span class="red-asterisk">*</span>
-        </p>
-        <div class="content-container-2">
-            <multi-select-wrapper label="Space" [optionsConfig]="spaceConfig()" [isMandatory]="true"
-                formControlName="space"></multi-select-wrapper>
-            <multi-select-wrapper label="Work type" [optionsConfig]="workTypeConfig()" [isMandatory]="true"
-                formControlName="workType"></multi-select-wrapper>
-            <!-- <div class="item-placeholder-wrapper">
+  <div class="content-container-1">
+    <p class="info-indicator">
+      Required fields are marked with asterisk
+      <span class="red-asterisk">*</span>
+    </p>
+    <div class="content-container-2">
+      <multi-select-wrapper
+        label="Space"
+        [optionsConfig]="spaceConfig()"
+        [isMandatory]="true"
+        formControlName="space"
+      ></multi-select-wrapper>
+      <multi-select-wrapper
+        label="Work type"
+        [optionsConfig]="workTypeConfig()"
+        [isMandatory]="true"
+        formControlName="workType"
+      ></multi-select-wrapper>
+      <!-- <div class="item-placeholder-wrapper">
             <div class="item-placeholder-label"></div>
             <div class="item-placeholder-row-1"></div>
             <div class="item-placeholder-row-2"></div>
           </div> -->
-            <hr class="field-divider">
-            <div class="field-wrapper select-field-wrapper">
-                <label for="type" class="field-label">
-                    Status
-                    <span class="red-asterisk">*</span>
-                </label>
-                <!-- <app-multi-select></app-multi-select> -->
-                <button class="status-btn" (click)="onStatusClick(statusBtn)" #statusBtn [disabled]="!selectedSpace()"
-                    [style.backgroundColor]="selectedStatus()?.backgroundColor">
-                    <span class="text">{{selectedStatus()?.label}}</span>
-                    <app-icon-container>
-                        <img class="icon-content" src="./assets/icons/arrow-down.svg">
-                    </app-icon-container>
-                </button>
-                @if(!selectedSpace()) {
-                <div class="field-feedback-container font-body-small">
-                    <span class="feedback-icon-container">
-                        <img src="assets/icons/warningRed.svg" alt="icon">
-                    </span>
-                    <span>
-                        Please select a space first
-                    </span>
-                </div>
-                }
-            </div>
-            <work-item-modal-text-field-wrapper [label]="'summary'" formControlName="summary"
-                [textFieldValidatorFn]="summaryValidator">
-            </work-item-modal-text-field-wrapper>
-            <div class="section-2">
-                <div class="field-wrapper text-field-wrapper">
-                    <label for="" class="field-label">
-                        Work type <span class="red-asterisk">*</span>
-                    </label>
-                    <div class="text-field">
-                        <input type="text" class="text-field-input">
-                    </div>
-                    <div class="field-feedback-container font-body-small">
-                        <span class="">
-                            <img src="./assets/icons/warningRed.svg" alt="icon">
-                        </span>
-                        <span>
-                            This field is required
-                        </span>
-                    </div>
-                </div>
-                <wysiwyg-editor-wrapper [isMandatory]="false" formControlName="description">
-                </wysiwyg-editor-wrapper>
-            </div>
+      <hr class="field-divider" />
+      <div class="field-wrapper select-field-wrapper">
+        <label for="type" class="field-label">
+          Status
+          <span class="red-asterisk">*</span>
+        </label>
+        <!-- <app-multi-select></app-multi-select> -->
+        <button
+          class="status-btn"
+          (click)="onStatusClick(statusBtn)"
+          #statusBtn
+          [disabled]="!selectedSpace()"
+          [style.backgroundColor]="selectedStatus()?.backgroundColor"
+        >
+          <span class="text">{{ selectedStatus()?.label }}</span>
+          <app-icon-container>
+            <img class="icon-content" src="./assets/icons/arrow-down.svg" />
+          </app-icon-container>
+        </button>
+        @if (!selectedSpace()) {
+          <div class="field-feedback-container font-body-small">
+            <span class="feedback-icon-container">
+              <img src="assets/icons/warningRed.svg" alt="icon" />
+            </span>
+            <span> Please select a space first </span>
+          </div>
+        }
+      </div>
+      <work-item-modal-text-field-wrapper
+        [label]="'summary'"
+        formControlName="summary"
+        [textFieldValidatorFn]="summaryValidator"
+      >
+      </work-item-modal-text-field-wrapper>
+      <div class="section-2">
+        <div class="field-wrapper text-field-wrapper">
+          <label for="" class="field-label"> Work type <span class="red-asterisk">*</span> </label>
+          <div class="text-field">
+            <input type="text" class="text-field-input" />
+          </div>
+          <div class="field-feedback-container font-body-small">
+            <span class="">
+              <img src="./assets/icons/warningRed.svg" alt="icon" />
+            </span>
+            <span> This field is required </span>
+          </div>
         </div>
+        <wysiwyg-editor-wrapper [isMandatory]="false" formControlName="description">
+        </wysiwyg-editor-wrapper>
+      </div>
     </div>
+  </div>
 </div>
 <div class="content-footer">
-    <app-checkbox class="create-another-checkbox" [checkboxConfig]="{title: 'create another'}"></app-checkbox>
-    <button class="cancel-btn" (click)="closeWorkItemModal()"><span>Cancel</span></button>
-    <button class="save-btn" [disabled]="createWorkItemForm.invalid"
-        (click)="createWorkItem()"><span>Create</span></button>
+  <app-checkbox
+    class="create-another-checkbox"
+    [checkboxConfig]="{ title: 'create another' }"
+  ></app-checkbox>
+  <button class="cancel-btn" (click)="closeWorkItemModal()"><span>Cancel</span></button>
+  <button class="save-btn" [disabled]="createWorkItemForm.invalid" (click)="createWorkItem()">
+    <span>Create</span>
+  </button>
 </div>
 
 <ng-template #statusOptionTabletTemplate let-option>
-    <div class="status-option-tablet">
-        <span class="status-option-text-container" [style.backgroundColor]="option.backgroundColor">
-            <span class="text">{{option.label}}</span>
-        </span>
-    </div>
+  <div class="status-option-tablet">
+    <span class="status-option-text-container" [style.backgroundColor]="option.backgroundColor">
+      <span class="text">{{ option.label }}</span>
+    </span>
+  </div>
 </ng-template>
 
 <ng-template #spaceOptionTemplate let-option>
-    <div class="space-option">
-        <div class="icon-container">
-            <span class="icon-content">
-                <img [src]="option.icon" alt="icon">
-            </span>
-        </div>
-        <span class="space-option-text-container" [style.backgroundColor]="option.backgroundColor">
-            <div class="text">{{option.label}}</div>
-        </span>
+  <div class="space-option">
+    <div class="icon-container">
+      <span class="icon-content">
+        <img [src]="option.icon" alt="icon" />
+      </span>
     </div>
+    <span class="space-option-text-container" [style.backgroundColor]="option.backgroundColor">
+      <div class="text">{{ option.label }}</div>
+    </span>
+  </div>
 </ng-template>

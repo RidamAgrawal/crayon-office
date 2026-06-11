@@ -8,9 +8,8 @@ describe('Wysiwyg2', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Wysiwyg2]
-    })
-    .compileComponents();
+      imports: [Wysiwyg2],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Wysiwyg2);
     component = fixture.componentInstance;

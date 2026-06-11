@@ -127,7 +127,9 @@
   color: #172b4d;
   font-family: inherit;
   cursor: pointer;
-  transition: background 0.1s, border-color 0.2s;
+  transition:
+    background 0.1s,
+    border-color 0.2s;
 
   &:hover {
     background: #f4f5f7;
@@ -189,7 +191,9 @@
   text-align: center;
   color: #172b4d;
   background: #fafbfc;
-  transition: border-color 0.2s, background-color 0.2s;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
 
   &:hover {
     background: #ebecf0;
@@ -293,20 +297,20 @@
   border-radius: 4px;
   padding-block: 1rem;
   padding-inline: 1rem;
-  background-color: #FFF5DB;
+  background-color: #fff5db;
   word-break: break-word;
   display: flex;
   row-gap: 1pc;
   column-gap: 1pc;
   align-items: stretch;
-  .error-icon-container{
+  .error-icon-container {
     display: flex;
     margin-block: -2px;
     box-sizing: border-box;
-    svg{
+    svg {
       height: 24px;
       width: 24px;
-      color: #E06C00;
+      color: #e06c00;
       line-height: 1;
       flex-shrink: 0;
       overflow: hidden;
@@ -314,9 +318,9 @@
       pointer-events: none;
     }
   }
-  .error-message-container{
+  .error-message-container {
     box-sizing: border-box;
-    a{
+    a {
       color: #1869db;
     }
   }

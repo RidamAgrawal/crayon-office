@@ -4,7 +4,10 @@ import { Api } from './api/api';
 import { Observable } from 'rxjs';
 import { UserLoginSuccessResponse } from '../../models';
 import { environment } from '../../../environments/environment';
-import { SpaceDetails, WorkItem } from '../../components/dashboards/_components/dashboard-space/_models';
+import {
+  SpaceDetails,
+  WorkItem,
+} from '../../components/dashboards/_components/dashboard-space/_models';
 import { SpaceBoardColumn } from '../../components/dashboards/_components/dashboard-space/_models/index';
 
 @Injectable({
@@ -14,7 +17,7 @@ export class HttpService {
   constructor(
     private http: HttpClient,
     private api: Api,
-  ) { }
+  ) {}
   public getSidebarItemConfig(): Observable<any> {
     return this.http.get(this.api.sidebarItemConfig);
   }
@@ -31,10 +34,7 @@ export class HttpService {
     return this.http.post('/create/', payload);
   }
 
-  public login(
-    email: string,
-    password: string,
-  ): Observable<UserLoginSuccessResponse | null> {
+  public login(email: string, password: string): Observable<UserLoginSuccessResponse | null> {
     const apiUrl = 'http://localhost:3000/api/auth/login';
     return this.http.post<UserLoginSuccessResponse>(apiUrl, {
       email,
@@ -43,10 +43,9 @@ export class HttpService {
   }
 
   public sendOtp(email: string): Observable<{ message: string }> {
-    return this.http.post<{ message: string }>(
-      'http://localhost:3000/api/auth/signup/send-otp',
-      { email },
-    );
+    return this.http.post<{ message: string }>('http://localhost:3000/api/auth/signup/send-otp', {
+      email,
+    });
   }
 
   public verifyOtp(
@@ -68,30 +67,22 @@ export class HttpService {
     );
   }
 
-  public resetPassword(
-    token: string,
-    newPassword: string,
-  ): Observable<{ message: string }> {
-    return this.http.post<{ message: string }>(
-      'http://localhost:3000/api/auth/reset-password',
-      { token, newPassword },
-    );
+  public resetPassword(token: string, newPassword: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>('http://localhost:3000/api/auth/reset-password', {
+      token,
+      newPassword,
+    });
   }
 
-  public googleLogin(
-    idToken: string,
-  ): Observable<UserLoginSuccessResponse | null> {
+  public googleLogin(idToken: string): Observable<UserLoginSuccessResponse | null> {
     const apiUrl = 'http://localhost:3000/api/auth/google';
     return this.http.post<UserLoginSuccessResponse>(apiUrl, { idToken });
   }
 
-  public microsoftLogin(
-    idToken: string,
-  ): Observable<UserLoginSuccessResponse | null> {
-    return this.http.post<UserLoginSuccessResponse>(
-      'http://localhost:3000/api/auth/microsoft',
-      { idToken },
-    );
+  public microsoftLogin(idToken: string): Observable<UserLoginSuccessResponse | null> {
+    return this.http.post<UserLoginSuccessResponse>('http://localhost:3000/api/auth/microsoft', {
+      idToken,
+    });
   }
 
   public githubLogin(code: string): Observable<UserLoginSuccessResponse> {
@@ -122,9 +113,7 @@ export class HttpService {
   }
 
   public getWorkItems(spaceId: string): Observable<any[]> {
-    return this.http.get<any[]>(
-      `${environment.backendUrl}/api/work-items?spaceId=${spaceId}`,
-    );
+    return this.http.get<any[]>(`${environment.backendUrl}/api/work-items?spaceId=${spaceId}`);
   }
 
   public getSpaceHeaderDataAndSummary(spaceId: string): Observable<any> {
@@ -133,58 +122,74 @@ export class HttpService {
   }
 
   public getSpaceColumns(spaceId: string): Observable<any> {
-    return this.http.get<any>(
-      `${environment.backendUrl}/api/spaces/` + spaceId + '/statuses',
-    );
+    return this.http.get<any>(`${environment.backendUrl}/api/spaces/` + spaceId + '/statuses');
   }
 
   public getSpaceIssues(spaceId: string): Observable<any> {
-    return this.http.get<any>(
-      `${environment.backendUrl}/api/spaces/` + spaceId + '/issues',
-    );
+    return this.http.get<any>(`${environment.backendUrl}/api/spaces/` + spaceId + '/issues');
   }
 
-  public createStatus(spaceId: string, body: { name: string; label: string; backgroundColor: string; category?: string }): Observable<SpaceBoardColumn> {
+  public createStatus(
+    spaceId: string,
+    body: { name: string; label: string; backgroundColor: string; category?: string },
+  ): Observable<SpaceBoardColumn> {
     return this.http.post<SpaceBoardColumn>(
       `${environment.backendUrl}/api/spaces/${spaceId}/statuses`,
-      body
+      body,
     );
   }
 
-  public updateStatus(spaceId: string, statusId: string, body: { name?: string; label?: string; backgroundColor?: string; category?: string }): Observable<SpaceBoardColumn> {
+  public updateStatus(
+    spaceId: string,
+    statusId: string,
+    body: { name?: string; label?: string; backgroundColor?: string; category?: string },
+  ): Observable<SpaceBoardColumn> {
     return this.http.patch<SpaceBoardColumn>(
       `${environment.backendUrl}/api/spaces/${spaceId}/statuses/${statusId}`,
-      body
+      body,
     );
   }
 
   public updateIssue(
     spaceId: string,
     issueId: string,
-    body: { summary?: string; statusId?: string; rank?: string; assigneeId?: string | null; description?: string; priority?: string }
+    body: {
+      summary?: string;
+      statusId?: string;
+      rank?: string;
+      assigneeId?: string | null;
+      description?: string;
+      priority?: string;
+    },
   ): Observable<WorkItem> {
     return this.http.patch<WorkItem>(
       `${environment.backendUrl}/api/spaces/${spaceId}/issues/${issueId}`,
-      body
+      body,
     );
   }
 
   // http-service.ts
   public createIssue(
     spaceId: string,
-    body: { summary: string; statusId: string; description?: string; workType?: string; dueDate?: string | null }
+    body: {
+      summary: string;
+      statusId: string;
+      description?: string;
+      workType?: string;
+      dueDate?: string | null;
+    },
   ): Observable<WorkItem> {
-    return this.http.post<WorkItem>(
-      `${environment.backendUrl}/api/spaces/${spaceId}/issues`,
-      body
-    );
+    return this.http.post<WorkItem>(`${environment.backendUrl}/api/spaces/${spaceId}/issues`, body);
   }
 
-  public deleteStatus(spaceId: string, statusId: string, targetStatusId?: string): Observable<void> {
+  public deleteStatus(
+    spaceId: string,
+    statusId: string,
+    targetStatusId?: string,
+  ): Observable<void> {
     return this.http.delete<void>(
       `${environment.backendUrl}/api/spaces/${spaceId}/statuses/${statusId}`,
       { body: { targetStatusId } }, // HttpClient supports body on DELETE
     );
   }
-
 }

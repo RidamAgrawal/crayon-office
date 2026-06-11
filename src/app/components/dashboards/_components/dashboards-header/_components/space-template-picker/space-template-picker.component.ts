@@ -7,7 +7,7 @@ import {
   SpaceTemplate,
   SpaceTemplateCategory,
 } from './space-template.config';
-import { ScrollBorder } from "../../../../../../directives/scroll-border/scroll-border.directive";
+import { ScrollBorder } from '../../../../../../directives/scroll-border/scroll-border.directive';
 
 @Component({
   selector: 'space-template-picker',
@@ -33,7 +33,9 @@ export class SpaceTemplatePickerComponent implements OnInit {
 
   protected readonly heading = computed(() => CATEGORY_META[this.selectedCategory()].heading);
 
-  protected readonly description = computed(() => CATEGORY_META[this.selectedCategory()].description);
+  protected readonly description = computed(
+    () => CATEGORY_META[this.selectedCategory()].description,
+  );
 
   protected readonly filteredTemplates = computed(() => {
     const cat = this.selectedCategory();
@@ -59,7 +61,7 @@ export class SpaceTemplatePickerComponent implements OnInit {
 
   protected illustrationFor(template: SpaceTemplate): SafeHtml | null {
     const url = template.illustration;
-    return url ? this.illustrations()[url] ?? null : null;
+    return url ? (this.illustrations()[url] ?? null) : null;
   }
 
   protected selectCategory(category: SpaceTemplateCategory): void {
