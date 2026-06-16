@@ -29,21 +29,17 @@
           </div>
         </fieldset>
       </div>
-      <button
-        class="filter-grp-btn secondary-btn"
-        (click)="openFilterModal(filterGrpBtn)"
-        #filterGrpBtn
-      >
+      <button class="filter-grp-btn secondary-btn" (click)="openFilterModal(filterGrpBtn)" #filterGrpBtn>
         <span class="filter-grp-content">
           <span><img src="./assets/icons/filterList.svg" alt="icon" /></span>
         </span>
         <span>Filter</span>
-        @if (totalFilterCount(); as count) {
-          <span class="filter-count-badge">{{ count }}</span>
+        @if (boardViewState.totalFilterCount(); as count) {
+        <span class="filter-count-badge">{{ count }}</span>
         }
       </button>
-      @if (totalFilterCount() > 0) {
-        <button class="secondary-btn link-btn" (click)="clearAllFilters()">Clear filters</button>
+      @if (boardViewState.totalFilterCount() > 0) {
+      <button class="secondary-btn link-btn" (click)="clearAllFilters()">Clear filters</button>
       }
     </div>
   </div>
@@ -66,69 +62,40 @@
 <div class="space-body">
   <div class="outer left-outer"></div>
   <div class="body-columns">
-    <div
-      class="columns-container"
-      cdkDropList
-      cdkDropListOrientation="horizontal"
-      [cdkDropListData]="columns()"
-      (cdkDropListDropped)="onColumnDrop($event)"
-    >
-      @for (column of filteredColumns(); track column.id; let i = $index) {
-        <board-view-column-template
-          cdkDrag
-          [cdkDragData]="column"
-          [columnDetails]="column"
-          [connectedTo]="allColumnIds()"
-          [index]="i"
-          [total]="filteredColumns().length"
-          [isLoading]="pendingColumnIds().has(column.id)"
-          (cardDropped)="onCardDrop($event)"
-          (columnOptionsClick)="openColumnOptions($event.column, $event.trigger, i)"
-          (columnRenamed)="onColumnRenamed($event)"
-          (issueCreate)="onIssueCreate($event)"
-        >
-        </board-view-column-template>
+    <div class="columns-container" cdkDropList cdkDropListOrientation="horizontal"
+      [cdkDropListData]="boardViewState.snapshotColumns()" (cdkDropListDropped)="onColumnDrop($event)">
+      @for (column of boardViewState.filteredColumns(); track column.id; let i = $index) {
+      <board-view-column-template cdkDrag [cdkDragData]="column" [columnDetails]="column"
+        [connectedTo]="boardViewState.allColumnIds()" [index]="i" [total]="boardViewState.filteredColumns().length"
+        [isLoading]="boardViewState.pendingColumnIds().has(column.id)" (cardDropped)="onCardDrop($event)"
+        (columnOptionsClick)="openColumnOptions($event.column, $event.trigger, i)"
+        (columnRenamed)="boardViewService.onColumnRenamed($event)"
+        (issueCreate)="boardViewService.onIssueCreate($event)">
+      </board-view-column-template>
       }
     </div>
   </div>
-  <div
-    class="add-columns-btn-container"
-    appClickOutside
-    (clickOutside)="isCreatingColumn.set(false)"
-    [class.is-hidden]="!canCreateColumns()"
-  >
-    <button
-      class="add-columns-btn"
-      [class.is-hidden]="isCreatingColumn()"
-      (click)="isCreatingColumn.set(true)"
-      [disabled]="isColumnCreationInProgress()"
-    >
-      @if (isColumnCreationInProgress()) {
-        <span class="loader">
-          <span class="loader-rotating-element">
-            <svg
-              class="loader-rotating-svg"
-              height="24"
-              width="24"
-              viewBox="0 0 16 16"
-              xmlns="http://www.w3.org/2000/svg"
-              role="none"
-            >
-              <circle cx="8" cy="8" r="7"></circle>
-            </svg>
-          </span>
+  <div class="add-columns-btn-container" appClickOutside (clickOutside)="boardViewState.unsetCreatingColumn()"
+    [class.is-hidden]="!boardViewState.canCreateColumns()">
+    <button class="add-columns-btn" [class.is-hidden]="boardViewState.isCreatingColumn()"
+      (click)="boardViewState.setCreatingColumn()" [disabled]="boardViewState.isColumnCreationInProgress()">
+      @if (boardViewState.isColumnCreationInProgress()) {
+      <span class="loader">
+        <span class="loader-rotating-element">
+          <svg class="loader-rotating-svg" height="24" width="24" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
+            role="none">
+            <circle cx="8" cy="8" r="7"></circle>
+          </svg>
         </span>
+      </span>
       } @else {
-        <span class="icon-content">
-          <img src="./assets/icons/add2.svg" alt="icon" />
-        </span>
+      <span class="icon-content">
+        <img src="./assets/icons/add2.svg" alt="icon" />
+      </span>
       }
     </button>
-    <board-space-text-field-wrapper-template
-      [class.is-hidden]="!isCreatingColumn()"
-      (close)="isCreatingColumn.set(false)"
-      (setValue)="createColumn($event)"
-    >
+    <board-space-text-field-wrapper-template [class.is-hidden]="!boardViewState.isCreatingColumn()"
+      (close)="boardViewState.unsetCreatingColumn()" (setValue)="boardViewService.createColumn($event)">
     </board-space-text-field-wrapper-template>
   </div>
   <div class="outer right-outer"></div>
@@ -138,125 +105,111 @@
   <div class="filter-modal-template">
     <div class="filter-modal-body">
       <div class="filter-modal-nav">
-        @for (filter of modalTemplatefilters; track $index) {
-          <button
-            class="filter-modal-nav-item"
-            [class.selected]="selectedModalTemplateFilter()?.id === filter.id"
-            (click)="selectedModalTemplateFilter.set(filter)"
-          >
-            <div class="filter-modal-nav-item-text">
-              {{ filter.text }}
-              @if (filter.isInfoIcon) {
-                <span class="icon">
-                  <img src="./assets/icons/info.svg" alt="" />
-                </span>
-              }
-            </div>
-            @if (facetCounts()[filter.id]; as n) {
-              <span class="filter-modal-nav-item-selected-count-container">
-                <span class="filter-modal-nav-item-selected-count-content">
-                  <span class="filter-modal-nav-item-selected-count-text">{{ n }}</span>
-                </span>
-              </span>
+        @for (filter of boardViewState.modalTemplateFilters; track $index) {
+        <button class="filter-modal-nav-item"
+          [class.selected]="boardViewState.selectedModalTemplateFilter()?.id === filter.id"
+          (click)="boardViewState.selectModalTemplateFilters(filter)">
+          <div class="filter-modal-nav-item-text">
+            {{ filter.text }}
+            @if (filter.isInfoIcon) {
+            <span class="icon">
+              <img src="./assets/icons/info.svg" alt="" />
+            </span>
             }
-          </button>
+          </div>
+          @if (boardViewState.facetCounts()[filter.id]; as n) {
+          <span class="filter-modal-nav-item-selected-count-container">
+            <span class="filter-modal-nav-item-selected-count-content">
+              <span class="filter-modal-nav-item-selected-count-text">{{ n }}</span>
+            </span>
+          </span>
+          }
+        </button>
         }
       </div>
       <div class="filter-modal-main">
-        @if (selectedModalTemplateFilter()) {
-          <div class="modal-body">
-            <div class="modal-body-content">
-              <div class="filter-options-container">
-                @switch (selectedModalTemplateFilter()?.id) {
-                  @case ('assignee') {
-                    <text-field
-                      [placeholder]="'Search ' + selectedModalTemplateFilter()?.text"
-                    ></text-field>
-                    @for (opt of assigneeOptions(); track opt.id) {
-                      <app-checkbox
-                        [ngModel]="filters().assignee.has(opt.id)"
-                        (valChange)="setFilter('assignee', opt.id, $event)"
-                      >
-                        <div class="assignee-row">
-                          @if (opt.id == null) {
-                            <span class="avatar">
-                              <span class="icon-content">
-                                <img src="./assets/icons/person.svg" alt="i" />
-                              </span>
-                            </span>
-                          } @else {
-                            <span class="avatar">
-                              @if (opt.avatar) {
-                                <img [src]="opt.avatar" alt="i" />
-                              } @else {
-                                {{ opt.label | name }}
-                              }
-                            </span>
-                          }
-                          {{ opt.label }}
-                        </div>
-                      </app-checkbox>
+        @if (boardViewState.selectedModalTemplateFilter()) {
+        <div class="modal-body">
+          <div class="modal-body-content">
+            <div class="filter-options-container">
+              @switch (boardViewState.selectedModalTemplateFilter()?.id) {
+              @case ('assignee') {
+              <text-field [placeholder]="'Search ' + boardViewState.selectedModalTemplateFilter()?.text"></text-field>
+              @for (opt of boardViewState.assigneeOptions(); track opt.id) {
+              <app-checkbox [ngModel]="boardViewState.filters().assignee.has(opt.id)"
+                (valChange)="setFilter('assignee', opt.id, $event)">
+                <div class="assignee-row">
+                  @if (opt.id == null) {
+                  <span class="avatar">
+                    <span class="icon-content">
+                      <img src="./assets/icons/person.svg" alt="i" />
+                    </span>
+                  </span>
+                  } @else {
+                  <span class="avatar">
+                    @if (opt.avatar) {
+                    <img [src]="opt.avatar" alt="i" />
+                    } @else {
+                    {{ opt.label | name }}
                     }
+                  </span>
                   }
-                  @case ('workType') {
-                    <text-field
-                      [placeholder]="'Search ' + selectedModalTemplateFilter()?.text"
-                    ></text-field>
-                    @for (opt of workTypeOptions; track opt.id) {
-                      <app-checkbox
-                        [ngModel]="filters().workType.has(opt.id)"
-                        (valChange)="setFilter('workType', opt.id, $event)"
-                      >
-                        <div class="work-type-row">
-                          <div class="content">
-                            <img [src]="'./assets/icons/' + opt.icon + '.svg'" alt="i" />
-                            <div class="text">{{ opt.label }}</div>
-                          </div>
-                        </div>
-                      </app-checkbox>
-                    }
-                  }
-                  @case ('status') {
-                    <text-field
-                      [placeholder]="'Search ' + selectedModalTemplateFilter()?.text"
-                    ></text-field>
-                    @for (opt of statusOptions(); track opt.id) {
-                      <app-checkbox
-                        [ngModel]="filters().status.has(opt.id)"
-                        (valChange)="setFilter('status', opt.id, $event)"
-                      >
-                        <span class="status-pill-container">
-                          <span class="status-pill" [style.background-color]="opt.backgroundColor">
-                            {{ opt.label }}
-                          </span>
-                        </span>
-                      </app-checkbox>
-                    }
-                  }
-                  @default {
-                    <div class="shimmer text-field-placeholder"></div>
-                    <div class="shimmer checkbox-placeholder"></div>
-                    <div class="shimmer checkbox-placeholder"></div>
-                    <div class="shimmer checkbox-placeholder"></div>
-                  }
-                }
-              </div>
-            </div>
-            <div class="modal-footer">
-              <div class="footer-text">
-                showing {{ currentFacetTotals().shown }} of
-                {{ currentFacetTotals().total }}
-              </div>
-              @if (false) {
-                <div class="modal-footer-placeholder">
-                  <div class="shimmer modal-footer-shimmer modal-footer-shimmer-1"></div>
-                  <div class="shimmer modal-footer-shimmer modal-footer-shimmer-2"></div>
+                  {{ opt.label }}
                 </div>
+              </app-checkbox>
+              }
+              }
+              @case ('workType') {
+              <text-field [placeholder]="'Search ' + boardViewState.selectedModalTemplateFilter()?.text"></text-field>
+              @for (opt of boardViewState.workTypeOptions; track opt.id) {
+              <app-checkbox [ngModel]="boardViewState.filters().workType.has(opt.id)"
+                (valChange)="setFilter('workType', opt.id, $event)">
+                <div class="work-type-row">
+                  <div class="content">
+                    <img [src]="'./assets/icons/' + opt.icon + '.svg'" alt="i" />
+                    <div class="text">{{ opt.label }}</div>
+                  </div>
+                </div>
+              </app-checkbox>
+              }
+              }
+              @case ('status') {
+              <text-field [placeholder]="'Search ' + boardViewState.selectedModalTemplateFilter()?.text"></text-field>
+              @for (opt of boardViewState.statusOptions(); track opt.id) {
+              <app-checkbox [ngModel]="boardViewState.filters().status.has(opt.id)"
+                (valChange)="setFilter('status', opt.id, $event)">
+                <span class="status-pill-container">
+                  <span class="status-pill" [style.background-color]="opt.backgroundColor">
+                    {{ opt.label }}
+                  </span>
+                </span>
+              </app-checkbox>
+              }
+              }
+              @default {
+              <div class="shimmer text-field-placeholder"></div>
+              <div class="shimmer checkbox-placeholder"></div>
+              <div class="shimmer checkbox-placeholder"></div>
+              <div class="shimmer checkbox-placeholder"></div>
+              }
               }
             </div>
           </div>
+          <div class="modal-footer">
+            <div class="footer-text">
+              showing {{ boardViewState.currentFacetTotals().shown }} of
+              {{ boardViewState.currentFacetTotals().total }}
+            </div>
+            @if (false) {
+            <div class="modal-footer-placeholder">
+              <div class="shimmer modal-footer-shimmer modal-footer-shimmer-1"></div>
+              <div class="shimmer modal-footer-shimmer modal-footer-shimmer-2"></div>
+            </div>
+            }
+          </div>
+        </div>
         } @else {
-          <div class="empty-modal-body">Select a field to start creating a filter.</div>
+        <div class="empty-modal-body">Select a field to start creating a filter.</div>
         }
       </div>
     </div>

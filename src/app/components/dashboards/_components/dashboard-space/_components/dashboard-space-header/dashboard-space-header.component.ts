@@ -75,6 +75,9 @@ export class DashboardSpaceHeader {
     this.dashboardSpaceHeaderService.handleMoreOptionsClick(
       event.target as HTMLButtonElement,
       structuredClone(this.optionLists()),
+      (action) => {
+        if (action.id === 'addPeople') this.openAddPeopleModal();
+      },
     );
   }
 

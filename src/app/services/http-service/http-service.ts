@@ -192,4 +192,10 @@ export class HttpService {
       { body: { targetStatusId } }, // HttpClient supports body on DELETE
     );
   }
+
+  public reorderStatuses(spaceId: string, orderedIds: string[]): Observable<any> {
+    return this.http.post<any>(`${environment.backendUrl}/api/spaces/${spaceId}/statuses/reorder`, {
+      orderedIds,
+    });
+  }
 }

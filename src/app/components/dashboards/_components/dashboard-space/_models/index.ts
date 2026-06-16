@@ -109,3 +109,9 @@ export type BoardFilterState = {
   workType: Set<string>;
   status: Set<string>;
 };
+
+export type BoardFilterOptions = {
+  id: string;
+  text: string;
+  isInfoIcon?: boolean;
+};
