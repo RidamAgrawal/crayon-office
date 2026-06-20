@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, of, switchMap, tap } from 'rxjs';
 import { User } from '../../models';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class AuthenticationService {
 
   public currentUser: User | null = null;
   public serverError: boolean = false;
-  private backendUrl = 'http://localhost:3000';
+  private backendUrl = environment.backendUrl;
 
   public get authToken(): string | null {
     return sessionStorage.getItem('example_token');
