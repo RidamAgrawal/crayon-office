@@ -75,6 +75,11 @@ const dashboardRoutes: Routes = [
           // },
         ],
       },
+      {
+        path: 'browse/:issueKey',
+        loadComponent: () => import('./_components/work-item/_components/work-item-page')
+          .then(c => c.WorkItemPageComponent),
+      }
     ],
   },
 ];

@@ -4,9 +4,7 @@ import {
   viewChild,
   ViewContainerRef,
   TemplateRef,
-  signal,
   ElementRef,
-  WritableSignal,
   DestroyRef,
 } from '@angular/core';
 import { TextField } from '../../../../../../templates/text-field/text-field';
@@ -15,7 +13,7 @@ import { SpaceBoardsModalFilterPosition, WORK_TYPES } from './dashboard-space-bo
 import { Checkbox } from '../../../../../../templates/checkbox/checkbox';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Store } from '@ngrx/store';
-import { BoardFilterState, SpaceBoardColumn, WorkItem } from '../../_models';
+import { BoardFilterState, SpaceBoardColumn } from '../../_models';
 import { selectSpaceDetail } from '../../_store/dashboard-space-store.selector';
 import { catchError, EMPTY, switchMap } from 'rxjs';
 import { BoardViewColumnTemplate } from '../../_templates/board-column-template';
@@ -30,6 +28,8 @@ import {
   DashboardSpaceBoardViewStateService,
 } from '../../_services';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { WorkItem } from '../../../../_models';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'dashboard-space-board-view',
@@ -49,6 +49,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class DashboardSpaceBoardViewComponent {
   private readonly store = inject(Store);
+  private readonly activatedRoute = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
   private readonly overlayService = inject(OverlayService);
   private readonly viewContainerRef = inject(ViewContainerRef);
@@ -62,6 +63,9 @@ export class DashboardSpaceBoardViewComponent {
   protected readonly workTypeOptions = WORK_TYPES;
 
   public ngOnInit(): void {
+    const selected = this.activatedRoute.snapshot.queryParamMap.get('selected');
+    if (selected) this.boardViewService.openWorkItemDetailModal(selected);
+
     this.store
       .select(selectSpaceDetail)
       .pipe(

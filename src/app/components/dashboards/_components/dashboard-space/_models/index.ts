@@ -1,4 +1,5 @@
 import { OptionsList } from '../../../../../templates/option-wrapper/option-wrapper.model';
+import { SpaceMember, WorkItem } from '../../../_models';
 
 export interface SpaceDetails {
   id: string;
@@ -20,16 +21,6 @@ export interface SpaceDetails {
   };
 }
 
-export interface SpaceMember {
-  userId: string;
-  spaceId: string;
-  role: 'OWNER' | 'ADMIN' | 'MEMBER' | 'VIEWER';
-  user: {
-    avatarUrl: string | null;
-    displayName: string;
-    id: string;
-  };
-}
 
 export const SpaceStoreKey = 'SpaceStoreKey';
 
@@ -59,33 +50,6 @@ export interface SpaceNav {
   icon: string;
   routerLink: string;
   optionsList: OptionsList[];
-}
-
-export interface WorkItem {
-  description: string;
-  spaceId: string;
-  statusId: string;
-  summary: string;
-  workType: string;
-  rank: string;
-  id: string;
-  key: string;
-  priority: string;
-  reporterId: string;
-  assigneeId: string | null;
-  parentId: string | null;
-  status: WorkItemStatus;
-  assignee: SpaceMember | null;
-}
-
-export interface WorkItemStatus {
-  category: string;
-  id: string;
-  name: string;
-  label: string;
-  backgroundColor: string;
-  order: number;
-  spaceId: string;
 }
 
 export interface SpaceCapabilities {

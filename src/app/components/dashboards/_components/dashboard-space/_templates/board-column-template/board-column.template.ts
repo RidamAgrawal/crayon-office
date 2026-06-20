@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { BoardViewCardTemplate } from '../board-card-template';
-import { SpaceBoardColumn, WorkItem } from '../../_models';
+import { SpaceBoardColumn } from '../../_models';
 import { ClickOutside } from '../../../../../../directives';
 import { BoardSpaceTextFieldWrapperTemplate } from '../board-space-text-field-wrapper-template';
 import { OverlayService } from '../../../../../../services/overlay-service/overlay-service';
@@ -21,6 +21,8 @@ import {
   OptionConfigurations,
 } from '../../../../../../templates/option-wrapper/option-wrapper.model';
 import { WORK_TYPES } from '../../_components/dashboard-space-board-view/dashboard-space-board-view.constants';
+import { WorkItem } from '../../../../_models';
+
 
 @Component({
   selector: 'board-view-column-template',
@@ -35,18 +37,20 @@ import { WORK_TYPES } from '../../_components/dashboard-space-board-view/dashboa
 })
 export class BoardViewColumnTemplate {
   private readonly overlayService = inject(OverlayService);
-  public readonly columnDetails = input.required<any>();
+
   protected readonly txtArea = viewChild<ElementRef<HTMLTextAreaElement>>('txtArea');
-  protected readonly columnIssues = computed(() => this.columnDetails().issues);
-  public readonly connectedTo = input<string[]>([]);
+
+  public readonly columnDetails = input.required<any>();
+  public readonly index = input.required<number>();
+  public readonly total = input.required<number>();
+  public readonly isLoading = input<boolean>(false);
   protected readonly isCreating = signal<boolean>(false);
+  public readonly connectedTo = input<string[]>([]);
   protected readonly isColumnNameEditing = signal<boolean>(false);
   protected readonly draftSummary = signal('');
   protected readonly draftWorkType = signal<string>('TASK');
   protected readonly draftDueDate = signal<string | null>(null);
-  public readonly index = input.required<number>();
-  public readonly total = input.required<number>();
-  public readonly isLoading = input<boolean>(false);
+  protected readonly columnIssues = computed(() => this.columnDetails().issues);
 
   public readonly columnOptionsClick = output<{ column: SpaceBoardColumn; trigger: HTMLElement }>();
   public readonly cardDropped = output<CdkDragDrop<WorkItem[]>>();

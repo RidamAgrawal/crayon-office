@@ -6,9 +6,9 @@ import { UserLoginSuccessResponse } from '../../models';
 import { environment } from '../../../environments/environment';
 import {
   SpaceDetails,
-  WorkItem,
 } from '../../components/dashboards/_components/dashboard-space/_models';
 import { SpaceBoardColumn } from '../../components/dashboards/_components/dashboard-space/_models/index';
+import { WorkItem } from '../../components/dashboards/_models';
 
 @Injectable({
   providedIn: 'root',
@@ -197,5 +197,9 @@ export class HttpService {
     return this.http.post<any>(`${environment.backendUrl}/api/spaces/${spaceId}/statuses/reorder`, {
       orderedIds,
     });
+  }
+
+  public getIssueByKey(key: string): Observable<WorkItem> {
+    return this.http.get<WorkItem>(`${environment.backendUrl}/api/work-items/by-key/${key}`);
   }
 }

@@ -5,7 +5,7 @@
       <div class="non-edit-description-content" [class.is-hidden]="isEditing()">
         <span class="description">{{issue()?.summary}}</span>
         <span class="edit-description-btn-container">
-          <button class="icon-btn edit-description-btn" (click)="isEditing.set(true)">
+          <button class="icon-btn edit-description-btn" (click)="isEditing.set(true); $event.stopPropagation()">
             <span class="icon-content">
               <img src="./assets/icons/editSquare.svg" alt="" />
             </span>
@@ -39,7 +39,7 @@
 <div class="card-options">
   <button
     class="icon-btn card-option-btn"
-    (click)="onCardOptionClick(cardOptionBtn)"
+    (click)="onCardOptionClick($event, cardOptionBtn)"
     #cardOptionBtn
   >
     <span class="icon-content">

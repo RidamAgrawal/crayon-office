@@ -1,8 +1,8 @@
 import { ElementRef, inject, Injectable } from '@angular/core';
-import { forkJoin, tap, catchError, EMPTY, finalize } from 'rxjs';
+import { forkJoin, tap, catchError, EMPTY, finalize, BehaviorSubject } from 'rxjs';
 import { HttpService } from '../../../../../services/http-service/http-service';
 import { DashboardSpaceBoardViewStateService } from './dashboard-space-board-view-state.service';
-import { SpaceBoardColumn, WorkItem } from '../_models';
+import { SpaceBoardColumn } from '../_models';
 import {
   STATUS_OPTION_IDS,
   SpaceBoardsModalFilterPosition,
@@ -13,6 +13,9 @@ import { BoardColumnDeleteModalTemplate } from '../_templates/board-column-delet
 import { OverlayService } from '../../../../../services/overlay-service/overlay-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
+import { WorkItem } from '../../../_models';
+import { WorkItemDetailComponent } from '../../work-item/_components/work-item-details';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const group = (columns: SpaceBoardColumn[], issues: WorkItem[]) =>
   columns.map((c) => ({
@@ -22,6 +25,8 @@ const group = (columns: SpaceBoardColumn[], issues: WorkItem[]) =>
 
 @Injectable()
 export class DashboardSpaceBoardViewService {
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
   private readonly httpService = inject(HttpService);
   private readonly overlayService = inject(OverlayService);
   private readonly boardViewState = inject(DashboardSpaceBoardViewStateService);
@@ -286,5 +291,38 @@ export class DashboardSpaceBoardViewService {
         finalize(() => this.boardViewState.setAllPending(false)),
       )
       .subscribe();
+  }
+
+  public openWorkItemDetailModal(issueKey: string): void {
+    const overlayRef = this.overlayService.open({
+      component: WorkItemDetailComponent,
+      componentInputs: { issueKey },
+      componentOutputs: {
+        updated: (issue: WorkItem) => {
+          this.boardViewState.updateColumns(cols =>
+            cols.map((c) => ({
+              ...c,
+              issues: c.issues.map((i) => (i.id === issue.id ? issue : i)),
+            })),
+          )
+        },
+      },
+      hasBackdrop: true,
+      closeOnBackdropClick: true,
+    });
+    overlayRef.detachments().subscribe(() => this.clearSelected());
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: { selected: issueKey },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  private clearSelected(): void {
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: { selected: null },
+      queryParamsHandling: 'merge',
+    });
   }
 }

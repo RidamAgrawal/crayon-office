@@ -104,4 +104,23 @@ router.get('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   }
 });
 
+router.get('/by-key/:key', requireAuth, async (req: AuthRequest, res: Response) => {
+  try {
+    const key = req.params['key'];
+    const workItem = await prisma.workItem.findUnique({
+      where: { key }, // requires key to be @unique in schema — confirm
+      include: {
+        space: { select: { id: true, name: true, key: true } },
+        status: true,
+        assignee: { select: { id: true, displayName: true, avatarUrl: true } },
+      },
+    });
+    if (!workItem) return res.status(404).json({ error: 'Work item not found' });
+    return res.json(workItem);
+  } catch (error) {
+    console.error('Get work item and space error:', error);
+    return res.status(500).json({ error: 'Failed to get work item' });
+  }
+});
+
 export default router;

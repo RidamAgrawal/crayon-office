@@ -1,10 +1,20 @@
-import { Component, ElementRef, inject, input, signal, WritableSignal } from '@angular/core';
-import { WorkItem } from '../../_models';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  input,
+  output,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { OverlayService } from '../../../../../../services/overlay-service/overlay-service';
 import { OptionWrapper } from '../../../../../../templates/option-wrapper/option-wrapper';
 import { cardMoreOptionButton } from './board-card.constants';
 import { ClickOutside } from '../../../../../../directives';
 import { BoardSpaceTextFieldWrapperTemplate } from '../board-space-text-field-wrapper-template';
+import { WorkItem } from '../../../../_models';
+import { DashboardSpaceBoardViewService } from '../../_services';
 
 @Component({
   selector: 'board-view-card-template',
@@ -14,6 +24,7 @@ import { BoardSpaceTextFieldWrapperTemplate } from '../board-space-text-field-wr
 })
 export class BoardViewCardTemplate {
   private readonly overlayService = inject(OverlayService);
+  private readonly boardViewService = inject(DashboardSpaceBoardViewService);
 
   public issue = input<WorkItem>();
 
@@ -25,7 +36,7 @@ export class BoardViewCardTemplate {
     this.summary.set(this.issue()?.summary ?? '');
   }
 
-  protected onCardOptionClick(cardOptionBtnElement: HTMLButtonElement) {
+  protected onCardOptionClick(event: MouseEvent, cardOptionBtnElement: HTMLButtonElement) {
     this.overlayService.open({
       component: OptionWrapper,
       connectedTo: new ElementRef(cardOptionBtnElement),
@@ -43,6 +54,7 @@ export class BoardViewCardTemplate {
         },
       ],
     });
+    event.stopPropagation();
   }
 
   protected updateSummary(): void {
@@ -53,5 +65,11 @@ export class BoardViewCardTemplate {
   protected onSubmit(val: string): void {
     this.issue()!['summary'] = val;
     this.updateSummary();
+  }
+
+  @HostListener('click')
+  protected onCardClick() {
+    const key = this.issue()?.key;
+    if (key) this.boardViewService.openWorkItemDetailModal(key);
   }
 }

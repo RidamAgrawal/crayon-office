@@ -5,7 +5,6 @@ import {
   SpaceBoardColumn,
   SpaceBoardDetails,
   SpaceDetails,
-  WorkItem,
 } from '../_models';
 import {
   SpaceBoardsFilters,
@@ -16,6 +15,7 @@ import {
   OptionsList,
   OptionConfigurations,
 } from '../../../../../templates/option-wrapper/option-wrapper.model';
+import { WorkItem } from '../../../_models';
 
 @Injectable()
 export class DashboardSpaceBoardViewStateService {
