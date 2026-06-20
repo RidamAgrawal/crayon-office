@@ -1,5 +1,5 @@
 [build]
-  command = "cd backend && npx prisma generate && cd .. && npm run build"
+  command = "cd backend && npm install && npx prisma generate && cd .. && npm run build"
   publish = "dist/jira-clone/browser"
 
 [functions]
