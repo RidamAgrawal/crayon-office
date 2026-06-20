@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NavDropdown } from './_components/nav-dropdown/nav-dropdown';
 import {
   NavDropdownConfig,
@@ -9,7 +10,7 @@ import { NavButtonConfig } from './_components/nav-menu-btn/nav-menu-btn.model';
 
 @Component({
   selector: 'app-header',
-  imports: [NavDropdown, NavMenuBtn],
+  imports: [NavDropdown, NavMenuBtn, RouterLink],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })

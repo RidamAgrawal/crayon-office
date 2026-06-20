@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OverlayService } from '../../services/overlay-service/overlay-service';
 import { LoginModalComponent } from './_components/modal';
@@ -11,7 +11,7 @@ import { ResetPasswordComponent } from './_components/reset-password';
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
-export class Login implements OnInit {
+export class Login implements OnInit, OnDestroy {
   private readonly overlayService = inject(OverlayService);
   private readonly route = inject(ActivatedRoute);
 
@@ -32,5 +32,9 @@ export class Login implements OnInit {
         scrollStrategy: undefined,
       },
     });
+  }
+
+  ngOnDestroy() {
+    this.overlayService.close();
   }
 }
