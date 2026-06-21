@@ -1,9 +1,9 @@
 [build]
   # The Netlify Function (netlify/functions/api.ts) imports backend/src, which requires
   # '@prisma/client'. Netlify's function bundler copies externalized modules from the
-  # repo-root node_modules, but backend deps live in backend/node_modules — so we copy
-  # the generated Prisma client up to the root after generating it, before the bundle runs.
-  command = "cd backend && npm install && npx prisma generate && cd .. && rm -rf node_modules/@prisma node_modules/.prisma && cp -R backend/node_modules/@prisma node_modules/@prisma && cp -R backend/node_modules/.prisma node_modules/.prisma && npm run build"
+  # repo-root node_modules, but backend deps live in backend/node_modules — so copy-prisma
+  # hoists the generated Prisma client up to the root after generating it, before the bundle.
+  command = "cd backend && npm install && npx prisma generate && cd .. && node scripts/copy-prisma.mjs && npm run build"
   publish = "dist/jira-clone/browser"
 
 [functions]
