@@ -1,0 +1,23 @@
+<div class="ctn" tabindex="-1" (click)="toggle()">
+    @if (accordionTitleRef()) {
+        <ng-container
+      *ngTemplateOutlet="accordionTitleRef(); context: accordionTitleRefContext()"
+    ></ng-container>
+    } @else {
+        <div class="ctn2">
+    <button class="chevron-btn" [class.open]="showAccordionBody()">
+      <span class="icon-content">
+        <img src="./assets/icons/arrowRightSmall.svg" alt="icon" />
+      </span>
+    </button>
+    <span class="accordion-title"> {{ accordionTitle() }} </span>
+</div>
+    }
+</div>
+<div class="accordion-body" [class.open]="showAccordionBody()">
+  <div class="accordion-body-container">
+    <ng-container
+      *ngTemplateOutlet="bodyTemplateRef(); context: bodyTemplateRefContext()"
+    ></ng-container>
+  </div>
+</div>

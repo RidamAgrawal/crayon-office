@@ -1,0 +1,90 @@
+:host {
+  max-width: 300px;
+  display: flex;
+  // align-items: center;
+  padding-left: 0.25rem;
+  .breadcrumb-item-ctn {
+    box-sizing: border-box;
+    max-width: 100%;
+    height: 1.7142857142857142em;
+    display: flex;
+    list-style-type: none;
+    .link {
+      padding-block: 0.125rem;
+      font-weight: 400;
+      line-height: 1.25rem;
+      min-width: 0;
+      flex-shrink: 1;
+      -webkit-align-items: baseline;
+      -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+      align-items: baseline;
+      border-width: 0;
+      border-radius: var(--ds-radius-small, 3px);
+      box-sizing: border-box;
+      display: -webkit-inline-box;
+      display: -webkit-inline-flex;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      font-size: inherit;
+      font-style: normal;
+      font-family: inherit;
+      font-weight: var(--ds-font-weight-medium, 500);
+      max-width: 100%;
+      position: relative;
+      text-align: center;
+      -webkit-text-decoration: none;
+      text-decoration: none;
+      -webkit-transition:
+        background 0.1s ease-out,
+        box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+      transition:
+        background 0.1s ease-out,
+        box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+      white-space: nowrap;
+      cursor: pointer;
+      height: auto;
+      padding: 0;
+      vertical-align: baseline;
+      width: auto;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      background: transparent;
+      color: var(--ds-text-subtle, #505258);
+      .icon-before,
+      .icon-after {
+      }
+      .text {
+        padding-block: 0.125rem;
+        font-weight: 400;
+        font-size: 0.75rem;
+        line-height: 1rem;
+        opacity: 1;
+        -webkit-transition: opacity 0.3s;
+        transition: opacity 0.3s;
+        margin: 0;
+        -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -webkit-flex-shrink: 1;
+        -ms-flex-negative: 1;
+        flex-shrink: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+  &::after {
+    width: .5rem;
+    justify-content: center;
+    content: '/';
+    display: flex;
+    padding: 0 .25rem;
+    font-size: .875rem;
+    line-height: 1.25rem;
+  }
+}

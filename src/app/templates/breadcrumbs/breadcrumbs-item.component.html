@@ -1,0 +1,11 @@
+<li class="breadcrumb-item-ctn">
+    <a [href]="href() ?? '#'" class="link">
+        @if(iconBefore()) {
+            <ng-container *ngTemplateOutlet="iconBefore()!; context: iconBeforeContext()"></ng-container>
+        }
+        <span class="text">{{ text() }}</span>
+        @if(iconAfter(); as iconAfterTemplate) {
+            <ng-container *ngTemplateOutlet="iconAfter()!; context: iconAfterContext()"></ng-container>
+        }
+    </a>
+</li>

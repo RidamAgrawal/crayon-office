@@ -1,0 +1,14 @@
+<nav class="container-1">
+    <ol class="breadcrumbs-list">
+        @for (child of children(); track $index) {
+            <breadcrumbs-item
+             [text]="child.text"
+             [href]="child.href"
+             [iconBefore]="child.iconBefore"
+             [iconAfter]="child.iconAfter"
+             [iconBeforeContext]="child.iconBeforeContext"
+             [iconAfterContext]="child.iconAfterContext">
+            </breadcrumbs-item>
+        }
+    </ol>
+</nav>

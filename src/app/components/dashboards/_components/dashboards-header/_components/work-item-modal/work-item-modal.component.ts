@@ -219,7 +219,6 @@ export class WorkItemModalComponent implements OnInit {
   }
 
   protected onStatusClick(element: HTMLButtonElement): void {
-    debugger;
     this.overlayService.open({
       component: OptionWrapper,
       componentInputs: {

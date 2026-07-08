@@ -1,0 +1,286 @@
+<div class="details-header">
+  <div class="header-content">
+    <div class="breadcrumb-ctn">
+      <breadcrumbs [children]="breadCrumbsChildren"></breadcrumbs>
+    </div>
+    <div class="header-btns">
+      <button class="secondary-btn">
+        <span class="icon-content">
+          <img src="./assets/icons/more.svg" alt="icon" />
+        </span>
+      </button>
+      <button class="secondary-btn">
+        <span class="icon-content">
+          <img src="./assets/icons/openInFull.svg" alt="icon" />
+        </span>
+      </button>
+      <button class="secondary-btn">
+        <span class="icon-content">
+          <img src="./assets/icons/close.svg" alt="icon" />
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="details-container">
+  <div class="container-2">
+    <div class="left-part-container">
+      <div class="container-3">
+        <div class="issue-summary-wrapper">
+          <div class="issue-summary-text-ctn">
+            <h1 class="issue-summary-text">{{ 'a bug' }}</h1>
+          </div>
+        </div>
+        <div class="issue-btns">
+          <div class="ctn-2">
+            <button class="secondary-btn">
+              <span class="icon-content">
+                <img src="./assets/icons/add2.svg" />
+              </span>
+            </button>
+            <button class="secondary-btn">
+              <span class="icon-content">
+                <img src="./assets/icons/more.svg" />
+              </span>
+            </button>
+          </div>
+        </div>
+        <div class="issue-description-wrapper">
+          <accordion-template
+            [bodyTemplateRef]="descriptionWrapper"
+            [accordionTitle]="'Description'"
+          ></accordion-template>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="divider">
+            <div class="divider-track"></div>
+            <div class="divider-thumb">
+                <div class="icon-ctn">
+                    <span class="icon-content"></span>
+                </div>
+            </div>
+        </div> -->
+    <div
+      class="right-part-container"
+      appResizableDirective
+      [config]="{ resizableLeft: true, maxWidth: 900, minWidth: 330 }"
+    >
+      <div class="right-part-content">
+        <div class="btns-grp">
+          <div class="btn-ctn">
+            <button
+              class="status-btn"
+              (click)="onStatusClick(statusBtn)"
+              #statusBtn
+              [disabled]="!this.preloadedIssue()?.spaceId"
+              [style.backgroundColor]="selectedStatus()?.backgroundColor"
+            >
+              <span class="text">{{ selectedStatus()?.label }}</span>
+              <app-icon-container>
+                <img class="icon-content" src="./assets/icons/arrow-down.svg" />
+              </app-icon-container>
+            </button>
+          </div>
+          <div class="btn-ctn">
+            <button class="secondary-btn">
+              <app-icon-container>
+                <svg class="icon-content" fill="none" viewBox="0 0 16 16" role="presentation">
+                  <path
+                    fill="currentcolor"
+                    d="M8.117 1.009a.75.75 0 0 1 .588.484l1.55 4.251 4.252 1.55A.75.75 0 0 1 15 8v.002a.75.75 0 0 1-.493.704l-4.252 1.55-1.55 4.252a.75.75 0 0 1-.704.493h-.002a.75.75 0 0 1-.704-.493l-1.55-4.252-4.252-1.55A.75.75 0 0 1 1 8.001v-.002a.75.75 0 0 1 .493-.704l4.251-1.55 1.55-4.252.049-.106A.75.75 0 0 1 7.999 1h.002z"
+                  ></path>
+                </svg>
+              </app-icon-container>
+              <span class="text">Improve Bug</span>
+            </button>
+          </div>
+        </div>
+        <div class="accordion-ctn">
+          <accordion-template [bodyTemplateRef]="detailsWrapper" [accordionTitle]="''" [accordionTitleRef]="detailsAccordionTitle">
+          </accordion-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #descriptionWrapper>
+  @if (showPreview()) {
+    <div class="description-wrapper" (click)="onPreviewClick()">
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo molestias soluta commodi
+      quia tenetur ipsum perferendis nobis quibusdam perspiciatis saepe, voluptate deserunt. Sint
+      laborum aliquid voluptatem suscipit asperiores aspernatur soluta iure! Corporis, atque nobis
+      voluptate rerum animi deleniti quisquam aliquid quis repellat molestiae dolorem! Explicabo
+      corrupti facilis soluta adipisci ex provident reiciendis officiis iure excepturi delectus rem
+      aliquam laudantium a ullam quia, voluptatibus eligendi impedit voluptate nulla amet iste!
+      Corporis quae eum magnam officiis earum. Aspernatur fugit iste exercitationem fugiat iusto
+      eum. Explicabo laborum sed quod, deleniti hic quisquam vel soluta, omnis voluptatum harum ipsa
+      provident repudiandae placeat modi repellendus officia error reiciendis, nam amet quis
+      inventore. Repellat quisquam a laboriosam fuga quidem aut repellendus, atque optio suscipit
+      perspiciatis id. Enim iure placeat, commodi modi magni qui a aliquid numquam temporibus
+      voluptatibus assumenda mollitia fugiat, blanditiis inventore. Dicta asperiores illum sit ipsam
+      quisquam qui quaerat placeat! Sint molestiae minus commodi error, tempora natus ullam tenetur
+      eaque necessitatibus, placeat culpa nisi a vero, sunt quia possimus cupiditate ab temporibus
+      similique ad molestias deleniti. Aspernatur maiores, magnam excepturi modi itaque reiciendis
+      maxime natus expedita aliquid, similique aut veniam id quibusdam quis error! Culpa delectus a,
+      sed error doloremque voluptatum eaque itaque nisi sint non facere dolorum quia accusantium
+      blanditiis ipsa ducimus quibusdam ipsum asperiores aliquid eum nulla! Eaque nesciunt,
+      distinctio facere inventore enim iste earum mollitia dolor iusto deleniti ab maxime doloribus
+      illo quae. Provident mollitia esse sapiente voluptatum architecto velit incidunt. Molestias
+      ipsam ex praesentium nostrum accusantium? Sapiente esse similique neque possimus magnam in
+      commodi sunt mollitia, praesentium nobis magni error et, atque eos qui ad, at libero
+      aspernatur. Ipsa nihil suscipit reiciendis ad accusantium dicta ducimus omnis rem vero harum!
+      Itaque similique, doloribus quam iure quod est officia, officiis excepturi laboriosam sapiente
+      eveniet veritatis ipsam molestias ea dignissimos vel nulla labore consequuntur! Fugit cum
+      fugiat, modi eveniet ipsa in minima, autem tenetur officia unde sequi veniam iusto accusantium
+      reprehenderit! Ea corporis nihil voluptate alias? Fugiat fugit ea, laborum voluptas eum porro,
+      perferendis optio ullam ex saepe ipsum. Obcaecati itaque iure perspiciatis odit eligendi,
+      consectetur saepe laboriosam. Similique consequatur ipsam quod labore! Neque dolorum quidem,
+      numquam alias possimus commodi corporis odio eveniet quod minus maiores, fugiat tenetur animi
+      itaque unde reiciendis voluptas, harum labore similique debitis nulla libero ad. Omnis
+      expedita eius in quia vitae eaque nihil molestiae enim deserunt nam eveniet adipisci qui rerum
+      veniam nisi doloribus pariatur facere ad, sint odit aliquid voluptates dignissimos amet.
+      Molestias nulla earum ut! Quia nam laudantium blanditiis doloribus porro non, commodi quae
+      quasi praesentium nemo ex nesciunt maxime! Commodi consequuntur totam nesciunt accusantium
+      repudiandae blanditiis fuga minima vel, pariatur corrupti, quia quibusdam fugiat aspernatur
+      iure dolor molestias porro odio sunt. Quibusdam, ipsam maxime? Tempore, illo eveniet. Vero,
+      repudiandae omnis esse distinctio amet error necessitatibus debitis dicta ipsam molestias sed
+      exercitationem laborum fuga ipsa nemo quo voluptate corrupti quos nesciunt doloribus sapiente
+      libero. Mollitia eos inventore porro exercitationem aspernatur quod impedit iste sequi nam a
+      maxime corporis odit nobis magnam soluta minima repellendus, in necessitatibus adipisci totam
+      voluptates similique ullam culpa! Alias in veniam deserunt mollitia cum? Cupiditate dolorum
+      quas vitae, quis officia beatae cumque aliquid illum aut, possimus molestias porro temporibus
+      odit reiciendis, in quod fuga numquam commodi aperiam debitis. Soluta blanditiis cupiditate
+      delectus quidem veritatis, dicta alias commodi id libero, minima voluptas. Illum, dicta
+      repellat ducimus sit quaerat neque ex eaque magni vero impedit! Nam aliquam, vel repellat
+      placeat molestias deserunt, mollitia ipsum eos unde impedit necessitatibus excepturi obcaecati
+      soluta consectetur sunt totam quasi ipsam, possimus enim. Nemo iusto numquam illum ipsum,
+      repellendus soluta beatae inventore harum officia fugiat adipisci eveniet, aliquam tenetur sit
+      unde facilis. Unde recusandae optio nostrum distinctio nihil eius nesciunt. Facere dolorum
+      quos placeat, in quae laboriosam, molestiae facilis illum praesentium iure alias rerum magnam
+      tempore porro quibusdam! Possimus, earum tempore placeat voluptates voluptatibus totam
+      nesciunt ex omnis sapiente eos ab itaque ipsa odio asperiores nisi magni nobis. Totam ab
+      voluptatem inventore tempora, hic laboriosam provident facere laborum quidem dignissimos
+      corrupti et eum ratione architecto error. Temporibus assumenda illo quo quaerat? Veritatis
+      laborum deleniti fugit soluta dolores? Sint suscipit quae quod qui. Vitae error, culpa aliquid
+      beatae doloribus laborum dolor ad molestiae! Atque fugiat ad iure culpa eveniet distinctio,
+      accusamus tempora quasi maiores exercitationem rerum aut cumque voluptas quaerat recusandae
+      molestias velit repudiandae, praesentium eaque asperiores. Minima harum eius voluptas facilis
+      impedit. Officiis, aspernatur. Necessitatibus magni, sunt voluptates sapiente rem voluptate
+      excepturi aut ut, sequi inventore recusandae ipsum enim molestias eligendi vero deleniti atque
+      assumenda impedit? Nobis veniam sint quidem voluptate eveniet, modi in dolorum nesciunt iste
+      consequuntur accusantium vitae commodi expedita similique quia et asperiores dignissimos
+      voluptatum incidunt quasi recusandae alias vel. Nam, tempore distinctio! Quod facilis et sunt
+      ab, libero hic. Molestias expedita dolor culpa facere velit quod fugiat esse id harum ea, a
+      accusamus, soluta, voluptates ipsam minima neque sapiente odit exercitationem atque iste odio
+      consequatur! Nesciunt ex sit officiis, sint beatae deleniti quidem qui. Minus alias nobis quod
+      repudiandae quae commodi nesciunt odit iste placeat voluptatibus voluptate est maiores eum,
+      distinctio reiciendis enim delectus eligendi quasi magni expedita at a aliquam. Deleniti omnis
+      nesciunt aspernatur, totam sequi mollitia eaque ratione tempore, quod eum quo sit ea eveniet
+      exercitationem asperiores? Eveniet nisi adipisci qui velit, reprehenderit nemo praesentium
+      dolorum temporibus rerum aperiam optio maxime odio eaque nostrum alias unde. Excepturi ut
+      deleniti eveniet aspernatur cupiditate optio sed, totam, quos eaque qui quis odio natus
+      laboriosam soluta illum saepe dolores, sit tenetur? Illum quibusdam laborum ipsa esse qui,
+      modi tempore veniam perferendis iste asperiores dolorum velit non impedit omnis nihil tenetur
+      praesentium mollitia! Cumque cum sit enim libero. Totam reiciendis consectetur delectus
+      perspiciatis vitae repellendus obcaecati iusto quia necessitatibus praesentium, eos, eum
+      debitis hic, mollitia culpa incidunt sed quidem ducimus odio deleniti quam provident corrupti.
+      Corrupti sed laborum cum officia dolore quidem sunt vero laudantium quo! Repellat, labore
+      voluptate ullam dolores nisi corrupti molestiae assumenda eaque ipsam esse voluptatem maxime
+      porro explicabo voluptatibus vero sunt? Reprehenderit.
+    </div>
+  } @else {
+    <!-- <cr-editor></cr-editor> -->
+  }
+</ng-template>
+
+<ng-template #detailsAccordionTitle>
+    <button class="chevron-btn">
+      <span class="icon-content">
+        <img src="./assets/icons/arrowRightSmall.svg" alt="icon" />
+      </span>
+    </button>
+    <span class="accordion-title"> {{ 'Details' }} </span>
+
+</ng-template>
+<ng-template #detailsWrapper>
+  <div class="accordion-content-wrapper">
+    <div class="field-wrapper">
+      <div class="assign-field">
+        <div class="field-label-ctn">
+          <div class="field-label">
+            <span class="text">Assignee</span>
+            <div class="pin-icon-ctn">
+              <div class="icon-content">
+                <svg height="1pc" width="1pc" fill="#505258" viewBox="-2.66 -2.66 21.32 21.32" role="presentation">
+                  <path fill="currentcolor" d="M5.354 0a1.376 1.376 0 0 0-1.268 1.908l.089.174L5 3.458v3.475a5 5 0 0 0-1.184.61C2.898 8.195 2 9.348 2 11.25c0 .414.336.75.75.75h4.5v4h1.5v-4h4.5a.75.75 0 0 0 .75-.75c0-1.903-.898-3.056-1.816-3.706A5 5 0 0 0 11 6.933V3.458l.825-1.376A1.375 1.375 0 0 0 10.647 0zm4.252 2.864a.75.75 0 0 0-.106.386V7.5c0 .367.265.68.627.74l.008.001.066.016a3.4 3.4 0 0 1 1.115.512c.463.327.938.852 1.113 1.731H3.57c.175-.88.65-1.404 1.113-1.731a3.4 3.4 0 0 1 1.181-.528l.008-.002A.75.75 0 0 0 6.5 7.5V3.25a.75.75 0 0 0-.106-.386L5.574 1.5h4.852z">
+                </path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field-control-wrapper">
+          <div class="field-control-ctn">
+            <div class="field-value-ctn">
+              <div class="icon-ctn">
+                <span class="icon-ctn2">
+                  <svg fill="none" viewBox="-4 -4 24 24" role="presentation">
+                    <path fill="currentcolor" fill-rule="evenodd" d="M8 1.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4 4a4 4 0 1 1 8 0 4 4 0 0 1-8 0m-2 9a3.75 3.75 0 0 1 3.75-3.75h4.5A3.75 3.75 0 0 1 14 13v2h-1.5v-2a2.25 2.25 0 0 0-2.25-2.25h-4.5A2.25 2.25 0 0 0 3.5 13v2H2z" clip-rule="evenodd"></path>
+                  </svg>
+                </span>
+              </div>
+              <span class="value">Unassigned</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="parent-field">
+        <div class="field-label-ctn">
+          <div class="field-label">
+            <span class="text">Parent</span>
+            <div class="pin-icon-ctn">
+              <div class="icon-content">
+                <svg height="1pc" width="1pc" fill="#505258" viewBox="-2.66 -2.66 21.32 21.32" role="presentation">
+                  <path fill="currentcolor" d="M5.354 0a1.376 1.376 0 0 0-1.268 1.908l.089.174L5 3.458v3.475a5 5 0 0 0-1.184.61C2.898 8.195 2 9.348 2 11.25c0 .414.336.75.75.75h4.5v4h1.5v-4h4.5a.75.75 0 0 0 .75-.75c0-1.903-.898-3.056-1.816-3.706A5 5 0 0 0 11 6.933V3.458l.825-1.376A1.375 1.375 0 0 0 10.647 0zm4.252 2.864a.75.75 0 0 0-.106.386V7.5c0 .367.265.68.627.74l.008.001.066.016a3.4 3.4 0 0 1 1.115.512c.463.327.938.852 1.113 1.731H3.57c.175-.88.65-1.404 1.113-1.731a3.4 3.4 0 0 1 1.181-.528l.008-.002A.75.75 0 0 0 6.5 7.5V3.25a.75.75 0 0 0-.106-.386L5.574 1.5h4.852z">
+                </path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field-control-wrapper">
+          <div class="field-control-ctn">
+            <div class="field-value-ctn">
+              <span class="value">None</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dueDate-field">
+        <div class="field-label-ctn">
+          <div class="field-label">
+            <span class="text">Due Date</span>
+            <div class="pin-icon-ctn">
+              <div class="icon-content">
+                <svg height="1pc" width="1pc" fill="#505258" viewBox="-2.66 -2.66 21.32 21.32" role="presentation">
+                  <path fill="currentcolor" d="M5.354 0a1.376 1.376 0 0 0-1.268 1.908l.089.174L5 3.458v3.475a5 5 0 0 0-1.184.61C2.898 8.195 2 9.348 2 11.25c0 .414.336.75.75.75h4.5v4h1.5v-4h4.5a.75.75 0 0 0 .75-.75c0-1.903-.898-3.056-1.816-3.706A5 5 0 0 0 11 6.933V3.458l.825-1.376A1.375 1.375 0 0 0 10.647 0zm4.252 2.864a.75.75 0 0 0-.106.386V7.5c0 .367.265.68.627.74l.008.001.066.016a3.4 3.4 0 0 1 1.115.512c.463.327.938.852 1.113 1.731H3.57c.175-.88.65-1.404 1.113-1.731a3.4 3.4 0 0 1 1.181-.528l.008-.002A.75.75 0 0 0 6.5 7.5V3.25a.75.75 0 0 0-.106-.386L5.574 1.5h4.852z">
+                </path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field-control-wrapper">
+          <div class="field-control-ctn">
+            <div class="field-value-ctn">
+              <span class="value">None</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

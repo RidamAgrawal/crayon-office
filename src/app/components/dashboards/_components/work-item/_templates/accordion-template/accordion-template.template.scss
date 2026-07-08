@@ -1,0 +1,107 @@
+:host {
+  // display: flex;
+  box-sizing: border-box;
+  gap: 0.5rem;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+}
+.ctn {
+  display: flex;
+  box-sizing: border-box;
+  gap: 0.25rem;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-direction: row;
+  .ctn2 {
+    display: flex;
+    box-sizing: border-box;
+    gap: 0.25rem;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-direction: row;
+    padding-bottom: 0.25rem;
+    padding-right: 0.25rem;
+    padding-top: 0.25rem;
+    border-width: 0.125rem;
+    margin-left: -0.25rem;
+    .chevron-btn {
+      text-align: center;
+      box-sizing: border-box;
+      color: #505258;
+      vertical-align: middle;
+      appearance: none;
+      max-width: 100%;
+      position: relative;
+      font-weight: 500;
+      column-gap: 0.25rem;
+      text-decoration-style: solid;
+      cursor: pointer;
+      height: 1.5rem;
+      align-items: baseline;
+      text-decoration-color: initial;
+      flex-shrink: 0;
+      text-decoration-line: none;
+      display: inline-flex;
+      width: 1.5rem;
+      justify-content: center;
+      padding-block: 0.125rem;
+      border-width: 0;
+      transition: background 0.1s ease-out;
+      border-radius: 3px;
+      border: none;
+      background-color: #fff;
+      .icon-content {
+        -webkit-user-select: none;
+        user-select: none;
+        align-self: center;
+        flex-shrink: 0;
+        display: flex;
+        flex-grow: 0;
+        transition: opacity 0.3s;
+        line-height: .75rem;
+        rotate: 0deg;
+        transition: rotate 0.3s;
+      }
+      &.open .icon-content {
+        rotate: 90deg;
+        transition: rotate 0.3s;
+      }
+      &:hover {
+        background-color: #0515240F;
+      }
+      &:active {
+        background-color: #0B120E24;
+      }
+    }
+    .accordion-title {
+      font-weight: 653;
+      font-size: 1rem;
+      line-height: 1.25rem;
+      overflow-wrap: break-word;
+      min-width: 0;
+      cursor: pointer;
+    }
+  }
+}
+.accordion-body {
+  box-sizing: border-box;
+  appearance: none;
+  border-width: medium;
+  border-style: none;
+  border-color: currentcolor;
+  border-image: initial;
+  width: 100%;
+  scroll-margin-bottom: 75pt;
+  display: grid;
+  grid-template-rows: 0fr;
+  .accordion-body-container {
+    overflow-y: hidden;
+  }
+  &.open {
+    grid-template-rows: 1fr;
+  }
+  transition: .3s;
+}

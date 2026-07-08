@@ -35,7 +35,7 @@ export class HttpService {
   }
 
   public login(email: string, password: string): Observable<UserLoginSuccessResponse | null> {
-    const apiUrl = 'http://localhost:3000/api/auth/login';
+    const apiUrl = `${environment.backendUrl}/api/auth/login`;
     return this.http.post<UserLoginSuccessResponse>(apiUrl, {
       email,
       password,
@@ -43,9 +43,10 @@ export class HttpService {
   }
 
   public sendOtp(email: string): Observable<{ message: string }> {
-    return this.http.post<{ message: string }>('http://localhost:3000/api/auth/signup/send-otp', {
-      email,
-    });
+    return this.http.post<{ message: string }>(
+      `${environment.backendUrl}/api/auth/signup/send-otp`,
+      { email },
+    );
   }
 
   public verifyOtp(
@@ -55,34 +56,35 @@ export class HttpService {
     password: string,
   ): Observable<UserLoginSuccessResponse> {
     return this.http.post<UserLoginSuccessResponse>(
-      'http://localhost:3000/api/auth/signup/verify-otp',
+      `${environment.backendUrl}/api/auth/signup/verify-otp`,
       { email, code, displayName, password },
     );
   }
 
   public sendRecoveryLink(email: string): Observable<{ message: string }> {
     return this.http.post<{ message: string }>(
-      'http://localhost:3000/api/auth/signup/send-recovery-link',
+      `${environment.backendUrl}/api/auth/signup/send-recovery-link`,
       { email },
     );
   }
 
   public resetPassword(token: string, newPassword: string): Observable<{ message: string }> {
-    return this.http.post<{ message: string }>('http://localhost:3000/api/auth/reset-password', {
-      token,
-      newPassword,
-    });
+    return this.http.post<{ message: string }>(
+      `${environment.backendUrl}/api/auth/reset-password`,
+      { token, newPassword },
+    );
   }
 
   public googleLogin(idToken: string): Observable<UserLoginSuccessResponse | null> {
-    const apiUrl = 'http://localhost:3000/api/auth/google';
+    const apiUrl = `${environment.backendUrl}/api/auth/google`;
     return this.http.post<UserLoginSuccessResponse>(apiUrl, { idToken });
   }
 
   public microsoftLogin(idToken: string): Observable<UserLoginSuccessResponse | null> {
-    return this.http.post<UserLoginSuccessResponse>('http://localhost:3000/api/auth/microsoft', {
-      idToken,
-    });
+    return this.http.post<UserLoginSuccessResponse>(
+      `${environment.backendUrl}/api/auth/microsoft`,
+      { idToken },
+    );
   }
 
   public githubLogin(code: string): Observable<UserLoginSuccessResponse> {
